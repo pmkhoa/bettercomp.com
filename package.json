@@ -1,6 +1,6 @@
 {
   "name": "bettercompcom---website-cms",
-  "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
+  "description": "Better Comp Website",
   "keywords": [
     "Sanity",
     "Next.js",
@@ -29,6 +29,7 @@
   "prettier": "@sanity/prettier-config",
   "devDependencies": {
     "@sanity/prettier-config": "^2.0.1",
+    "@types/lodash": "^4.17.20",
     "npm-run-all2": "^5.0.2",
     "prettier": "^3.6.2"
   }

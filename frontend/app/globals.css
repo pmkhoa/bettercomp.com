@@ -10,12 +10,22 @@
 @theme {
   --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
 
-  --color-framework: #000;
-  --color-black: #0b0b0b;
+  --color-framework: #031425;
+  --color-black: #031425;
   --color-white: #fff;
-  --color-brand: #f50;
-  --color-blue: #0052ff;
-  --color-yellow: #cdea19;
+  --color-brand: #F24E1A;
+  --color-blue: #002952;
+  --color-midnight-blue: #002952;
+  --color-midnight-blue-darker: #031425;
+  --color-bright-blue: #0092FF;
+  --color-light-blue: #79ECFF;
+  --color-teal-green: #2CB592;
+  --color-accent-brick: #A84C5C;
+  --color-yellow: #FFA700;
+  --color-orange: #F24E1A;
+  --color-orange: #FFA700;
+  --color-gradient: linear-gradient(86deg,  #F24E1A 42.2%,  #FFA700 100%);
+  --color-sand: #F6F6F3;
   --color-gray-50: #f6f6f8;
   --color-gray-100: #eeeef1;
   --color-gray-200: #e3e4e8;
@@ -28,8 +38,8 @@
   --color-gray-900: #1b1d27;
   --color-gray-950: #13141b;
 
-  --font-display: 'Inter', 'sans-serif';
-  --font-sans: 'Inter', 'sans-serif';
+  --font-display: var(--font-brockmann), 'sans-serif';
+  --font-sans:  var(--font-brockmann), 'sans-serif';
 
   --default-transition-duration: 250ms;
 }

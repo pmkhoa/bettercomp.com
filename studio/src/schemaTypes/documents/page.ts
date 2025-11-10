@@ -1,5 +1,5 @@
-import {defineField, defineType} from 'sanity'
-import {DocumentIcon} from '@sanity/icons'
+import { defineField, defineType } from 'sanity';
+import { DocumentIcon } from '@sanity/icons';
 
 /**
  * Page schema.  Define and edit the fields for the 'page' content type.
@@ -43,20 +43,13 @@ export const page = defineType({
     defineField({
       name: 'pageBuilder',
       title: 'Page builder',
-      type: 'array',
-      of: [{type: 'callToAction'}, {type: 'infoSection'}],
-      options: {
-        insertMenu: {
-          // Configure the "Add Item" menu to display a thumbnail preview of the content type. https://www.sanity.io/docs/array-type#efb1fe03459d
-          views: [
-            {
-              name: 'grid',
-              previewImageUrl: (schemaTypeName) =>
-                `/static/page-builder-thumbnails/${schemaTypeName}.webp`,
-            },
-          ],
-        },
-      },
+      type: 'pageBuilder',
+    }),
+    // SEO
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
     }),
   ],
-})
+});
