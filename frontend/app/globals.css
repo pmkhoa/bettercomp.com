@@ -43,3 +43,89 @@
 
   --default-transition-duration: 250ms;
 }
+
+body {
+	color: var(--color-midnight-blue);
+	font-family: var(--font-brockmann);
+	font-size: var(--text-base);
+	font-weight: 400;
+	line-height: 1.44;
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ratio-square .responsive-iframe-container {
+    padding-bottom: 100%;
+  }
+
+  .ratio-16\/9 .responsive-iframe-container {
+    padding-bottom: 56.25%; /* Aspect ratio: 16:9 (56.25% = 9/16 * 100) */
+  }
+
+  .ratio-3\/2 .responsive-iframe-container {
+    padding-bottom: 66.67%; /* Aspect ratio: 16:9 (56.25% = 9/16 * 100) */
+  }
+
+  .responsive-iframe-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Aspect ratio: 16:9 (56.25% = 9/16 * 100) */
+    height: 0;
+    overflow: hidden;
+  }
+
+  .responsive-iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  h1,
+  .h1 {
+    @apply font-light text-6xl md:text-[64px] leading-normal font-medium;
+  }
+
+  h2,
+  .h2 {
+    @apply font-light text-5xl leading-normal md:text-[56px] font-medium;
+  }
+
+  h3,
+  .h3 {
+    @apply text-4xl leading-normal md:text-5xl font-medium;
+  }
+
+  h4,
+  .h4 {
+    @apply text-3xl md:text-4xl md:leading-normal;
+  }
+
+  h5,
+  .h5 {
+    @apply text-xl md:text-2xl md:leading-[30px];
+  }
+
+  h6,
+  .h6 {
+    @apply text-base leading-[18px] md:text-lg md:leading-[22px];
+    font-family: var(--font-zilla-slab);
+  }
+
+  p {
+    @apply text-base md:text-lg md:leading-[26px];
+  }
+
+  small {
+    @apply text-sm leading-[18px];
+  }
+}

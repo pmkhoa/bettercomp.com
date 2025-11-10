@@ -8,6 +8,7 @@ import { toPlainText } from 'next-sanity';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import { Toaster } from 'sonner';
 import localFont from 'next/font/local';
+import { Zilla_Slab } from 'next/font/google';
 
 import DraftModeToast from '@/app/components/DraftModeToast';
 import Footer from '@/app/components/Footer';
@@ -32,16 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = settings?.description || demo.description;
 
   const ogImage = resolveOpenGraphImage(settings?.ogImage);
-  let metadataBase: URL | undefined = undefined;
-  try {
-    metadataBase = settings?.ogImage?.metadataBase
-      ? new URL(settings.ogImage.metadataBase)
-      : undefined;
-  } catch {
-    // ignore
-  }
   return {
-    metadataBase,
     title: {
       template: `%s | ${title}`,
       default: title,
@@ -52,6 +44,13 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+
+const zillaSlab = Zilla_Slab({
+  subsets: ['latin'],
+  weight: ['400', '700'], // choose what you use
+  variable: '--font-zilla-slab', // optional CSS variable
+  display: 'swap',
+});
 
 const brockmann = localFont({
   src: [
@@ -68,7 +67,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { isEnabled: isDraftMode } = await draftMode();
 
   return (
-    <html lang="en" className={`${brockmann.variable} bg-white text-black`}>
+    <html
+      lang="en"
+      className={`${brockmann.variable} ${zillaSlab.variable} bg-white text-black`}
+    >
       <body>
         <section className="min-h-screen pt-24">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
