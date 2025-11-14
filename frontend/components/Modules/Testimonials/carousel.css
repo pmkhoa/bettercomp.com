@@ -1,0 +1,62 @@
+@reference 'tailwindcss';
+
+.carousel-container {
+	position: relative;
+}
+
+.testimonial-carousel .f-carousel {
+	--f-carousel-spacing: 32px;
+}
+
+.testimonial-carousel .f-carousel__slide {
+	width: 100%;
+}
+
+.testimonial-carousel .f-carousel__nav {
+	@apply relative bottom-[-66px] w-full ml-0 flex items-center justify-between;
+	@apply md:top-auto md:bottom-[-80px] md:w-[420px] md:relative md:ml-auto md:mr-auto;
+}
+
+.testimonial-carousel .f-carousel__nav .f-button {
+	top: auto !important;
+	transform: none !important;
+	width: 60px;
+	height: 64px;
+	bottom: 0px;
+	position: relative;
+}
+
+
+.testimonial-carousel .f-carousel__nav .f-button svg {
+	width: 60px;
+	height: 60px;
+	color: #687FA0;
+}
+
+.testimonial-carousel .f-carousel__nav .f-button.is-prev {
+	left: 0;
+	order: 1;
+}
+
+.testimonial-carousel .f-carousel__nav .f-button.is-next{
+	right: 0;
+	order: 2;
+}
+
+.testimonial-carousel .f-carousel__dots {
+	opacity: 1;
+	bottom: -50px;
+	@apply md:bottom-[-66px];
+}
+
+.testimonial-carousel .f-carousel__dots .f-carousel__dot {
+	background-color: #9EBAC8;
+}
+
+.carousel-container .f-carousel__dots li {
+	opacity: 0.2;
+}
+
+.carousel-container .f-carousel__dots .is-current {
+	opacity: 1;
+}

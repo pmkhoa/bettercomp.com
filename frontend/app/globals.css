@@ -2,14 +2,8 @@
 
 @plugin "@tailwindcss/typography";
 
-@utility container {
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
 @theme {
   --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
-
   --color-framework: #031425;
   --color-black: #031425;
   --color-white: #fff;
@@ -20,10 +14,11 @@
   --color-bright-blue: #0092FF;
   --color-light-blue: #79ECFF;
   --color-teal-green: #2CB592;
+  --color-green: #2CB592;
   --color-accent-brick: #A84C5C;
   --color-yellow: #FFA700;
   --color-orange: #F24E1A;
-  --color-orange: #FFA700;
+  --color-gold: #FFA700;
   --color-gradient: linear-gradient(86deg,  #F24E1A 42.2%,  #FFA700 100%);
   --color-sand: #F6F6F3;
   --color-gray-50: #f6f6f8;
@@ -37,25 +32,37 @@
   --color-gray-800: #252837;
   --color-gray-900: #1b1d27;
   --color-gray-950: #13141b;
+  --color-start: var(--color-orange);
+  --color-end: var(--color-gold);
 
   --font-display: var(--font-brockmann), 'sans-serif';
   --font-sans:  var(--font-brockmann), 'sans-serif';
 
   --default-transition-duration: 250ms;
+  --container-max: 1320px;
 }
 
-body {
-	color: var(--color-midnight-blue);
-	font-family: var(--font-brockmann);
-	font-size: var(--text-base);
-	font-weight: 400;
-	line-height: 1.44;
-	overflow-x: hidden;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+@utility container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  max-width: var(--container-max);
+	width: 100%;
 }
 
 @layer base {
+  body {
+		@apply text-base md:text-lg;
+    color: var(--color-midnight-blue);
+    font-family: var(--font-brockmann);
+    font-weight: 400;
+    line-height: 1.44;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   img {
     max-width: 100%;
     height: auto;
@@ -92,17 +99,17 @@ body {
 
   h1,
   .h1 {
-    @apply font-light text-6xl md:text-[64px] leading-normal font-medium;
+    @apply font-light text-6xl md:text-[64px] leading-[1.2] font-medium;
   }
 
   h2,
   .h2 {
-    @apply font-light text-5xl leading-normal md:text-[56px] font-medium;
+    @apply font-light text-5xl leading-[1.2] md:text-[56px] font-medium;
   }
 
   h3,
   .h3 {
-    @apply text-4xl leading-normal md:text-5xl font-medium;
+    @apply text-4xl leading-[1.2] md:text-5xl font-medium;
   }
 
   h4,
@@ -113,6 +120,7 @@ body {
   h5,
   .h5 {
     @apply text-xl md:text-2xl md:leading-[30px];
+    font-family: var(--font-zilla-slab);
   }
 
   h6,
@@ -127,5 +135,74 @@ body {
 
   small {
     @apply text-sm leading-[18px];
+  }
+
+
+  h3 strong, h4 strong {
+    font-weight: 500;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  sup {
+    @apply text-xs;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  hr {
+    @apply h-1 bg-gray-100 border-0;
+  }
+
+  ul {
+    @apply list-disc ml-4;
+  }
+
+  ul li, ol li {
+    @apply mb-4;
+  }
+
+  ol {
+    @apply list-decimal ml-4;
+  }
+}
+
+
+@layer components {
+  .btn-primary {
+    @apply text-black font-bold rounded py-3 px-8 min-w-[150px];
+    background: linear-gradient(81deg, var(--color-start) 9.79%, var(--color-end) 84.97%);
+    transition: all 0.4s ease-out;
+  }
+  .btn-primary:hover {
+    text-decoration: none;
+    --color-start: var(--color-gold);
+    --color-end: var(--color-gold);
+  }
+
+  .btn-secondary {
+    @apply text-black font-bold rounded py-3 px-8 min-w-[150px] border-2 border-blue;
+    transition: all 0.4s ease-out;
+  }
+  .btn-secondary:hover {
+    @apply text-white font-bold rounded py-3 px-8 min-w-[150px] border-2 border-blue bg-blue;
+    transition: all 0.4s ease-out;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .grid {
+    @apply gap-4 sm:gap-4 md:gap-6 lg:gap-8;
+  }
+
+  .grid-container {
+    @apply grid grid-cols-12 sm:grid-cols-6 md:grid-cols-12 ;
   }
 }

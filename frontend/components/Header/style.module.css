@@ -1,0 +1,110 @@
+@reference 'tailwindcss';
+
+.spacer {
+	@apply h-24 lg:h-[172px] bg-transparent;
+}
+
+.header {
+	@apply fixed z-50 h-24 lg:h-[172px] inset-0 bg-white;
+}
+
+.nav-container {
+	@apply container mx-auto flex items-center justify-end pt-[5px] pb-2;
+	@apply md:py-9;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header a {
+	cursor: pointer;
+}
+
+.navlinks-desktop {
+	gap: 20px;
+	align-items: center;
+	@apply md:gap-[28px] lg:gap-[30px] xl:gap-[60px];
+}
+
+.transition-dropdown {
+  @apply transition data-[closed]:-translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in;
+}
+
+.popover-panel {
+	@apply absolute inset-x-0 text-white top-0 z-10 mt-[64px] rounded;
+  background: var(--color-blue);
+}
+
+.popover-panel-simple {
+	@apply absolute top-0 z-10 mt-[64px] text-white min-w-[250px] rounded;
+  background: var(--color-blue);
+}
+
+.popover-panel-center {
+	transform: translateX(-40%);
+}
+
+.menu-item-link-wrapper {
+	@apply max-w-fit p-8;
+}
+
+.overlay-menu-opener {
+	@apply fixed flex top-[17.5px] md:top-[48px];
+}
+
+.popover-header-button {
+	@apply flex items-center outline-none relative;
+	box-shadow: none;
+}
+
+.popover-header-button:hover,
+.popover-header-button[aria-expanded="true"] {
+  transition: all 0.4s;
+  color: var(--color-orange);
+}
+
+.show-chevron:before {
+	content: '';
+	position: absolute;
+	right: -16px;
+	width: 10px;
+	height: 10px;
+	top: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6' fill='none'%3E%3Cpath opacity='0.4' d='M0 1.41422L1.41421 5.72205e-06L4.24264 2.82843L7.07107 5.72205e-06L8.48528 1.41422L4.24264 5.65686L0 1.41422Z' fill='%23002952'/%3E%3C/svg%3E");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.show-chevron:hover:before,
+.show-chevron[aria-expanded="true"]:before {
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6' fill='none'%3E%3Cpath opacity='0.4' d='M0 1.41422L1.41421 5.72205e-06L4.24264 2.82843L7.07107 5.72205e-06L8.48528 1.41422L4.24264 5.65686L0 1.41422Z' fill='%23F24E1A'/%3E%3C/svg%3E");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.menu-toggle-btn {
+	width: 28px;
+}
+
+.menu-toggle-btn span,
+.menu-toggle-btn span:before,
+.menu-toggle-btn span:after {
+	background: white;
+	border-radius: 1px;
+	content: '';
+	cursor: pointer;
+	display: block;
+	position: absolute;
+	width: 28px;
+	transition: all 0.2s ease-in-out;
+}
+
+.menu-toggle-btn span:before {
+	top: -7px;
+	height: 2px;
+}
+
+.menu-toggle-btn span:after {
+	bottom: -7px;
+	height: 2px;
+}

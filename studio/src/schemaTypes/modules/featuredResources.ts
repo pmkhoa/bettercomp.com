@@ -50,12 +50,13 @@ export const featuredResources = defineType({
           to: [{ type: 'page' }, { type: 'blog' }],
         },
       ],
+      hidden: ({ parent }) => parent?.resourceDisplayTypes !== 'custom',
     }),
   ],
   preview: {
     prepare() {
       return {
-        title: 'Contact Form Info',
+        title: 'Feature Resources',
       };
     },
   },

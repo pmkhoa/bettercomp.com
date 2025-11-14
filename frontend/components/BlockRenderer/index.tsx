@@ -1,34 +1,42 @@
-import React from 'react'
+import React from 'react';
 
-import Cta from '@/app/components/Cta'
-import Info from '@/app/components/InfoSection'
-import {dataAttr} from '@/sanity/lib/utils'
+import { dataAttr } from '@/sanity/lib/utils';
+import {
+  Logos,
+  ThreeColumnContentWithIcons,
+  TwoColumnsContent,
+  Testimonials,
+  Stats,
+} from '@/components/Modules';
 
 type BlocksType = {
-  [key: string]: React.FC<any>
-}
+  [key: string]: React.FC<any>;
+};
 
 type BlockType = {
-  _type: string
-  _key: string
-}
+  _type: string;
+  _key: string;
+};
 
 type BlockProps = {
-  index: number
-  block: BlockType
-  pageId: string
-  pageType: string
-}
+  index: number;
+  block: BlockType;
+  pageId: string;
+  pageType: string;
+};
 
 const Blocks: BlocksType = {
-  callToAction: Cta,
-  infoSection: Info,
-}
+  logos: Logos,
+  twoColumnsContent: TwoColumnsContent,
+  threeColumnContentWithIcons: ThreeColumnContentWithIcons,
+  stats: Stats,
+  testimonials: Testimonials,
+};
 
 /**
  * Used by the <PageBuilder>, this component renders a the component that matches the block type.
  */
-export default function BlockRenderer({block, index, pageId, pageType}: BlockProps) {
+export default function BlockRenderer({ block, index, pageId, pageType }: BlockProps) {
   // Block does exist
   if (typeof Blocks[block._type] !== 'undefined') {
     return (
@@ -46,7 +54,7 @@ export default function BlockRenderer({block, index, pageId, pageType}: BlockPro
           index: index,
         })}
       </div>
-    )
+    );
   }
   // Block doesn't exist yet
   return React.createElement(
@@ -55,6 +63,6 @@ export default function BlockRenderer({block, index, pageId, pageType}: BlockPro
         A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
       </div>
     ),
-    {key: block._key},
-  )
+    { key: block._key },
+  );
 }

@@ -99,11 +99,12 @@ export const testimonials = defineType({
   preview: {
     select: {
       title: 'heading',
+      testimonialList: 'testimonialList',
     },
-    prepare({ title }) {
+    prepare({ testimonialList, title }) {
       return {
-        title: title || 'Accordion',
-        subtitle: `Accordion center`,
+        title: title || 'Testimonials',
+        subtitle: `${testimonialList.length} testimonials`,
       };
     },
   },

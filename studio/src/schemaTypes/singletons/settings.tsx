@@ -44,6 +44,24 @@ export const settings = defineType({
       title: 'Pre Footer CTA',
       type: 'preFooterCTA',
     }),
+
+    defineField({
+      name: 'globalNavCta',
+      title: 'Global Navigation CTA',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'linkText',
+          title: 'Link Text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'link',
+          title: 'Link',
+          type: 'link',
+        }),
+      ],
+    }),
     defineField({
       name: 'globalNav',
       description: 'Entering Global Navigation',

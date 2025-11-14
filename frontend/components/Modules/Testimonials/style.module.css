@@ -1,0 +1,33 @@
+@reference 'tailwindcss';
+
+.content-wrapper {
+	@apply items-start gap-8 mt-16;
+}
+
+.content-heading {
+	@apply flex justify-between items-center;
+}
+
+.slide-content {
+	padding: 2rem;
+	background: linear-gradient(180deg, rgba(229, 237, 241, 0.40) 0%, #FFF 100%);
+}
+
+.testimonial-content:before {
+	content: '';
+	height: 6px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: calc(100% - 120px);
+	transform: translateX(-50%);
+
+}
+
+.content-inner ul li {
+	@apply my-4;
+}
+
+.section-description {
+	@apply col-span-12 md:col-start-2 md:col-span-10 text-center z-10 relative;
+}

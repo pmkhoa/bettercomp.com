@@ -14,6 +14,11 @@ export const threeColumnContentWithNumbers = defineType({
       initialValue: true,
     }),
     defineField({
+      name: 'sectionBackground',
+      title: 'Section Background',
+      type: 'background',
+    }),
+    defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',

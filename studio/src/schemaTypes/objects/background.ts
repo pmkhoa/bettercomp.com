@@ -11,7 +11,7 @@ export const background = defineType({
       name: 'enabled',
       title: 'Enabled',
       type: 'boolean',
-      initialValue: true,
+      initialValue: false,
     }),
     defineField({
       name: 'backgroundType',
@@ -24,11 +24,14 @@ export const background = defineType({
         ],
         layout: 'dropdown',
       },
+      initialValue: 'color',
+      hidden: ({ parent }) => !parent?.enabled,
     }),
     defineField({
       name: 'asset',
       title: 'Background',
       type: 'mediaAsset',
+      hidden: ({ parent }) => parent?.backgroundType !== 'image' || !parent?.enabled,
     }),
     defineField({
       name: 'backgroundColor',
@@ -36,25 +39,28 @@ export const background = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Mid Night Blue', value: '#002952' },
-          { title: 'Orange', value: '#F24E1A' },
-          { title: 'Bright Blue', value: '#0092FF' },
-          { title: 'Gold', value: '#FFA700' },
-          { title: 'Light Blue', value: '#79ECFF' },
-          { title: 'Teal Green', value: '#2CB592' },
-          { title: 'Accent Brick', value: '#A84C5C' },
-          { title: 'Black', value: '#031425' },
-          { title: 'White', value: '#ffffff' },
+          { title: 'Midnight Blue', value: 'blue' },
+          { title: 'Orange', value: 'orange' },
+          { title: 'Bright Blue', value: 'bright-blue' },
+          { title: 'Gold', value: 'gold' },
+          { title: 'Light Blue', value: 'light-blue' },
+          { title: 'Teal Green', value: 'teal-green' },
+          { title: 'Accent Brick', value: 'accent-brick' },
+          { title: 'Black', value: 'black' },
+          { title: 'White', value: 'black' },
+          { title: 'Sand', value: 'sand' },
         ],
         layout: 'dropdown',
       },
-      initialValue: '#002952', // optional default
+      initialValue: 'sand', // optional default
+      hidden: ({ parent }) => parent?.backgroundType !== 'color' || !parent?.enabled,
     }),
     defineField({
       name: 'showBorderTop',
       title: 'Show Border Top',
       type: 'boolean',
       initialValue: false,
+      hidden: ({ parent }) => !parent?.enabled,
     }),
     defineField({
       name: 'textColor',
@@ -62,13 +68,14 @@ export const background = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Mid Night Blue', value: '#002952' },
-          { title: 'Black', value: '#031425' },
-          { title: 'White', value: '#ffffff' },
+          { title: 'Midnight Blue', value: 'blue' },
+          { title: 'Black', value: 'black' },
+          { title: 'White', value: 'white' },
         ],
         layout: 'dropdown',
       },
-      initialValue: '#002952',
+      initialValue: 'blue',
+      hidden: ({ parent }) => !parent?.enabled,
     }),
   ],
   preview: {

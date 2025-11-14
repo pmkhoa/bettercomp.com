@@ -78,9 +78,626 @@ export type TwoColumnsContent = {
         _key: string
       }
   >
-  ctaLink?: CtaLink
+  ctaButton?: CtaLink
   assetPosition?: 'left' | 'right'
   asset?: MediaAsset
+}
+
+export type TwoColumnPhotoCards = {
+  _type: 'twoColumnPhotoCards'
+  enabled?: boolean
+  backgroundColor?: '#F6F6F3' | '#FFFFFF'
+  heading?: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  ctaButton?: CtaLink
+  listItem: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    title?: string
+    content?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<
+            | {
+                color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+                _type: 'textColor'
+                _key: string
+              }
+            | {
+                linkType?: 'href' | 'file' | 'page'
+                href?: string
+                pdfFile?: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                  }
+                  media?: unknown
+                  _type: 'file'
+                }
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                openInNewTab?: boolean
+                _type: 'link'
+                _key: string
+              }
+          >
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          caption?: string
+          _type: 'image'
+          _key: string
+        }
+    >
+    ctaLink?: CtaLink
+    _key: string
+  }>
+}
+
+export type ThreeColumnContentWithNumbers = {
+  _type: 'threeColumnContentWithNumbers'
+  enabled?: boolean
+  heading?: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  ctaButton?: CtaLink
+  listItem: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    title?: string
+    content?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<
+            | {
+                color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+                _type: 'textColor'
+                _key: string
+              }
+            | {
+                linkType?: 'href' | 'file' | 'page'
+                href?: string
+                pdfFile?: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                  }
+                  media?: unknown
+                  _type: 'file'
+                }
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                openInNewTab?: boolean
+                _type: 'link'
+                _key: string
+              }
+          >
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          caption?: string
+          _type: 'image'
+          _key: string
+        }
+    >
+    _key: string
+  }>
+}
+
+export type ThreeColumnContentWithIcons = {
+  _type: 'threeColumnContentWithIcons'
+  enabled?: boolean
+  heading?: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  ctaButton?: CtaLink
+  listItem: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    title?: string
+    content?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<
+            | {
+                color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+                _type: 'textColor'
+                _key: string
+              }
+            | {
+                linkType?: 'href' | 'file' | 'page'
+                href?: string
+                pdfFile?: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                  }
+                  media?: unknown
+                  _type: 'file'
+                }
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                openInNewTab?: boolean
+                _type: 'link'
+                _key: string
+              }
+          >
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          caption?: string
+          _type: 'image'
+          _key: string
+        }
+    >
+    _key: string
+  }>
+}
+
+export type Testimonials = {
+  _type: 'testimonials'
+  enabled?: boolean
+  subHeading?: string
+  heading?: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  testimonialList: Array<{
+    companyIcon?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    totalStars?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    title?: string
+    content?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<
+            | {
+                color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+                _type: 'textColor'
+                _key: string
+              }
+            | {
+                linkType?: 'href' | 'file' | 'page'
+                href?: string
+                pdfFile?: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                  }
+                  media?: unknown
+                  _type: 'file'
+                }
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                openInNewTab?: boolean
+                _type: 'link'
+                _key: string
+              }
+          >
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          caption?: string
+          _type: 'image'
+          _key: string
+        }
+    >
+    avatarIcon?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    reviewer?: string
+    _key: string
+  }>
+}
+
+export type Stats = {
+  _type: 'stats'
+  enabled?: boolean
+  heading?: string
+  ctaButton?: CtaLink
+  statNumber?: Array<
+    {
+      _key: string
+    } & StatNumber
+  >
 }
 
 export type Richtext = {
@@ -240,7 +857,7 @@ export type ResourcesWithLeftPanel = {
         _key: string
       }
   >
-  ctaLink?: CtaLink
+  ctaButton?: CtaLink
   listItem: Array<{
     image?: {
       asset?: {
@@ -379,6 +996,302 @@ export type ResourcesWithLeftPanel = {
   >
 }
 
+export type PageBuilder = Array<
+  | ({
+      _key: string
+    } & AccordionCenter)
+  | ({
+      _key: string
+    } & AccordionLeftPanel)
+  | ({
+      _key: string
+    } & ContactForm)
+  | ({
+      _key: string
+    } & FeaturedResources)
+  | ({
+      _key: string
+    } & FullWidthCTA)
+  | ({
+      _key: string
+    } & HeroLarge)
+  | ({
+      _key: string
+    } & HeroResource)
+  | ({
+      _key: string
+    } & HeroShort)
+  | ({
+      _key: string
+    } & IconCards)
+  | ({
+      _key: string
+    } & Logos)
+  | ({
+      _key: string
+    } & PreFooterCTA)
+  | ({
+      _key: string
+    } & ResourcesWithLeftPanel)
+  | ({
+      _key: string
+    } & Richtext)
+  | ({
+      _key: string
+    } & Stats)
+  | ({
+      _key: string
+    } & Testimonials)
+  | ({
+      _key: string
+    } & ThreeColumnContentWithIcons)
+  | ({
+      _key: string
+    } & ThreeColumnContentWithNumbers)
+  | ({
+      _key: string
+    } & TwoColumnsContent)
+  | ({
+      _key: string
+    } & TwoColumnPhotoCards)
+>
+
+export type Logos = {
+  _type: 'logos'
+  enabled?: boolean
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  useMarqueeEffect?: boolean
+  logoGroup: Array<{
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'compnyLogo'
+    _key: string
+  }>
+}
+
+export type IconCards = {
+  _type: 'iconCards'
+  enabled?: boolean
+  sectionBackground?: Background
+  heading?: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  ctaButton?: CtaLink
+  listItem: Array<{
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    subheading?: string
+    content?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<
+            | {
+                color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+                _type: 'textColor'
+                _key: string
+              }
+            | {
+                linkType?: 'href' | 'file' | 'page'
+                href?: string
+                pdfFile?: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                  }
+                  media?: unknown
+                  _type: 'file'
+                }
+                page?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'page'
+                }
+                openInNewTab?: boolean
+                _type: 'link'
+                _key: string
+              }
+          >
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          caption?: string
+          _type: 'image'
+          _key: string
+        }
+    >
+    ctaLink?: CtaLink
+    _key: string
+  }>
+}
+
+export type HeroShort = {
+  _type: 'heroShort'
+  enabled?: boolean
+  heading?: string
+  heroImage?: MediaAsset
+  backgroundDesktop?: Background
+  backgroundMobile?: Background
+  ctaButton?: CtaLink
+}
+
 export type HeroLarge = {
   _type: 'heroLarge'
   enabled?: boolean
@@ -444,7 +1357,218 @@ export type HeroLarge = {
   >
   heroImage?: MediaAsset
   background?: Background
-  ctaLink?: CtaLink
+  ctaButton?: CtaLink
+}
+
+export type FeaturedResources = {
+  _type: 'featuredResources'
+  enabled?: boolean
+  subheading?: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  ctaButton?: CtaLink
+  resourceDisplayTypes?: 'mostRecents' | 'custom'
+  selectedResources?: Array<
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'page'
+      }
+    | {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'blog'
+      }
+  >
+}
+
+export type ContactForm = {
+  _type: 'contactForm'
+  enabled?: boolean
+  form?: Form
+  contactInfo?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  address?: string
+  phone?: string
+  email?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  map?: string
 }
 
 export type AccordionLeftPanel = {
@@ -575,7 +1699,7 @@ export type AccordionLeftPanel = {
           _key: string
         }
     >
-    ctaLink?: CtaLink
+    ctaButton?: CtaLink
     _key: string
   }>
 }
@@ -708,43 +1832,39 @@ export type AccordionCenter = {
           _key: string
         }
     >
-    ctaLink?: CtaLink
+    ctaButton?: CtaLink
     _key: string
   }>
 }
 
+export type StatNumber = {
+  _type: 'statNumber'
+  prefix?: string
+  startNumber?: string
+  endNumber?: string
+  increaseStep?: string
+  suffix?: string
+  description?: string
+}
+
 export type MenuItem = {
   _type: 'menuItem'
-  menuItemType?: 'default' | 'simple'
+  menuItemType?: 'default' | 'groupLinks'
   menuLabel?: string
   menuLink?: Link
-  dropdownMenus?: Array<{
+  groupLinks?: Array<{
     menuLabel?: string
     menuLink?: Link
     _key: string
   }>
 }
 
-export type CtaLink = {
-  _type: 'ctaLink'
-  showCtaLink?: boolean
-  linkLabel?: string
-  link?: Link
-}
-
-export type CallToAction = {
-  _type: 'callToAction'
-  heading: string
-  text?: string
-  buttonText?: string
-  link?: Link
-}
-
-export type InfoSection = {
-  _type: 'infoSection'
-  heading?: string
-  subheading?: string
-  content?: Array<
+export type HeroResource = {
+  _type: 'heroResource'
+  enabled?: boolean
+  resourceType?: 'eBook' | 'Guides' | 'Tool' | 'Template' | 'Article' | 'Webinar'
+  estimatedReadingTime?: string
+  description?: Array<
     | {
         children?: Array<{
           marks?: Array<string>
@@ -804,6 +1924,84 @@ export type InfoSection = {
         _key: string
       }
   >
+  heroImage?: MediaAsset
+  background?: Background
+  ctaButton?: CtaLink
+}
+
+export type FullWidthCTA = {
+  _type: 'fullWidthCTA'
+  enabled?: boolean
+  textAlign?: 'center' | 'left' | 'right'
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<
+          | {
+              color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3'
+              _type: 'textColor'
+              _key: string
+            }
+          | {
+              linkType?: 'href' | 'file' | 'page'
+              href?: string
+              pdfFile?: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                }
+                media?: unknown
+                _type: 'file'
+              }
+              page?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'page'
+              }
+              openInNewTab?: boolean
+              _type: 'link'
+              _key: string
+            }
+        >
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        caption?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  ctaButton?: CtaLink
+  background?: Background
+}
+
+export type Form = {
+  _type: 'form'
+  formType: 'contact' | 'custom'
+  formId?: string
+  campaignId?: string
 }
 
 export type BlockContent = Array<
@@ -873,14 +2071,17 @@ export type Background = {
   backgroundType?: 'color' | 'image'
   asset?: MediaAsset
   backgroundColor?:
-    | '#F24E1A'
     | '#002952'
+    | '#F24E1A'
     | '#0092FF'
     | '#FFA700'
     | '#79ECFF'
     | '#2CB592'
     | '#A84C5C'
     | '#031425'
+    | '#ffffff'
+  showBorderTop?: boolean
+  textColor?: '#002952' | '#031425' | '#ffffff'
 }
 
 export type MediaAsset = {
@@ -913,9 +2114,21 @@ export type MediaAsset = {
   }
 }
 
-export type Post = {
+export type Home = {
   _id: string
-  _type: 'post'
+  _type: 'home'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name: string
+  slug: Slug
+  pageBuilder?: PageBuilder
+  seo?: Seo
+}
+
+export type Blog = {
+  _id: string
+  _type: 'blog'
   _createdAt: string
   _updatedAt: string
   _rev: string
@@ -941,13 +2154,14 @@ export type Post = {
     _ref: string
     _type: 'reference'
     _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'person'
+    [internalGroqTypeReferenceTo]?: 'author'
   }
+  seo?: Seo
 }
 
-export type Person = {
+export type Author = {
   _id: string
-  _type: 'person'
+  _type: 'author'
   _createdAt: string
   _updatedAt: string
   _rev: string
@@ -986,13 +2200,44 @@ export type Settings = {
     media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
-    alt?: string
     _type: 'image'
+  }
+  footerCTA?: PreFooterCTA
+  globalNavCta?: {
+    linkText?: string
+    link?: Link
   }
   globalNav?: Array<
     {
       _key: string
     } & MenuItem
+  >
+  footerNav?: Array<
+    {
+      _key: string
+    } & MenuItem
+  >
+  socialLink?: Array<{
+    name?: string
+    url?: string
+    socialIcon?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    _key: string
+  }>
+  privacyLinks?: Array<
+    {
+      _key: string
+    } & Link
   >
 }
 
@@ -1009,6 +2254,29 @@ export type Link = {
   openInNewTab?: boolean
 }
 
+export type PreFooterCTA = {
+  _type: 'preFooterCTA'
+  enabled?: boolean
+  subheading?: string
+  content?: BlockContent
+  ctaButton?: CtaLink
+  awardDescription?: BlockContent
+  awardLogos?: Array<{
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+    _key: string
+  }>
+}
+
 export type Page = {
   _id: string
   _type: 'page'
@@ -1019,14 +2287,33 @@ export type Page = {
   slug: Slug
   heading: string
   subheading?: string
-  pageBuilder?: Array<
-    | ({
-        _key: string
-      } & CallToAction)
-    | ({
-        _key: string
-      } & InfoSection)
-  >
+  pageBuilder?: PageBuilder
+  seo?: Seo
+}
+
+export type Seo = {
+  _type: 'seo'
+  title?: string
+  description?: string
+  ogImage?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+}
+
+export type CtaLink = {
+  _type: 'ctaLink'
+  showCtaLink?: boolean
+  linkLabel?: string
+  link?: Link
 }
 
 export type SanityAssistInstructionTask = {
@@ -1284,23 +2571,39 @@ export type SanityAssetSourceData = {
 
 export type AllSanitySchemaTypes =
   | TwoColumnsContent
+  | TwoColumnPhotoCards
+  | ThreeColumnContentWithNumbers
+  | ThreeColumnContentWithIcons
+  | Testimonials
+  | Stats
   | Richtext
   | ResourcesWithLeftPanel
+  | PageBuilder
+  | Logos
+  | IconCards
+  | HeroShort
   | HeroLarge
+  | FeaturedResources
+  | ContactForm
   | AccordionLeftPanel
   | AccordionCenter
+  | StatNumber
   | MenuItem
-  | CtaLink
-  | CallToAction
-  | InfoSection
+  | HeroResource
+  | FullWidthCTA
+  | Form
   | BlockContent
   | Background
   | MediaAsset
-  | Post
-  | Person
+  | Home
+  | Blog
+  | Author
   | Settings
   | Link
+  | PreFooterCTA
   | Page
+  | Seo
+  | CtaLink
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations
@@ -1346,13 +2649,44 @@ export type SettingsQueryResult = {
     media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
-    alt?: string
     _type: 'image'
+  }
+  footerCTA?: PreFooterCTA
+  globalNavCta?: {
+    linkText?: string
+    link?: Link
   }
   globalNav?: Array<
     {
       _key: string
     } & MenuItem
+  >
+  footerNav?: Array<
+    {
+      _key: string
+    } & MenuItem
+  >
+  socialLink?: Array<{
+    name?: string
+    url?: string
+    socialIcon?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    _key: string
+  }>
+  privacyLinks?: Array<
+    {
+      _key: string
+    } & Link
   >
 } | null
 // Variable: pageBuilderContent
@@ -1360,40 +2694,22 @@ export type SettingsQueryResult = {
 export type PageBuilderContentResult = never
 // Variable: getHomeQuery
 // Query: *[_type == "home"][0] { ..., "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} }} }     },		_type == 'heroSection' => {..., link {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } }, secondaryLink { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} }}},		_type == 'twoColumnsContentWithImage' => {..., ctaLink { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } } },		_type == 'contentHighlightWithStats' => {..., ctaLink { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } } },		_type == 'twoColumnWithLine' => {..., ctaLink { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } } },		_type == 'iconDescriptions' => {..., columnContent[] { ..., ctaLink { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} }}}},		_type == 'statsCallout' => {..., ctaLink{ ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } }, statsCalloutGlobal -> { ..., ctaLink{ ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} }}}},		_type == 'accordionWithImage' => {..., accordions[] { ..., link { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } }}},		_type == 'accordionSimple' => {..., ctaLink{ ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} }}},		_type == 'featuredInsights' => { ..., featuredInsights[]->, "latestArticles": *[_type == "article"] | order(date desc)[0...3] },		_type == 'preFooterCta' => { ..., },		_type == 'blogPagination' => { ..., "allBlog": *[_type == "blog"] | order(date asc) { _id, title, slug } },		_type == 'newsPagination' => { ..., "allNews": *[_type == "news"] | order(date asc) { _id, title, slug } },		_type == 'articlePagination' => {..., "articles": *[_type == "article"] | order(date asc) { _id, title, slug }},		_type == 'newsList' => { ..., 			"allNews": *[_type == "news"],			"filteredNews": *[_type == "news" && title match $terms && (count(tags[@ match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)},		_type == 'sectionCarousel' => { ...,  sectionContent[] { ..., ctaLink{ ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } } } },		_type == 'tabsWithContent' => { ...,  tabs[] { ..., ctaLink { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } }}},		_type == 'richtext' => { columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } }, column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} }}},		_type == 'resourceLinks' => { sectionContent[] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} } }}}	}}
-export type GetHomeQueryResult = null
-// Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {          link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} },      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,            	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	}          }        }      },    },  }
-export type GetPageQueryResult = {
+export type GetHomeQueryResult = {
   _id: string
-  _type: 'page'
+  _type: 'home'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
   name: string
   slug: Slug
-  heading: string
-  subheading: string | null
   pageBuilder: Array<
     | {
         _key: string
-        _type: 'callToAction'
-        heading: string
-        text?: string
-        buttonText?: string
-        link: {
-          _type: 'link'
-          linkType?: 'href' | 'page'
-          href?: string
-          page: string | null
-          openInNewTab?: boolean
-          author: null
-          blog: null
-          file: null
-        } | null
-      }
-    | {
-        _key: string
-        _type: 'infoSection'
+        _type: 'accordionCenter'
+        enabled?: boolean
+        subHeading?: string
         heading?: string
-        subheading?: string
-        content: Array<
+        description?: Array<
           | {
               children?: Array<{
                 marks?: Array<string>
@@ -1403,7 +2719,7 @@ export type GetPageQueryResult = {
               }>
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
               listItem?: 'bullet' | 'number'
-              markDefs: Array<
+              markDefs?: Array<
                 | {
                     linkType?: 'file' | 'href' | 'page'
                     href?: string
@@ -1417,20 +2733,22 @@ export type GetPageQueryResult = {
                       media?: unknown
                       _type: 'file'
                     }
-                    page: string | null
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
                     openInNewTab?: boolean
                     _type: 'link'
                     _key: string
-                    author: null
-                    blog: null
-                    file: null
                   }
                 | {
                     color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
                     _type: 'textColor'
                     _key: string
                   }
-              > | null
+              >
               level?: number
               _type: 'block'
               _key: string
@@ -1449,210 +2767,3884 @@ export type GetPageQueryResult = {
               caption?: string
               _type: 'image'
               _key: string
-              markDefs: null
             }
-        > | null
+        >
+        ctaButton: {
+          _type: 'ctaLink'
+          showCtaLink?: boolean
+          linkLabel?: string
+          link: {
+            _type: 'link'
+            linkType?: 'href' | 'page'
+            href?: string
+            page: string | null
+            openInNewTab?: boolean
+            author: null
+            blog: null
+            file: null
+          } | null
+        } | null
+        accordions: Array<{
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaButton: {
+            _type: 'ctaLink'
+            showCtaLink?: boolean
+            linkLabel?: string
+            link: {
+              _type: 'link'
+              linkType?: 'href' | 'page'
+              href?: string
+              page: string | null
+              openInNewTab?: boolean
+              author: null
+              blog: null
+              file: null
+            } | null
+          } | null
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'accordionLeftPanel'
+        enabled?: boolean
+        subHeading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton: {
+          _type: 'ctaLink'
+          showCtaLink?: boolean
+          linkLabel?: string
+          link: {
+            _type: 'link'
+            linkType?: 'href' | 'page'
+            href?: string
+            page: string | null
+            openInNewTab?: boolean
+            author: null
+            blog: null
+            file: null
+          } | null
+        } | null
+        accordions: Array<{
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaButton: {
+            _type: 'ctaLink'
+            showCtaLink?: boolean
+            linkLabel?: string
+            link: {
+              _type: 'link'
+              linkType?: 'href' | 'page'
+              href?: string
+              page: string | null
+              openInNewTab?: boolean
+              author: null
+              blog: null
+              file: null
+            } | null
+          } | null
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'contactForm'
+        enabled?: boolean
+        form?: Form
+        contactInfo?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        address?: string
+        phone?: string
+        email?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        map?: string
+      }
+    | {
+        _key: string
+        _type: 'featuredResources'
+        enabled?: boolean
+        subheading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        resourceDisplayTypes?: 'custom' | 'mostRecents'
+        selectedResources?: Array<
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'blog'
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+        >
+      }
+    | {
+        _key: string
+        _type: 'fullWidthCTA'
+        enabled?: boolean
+        textAlign?: 'center' | 'left' | 'right'
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        background?: Background
+      }
+    | {
+        _key: string
+        _type: 'heroLarge'
+        enabled?: boolean
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        heroImage?: MediaAsset
+        background?: Background
+        ctaButton?: CtaLink
+      }
+    | {
+        _key: string
+        _type: 'heroResource'
+        enabled?: boolean
+        resourceType?: 'Article' | 'eBook' | 'Guides' | 'Template' | 'Tool' | 'Webinar'
+        estimatedReadingTime?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        heroImage?: MediaAsset
+        background?: Background
+        ctaButton?: CtaLink
+      }
+    | {
+        _key: string
+        _type: 'heroShort'
+        enabled?: boolean
+        heading?: string
+        heroImage?: MediaAsset
+        backgroundDesktop?: Background
+        backgroundMobile?: Background
+        ctaButton?: CtaLink
+      }
+    | {
+        _key: string
+        _type: 'iconCards'
+        enabled?: boolean
+        sectionBackground?: Background
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          subheading?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaLink?: CtaLink
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'logos'
+        enabled?: boolean
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        useMarqueeEffect?: boolean
+        logoGroup: Array<{
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'compnyLogo'
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'preFooterCTA'
+        enabled?: boolean
+        subheading?: string
+        content?: BlockContent
+        ctaButton?: CtaLink
+        awardDescription?: BlockContent
+        awardLogos?: Array<{
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'image'
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'resourcesWithLeftPanel'
+        enabled?: boolean
+        subheading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          _key: string
+        }>
+        summaryText?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+      }
+    | {
+        _key: string
+        _type: 'richtext'
+        enabled?: boolean
+        background?: Background
+        richTextType?: 'default' | 'withEmbedded' | 'withImage' | 'withVideo'
+        textAlign?: 'center' | 'left'
+        textContent?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        image?: {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'image'
+        }
+        embeddedContent?: string
+        backgroundVideo?: {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+          }
+          media?: unknown
+          _type: 'file'
+        }
+        columnContent: null
+        column2Content: null
+      }
+    | {
+        _key: string
+        _type: 'stats'
+        enabled?: boolean
+        heading?: string
+        ctaButton?: CtaLink
+        statNumber?: Array<
+          {
+            _key: string
+          } & StatNumber
+        >
+      }
+    | {
+        _key: string
+        _type: 'testimonials'
+        enabled?: boolean
+        subHeading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        testimonialList: Array<{
+          companyIcon?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          totalStars?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          avatarIcon?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          reviewer?: string
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'threeColumnContentWithIcons'
+        enabled?: boolean
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'threeColumnContentWithNumbers'
+        enabled?: boolean
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'twoColumnPhotoCards'
+        enabled?: boolean
+        backgroundColor?: '#F6F6F3' | '#FFFFFF'
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaLink?: CtaLink
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'twoColumnsContent'
+        enabled?: boolean
+        subHeading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        assetPosition?: 'left' | 'right'
+        asset?: MediaAsset
+      }
+  > | null
+  seo?: Seo
+} | null
+// Variable: getPageQuery
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {          link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	} },      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,            	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	}          }        }      },    },  }
+export type GetPageQueryResult = {
+  _id: string
+  _type: 'page'
+  name: string
+  slug: Slug
+  heading: string
+  subheading: string | null
+  pageBuilder: Array<
+    | {
+        _key: string
+        _type: 'accordionCenter'
+        enabled?: boolean
+        subHeading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        accordions: Array<{
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaButton?: CtaLink
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'accordionLeftPanel'
+        enabled?: boolean
+        subHeading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        accordions: Array<{
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaButton?: CtaLink
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'contactForm'
+        enabled?: boolean
+        form?: Form
+        contactInfo?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        address?: string
+        phone?: string
+        email?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        map?: string
+      }
+    | {
+        _key: string
+        _type: 'featuredResources'
+        enabled?: boolean
+        subheading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        resourceDisplayTypes?: 'custom' | 'mostRecents'
+        selectedResources?: Array<
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'blog'
+            }
+          | {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'page'
+            }
+        >
+      }
+    | {
+        _key: string
+        _type: 'fullWidthCTA'
+        enabled?: boolean
+        textAlign?: 'center' | 'left' | 'right'
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        background?: Background
+      }
+    | {
+        _key: string
+        _type: 'heroLarge'
+        enabled?: boolean
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        heroImage?: MediaAsset
+        background?: Background
+        ctaButton?: CtaLink
+      }
+    | {
+        _key: string
+        _type: 'heroResource'
+        enabled?: boolean
+        resourceType?: 'Article' | 'eBook' | 'Guides' | 'Template' | 'Tool' | 'Webinar'
+        estimatedReadingTime?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        heroImage?: MediaAsset
+        background?: Background
+        ctaButton?: CtaLink
+      }
+    | {
+        _key: string
+        _type: 'heroShort'
+        enabled?: boolean
+        heading?: string
+        heroImage?: MediaAsset
+        backgroundDesktop?: Background
+        backgroundMobile?: Background
+        ctaButton?: CtaLink
+      }
+    | {
+        _key: string
+        _type: 'iconCards'
+        enabled?: boolean
+        sectionBackground?: Background
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          subheading?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaLink?: CtaLink
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'logos'
+        enabled?: boolean
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        useMarqueeEffect?: boolean
+        logoGroup: Array<{
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'compnyLogo'
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'preFooterCTA'
+        enabled?: boolean
+        subheading?: string
+        content?: BlockContent
+        ctaButton?: CtaLink
+        awardDescription?: BlockContent
+        awardLogos?: Array<{
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'image'
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'resourcesWithLeftPanel'
+        enabled?: boolean
+        subheading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          _key: string
+        }>
+        summaryText?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+      }
+    | {
+        _key: string
+        _type: 'richtext'
+        enabled?: boolean
+        background?: Background
+        richTextType?: 'default' | 'withEmbedded' | 'withImage' | 'withVideo'
+        textAlign?: 'center' | 'left'
+        textContent?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        image?: {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'image'
+        }
+        embeddedContent?: string
+        backgroundVideo?: {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+          }
+          media?: unknown
+          _type: 'file'
+        }
+      }
+    | {
+        _key: string
+        _type: 'stats'
+        enabled?: boolean
+        heading?: string
+        ctaButton?: CtaLink
+        statNumber?: Array<
+          {
+            _key: string
+          } & StatNumber
+        >
+      }
+    | {
+        _key: string
+        _type: 'testimonials'
+        enabled?: boolean
+        subHeading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        testimonialList: Array<{
+          companyIcon?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          totalStars?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          avatarIcon?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          reviewer?: string
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'threeColumnContentWithIcons'
+        enabled?: boolean
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'threeColumnContentWithNumbers'
+        enabled?: boolean
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'twoColumnPhotoCards'
+        enabled?: boolean
+        backgroundColor?: '#F6F6F3' | '#FFFFFF'
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            alt?: string
+            _type: 'image'
+          }
+          title?: string
+          content?: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>
+                  text?: string
+                  _type: 'span'
+                  _key: string
+                }>
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+                listItem?: 'bullet' | 'number'
+                markDefs?: Array<
+                  | {
+                      linkType?: 'file' | 'href' | 'page'
+                      href?: string
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string
+                          _type: 'reference'
+                          _weak?: boolean
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                        }
+                        media?: unknown
+                        _type: 'file'
+                      }
+                      page?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'page'
+                      }
+                      openInNewTab?: boolean
+                      _type: 'link'
+                      _key: string
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                      _type: 'textColor'
+                      _key: string
+                    }
+                >
+                level?: number
+                _type: 'block'
+                _key: string
+              }
+            | {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                caption?: string
+                _type: 'image'
+                _key: string
+              }
+          >
+          ctaLink?: CtaLink
+          _key: string
+        }>
+      }
+    | {
+        _key: string
+        _type: 'twoColumnsContent'
+        enabled?: boolean
+        subHeading?: string
+        heading?: string
+        description?: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>
+                text?: string
+                _type: 'span'
+                _key: string
+              }>
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+              listItem?: 'bullet' | 'number'
+              markDefs?: Array<
+                | {
+                    linkType?: 'file' | 'href' | 'page'
+                    href?: string
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+                      }
+                      media?: unknown
+                      _type: 'file'
+                    }
+                    page?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'page'
+                    }
+                    openInNewTab?: boolean
+                    _type: 'link'
+                    _key: string
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
+                    _type: 'textColor'
+                    _key: string
+                  }
+              >
+              level?: number
+              _type: 'block'
+              _key: string
+            }
+          | {
+              asset?: {
+                _ref: string
+                _type: 'reference'
+                _weak?: boolean
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+              }
+              media?: unknown
+              hotspot?: SanityImageHotspot
+              crop?: SanityImageCrop
+              alt?: string
+              caption?: string
+              _type: 'image'
+              _key: string
+            }
+        >
+        ctaButton?: CtaLink
+        assetPosition?: 'left' | 'right'
+        asset?: MediaAsset
       }
   > | null
 } | null
 // Variable: sitemapData
 // Query: *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {    "slug": slug.current,    _type,    _updatedAt,  }
-export type SitemapDataResult = Array<
-  | {
-      slug: string
-      _type: 'page'
-      _updatedAt: string
-    }
-  | {
-      slug: string
-      _type: 'post'
-      _updatedAt: string
-    }
->
+export type SitemapDataResult = Array<{
+  slug: string
+  _type: 'page'
+  _updatedAt: string
+}>
 // Variable: allPostsQuery
 // Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type AllPostsQueryResult = Array<{
-  _id: string
-  status: 'draft' | 'published'
-  title: string
-  slug: string
-  excerpt: string | null
-  coverImage: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date: string
-  author: {
-    firstName: string
-    lastName: string
-    picture: {
-      asset?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-      }
-      media?: unknown
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      alt?: string
-      _type: 'image'
-    }
-  } | null
-}>
+export type AllPostsQueryResult = Array<never>
 // Variable: morePostsQuery
 // Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type MorePostsQueryResult = Array<{
-  _id: string
-  status: 'draft' | 'published'
-  title: string
-  slug: string
-  excerpt: string | null
-  coverImage: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date: string
-  author: {
-    firstName: string
-    lastName: string
-    picture: {
-      asset?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-      }
-      media?: unknown
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      alt?: string
-      _type: 'image'
-    }
-  } | null
-}>
+export type MorePostsQueryResult = Array<never>
 // Variable: postQuery
 // Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"blog": blog->slug.current,		"file": file.asset->url,	}    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type PostQueryResult = {
-  content: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: 'span'
-          _key: string
-        }>
-        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-        listItem?: 'bullet' | 'number'
-        markDefs: Array<
-          | {
-              linkType?: 'file' | 'href' | 'page'
-              href?: string
-              pdfFile?: {
-                asset?: {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
-                }
-                media?: unknown
-                _type: 'file'
-              }
-              page: string | null
-              openInNewTab?: boolean
-              _type: 'link'
-              _key: string
-              author: null
-              blog: null
-              file: null
-            }
-          | {
-              color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3'
-              _type: 'textColor'
-              _key: string
-            }
-        > | null
-        level?: number
-        _type: 'block'
-        _key: string
-      }
-    | {
-        asset?: {
-          _ref: string
-          _type: 'reference'
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-        }
-        media?: unknown
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        alt?: string
-        caption?: string
-        _type: 'image'
-        _key: string
-        markDefs: null
-      }
-  > | null
-  _id: string
-  status: 'draft' | 'published'
-  title: string
-  slug: string
-  excerpt: string | null
-  coverImage: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date: string
-  author: {
-    firstName: string
-    lastName: string
-    picture: {
-      asset?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-      }
-      media?: unknown
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      alt?: string
-      _type: 'image'
-    }
-  } | null
-} | null
+export type PostQueryResult = null
 // Variable: postPagesSlugs
 // Query: *[_type == "post" && defined(slug.current)]  {"slug": slug.current}
-export type PostPagesSlugsResult = Array<{
-  slug: string
-}>
+export type PostPagesSlugsResult = Array<never>
 // Variable: pagesSlugs
 // Query: *[_type == "page" && defined(slug.current)]  {"slug": slug.current}
 export type PagesSlugsResult = Array<{

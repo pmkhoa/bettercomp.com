@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Page as PageType } from '@/sanity.types';
 import { sanityFetch } from '@/sanity/lib/live';
-import { PageOnboarding } from '@/app/components/Onboarding';
+import { PageOnboarding } from '@/components/Onboarding';
 import { getHomeQuery } from '@/sanity/lib/queries';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 import { get } from 'lodash';
-import PageBuilderPage from '@/app/components/PageBuilder';
+import PageBuilderPage from '@/components/PageBuilder';
 import { defaultInsightTypes } from '@/utils/constants';
 
 export async function generateMetadata(): Promise<Metadata> {

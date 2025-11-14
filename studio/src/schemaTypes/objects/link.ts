@@ -17,7 +17,7 @@ export const link = defineType({
       name: 'linkType',
       title: 'Link Type',
       type: 'string',
-      initialValue: 'url',
+      initialValue: 'page',
       options: {
         list: [
           { title: 'URL', value: 'href' },
@@ -29,16 +29,8 @@ export const link = defineType({
     defineField({
       name: 'href',
       title: 'URL',
-      type: 'url',
+      type: 'string',
       hidden: ({ parent }) => parent?.linkType !== 'href',
-      validation: (Rule) =>
-        // Custom validation to ensure URL is provided if the link type is 'href'
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'href' && !value) {
-            return 'URL is required when Link Type is URL';
-          }
-          return true;
-        }),
     }),
     defineField({
       name: 'page',
@@ -46,14 +38,6 @@ export const link = defineType({
       type: 'reference',
       to: [{ type: 'page' }],
       hidden: ({ parent }) => parent?.linkType !== 'page',
-      validation: (Rule) =>
-        // Custom validation to ensure page reference is provided if the link type is 'page'
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'page' && !value) {
-            return 'Page reference is required when Link Type is Page';
-          }
-          return true;
-        }),
     }),
     defineField({
       name: 'openInNewTab',

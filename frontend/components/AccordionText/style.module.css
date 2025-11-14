@@ -1,0 +1,36 @@
+.accordion-item {
+	transition: all 0.4s;
+}
+.accordion-item:hover {
+	transition: all 0.4s;
+	background: var(--color-lightest-gray);
+}
+
+.accordion-item:first-child {
+	border-top: 1px solid var(--color-light-gray);
+}
+
+.label {
+	position: relative;
+	display: flex;
+	width: 100%;
+	cursor: pointer;
+}
+
+.label:after {
+	position: absolute;
+	color: var(--color-red);
+	right: 0;
+	top: -10px;
+	content: '+';
+	font-size: 1.5rem;
+}
+
+.label[aria-expanded='true']:after {
+	content: '-';
+	color: var(--color-red);
+	position: absolute;
+	right: 0;
+	top: -10px;
+	font-size: 1.5rem;
+}

@@ -14,17 +14,17 @@ export const twoColumnPhotoCards = defineType({
       initialValue: true,
     }),
     defineField({
-      name: 'backgroundColor',
-      title: 'Background Color',
+      name: 'sectionBackground',
+      title: 'Section Background',
       type: 'string',
       options: {
         list: [
-          { title: 'Tan', value: '#F6F6F3' },
-          { title: 'White', value: '#FFFFFF' },
+          { title: 'Sand', value: 'sand' },
+          { title: 'White', value: 'white' },
         ],
         layout: 'dropdown',
       },
-      initialValue: '#FFFFFF', // optional default
+      initialValue: 'white', // optional default
     }),
     defineField({
       name: 'heading',

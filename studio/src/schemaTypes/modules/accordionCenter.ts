@@ -14,6 +14,11 @@ export const accordionCenter = defineType({
       initialValue: true,
     }),
     defineField({
+      name: 'sectionBackground',
+      title: 'Section Background',
+      type: 'background',
+    }),
+    defineField({
       name: 'subHeading',
       title: 'Sub Heading',
       type: 'string',

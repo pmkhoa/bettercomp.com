@@ -24,6 +24,11 @@ export const stats = defineType({
       type: 'ctaLink',
     }),
     defineField({
+      name: 'sectionBackground',
+      title: 'Section Background',
+      type: 'background',
+    }),
+    defineField({
       name: 'statNumber',
       title: 'Stat Number',
       type: 'array',

@@ -10,9 +10,9 @@ import { Toaster } from 'sonner';
 import localFont from 'next/font/local';
 import { Zilla_Slab } from 'next/font/google';
 
-import DraftModeToast from '@/app/components/DraftModeToast';
-import Footer from '@/app/components/Footer';
-import Header from '@/app/components/Header';
+import DraftModeToast from '@/components/DraftModeToast';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 import * as demo from '@/sanity/lib/demo';
 import { sanityFetch, SanityLive } from '@/sanity/lib/live';
 import { settingsQuery } from '@/sanity/lib/queries';
@@ -65,6 +65,9 @@ const brockmann = localFont({
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled: isDraftMode } = await draftMode();
+  const { data: settings } = await sanityFetch({
+    query: settingsQuery,
+  });
 
   return (
     <html
@@ -84,9 +87,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
-          <Header />
+          {settings && <Header settings={settings} />}
           <main className="">{children}</main>
-          <Footer />
+          <Footer settings={settings} />
         </section>
         <SpeedInsights />
       </body>

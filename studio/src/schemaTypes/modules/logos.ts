@@ -14,9 +14,9 @@ export const logos = defineType({
       initialValue: true,
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'blockContent',
+      name: 'heading',
+      title: 'Heading',
+      type: 'string',
     }),
     defineField({
       name: 'useMarqueeEffect',
@@ -25,25 +25,25 @@ export const logos = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'sectionBackground',
+      title: 'Section Background',
+      type: 'background',
+    }),
+    defineField({
       name: 'logoGroup',
       title: 'Logo Group',
       type: 'array',
       of: [
         {
-          type: 'object',
+          name: 'compnyLogo',
+          title: 'companyLogo',
+          type: 'image',
+          options: { hotspot: true },
           fields: [
             defineField({
-              name: 'compnyLogo',
-              title: 'companyLogo',
-              type: 'image',
-              options: { hotspot: true },
-              fields: [
-                defineField({
-                  name: 'alt',
-                  type: 'string',
-                  title: 'Alternative text',
-                }),
-              ],
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
             }),
           ],
         },
@@ -54,11 +54,12 @@ export const logos = defineType({
   preview: {
     select: {
       logoGroup: 'logoGroup',
+      heading: 'heading',
     },
-    prepare({ logoGroup }) {
+    prepare({ logoGroup, heading }) {
       return {
         title: 'Logos Group',
-        subtitle: `Total Logos - ${logoGroup?.length}`,
+        subtitle: `Logo Group - ${logoGroup?.length} logos`,
       };
     },
   },

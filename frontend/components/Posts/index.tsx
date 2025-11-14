@@ -1,21 +1,21 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-import {sanityFetch} from '@/sanity/lib/live'
-import {morePostsQuery, allPostsQuery} from '@/sanity/lib/queries'
-import {Post as PostType, AllPostsQueryResult} from '@/sanity.types'
-import DateComponent from '@/app/components/Date'
-import OnBoarding from '@/app/components/Onboarding'
-import Avatar from '@/app/components/Avatar'
-import {createDataAttribute} from 'next-sanity'
+import { sanityFetch } from '@/sanity/lib/live';
+import { morePostsQuery, allPostsQuery } from '@/sanity/lib/queries';
+import { Post as PostType, AllPostsQueryResult } from '@/sanity.types';
+import DateComponent from '@/components/Date';
+import OnBoarding from '@/components/Onboarding';
+import Avatar from '@/components/Avatar';
+import { createDataAttribute } from 'next-sanity';
 
-const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
-  const {_id, title, slug, excerpt, date, author} = post
+const Post = ({ post }: { post: AllPostsQueryResult[number] }) => {
+  const { _id, title, slug, excerpt, date, author } = post;
 
   const attr = createDataAttribute({
     id: _id,
     type: 'post',
     path: 'title',
-  })
+  });
 
   return (
     <article
@@ -42,17 +42,17 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
         </time>
       </div>
     </article>
-  )
-}
+  );
+};
 
 const Posts = ({
   children,
   heading,
   subHeading,
 }: {
-  children: React.ReactNode
-  heading?: string
-  subHeading?: string
+  children: React.ReactNode;
+  heading?: string;
+  subHeading?: string;
 }) => (
   <div>
     {heading && (
@@ -63,16 +63,16 @@ const Posts = ({
     {subHeading && <p className="mt-2 text-lg leading-8 text-gray-600">{subHeading}</p>}
     <div className="pt-6 space-y-6">{children}</div>
   </div>
-)
+);
 
-export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) => {
-  const {data} = await sanityFetch({
+export const MorePosts = async ({ skip, limit }: { skip: string; limit: number }) => {
+  const { data } = await sanityFetch({
     query: morePostsQuery,
-    params: {skip, limit},
-  })
+    params: { skip, limit },
+  });
 
   if (!data || data.length === 0) {
-    return null
+    return null;
   }
 
   return (
@@ -81,14 +81,14 @@ export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) =>
         <Post key={post._id} post={post} />
       ))}
     </Posts>
-  )
-}
+  );
+};
 
 export const AllPosts = async () => {
-  const {data} = await sanityFetch({query: allPostsQuery})
+  const { data } = await sanityFetch({ query: allPostsQuery });
 
   if (!data || data.length === 0) {
-    return <OnBoarding />
+    return <OnBoarding />;
   }
 
   return (
@@ -100,5 +100,5 @@ export const AllPosts = async () => {
         <Post key={post._id} post={post} />
       ))}
     </Posts>
-  )
-}
+  );
+};
