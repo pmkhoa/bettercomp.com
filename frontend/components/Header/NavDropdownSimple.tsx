@@ -6,7 +6,15 @@ import { get } from 'lodash';
 import s from './style.module.css';
 import cn from 'classnames';
 
-const NavDropdownSimple = ({ nav }: { nav: any }) => {
+const NavDropdownSimple = ({
+  dropdownText,
+  dropdownBg,
+  nav,
+}: {
+  dropdownText: string;
+  dropdownBg: string;
+  nav: any;
+}) => {
   if (!nav) {
     return null;
   }
@@ -27,7 +35,13 @@ const NavDropdownSimple = ({ nav }: { nav: any }) => {
       >
         <PopoverPanel
           transition
-          className={cn(s['popover-panel-simple'], s['popover-panel-center'])}
+          className={cn(
+            s['popover-panel-simple'],
+            s['popover-panel-center'],
+            'shadow-lg',
+            dropdownBg,
+            dropdownText,
+          )}
         >
           {({ close }) => (
             <div className="dropdown-wrapper">
@@ -36,7 +50,7 @@ const NavDropdownSimple = ({ nav }: { nav: any }) => {
                   return (
                     <ResolvedLink
                       link={subNavLink.menuLink}
-                      className="border-b-2 border-white/10 menu-link hover:bg-green py-4 px-8 transition duration-400 text-sm"
+                      className="border-b-2 border-gray-100 menu-link hover:bg-green py-4 px-8 transition duration-400 text-sm text-center font-medium"
                       key={subNavLink._key}
                     >
                       {subNavLink.menuLabel}

@@ -21,13 +21,11 @@
 }
 
 .popover-panel {
-	@apply absolute inset-x-0 text-white top-0 z-10 mt-[64px] rounded;
-  background: var(--color-blue);
+	@apply absolute inset-x-0 top-0 z-10 mt-[64px] overflow-hidden rounded;
 }
 
 .popover-panel-simple {
-	@apply absolute top-0 z-10 mt-[64px] text-white min-w-[250px] rounded;
-  background: var(--color-blue);
+	@apply absolute top-0 z-10 mt-[64px] min-w-[200px] overflow-hidden rounded;
 }
 
 .popover-panel-center {
