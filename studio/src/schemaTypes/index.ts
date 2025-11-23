@@ -1,9 +1,13 @@
 // documents & singletons
-import { author } from './documents/author';
-import { blog } from './documents/blog';
-import { page } from './documents/page';
 import { settings } from './singletons/settings';
+
+import { author } from './documents/author';
+import { article } from './documents/article';
+import { webinar } from './documents/webinar';
+import { ebook } from './documents/ebook';
+import { page } from './documents/page';
 import { home } from './singletons/home';
+import { tag } from './documents/tag';
 
 // Objects
 import { background } from './objects/background';
@@ -11,6 +15,7 @@ import { blockContent } from './objects/blockContent';
 import { ctaLink } from './objects/ctaLink';
 import { form } from './objects/form';
 import { link } from './objects/link';
+import { divider } from './objects/divider';
 import { mediaAsset } from './objects/mediaAsset';
 import { menuItem } from './objects/menuItem';
 import { seo } from './objects/seo';
@@ -19,13 +24,18 @@ import { statNumber } from './objects/statNumber';
 // Modules
 import { accordionCenter } from './modules/accordionCenter';
 import { accordionLeftPanel } from './modules/accordionWithLeftPanel';
+import { allResources } from './modules/allResources';
+import { authorBio } from './modules/authorBio';
 import { contactForm } from './modules/contactForm';
 import { featuredResources } from './modules/featuredResources';
+import { formContent } from './modules/formContent';
 import { fullWidthCTA } from './modules/fullWidthCTA';
+import { shortCTA } from './modules/shortCTA';
 import { heroLarge } from './modules/heroLarge';
 import { heroResource } from './modules/heroResource';
 import { heroShort } from './modules/heroShort';
 import { iconCards } from './modules/iconCards';
+import { quotation } from './modules/quotation';
 import { logos } from './modules/logos';
 import { pageBuilder } from './modules/pageBuilder';
 import { preFooterCTA } from './modules/preFooterCta';
@@ -46,9 +56,13 @@ export const schemaTypes = [
 
   // Documents
   author,
-  blog,
+  article,
+  ebook,
+  divider,
   home,
   page,
+  tag,
+  webinar,
 
   // Objects
   background,
@@ -66,16 +80,21 @@ export const schemaTypes = [
   // Modules
   accordionCenter,
   accordionLeftPanel,
+  allResources,
+  authorBio,
   contactForm,
+  formContent,
   featuredResources,
   heroLarge,
   heroShort,
   iconCards,
+  quotation,
   logos,
   pageBuilder,
   preFooterCTA,
   resourcesWithLeftPanel,
   richtext,
+  shortCTA,
   stats,
   testimonials,
   threeColumnContentWithIcons,

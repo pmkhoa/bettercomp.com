@@ -6,6 +6,13 @@ export const heroResource = defineType({
   title: 'Hero Resource',
   type: 'object',
   icon: UlistIcon,
+  fieldsets: [
+    {
+      name: 'resourceHeroInfo',
+      title: 'Resource Hero Info',
+      options: { collapsible: true, collapsed: false },
+    },
+  ],
   fields: [
     defineField({
       name: 'enabled',
@@ -14,55 +21,55 @@ export const heroResource = defineType({
       initialValue: true,
     }),
     defineField({
-      name: 'resourceType',
-      title: 'Resource Type',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'eBook', value: 'eBook' },
-          { title: 'Guides', value: 'Guides' },
-          { title: 'Tool', value: 'Tool' },
-          { title: 'Template', value: 'Template' },
-          { title: 'Article', value: 'Article' },
-          { title: 'Webinar', value: 'Webinar' },
-        ],
-        layout: 'dropdown',
-      },
+      name: 'useDefaultValue',
+      title: 'Use Title and Default Value',
+      type: 'boolean',
+      initialValue: true,
     }),
     defineField({
-      name: 'estimatedReadingTime',
-      title: 'Estimated Reading Time',
-      type: 'string',
+      name: 'showResourceTypeAndEstimateReading',
+      title: 'Show Resource Type and Reading Time',
+      type: 'boolean',
+      initialValue: false,
+      fieldset: 'resourceHeroInfo',
+      hidden: ({ parent }) => parent.useDefaultValue,
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'blockContent',
+      fieldset: 'resourceHeroInfo',
+      hidden: ({ parent }) => parent.useDefaultValue,
     }),
     defineField({
       name: 'heroImage',
       title: 'Hero Image',
       type: 'mediaAsset',
+      fieldset: 'resourceHeroInfo',
+      hidden: ({ parent }) => parent.useDefaultValue,
     }),
     defineField({
-      name: 'background',
-      title: 'Background',
+      name: 'sectionBackground',
+      title: 'Section Background',
       type: 'background',
+      fieldset: 'resourceHeroInfo',
+      hidden: ({ parent }) => parent.useDefaultValue,
     }),
     defineField({
       name: 'ctaButton',
       title: 'CTA Button',
       type: 'ctaLink',
+      fieldset: 'resourceHeroInfo',
+      hidden: ({ parent }) => parent.useDefaultValue,
     }),
   ],
   preview: {
     select: {
-      resourceType: 'resourceType',
+      useDefaultValue: 'useDefaultValue',
     },
-    prepare({ resourceType }) {
+    prepare({ useDefaultValue }) {
       return {
-        title: 'Hero Resource',
-        subtitle: resourceType,
+        title: useDefaultValue ? 'Default Resource Hero' : 'Custom Hero',
       };
     },
   },

@@ -4,7 +4,7 @@ const linkReference = /* groq */ `
 	_type == "link" => {
 		"page": page->slug.current,
 		"author": author->slug.current,
-		"blog": blog->slug.current,
+		"article": article->slug.current,
 		"file": file.asset->url,
 	}
 `;
@@ -17,7 +17,33 @@ const linkFields = /* groq */ `
   link { ..., ${linkReference} }
 `;
 
+const resourceFields = /* groq */ `
+  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},
+	coverImage,
+	date,
+  estimatedReadingTime,
+  slug,
+  seo,
+  tags[]->,
+	title,
+	_createdAt,
+	_id,
+	_type,
+	_updatedAt,
+`;
+
 export const settingsQuery = defineQuery(`*[_type == "settings"][0]`);
+
+export const allResourcesQuery = defineQuery(`
+	*[_type in ["article", "ebook", "webinar"]] | order(date desc) 
+`);
+
+// Search by terms
+// Filter by content types
+// Search by tags. If there's no tags associated with content types, return true.
+export const allResourcesSearchQuery = defineQuery(`
+  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) 
+`);
 
 const postFields = /* groq */ `
   _id,
@@ -43,28 +69,31 @@ const pageBuilderContent = /* groq */ defineQuery(`
       ctaButton { ..., ${linkFields} }, 
       accordions[] { ..., ctaButton { ..., ${linkFields}} } 
     },
-		_type == 'heroSection' => {..., link {..., ${linkFields} }, secondaryLink { ..., ${linkFields}}},
-		_type == 'twoColumnsContentWithImage' => {..., ctaLink { ..., ${linkFields} } },
-		_type == 'contentHighlightWithStats' => {..., ctaLink { ..., ${linkFields} } },
-		_type == 'twoColumnWithLine' => {..., ctaLink { ..., ${linkFields} } },
-		_type == 'iconDescriptions' => {..., columnContent[] { ..., ctaLink { ..., ${linkFields}}}},
-		_type == 'statsCallout' => {..., ctaLink{ ..., ${linkFields} }, statsCalloutGlobal -> { ..., ctaLink{ ..., ${linkFields}}}},
-		_type == 'accordionWithImage' => {..., accordions[] { ..., link { ..., ${linkFields} }}},
-		_type == 'accordionSimple' => {..., ctaLink{ ..., ${linkFields}}},
-		_type == 'featuredInsights' => { ..., featuredInsights[]->, "latestArticles": *[_type == "article"] | order(date desc)[0...3] },
-		_type == 'preFooterCta' => { ..., },
-		_type == 'blogPagination' => { ..., "allBlog": *[_type == "blog"] | order(date asc) { _id, title, slug } },
-		_type == 'newsPagination' => { ..., "allNews": *[_type == "news"] | order(date asc) { _id, title, slug } },
-		_type == 'articlePagination' => {..., "articles": *[_type == "article"] | order(date asc) { _id, title, slug }},
-		_type == 'newsList' => { ..., 
-			"allNews": *[_type == "news"],
-			"filteredNews": *[_type == "news" && title match $terms && (count(tags[@ match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)},
-		_type == 'sectionCarousel' => { ...,  sectionContent[] { ..., ctaLink{ ..., ${linkFields} } } },
-		_type == 'tabsWithContent' => { ...,  tabs[] { ..., ctaLink { ..., ${linkFields} }}},
-		_type == 'richtext' => { columnContent[] { ..., ${markDefsWithLink} }, column2Content[] { ..., ${markDefsWithLink}}},
-		_type == 'resourceLinks' => { sectionContent[] { ..., content[] { ..., ${markDefsWithLink} }}}
+    _type == 'authorBio' => { ..., teamMember-> },
+    _type == 'allResources' => { 
+      ..., 
+      "allResources": ${allResourcesQuery} { ${resourceFields} }, 
+      "resources": ${allResourcesSearchQuery} { ${resourceFields} } 
+    },
 	}
 
+`);
+
+export const getRelatedResourcesQuery = defineQuery(`
+	*[
+		_type == $type &&
+		slug.current != $slug &&
+
+		// Match at least 1 tag
+		count(tags[@->slug.current in $tagSlugs]) > 0
+	]
+	| order(date desc)[0...3]{
+		title,
+		slug,
+		coverImage,
+		tags[]->{ title, slug },
+		date
+	}
 `);
 
 export const getHomeQuery = defineQuery(
@@ -79,22 +108,55 @@ export const getPageQuery = defineQuery(`
     slug,
     heading,
     subheading,
-    "pageBuilder": pageBuilder[]{
-      ...,
-      _type == "callToAction" => {
-        ${linkFields},
-      },
-      _type == "infoSection" => {
-        content[]{
-          ...,
-          markDefs[]{
-            ...,
-            ${linkReference}
-          }
-        }
-      },
-    },
+    "pageBuilder": ${pageBuilderContent} 
   }
+`);
+
+// Articles
+export const getArticleQuery = defineQuery(`
+  *[_type == 'article' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": ${pageBuilderContent}}
+`);
+
+export const articleSlugs = defineQuery(`
+	*[_type == "article" && defined(slug.current)] {"slug": slug.current}
+`);
+
+export const getResourceQuery = defineQuery(`
+	*[
+		_type == $type &&
+		slug.current == $slug
+	][0]{
+		...,
+		author->,
+		tags[]->{ title, slug },
+		"pageBuilder": ${pageBuilderContent}
+	}
+`);
+
+export const resourceSlugs = defineQuery(`
+	*[
+		_type == $type &&
+		defined(slug.current)
+	]{
+		"slug": slug.current
+	}
+`);
+
+export const getResourcesByTypeQuery = defineQuery(`
+	*[
+		_type in $types &&
+		title match $terms &&
+		(
+			$topic == "*" ||
+			count(tags[@->slug.current == $topic]) > 0
+		)
+	]
+	| order(date desc){
+		...,
+		tags[]->{ title, slug },
+		author->,
+		coverImage
+	}
 `);
 
 export const sitemapData = defineQuery(`

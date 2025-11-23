@@ -30,7 +30,7 @@ export const background = defineType({
     defineField({
       name: 'asset',
       title: 'Background',
-      type: 'mediaAsset',
+      type: 'image',
       hidden: ({ parent }) => parent?.backgroundType !== 'image' || !parent?.enabled,
     }),
     defineField({

@@ -3,51 +3,52 @@
  * Learn more: https://www.sanity.io/docs/configuration
  */
 
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './src/schemaTypes'
-import {structure} from './src/structure'
-import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
+import { defineConfig } from 'sanity';
+import { structureTool } from 'sanity/structure';
+import { visionTool } from '@sanity/vision';
+import { schemaTypes } from './src/schemaTypes';
+import { structure } from './src/structure';
+import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 import {
   presentationTool,
   defineDocuments,
   defineLocations,
   type DocumentLocation,
-} from 'sanity/presentation'
-import {assist} from '@sanity/assist'
+} from 'sanity/presentation';
+import { assist } from '@sanity/assist';
 
 // Environment variables for project configuration
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
-const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID';
+const dataset = process.env.SANITY_STUDIO_DATASET || 'production';
 
 // URL for preview functionality, defaults to localhost:3000 if not set
-const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+const SANITY_STUDIO_PREVIEW_URL =
+  process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000';
 
 // Define the home location for the presentation tool
 const homeLocation = {
   title: 'Home',
   href: '/',
-} satisfies DocumentLocation
+} satisfies DocumentLocation;
 
 // resolveHref() is a convenience function that resolves the URL
 // path for different document types and used in the presentation tool.
 function resolveHref(documentType?: string, slug?: string): string | undefined {
   switch (documentType) {
     case 'post':
-      return slug ? `/posts/${slug}` : undefined
+      return slug ? `/posts/${slug}` : undefined;
     case 'page':
-      return slug ? `/${slug}` : undefined
+      return slug ? `/${slug}` : undefined;
     default:
-      console.warn('Invalid document type:', documentType)
-      return undefined
+      console.warn('Invalid document type:', documentType);
+      return undefined;
   }
 }
 
 // Main Sanity configuration
 export default defineConfig({
   name: 'default',
-  title: 'Sanity + Next.js Starter Template',
+  title: 'BetterComp CMS',
 
   projectId,
   dataset,
@@ -132,4 +133,4 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-})
+});

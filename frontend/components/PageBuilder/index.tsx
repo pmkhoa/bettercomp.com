@@ -1,10 +1,12 @@
 'use client';
 
+import { get } from 'lodash';
 import { SanityDocument } from 'next-sanity';
 import { useOptimistic } from 'next-sanity/hooks';
 import Link from 'next/link';
 
 import BlockRenderer from '@/components/BlockRenderer';
+import { TOC } from '@/components';
 import { GetPageQueryResult } from '@/sanity.types';
 import { dataAttr } from '@/sanity/lib/utils';
 import { studioUrl } from '@/sanity/lib/api';
@@ -32,6 +34,7 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: GetPage
   if (!page) {
     return null;
   }
+
   return (
     <div
       data-sanity={dataAttr({
@@ -47,6 +50,7 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: GetPage
           block={block}
           pageId={page._id}
           pageType={page._type}
+          pageData={page}
         />
       ))}
     </div>
@@ -58,7 +62,7 @@ function renderEmptyState(page: GetPageQueryResult) {
     return null;
   }
   return (
-    <div className="container">
+    <div className="container py-24">
       <h1 className="">This page has no content!</h1>
       <p className="mt-2 text-base text-gray-500">
         Open the page in Sanity Studio to add content.
@@ -104,6 +108,61 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
 
   if (!page) {
     return renderEmptyState(page);
+  }
+
+  if (pageBuilderSections && pageBuilderSections.length > 0 && get(page, 'showTOC')) {
+    return (
+      <div className="with-toc">
+        {pageBuilderSections.map((block: any, index: number) => {
+          if (block._type === 'heroResource') {
+            return (
+              <BlockRenderer
+                key={block._key}
+                index={index}
+                block={block}
+                pageId={page._id}
+                pageType={page._type}
+                pageData={page}
+              />
+            );
+          }
+          return null;
+        })}
+
+        <div className="section-module">
+          <div className="container">
+            <div className="grid-container gap-8">
+              <div className="hidden md:block md:col-span-3 py-20">
+                <div className="toc-inner">
+                  <h6 className="text-bright-blue font-bold mb-4 font-zilla-slab">SECTIONS</h6>
+                  <TOC />
+                </div>
+              </div>
+              <div
+                className="inner-content toc-inner-content col-span-12 md:col-span-9"
+                id="toc-inner-content"
+              >
+                {pageBuilderSections.map((block: any, index: number) => {
+                  if (block._type !== 'heroResource') {
+                    return (
+                      <BlockRenderer
+                        key={block._key}
+                        index={index}
+                        block={block}
+                        pageId={page._id}
+                        pageType={page._type}
+                        pageData={page}
+                      />
+                    );
+                  }
+                  return null;
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return pageBuilderSections && pageBuilderSections.length > 0

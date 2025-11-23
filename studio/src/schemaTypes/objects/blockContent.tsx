@@ -1,5 +1,11 @@
 import { defineArrayMember, defineType, defineField } from 'sanity';
-import { DoubleChevronUpIcon, HighlightIcon, LinkIcon, ImageIcon } from '@sanity/icons';
+import {
+  EllipsisHorizontalIcon,
+  DoubleChevronUpIcon,
+  HighlightIcon,
+  LinkIcon,
+  ImageIcon,
+} from '@sanity/icons';
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -17,6 +23,7 @@ export const blockContent = defineType({
   title: 'Block Content',
   name: 'blockContent',
   type: 'array',
+
   of: [
     defineArrayMember(
       {
@@ -113,6 +120,10 @@ export const blockContent = defineType({
       },
       {},
     ),
+    defineArrayMember({
+      type: 'divider',
+      title: 'hr',
+    }),
     defineArrayMember({
       type: 'image',
       icon: ImageIcon,

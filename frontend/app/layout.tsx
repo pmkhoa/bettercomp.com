@@ -9,6 +9,7 @@ import { VisualEditing } from 'next-sanity/visual-editing';
 import { Toaster } from 'sonner';
 import localFont from 'next/font/local';
 import { Zilla_Slab } from 'next/font/google';
+import Script from 'next/script';
 
 import DraftModeToast from '@/components/DraftModeToast';
 import Footer from '@/components/Footer';
@@ -74,8 +75,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       lang="en"
       className={`${brockmann.variable} ${zillaSlab.variable} bg-white text-black`}
     >
+      <link rel="preconnect" href="https://mkcq8qmf.api.sanity.io" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+      <link rel="dns-prefetch" href="//mkcq8qmf.api.sanity.io" />
       <body>
-        <section className="min-h-screen pt-24">
+        <section className="min-h-screen">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
           {isDraftMode && (
@@ -92,6 +97,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer settings={settings} />
         </section>
         <SpeedInsights />
+
+        <Script id="hs-script-loader" async defer src="//js.hs-scripts.com/21848769.js" />
+        <Script
+          id="hs-form-script-loader"
+          async
+          defer
+          src="//js.hsforms.net/forms/embed/v2.js"
+        />
       </body>
     </html>
   );

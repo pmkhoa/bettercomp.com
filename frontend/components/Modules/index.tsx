@@ -1,5 +1,13 @@
+export { default as AuthorBio } from './AuthorBio';
 export { default as TwoColumnsContent } from './TwoColumnsContent';
 export { default as ThreeColumnContentWithIcons } from './ThreeColumnContentWithIcons';
 export { default as Stats } from './Stats';
 export { default as Logos } from './Logos';
 export { default as Testimonials } from './Testimonials';
+export { default as HeroLarge } from './HeroLarge';
+export { default as AllResources } from './AllResources';
+export { default as Richtext } from './Richtext';
+export { default as FormContent } from './FormContent';
+export { default as HeroResource } from './HeroResource';
+export { default as ShortCTA } from './ShortCTA';
+export { default as Quotation } from './Quotation';

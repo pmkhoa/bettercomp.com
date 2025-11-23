@@ -1,12 +1,21 @@
 import React from 'react';
 
+import { GetPageQueryResult } from '@/sanity.types';
 import { dataAttr } from '@/sanity/lib/utils';
 import {
+  AuthorBio,
   Logos,
   ThreeColumnContentWithIcons,
   TwoColumnsContent,
   Testimonials,
   Stats,
+  HeroLarge,
+  HeroResource,
+  ShortCTA,
+  Richtext,
+  FormContent,
+  AllResources,
+  Quotation,
 } from '@/components/Modules';
 
 type BlocksType = {
@@ -23,20 +32,35 @@ type BlockProps = {
   block: BlockType;
   pageId: string;
   pageType: string;
+  pageData: GetPageQueryResult;
 };
 
 const Blocks: BlocksType = {
+  allResources: AllResources,
+  authorBio: AuthorBio,
+  heroLarge: HeroLarge,
+  heroResource: HeroResource,
   logos: Logos,
   twoColumnsContent: TwoColumnsContent,
   threeColumnContentWithIcons: ThreeColumnContentWithIcons,
+  formContent: FormContent,
   stats: Stats,
+  shortCTA: ShortCTA,
   testimonials: Testimonials,
+  richtext: Richtext,
+  quotation: Quotation,
 };
 
 /**
  * Used by the <PageBuilder>, this component renders a the component that matches the block type.
  */
-export default function BlockRenderer({ block, index, pageId, pageType }: BlockProps) {
+export default function BlockRenderer({
+  block,
+  index,
+  pageId,
+  pageType,
+  pageData,
+}: BlockProps) {
   // Block does exist
   if (typeof Blocks[block._type] !== 'undefined') {
     return (
@@ -50,8 +74,9 @@ export default function BlockRenderer({ block, index, pageId, pageType }: BlockP
       >
         {React.createElement(Blocks[block._type], {
           key: block._key,
-          block: block,
-          index: index,
+          block,
+          index,
+          pageData,
         })}
       </div>
     );

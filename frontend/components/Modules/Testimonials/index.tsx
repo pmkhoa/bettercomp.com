@@ -17,9 +17,6 @@ export default function SectionTestimonialsModule({ block }: Props) {
 
   const { heading, subHeading, testimonialList = [] } = block;
 
-  console.log('----------debugging: block testimonial----------');
-  console.log(block);
-
   return (
     <section className={cn('section-module testimonial-carousel', 'pb-[48px]')}>
       <div className="container">

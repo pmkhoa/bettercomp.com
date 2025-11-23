@@ -6,6 +6,7 @@ export { default as ButtonPrimary } from './ButtonPrimary';
 export { default as CoverImage } from './CoverImage';
 export { default as Carousel } from './Carousel';
 export { default as DateComponent } from './Date';
+export { default as FilterBy } from './FilterBy';
 export { default as Footer } from './Footer';
 export { default as Header } from './Header';
 export { default as MediaAsset } from './MediaAsset';
@@ -15,6 +16,8 @@ export { default as PortableText } from './PortableText';
 export { default as ResolvedLink } from './ResolvedLink';
 export { default as SanityImage } from './SanityImage';
 export { default as ScriptInjections } from './ScriptInjections';
+export { default as HubspotForm } from './HubspotForm';
+export { default as TOC } from './TOC';
 
 /*
 

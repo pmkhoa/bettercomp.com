@@ -63,7 +63,7 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
 export function linkResolver(link: Link | undefined) {
   if (!link) return null;
 
-  // If linkType is not set but href is, lets set linkType to "href".  This comes into play when pasting links into the portable text editor because a link type is not assumed.
+  // If linkType is not set but href exists (pasted URL), default to "href"
   if (!link.linkType && link.href) {
     link.linkType = 'href';
   }
@@ -71,20 +71,61 @@ export function linkResolver(link: Link | undefined) {
   switch (link.linkType) {
     case 'href':
       return link.href || null;
+
     case 'file':
-      return get(link, 'file') || null;
+      return link.file || null;
+
+    // Internal CMS Page (Sanity document with slug)
     case 'page':
-      if (link?.page && link?.page?._type !== 'reference') {
-        return `/${link.page}`;
+      if (link?.page && link?.page?._type === 'reference') {
+        return `/${link.page?.slug?.current ?? ''}`;
       }
       return null;
-    case 'blog':
-      if (link?.blog && link?.blog?._type !== 'reference') {
-        return `/news-press/${link.blog}`;
+
+    // Generic resource (article, ebook, case-study, etc.)
+    case 'article':
+    case 'ebook':
+    case 'caseStudy':
+    case 'guide':
+    case 'report':
+      if (link?.[link.linkType] && link?.[link.linkType]?._type === 'reference') {
+        const ref = link[link.linkType];
+        return `/resources/${link.linkType}/${ref.slug?.current ?? ''}`;
       }
       return null;
+
     default:
       return null;
+  }
+}
+
+// Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
+
+export function linkHelpers(entry: any) {
+  if (!entry || !entry._type) return '';
+
+  // Handle resource types
+  const resourceTypes = ['article', 'ebook', 'caseStudy', 'guide', 'report'];
+
+  if (resourceTypes.includes(entry._type)) {
+    return `/resources/${entry._type}/${entry?.slug?.current ?? ''}`;
+  }
+
+  switch (entry._type) {
+    case 'author':
+      return `/author/${entry?.slug?.current ?? ''}`;
+
+    case 'webinar':
+      return `/webinars/${entry?.slug?.current ?? ''}`;
+
+    case 'news':
+      return `/news/${entry?.slug?.current ?? ''}`;
+
+    case 'page':
+      return `/${entry?.slug?.current ?? ''}`;
+
+    default:
+      return '';
   }
 }
 

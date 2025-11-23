@@ -14,23 +14,34 @@ export const richtext = defineType({
       initialValue: true,
     }),
     defineField({
-      name: 'background',
-      title: 'Background',
-      type: 'background',
-    }),
-    defineField({
       name: 'richTextType',
       title: 'Richtext Variation',
       type: 'string',
       options: {
         list: [
-          { title: 'Text Only', value: 'default' },
-          { title: 'Text with Image', value: 'withImage' },
-          { title: 'Text with Embedded Content', value: 'withEmbedded' },
-          { title: 'Text with Video', value: 'withVideo' },
+          { title: 'Default (One Column)', value: 'default' },
+          { title: 'With Image', value: 'withImage' },
+          { title: 'With Embedded Content', value: 'withEmbedded' },
+          { title: 'With Background Video', value: 'withBackgroundVideo' },
         ], // <-- predefined values
       },
       initialValue: 'default',
+    }),
+    defineField({
+      name: 'contentMaxWidth',
+      title: 'Content Max Width',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Full Width', value: 'full' },
+          { title: 'Medium', value: 'medium' },
+          { title: 'Narrow', value: 'narrow' },
+        ], // <-- predefined values
+      },
+      initialValue: 'full',
+      hidden: ({ parent }) => {
+        return parent?.richTextType === 'twoColumns';
+      },
     }),
     defineField({
       name: 'textAlign',
@@ -45,22 +56,34 @@ export const richtext = defineType({
       initialValue: 'left',
     }),
     defineField({
-      name: 'textContent',
-      title: 'Text Content',
+      name: 'columnContent',
+      title: 'Column Content',
       type: 'blockContent',
+      hidden: ({ parent }) => {
+        return (
+          parent?.richTextType === 'withImage' ||
+          parent?.richTextType === 'withEmbedded' ||
+          parent?.richTextType === 'withBackgroundVideo'
+        );
+      },
     }),
     defineField({
       name: 'image',
       title: 'Image',
       type: 'image',
+      hidden: ({ parent }) => parent?.richTextType !== 'withImage',
       fields: [
         defineField({
           name: 'alt',
           type: 'string',
           title: 'Alternative text',
         }),
+        defineField({
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+        }),
       ],
-      hidden: ({ parent }) => parent?.richTextType !== 'withImage',
     }),
     defineField({
       name: 'embeddedContent',
@@ -79,11 +102,13 @@ export const richtext = defineType({
     select: {
       title: 'description',
       subtitle: 'richTextType',
+      image: 'image',
     },
-    prepare({ title, subtitle }) {
+    prepare({ title, image, subtitle }) {
       return {
         title: 'RichText',
         subtitle: `${subtitle}`,
+        media: image,
       };
     },
   },

@@ -24,8 +24,8 @@ export const heroLarge = defineType({
       type: 'mediaAsset',
     }),
     defineField({
-      name: 'background',
-      title: 'Background',
+      name: 'sectionBackground',
+      title: 'Section Background',
       type: 'background',
     }),
     defineField({

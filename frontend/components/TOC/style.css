@@ -1,0 +1,79 @@
+@reference 'tailwindcss';
+
+.toc {
+	overflow-y: auto;
+}
+.toc > .toc-list {
+	overflow: hidden;
+	position: relative;
+}
+
+.toc > .toc-list li li {
+	list-style: none;
+	padding-left: 0.75rem;
+	@apply text-sm;
+}
+.toc > .toc-list li li:last-of-type {
+	margin-bottom: 0;
+}
+.toc > .toc-list > li {
+	list-style: none;
+	margin-bottom: 10px;
+	border-left: 4px solid #9EBAC8;
+	padding: 8px 6px 8px 10px;
+	@apply text-sm;
+}
+
+.toc > .toc-list > li.is-active-li {
+	border-left: 4px solid #131720;
+}
+
+.toc-list {
+	margin: 0;
+	padding-left: 0px;
+}
+
+a.toc-link {
+	color: #9EBAC8;
+	font-weight: 500;
+	height: 100%;
+	text-decoration: none;
+	text-decoration-line: unset !important;
+}
+
+.is-collapsible {
+	max-height: 1000px;
+	overflow: hidden;
+	transition: all 300ms ease-in-out;
+}
+
+.is-collapsed {
+	max-height: 0;
+}
+
+a.is-active-link {
+	font-weight: 500;
+	color: #131720;
+}
+
+.toc-inner {
+	position: sticky;
+	top: 200px;
+}
+
+.toc-inner-content > .section-module {
+	margin-top: 0;
+	margin-bottom: 3rem;
+}
+
+.with-toc .toc-inner-content .section-module .container {
+	padding: 0;
+}
+
+.with-toc .toc-inner-content .section-author .container {
+	@apply grid grid-cols-12 sm:grid-cols-6 md:grid-cols-12 ;
+}
+
+.with-toc .toc-inner-content .section-author .grid-container {
+	@apply col-span-11 col-start-2;
+}

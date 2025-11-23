@@ -1,3 +1,7 @@
+import type { Easing } from 'framer-motion';
+
+const bezier: Easing = [0.42, 0, 0.58, 1];
+
 export const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -27,7 +31,7 @@ export const imageVariants = {
     y: 0,
     transition: {
       duration: 1.2, // Duration for the fade-in effect
-      ease: [0.42, 0, 0.58, 1], // Custom ease (Cubic Bezier)
+      ease: bezier, // Custom ease (Cubic Bezier)
       delay: 0.2,
     },
   },

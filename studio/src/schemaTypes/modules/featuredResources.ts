@@ -47,7 +47,7 @@ export const featuredResources = defineType({
       of: [
         {
           type: 'reference',
-          to: [{ type: 'page' }, { type: 'blog' }],
+          to: [{ type: 'page' }, { type: 'article' }],
         },
       ],
       hidden: ({ parent }) => parent?.resourceDisplayTypes !== 'custom',

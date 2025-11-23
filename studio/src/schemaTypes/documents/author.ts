@@ -25,6 +25,32 @@ export const author = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: (doc) => `${doc.firstName}-${doc.lastName}`,
+        maxLength: 128,
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'jobTitle',
+      title: 'Job Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'linkedinUrl',
+      title: 'Linkedin Url',
+      type: 'string',
+    }),
+    defineField({
+      name: 'authorBio',
+      title: 'Author Bio',
+      type: 'blockContent',
+    }),
+    defineField({
       name: 'picture',
       title: 'Picture',
       type: 'image',
@@ -53,18 +79,24 @@ export const author = defineType({
       },
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'pageBuilder',
+      title: 'Page builder',
+      type: 'pageBuilder',
+    }),
   ],
   // List preview configuration. https://www.sanity.io/docs/previews-list-views
   preview: {
     select: {
       firstName: 'firstName',
       lastName: 'lastName',
+      jobTitle: 'jobTitle',
       picture: 'picture',
     },
     prepare(selection) {
       return {
         title: `${selection.firstName} ${selection.lastName}`,
-        subtitle: 'Author',
+        subtitle: `${selection?.jobTitle || 'No job title'}`,
         media: selection.picture,
       };
     },

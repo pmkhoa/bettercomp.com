@@ -24,6 +24,15 @@ export default function CustomPortableText({
       image: ({ value }) => {
         return <SanityImage {...value} className="w-full" />;
       },
+      divider: ({ value }) => {
+        const backgroundColor = `bg-${value.backgroundColor}`;
+        return (
+          <>
+            <span className="bg-sand bg-blue bg-bright-blue bg-orange" />
+            <hr className={`${backgroundColor} h-[2px] mt-20`} />
+          </>
+        );
+      },
     },
     block: {
       h1: ({ children, value }) => (

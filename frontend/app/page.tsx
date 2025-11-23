@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
-import { Page as PageType } from '@/sanity.types';
 import { sanityFetch } from '@/sanity/lib/live';
 import { PageOnboarding } from '@/components/Onboarding';
 import { getHomeQuery } from '@/sanity/lib/queries';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 import { get } from 'lodash';
 import PageBuilderPage from '@/components/PageBuilder';
-import { defaultInsightTypes } from '@/utils/constants';
+import { GetPageQueryResult, Page as PageType } from '@/sanity.types';
 
 export async function generateMetadata(): Promise<Metadata> {
   const terms = '*';
   const topic = '*';
+  const types = '*';
   const { data: page } = await sanityFetch({
     query: getHomeQuery,
-    params: { terms, topic },
+    params: { terms, topic, types },
     // Metadata should never contain stega
     stega: false,
   });
@@ -33,13 +33,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
+  const types = '*';
   const terms = '*';
   const topic = '*';
 
   const [{ data: page }] = await Promise.all([
     sanityFetch({
       query: getHomeQuery,
-      params: { terms, topic },
+      params: { terms, topic, types },
     }),
   ]);
 
@@ -54,5 +55,5 @@ export default async function Page() {
     );
   }
 
-  return <PageBuilderPage page={page as PageType} />;
+  return <PageBuilderPage page={page as GetPageQueryResult} />;
 }

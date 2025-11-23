@@ -1,18 +1,22 @@
 export const RESOURCE_CONTENT_TYPES = [
   { title: 'Article', value: 'article' },
-  { title: 'Case Study', value: 'caseStudy' },
   { title: 'Ebook', value: 'ebook' },
-  { title: 'White Paper', value: 'whitepaper' },
-  { title: 'Blog', value: 'blog' },
-  { title: 'Event', value: 'event' },
-  { title: 'Webinar', value: 'webinar' },
 ];
 
-export const defaultInsightTypes = [
-  'article',
-  'caseStudy',
-  'whitepaper',
-  'blog',
-  'event',
-  'webinar',
+export const CONTENT_TYPES = [
+  { title: 'Topics', value: 'topics' },
+  { title: 'Types', value: 'types' },
+  { title: 'All Topics', value: 'alltopics' },
+  { title: 'All Types', value: 'alltypes' },
 ];
+
+export const defaultResourcesType = ['article', 'ebook', 'webinar'];
+
+export const defaultBackground = {
+  _type: 'background',
+  asset: null,
+  enabled: true,
+  backgroundType: 'color',
+  backgroundColor: 'blue',
+  textColor: 'white',
+};

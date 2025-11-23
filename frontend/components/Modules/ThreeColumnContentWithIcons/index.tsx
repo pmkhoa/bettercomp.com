@@ -7,6 +7,7 @@ import {
 } from '@/components';
 import cn from 'classnames';
 import { ThreeColumnContentWithIcons } from '@/sanity.types';
+import { defaultBackground } from '@/utils/constants';
 
 export default function ThreeColumnContentWithIconsModule({
   block,
@@ -14,7 +15,13 @@ export default function ThreeColumnContentWithIconsModule({
   block: ThreeColumnContentWithIcons;
 }) {
   if (!block.enabled) return null;
-  const { sectionBackground = {}, heading, description, ctaButton, listItem } = block;
+  const {
+    sectionBackground = defaultBackground,
+    heading,
+    description,
+    ctaButton,
+    listItem,
+  } = block;
 
   const { enabled: backgroundEnabled, backgroundType, backgroundColor } = sectionBackground;
 

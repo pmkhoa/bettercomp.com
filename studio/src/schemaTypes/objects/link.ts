@@ -22,6 +22,8 @@ export const link = defineType({
         list: [
           { title: 'URL', value: 'href' },
           { title: 'Page', value: 'page' },
+          { title: 'Article', value: 'article' },
+          { title: 'Author', value: 'author' },
         ],
         layout: 'radio',
       },
@@ -38,6 +40,20 @@ export const link = defineType({
       type: 'reference',
       to: [{ type: 'page' }],
       hidden: ({ parent }) => parent?.linkType !== 'page',
+    }),
+    defineField({
+      name: 'article',
+      title: 'Article',
+      type: 'reference',
+      to: [{ type: 'article' }],
+      hidden: ({ parent }) => parent?.linkType !== 'article',
+    }),
+    defineField({
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      to: [{ type: 'author' }],
+      hidden: ({ parent }) => parent?.linkType !== 'author',
     }),
     defineField({
       name: 'openInNewTab',
