@@ -31,6 +31,20 @@ export const home = defineType({
     }),
 
     defineField({
+      name: 'mainNavBackground',
+      title: 'Main Navgation Background',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Blue', value: 'blue' },
+          { title: 'White', value: 'white' },
+        ],
+        layout: 'dropdown',
+      },
+      initialValue: 'white',
+    }),
+
+    defineField({
       name: 'pageBuilder',
       title: 'Page builder',
       type: 'pageBuilder',

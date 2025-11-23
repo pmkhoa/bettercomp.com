@@ -35,6 +35,21 @@ export const author = defineType({
       },
       validation: (rule) => rule.required(),
     }),
+
+    defineField({
+      name: 'mainNavBackground',
+      title: 'Main Navgation Background',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Blue', value: 'blue' },
+          { title: 'White', value: 'white' },
+        ],
+        layout: 'dropdown',
+      },
+      initialValue: 'white',
+    }),
+
     defineField({
       name: 'jobTitle',
       title: 'Job Title',

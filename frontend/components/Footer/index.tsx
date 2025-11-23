@@ -12,7 +12,7 @@ export default function Footer({ settings }: { settings: Settings }) {
         <div className="grid-container items-start py-20">
           <div className="cta-content col-span-6">
             {footerCTA?.subheading && (
-              <h5 className="text-gold font-semibold">{footerCTA?.subheading}</h5>
+              <h5 className="text-gold font-semibold font-serif">{footerCTA?.subheading}</h5>
             )}
             <div className="inner-content text-white">
               {footerCTA?.content && <PortableText value={footerCTA?.content} />}
@@ -29,7 +29,7 @@ export default function Footer({ settings }: { settings: Settings }) {
                 <div className="mb-4">
                   <PortableText value={footerCTA?.awardDescription} />
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 justify-even">
                   {footerCTA?.awardLogos?.map((logo) => {
                     if (logo) {
                       return (

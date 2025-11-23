@@ -45,7 +45,7 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-sans)'],
-        serif: ['var(--font-zilla-slab)'],
+        serif: ['var(--font-serif)'],
       },
     },
   },

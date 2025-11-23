@@ -36,24 +36,27 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: GetPage
   }
 
   return (
-    <div
-      data-sanity={dataAttr({
-        id: page._id,
-        type: page._type,
-        path: `pageBuilder`,
-      }).toString()}
-    >
-      {pageBuilderSections.map((block: any, index: number) => (
-        <BlockRenderer
-          key={block._key}
-          index={index}
-          block={block}
-          pageId={page._id}
-          pageType={page._type}
-          pageData={page}
-        />
-      ))}
-    </div>
+    <>
+      <span className="nav-background" data-bg={get(page, 'mainNavBackground', 'white')} />
+      <div
+        data-sanity={dataAttr({
+          id: page._id,
+          type: page._type,
+          path: `pageBuilder`,
+        }).toString()}
+      >
+        {pageBuilderSections.map((block: any, index: number) => (
+          <BlockRenderer
+            key={block._key}
+            index={index}
+            block={block}
+            pageId={page._id}
+            pageType={page._type}
+            pageData={page}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -112,56 +115,61 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
 
   if (pageBuilderSections && pageBuilderSections.length > 0 && get(page, 'showTOC')) {
     return (
-      <div className="with-toc">
-        {pageBuilderSections.map((block: any, index: number) => {
-          if (block._type === 'heroResource') {
-            return (
-              <BlockRenderer
-                key={block._key}
-                index={index}
-                block={block}
-                pageId={page._id}
-                pageType={page._type}
-                pageData={page}
-              />
-            );
-          }
-          return null;
-        })}
+      <>
+        <span className="nav-background" data-bg={get(page, 'mainNavBackground', 'white')} />
+        <div className="with-toc">
+          {pageBuilderSections.map((block: any, index: number) => {
+            if (block._type === 'heroResource') {
+              return (
+                <BlockRenderer
+                  key={block._key}
+                  index={index}
+                  block={block}
+                  pageId={page._id}
+                  pageType={page._type}
+                  pageData={page}
+                />
+              );
+            }
+            return null;
+          })}
 
-        <div className="section-module">
-          <div className="container">
-            <div className="grid-container gap-8">
-              <div className="hidden md:block md:col-span-3 py-20">
-                <div className="toc-inner">
-                  <h6 className="text-bright-blue font-bold mb-4 font-zilla-slab">SECTIONS</h6>
-                  <TOC />
+          <div className="section-module">
+            <div className="container">
+              <div className="grid-container gap-8">
+                <div className="hidden md:block md:col-span-3 py-20">
+                  <div className="toc-inner">
+                    <h6 className="text-bright-blue font-bold mb-4 font-zilla-slab">
+                      SECTIONS
+                    </h6>
+                    <TOC />
+                  </div>
                 </div>
-              </div>
-              <div
-                className="inner-content toc-inner-content col-span-12 md:col-span-9"
-                id="toc-inner-content"
-              >
-                {pageBuilderSections.map((block: any, index: number) => {
-                  if (block._type !== 'heroResource') {
-                    return (
-                      <BlockRenderer
-                        key={block._key}
-                        index={index}
-                        block={block}
-                        pageId={page._id}
-                        pageType={page._type}
-                        pageData={page}
-                      />
-                    );
-                  }
-                  return null;
-                })}
+                <div
+                  className="inner-content toc-inner-content col-span-12 md:col-span-9"
+                  id="toc-inner-content"
+                >
+                  {pageBuilderSections.map((block: any, index: number) => {
+                    if (block._type !== 'heroResource') {
+                      return (
+                        <BlockRenderer
+                          key={block._key}
+                          index={index}
+                          block={block}
+                          pageId={page._id}
+                          pageType={page._type}
+                          pageData={page}
+                        />
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 

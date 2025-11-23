@@ -24,11 +24,24 @@ export const resourceBaseFields = [
   }),
 
   defineField({
+    name: 'mainNavBackground',
+    title: 'Main Navgation Background',
+    type: 'string',
+    options: {
+      list: [
+        { title: 'Blue', value: 'blue' },
+        { title: 'White', value: 'white' },
+      ],
+      layout: 'dropdown',
+    },
+    initialValue: 'white',
+  }),
+
+  defineField({
     name: 'excerpt',
     title: 'Excerpt',
     type: 'text',
   }),
-
   defineField({
     name: 'coverImage',
     title: 'Cover Image',
@@ -113,6 +126,7 @@ export function resourceBasePreview(title = 'Resource') {
       date: 'date',
       media: 'coverImage',
     },
+    // @ts-ignore
     prepare({ title, media, authorFirstName, authorLastName, date }) {
       const subtitles = [
         authorFirstName && authorLastName && `by ${authorFirstName} ${authorLastName}`,

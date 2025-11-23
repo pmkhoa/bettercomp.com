@@ -38,6 +38,7 @@
 
   --font-display: var(--font-brockmann), 'sans-serif';
   --font-sans:  var(--font-brockmann), 'sans-serif';
+  --font-serif:  var(--font-zilla-slab), 'serif';
 
   --default-transition-duration: 250ms;
   --container-max: 1320px;
@@ -185,6 +186,10 @@
   .toc-inner-content h5 {
     margin-top: 1rem;
     margin-bottom: 1rem;
+  }
+
+  .font-serif {
+    font-family: var(--font-zilla-slab);
   }
 }
 

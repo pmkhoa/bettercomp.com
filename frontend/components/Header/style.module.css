@@ -1,13 +1,5 @@
 @reference 'tailwindcss';
 
-.spacer {
-	@apply h-24 lg:h-[172px] bg-transparent;
-}
-
-.header {
-	@apply fixed z-50 h-24 lg:h-[172px] inset-0 bg-white;
-}
-
 .nav-container {
 	@apply container mx-auto flex items-center justify-end pt-[5px] pb-2;
 	@apply md:py-9;
