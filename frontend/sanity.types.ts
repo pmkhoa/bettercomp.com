@@ -624,6 +624,7 @@ export type HeroResource = {
   _type: 'heroResource'
   enabled?: boolean
   useDefaultValue?: boolean
+  showResourceTypeAndEstimateReading?: boolean
   description?: BlockContent
   heroImage?: MediaAsset
   sectionBackground?: Background
@@ -697,6 +698,9 @@ export type BlockContent = Array<
       _type: 'block'
       _key: string
     }
+  | ({
+      _key: string
+    } & Divider)
   | {
       asset?: {
         _ref: string
@@ -753,6 +757,7 @@ export type Webinar = {
   _rev: string
   title: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   excerpt?: string
   coverImage: {
     asset?: {
@@ -828,8 +833,24 @@ export type Home = {
   _rev: string
   name: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   pageBuilder?: PageBuilder
   seo?: Seo
+}
+
+export type Divider = {
+  _type: 'divider'
+  backgroundColor?:
+    | 'blue'
+    | 'orange'
+    | 'bright-blue'
+    | 'gold'
+    | 'light-blue'
+    | 'teal-green'
+    | 'accent-brick'
+    | 'black'
+    | 'black'
+    | 'sand'
 }
 
 export type Ebook = {
@@ -840,6 +861,7 @@ export type Ebook = {
   _rev: string
   title: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   excerpt?: string
   coverImage: {
     asset?: {
@@ -883,6 +905,7 @@ export type Article = {
   _rev: string
   title: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   excerpt?: string
   coverImage: {
     asset?: {
@@ -927,6 +950,7 @@ export type Author = {
   firstName: string
   lastName: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   jobTitle?: string
   linkedinUrl?: string
   authorBio?: BlockContent
@@ -1013,6 +1037,7 @@ export type Page = {
   _rev: string
   name: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   pageBuilder?: PageBuilder
   seo?: Seo
 }
@@ -1289,6 +1314,7 @@ export type AllSanitySchemaTypes =
   | Slug
   | Tag
   | Home
+  | Divider
   | Ebook
   | Article
   | Author
@@ -1387,6 +1413,7 @@ export type AllResourcesQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -1429,6 +1456,7 @@ export type AllResourcesQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -1471,6 +1499,7 @@ export type AllResourcesQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -1506,9 +1535,9 @@ export type AllResourcesQueryResult = Array<
       seo?: Seo
     }
 >
-// Variable: allResourcesSearchQuery
-// Query: *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)
-export type AllResourcesSearchQueryResult = Array<
+// Variable: allResourcesPaginatedQuery
+// Query: *[		_type in ["article", "ebook", "webinar"]	]	| order(date desc)	[$offset...$end]
+export type AllResourcesPaginatedQueryResult = Array<
   | {
       _id: string
       _type: 'article'
@@ -1517,6 +1546,140 @@ export type AllResourcesSearchQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      excerpt?: string
+      coverImage: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: 'image'
+      }
+      date?: string
+      estimatedReadingTime?: string
+      showTOC?: boolean
+      useNarrowWidthContent?: boolean
+      tags?: Array<{
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'tag'
+      }>
+      author?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'author'
+      }
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+  | {
+      _id: string
+      _type: 'ebook'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      excerpt?: string
+      coverImage: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: 'image'
+      }
+      date?: string
+      estimatedReadingTime?: string
+      showTOC?: boolean
+      useNarrowWidthContent?: boolean
+      tags?: Array<{
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'tag'
+      }>
+      author?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'author'
+      }
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+  | {
+      _id: string
+      _type: 'webinar'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      excerpt?: string
+      coverImage: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: 'image'
+      }
+      date?: string
+      estimatedReadingTime?: string
+      showTOC?: boolean
+      useNarrowWidthContent?: boolean
+      tags?: Array<{
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'tag'
+      }>
+      author?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'author'
+      }
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+>
+// Variable: allResourcesSearchPaginatedQuery
+// Query: *[		_type in coalesce($types, ["article", "ebook", "webinar"])		&& title match $terms		&& (			count(tags[@->name match $topic]) > 0 ||			!defined(tags) ||			count(tags) == 0		)	]	| order(date desc)	[$offset...$end]
+export type AllResourcesSearchPaginatedQueryResult = Array<
+  | {
+      _id: string
+      _type: 'article'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -1582,6 +1745,7 @@ export type AllResourcesSearchQueryResult = Array<
       firstName: string
       lastName: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       jobTitle?: string
       linkedinUrl?: string
       authorBio?: BlockContent
@@ -1608,6 +1772,7 @@ export type AllResourcesSearchQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -1650,6 +1815,7 @@ export type AllResourcesSearchQueryResult = Array<
       _rev: string
       name: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       pageBuilder?: PageBuilder
       seo?: Seo
     }
@@ -1661,6 +1827,7 @@ export type AllResourcesSearchQueryResult = Array<
       _rev: string
       name: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       pageBuilder?: PageBuilder
       seo?: Seo
     }
@@ -1782,6 +1949,324 @@ export type AllResourcesSearchQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      excerpt?: string
+      coverImage: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: 'image'
+      }
+      date?: string
+      estimatedReadingTime?: string
+      showTOC?: boolean
+      useNarrowWidthContent?: boolean
+      tags?: Array<{
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'tag'
+      }>
+      author?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'author'
+      }
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+>
+// Variable: allResourcesSearchQuery
+// Query: *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)
+export type AllResourcesSearchQueryResult = Array<
+  | {
+      _id: string
+      _type: 'article'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      excerpt?: string
+      coverImage: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: 'image'
+      }
+      date?: string
+      estimatedReadingTime?: string
+      showTOC?: boolean
+      useNarrowWidthContent?: boolean
+      tags?: Array<{
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'tag'
+      }>
+      author?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'author'
+      }
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+  | {
+      _id: string
+      _type: 'assist.instruction.context'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title?: string
+      context?: Array<{
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal'
+        listItem?: never
+        markDefs?: null
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
+    }
+  | {
+      _id: string
+      _type: 'author'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      firstName: string
+      lastName: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      jobTitle?: string
+      linkedinUrl?: string
+      authorBio?: BlockContent
+      picture: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: 'image'
+      }
+      pageBuilder?: PageBuilder
+    }
+  | {
+      _id: string
+      _type: 'ebook'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      excerpt?: string
+      coverImage: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: 'image'
+      }
+      date?: string
+      estimatedReadingTime?: string
+      showTOC?: boolean
+      useNarrowWidthContent?: boolean
+      tags?: Array<{
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        _key: string
+        [internalGroqTypeReferenceTo]?: 'tag'
+      }>
+      author?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'author'
+      }
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+  | {
+      _id: string
+      _type: 'home'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      name: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+  | {
+      _id: string
+      _type: 'page'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      name: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
+      pageBuilder?: PageBuilder
+      seo?: Seo
+    }
+  | {
+      _id: string
+      _type: 'sanity.fileAsset'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      originalFilename?: string
+      label?: string
+      title?: string
+      description?: string
+      altText?: string
+      sha1hash?: string
+      extension?: string
+      mimeType?: string
+      size?: number
+      assetId?: string
+      uploadId?: string
+      path?: string
+      url?: string
+      source?: SanityAssetSourceData
+    }
+  | {
+      _id: string
+      _type: 'sanity.imageAsset'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      originalFilename?: string
+      label?: string
+      title?: string
+      description?: string
+      altText?: string
+      sha1hash?: string
+      extension?: string
+      mimeType?: string
+      size?: number
+      assetId?: string
+      uploadId?: string
+      path?: string
+      url?: string
+      metadata?: SanityImageMetadata
+      source?: SanityAssetSourceData
+    }
+  | {
+      _id: string
+      _type: 'settings'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      description?: BlockContent
+      ogImage?: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        _type: 'image'
+      }
+      footerCTA?: PreFooterCTA
+      globalNavCta?: {
+        linkText?: string
+        link?: Link
+      }
+      globalNav?: Array<
+        {
+          _key: string
+        } & MenuItem
+      >
+      footerNav?: Array<
+        {
+          _key: string
+        } & MenuItem
+      >
+      socialLink?: Array<{
+        name?: string
+        url?: string
+        socialIcon?: {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        }
+        _key: string
+      }>
+      privacyLinks?: Array<
+        {
+          _key: string
+        } & Link
+      >
+    }
+  | {
+      _id: string
+      _type: 'tag'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      name: string
+      slug: Slug
+    }
+  | {
+      _id: string
+      _type: 'webinar'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -1854,6 +2339,7 @@ export type GetHomeQueryResult = {
   _rev: string
   name: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   pageBuilder: Array<
     | {
         _key: string
@@ -2403,6 +2889,7 @@ export type GetHomeQueryResult = {
           firstName: string
           lastName: string
           slug: Slug
+          mainNavBackground?: 'blue' | 'white'
           jobTitle?: string
           linkedinUrl?: string
           authorBio?: BlockContent
@@ -2486,6 +2973,7 @@ export type GetHomeQueryResult = {
         _type: 'heroResource'
         enabled?: boolean
         useDefaultValue?: boolean
+        showResourceTypeAndEstimateReading?: boolean
         description?: BlockContent
         heroImage?: MediaAsset
         sectionBackground?: Background
@@ -3389,6 +3877,7 @@ export type GetPageQueryResult = {
           firstName: string
           lastName: string
           slug: Slug
+          mainNavBackground?: 'blue' | 'white'
           jobTitle?: string
           linkedinUrl?: string
           authorBio?: BlockContent
@@ -3472,6 +3961,7 @@ export type GetPageQueryResult = {
         _type: 'heroResource'
         enabled?: boolean
         useDefaultValue?: boolean
+        showResourceTypeAndEstimateReading?: boolean
         description?: BlockContent
         heroImage?: MediaAsset
         sectionBackground?: Background
@@ -3826,6 +4316,7 @@ export type GetArticleQueryResult = {
   _rev: string
   title: string
   slug: Slug
+  mainNavBackground?: 'blue' | 'white'
   excerpt?: string
   coverImage: {
     asset?: {
@@ -3862,6 +4353,7 @@ export type GetArticleQueryResult = {
     firstName: string
     lastName: string
     slug: Slug
+    mainNavBackground?: 'blue' | 'white'
     jobTitle?: string
     linkedinUrl?: string
     authorBio?: BlockContent
@@ -4429,6 +4921,7 @@ export type GetArticleQueryResult = {
           firstName: string
           lastName: string
           slug: Slug
+          mainNavBackground?: 'blue' | 'white'
           jobTitle?: string
           linkedinUrl?: string
           authorBio?: BlockContent
@@ -4512,6 +5005,7 @@ export type GetArticleQueryResult = {
         _type: 'heroResource'
         enabled?: boolean
         useDefaultValue?: boolean
+        showResourceTypeAndEstimateReading?: boolean
         description?: BlockContent
         heroImage?: MediaAsset
         sectionBackground?: Background
@@ -4873,6 +5367,7 @@ export type GetResourceQueryResult =
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -4904,6 +5399,7 @@ export type GetResourceQueryResult =
         firstName: string
         lastName: string
         slug: Slug
+        mainNavBackground?: 'blue' | 'white'
         jobTitle?: string
         linkedinUrl?: string
         authorBio?: BlockContent
@@ -5471,6 +5967,7 @@ export type GetResourceQueryResult =
               firstName: string
               lastName: string
               slug: Slug
+              mainNavBackground?: 'blue' | 'white'
               jobTitle?: string
               linkedinUrl?: string
               authorBio?: BlockContent
@@ -5554,6 +6051,7 @@ export type GetResourceQueryResult =
             _type: 'heroResource'
             enabled?: boolean
             useDefaultValue?: boolean
+            showResourceTypeAndEstimateReading?: boolean
             description?: BlockContent
             heroImage?: MediaAsset
             sectionBackground?: Background
@@ -5933,6 +6431,7 @@ export type GetResourceQueryResult =
       firstName: string
       lastName: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       jobTitle?: string
       linkedinUrl?: string
       authorBio?: BlockContent
@@ -6498,6 +6997,7 @@ export type GetResourceQueryResult =
               firstName: string
               lastName: string
               slug: Slug
+              mainNavBackground?: 'blue' | 'white'
               jobTitle?: string
               linkedinUrl?: string
               authorBio?: BlockContent
@@ -6581,6 +7081,7 @@ export type GetResourceQueryResult =
             _type: 'heroResource'
             enabled?: boolean
             useDefaultValue?: boolean
+            showResourceTypeAndEstimateReading?: boolean
             description?: BlockContent
             heroImage?: MediaAsset
             sectionBackground?: Background
@@ -6935,6 +7436,7 @@ export type GetResourceQueryResult =
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -6966,6 +7468,7 @@ export type GetResourceQueryResult =
         firstName: string
         lastName: string
         slug: Slug
+        mainNavBackground?: 'blue' | 'white'
         jobTitle?: string
         linkedinUrl?: string
         authorBio?: BlockContent
@@ -7533,6 +8036,7 @@ export type GetResourceQueryResult =
               firstName: string
               lastName: string
               slug: Slug
+              mainNavBackground?: 'blue' | 'white'
               jobTitle?: string
               linkedinUrl?: string
               authorBio?: BlockContent
@@ -7616,6 +8120,7 @@ export type GetResourceQueryResult =
             _type: 'heroResource'
             enabled?: boolean
             useDefaultValue?: boolean
+            showResourceTypeAndEstimateReading?: boolean
             description?: BlockContent
             heroImage?: MediaAsset
             sectionBackground?: Background
@@ -7969,6 +8474,7 @@ export type GetResourceQueryResult =
       _rev: string
       name: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       pageBuilder: Array<
         | {
             _key: string
@@ -8518,6 +9024,7 @@ export type GetResourceQueryResult =
               firstName: string
               lastName: string
               slug: Slug
+              mainNavBackground?: 'blue' | 'white'
               jobTitle?: string
               linkedinUrl?: string
               authorBio?: BlockContent
@@ -8601,6 +9108,7 @@ export type GetResourceQueryResult =
             _type: 'heroResource'
             enabled?: boolean
             useDefaultValue?: boolean
+            showResourceTypeAndEstimateReading?: boolean
             description?: BlockContent
             heroImage?: MediaAsset
             sectionBackground?: Background
@@ -8956,6 +9464,7 @@ export type GetResourceQueryResult =
       _rev: string
       name: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       pageBuilder: Array<
         | {
             _key: string
@@ -9505,6 +10014,7 @@ export type GetResourceQueryResult =
               firstName: string
               lastName: string
               slug: Slug
+              mainNavBackground?: 'blue' | 'white'
               jobTitle?: string
               linkedinUrl?: string
               authorBio?: BlockContent
@@ -9588,6 +10098,7 @@ export type GetResourceQueryResult =
             _type: 'heroResource'
             enabled?: boolean
             useDefaultValue?: boolean
+            showResourceTypeAndEstimateReading?: boolean
             description?: BlockContent
             heroImage?: MediaAsset
             sectionBackground?: Background
@@ -10065,6 +10576,7 @@ export type GetResourceQueryResult =
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -10096,6 +10608,7 @@ export type GetResourceQueryResult =
         firstName: string
         lastName: string
         slug: Slug
+        mainNavBackground?: 'blue' | 'white'
         jobTitle?: string
         linkedinUrl?: string
         authorBio?: BlockContent
@@ -10663,6 +11176,7 @@ export type GetResourceQueryResult =
               firstName: string
               lastName: string
               slug: Slug
+              mainNavBackground?: 'blue' | 'white'
               jobTitle?: string
               linkedinUrl?: string
               authorBio?: BlockContent
@@ -10746,6 +11260,7 @@ export type GetResourceQueryResult =
             _type: 'heroResource'
             enabled?: boolean
             useDefaultValue?: boolean
+            showResourceTypeAndEstimateReading?: boolean
             description?: BlockContent
             heroImage?: MediaAsset
             sectionBackground?: Background
@@ -11108,6 +11623,7 @@ export type GetResourcesByTypeQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -11139,6 +11655,7 @@ export type GetResourcesByTypeQueryResult = Array<
         firstName: string
         lastName: string
         slug: Slug
+        mainNavBackground?: 'blue' | 'white'
         jobTitle?: string
         linkedinUrl?: string
         authorBio?: BlockContent
@@ -11194,6 +11711,7 @@ export type GetResourcesByTypeQueryResult = Array<
       firstName: string
       lastName: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       jobTitle?: string
       linkedinUrl?: string
       authorBio?: BlockContent
@@ -11223,6 +11741,7 @@ export type GetResourcesByTypeQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -11254,6 +11773,7 @@ export type GetResourcesByTypeQueryResult = Array<
         firstName: string
         lastName: string
         slug: Slug
+        mainNavBackground?: 'blue' | 'white'
         jobTitle?: string
         linkedinUrl?: string
         authorBio?: BlockContent
@@ -11283,6 +11803,7 @@ export type GetResourcesByTypeQueryResult = Array<
       _rev: string
       name: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       pageBuilder?: PageBuilder
       seo?: Seo
       tags: null
@@ -11297,6 +11818,7 @@ export type GetResourcesByTypeQueryResult = Array<
       _rev: string
       name: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       pageBuilder?: PageBuilder
       seo?: Seo
       tags: null
@@ -11433,6 +11955,7 @@ export type GetResourcesByTypeQueryResult = Array<
       _rev: string
       title: string
       slug: Slug
+      mainNavBackground?: 'blue' | 'white'
       excerpt?: string
       coverImage: {
         asset?: {
@@ -11464,6 +11987,7 @@ export type GetResourcesByTypeQueryResult = Array<
         firstName: string
         lastName: string
         slug: Slug
+        mainNavBackground?: 'blue' | 'white'
         jobTitle?: string
         linkedinUrl?: string
         authorBio?: BlockContent
@@ -11517,6 +12041,8 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '*[_type == "settings"][0]': SettingsQueryResult
     '\n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n': AllResourcesQueryResult
+    '\n\t*[\n\t\t_type in ["article", "ebook", "webinar"]\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesPaginatedQueryResult
+    '\n\t*[\n\t\t_type in coalesce($types, ["article", "ebook", "webinar"])\n\t\t&& title match $terms\n\t\t&& (\n\t\t\tcount(tags[@->name match $topic]) > 0 ||\n\t\t\t!defined(tags) ||\n\t\t\tcount(tags) == 0\n\t\t)\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesSearchPaginatedQueryResult
     '\n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n': AllResourcesSearchQueryResult
     '\n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n\t}\n\n': PageBuilderContentResult
     '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current != $slug &&\n\n\t\t// Match at least 1 tag\n\t\tcount(tags[@->slug.current in $tagSlugs]) > 0\n\t]\n\t| order(date desc)[0...3]{\n\t\ttitle,\n\t\tslug,\n\t\tcoverImage,\n\t\ttags[]->{ title, slug },\n\t\tdate\n\t}\n': GetRelatedResourcesQueryResult

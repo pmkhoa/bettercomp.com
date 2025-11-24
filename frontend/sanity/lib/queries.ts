@@ -32,10 +32,48 @@ const resourceFields = /* groq */ `
 	_updatedAt,
 `;
 
-export const settingsQuery = defineQuery(`*[_type == "settings"][0]`);
+export const settingsQuery = defineQuery(`*[_type == "settings"][0] {
+  ...,
+  globalNav[] { 
+    ..., 
+    menuLink {
+      ...,
+      ${linkReference}
+    },
+    groupLinks[] {
+      ...,
+      menuLink {
+        ...,
+        ${linkReference}
+      },
+    }
+  }
+}`);
 
 export const allResourcesQuery = defineQuery(`
 	*[_type in ["article", "ebook", "webinar"]] | order(date desc) 
+`);
+
+export const allResourcesPaginatedQuery = defineQuery(`
+	*[
+		_type in ["article", "ebook", "webinar"]
+	]
+	| order(date desc)
+	[$offset...$end]
+`);
+
+export const allResourcesSearchPaginatedQuery = defineQuery(`
+	*[
+		_type in coalesce($types, ["article", "ebook", "webinar"])
+		&& title match $terms
+		&& (
+			count(tags[@->name match $topic]) > 0 ||
+			!defined(tags) ||
+			count(tags) == 0
+		)
+	]
+	| order(date desc)
+	[$offset...$end]
 `);
 
 // Search by terms
@@ -77,6 +115,14 @@ const pageBuilderContent = /* groq */ defineQuery(`
     },
 	}
 
+`);
+
+export const authorQuery = defineQuery(`
+	*[_type == "author" && slug.current == $slug][0] {
+		...,
+		"pageBuilder": ${pageBuilderContent},
+		"resources": *[_type  in ["article", "ebook", "webinar"] && author._ref == ^._id] { ${resourceFields} }
+	}
 `);
 
 export const getRelatedResourcesQuery = defineQuery(`

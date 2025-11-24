@@ -1,0 +1,21 @@
+{
+	"name": "hubspot-importer",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"import:blogs": "ts-node-esm hubspot-import/importHubspotBlogs.ts"
+	},
+	"dependencies": {
+		"@portabletext/block-tools": "^1.0.0",
+		"@sanity/client": "^6.15.0",
+		"csv-parse": "^5.5.0",
+		"jsdom": "^23.0.0",
+		"node-fetch": "^3.3.2",
+		"slugify": "^1.6.6",
+		"ulid": "^3.0.1"
+	},
+	"devDependencies": {
+		"ts-node": "^10.9.2",
+		"typescript": "^5.3.3"
+	}
+}

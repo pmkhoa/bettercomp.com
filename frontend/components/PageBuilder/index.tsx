@@ -64,6 +64,10 @@ function renderEmptyState(page: GetPageQueryResult) {
   if (!page) {
     return null;
   }
+
+  return null;
+
+  /*
   return (
     <div className="container py-24">
       <h1 className="">This page has no content!</h1>
@@ -82,6 +86,7 @@ function renderEmptyState(page: GetPageQueryResult) {
       </div>
     </div>
   );
+  */
 }
 
 export default function PageBuilder({ page }: PageBuilderPageProps) {

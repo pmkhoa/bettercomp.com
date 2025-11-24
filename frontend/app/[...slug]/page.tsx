@@ -8,7 +8,7 @@ import { GetPageQueryResult, Page as PageType } from '@/sanity.types';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 import { defaultResourcesType } from '@/utils/constants';
 import { NotFound } from '@/components';
-import { isEmpty } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 type Props = {
   params: Promise<{ slug: string[] }>;
@@ -16,6 +16,7 @@ type Props = {
     contentType: string;
     terms: string;
     topic: string;
+    pg: number;
   }>;
 };
 
@@ -44,8 +45,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const slugPath = params.slug.join('/');
   let types = [];
-  let { contentType, terms, topic } = (await props.searchParams) || {};
+  let { contentType, terms, topic, pg = 1 } = (await props.searchParams) || {};
   contentType = `${contentType}`;
+
+  const limit = 2;
+
+  const offset = (pg - 1) * limit;
+  const end = offset + limit;
 
   if (contentType === 'alltypes' || !contentType) {
     types = defaultResourcesType;
@@ -62,31 +68,34 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
   const { data: page } = await sanityFetch({
     query: getPageQuery,
-    params: { slug: slugPath, types, terms, topic },
+    params: { slug: slugPath, types, terms, topic, offset, end },
     // Metadata should never contain stega
     stega: false,
   });
 
   return {
-    title: `${page?.seo?.title || page?.name || 'Not Found'}`,
-    description: page?.seo?.description || page?.heading,
+    title: `${get(page, 'seo.title') || page?.name || 'Not Found'}`,
+    description: get(page, 'seo.description') || page?.heading,
     openGraph: {
-      title: `${page?.seo?.title || page?.name || 'Not Found'}`,
-      images: [
-        { url: resolveOpenGraphImage(page?.seo?.ogImage || page?.coverImage)?.url || '' },
-      ],
+      title: `${get(page, 'seo.title') || page?.name || 'Not Found'}`,
     },
   } satisfies Metadata;
 }
 
 export default async function Page(props: Props) {
   const params = await props.params;
+  const searchParams = await props.searchParams;
 
   let types = [];
   const slugPath = params.slug.join('/');
   // @ts-ignore: ignore
-  const { contentType } = (await props.searchParams) || {};
-  let { terms, topic } = (await props.searchParams) || {};
+  const { contentType, pg = 1 } = searchParams || {};
+  let { terms, topic } = searchParams || {};
+
+  const limit = 2;
+
+  const offset = (pg - 1) * limit;
+  const end = offset + limit;
 
   if (contentType === 'alltypes' || isEmpty(contentType)) {
     types = defaultResourcesType;
@@ -105,7 +114,15 @@ export default async function Page(props: Props) {
   const [{ data: page }] = await Promise.all([
     sanityFetch({
       query: getPageQuery,
-      params: { slug: slugPath, types, terms, topic },
+      params: {
+        slug: slugPath,
+        types,
+        terms,
+        topic,
+
+        offset,
+        end,
+      },
     }),
   ]);
 

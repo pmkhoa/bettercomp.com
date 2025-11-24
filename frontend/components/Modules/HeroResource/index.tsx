@@ -46,7 +46,11 @@ export default function HeroResourceModule({
     const { estimatedReadingTime, coverImage, title } = pageData;
 
     return (
-      <section className={cn('hero-with-bg overflow-hidden relative py-24 md:py-32')}>
+      <section
+        className={cn(
+          'hero-with-bg overflow-hidden relative py-24 md:py-32 min-h-[60vh] flex flex-col justify-center',
+        )}
+      >
         <div className="absolute w-full h-full inset-0">
           <SanityImage image={coverImage} className="w-full h-full object-cover relative" />
           <div
@@ -54,7 +58,7 @@ export default function HeroResourceModule({
             style={{ opacity: '0.6' }}
           />
         </div>
-        <div className={cn('order-1')}>
+        <div className={'flex items-center h-full w-full'}>
           <div className="container z-10 relative z-20">
             <div className="grid-container justify-between items-center gap-y-16 gap-0 md:gap-4">
               <div className={cn('col-span-12 md:col-span-9 lg:col-span-6 text-white')}>

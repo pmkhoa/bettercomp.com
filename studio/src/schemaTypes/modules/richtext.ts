@@ -98,17 +98,20 @@ export const richtext = defineType({
       hidden: ({ parent }) => parent?.richTextType !== 'withBackgroundVideo',
     }),
   ],
+
   preview: {
     select: {
-      title: 'description',
-      subtitle: 'richTextType',
+      columnContent: 'columnContent',
+      richTextType: 'richTextType',
       image: 'image',
     },
-    prepare({ title, image, subtitle }) {
+    prepare({ columnContent, richTextType, image }) {
       return {
-        title: 'RichText',
-        subtitle: `${subtitle}`,
+        title: `Richtext (${richTextType || 'default'})`,
+        subtitle: columnContent?.length ? 'Contains rich text content' : 'No content added',
         media: image,
+        columnContent,
+        richTextType,
       };
     },
   },

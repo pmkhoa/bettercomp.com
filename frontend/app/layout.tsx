@@ -70,6 +70,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     query: settingsQuery,
   });
 
+  console.log('----------debugging: settings----------');
+  console.log(settings);
+
   return (
     <html
       lang="en"

@@ -8,6 +8,7 @@ import {
   PortableText,
   ResolvedLink,
   MediaAsset,
+  ResourceCard,
   SanityImage,
 } from '@/components';
 import Link from 'next/link';
@@ -36,8 +37,15 @@ export default function AllResourcesModule({ block }: { block: AllResources }) {
     return null;
   }
 
-  console.log('----------debugging: resources----------');
-  console.log(getFilterContentTypes(allResources || []));
+  const loadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + LIMIT, allResources.length));
+    // Animate new items appearing
+    gsap.fromTo(
+      '.insight-card',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 },
+    );
+  };
 
   return (
     <section className={cn('section-all-resources relative')}>
@@ -72,55 +80,33 @@ export default function AllResourcesModule({ block }: { block: AllResources }) {
         </div>
       </div>
       <div className="bg-midnight-blue py-32 text-white">
+        {!resources.length && (
+          <div className="container my-16">
+            <div className="text-center">
+              <h3>{`No content found. Please try select different type or topic.`}</h3>
+            </div>
+          </div>
+        )}
+
         <div className="container">
           <div className="grid-container gap-12">
-            {resources.map((resource: any, index: number) => {
+            {resources.slice(0, visibleCount).map((resource: any, index: number) => {
               return (
-                <div
-                  className="grid-item col-span-4 bg-white rounded-sm overflow-hidden"
-                  key={index}
-                >
-                  <Link href={linkHelpers(resource)} className="flex flex-col h-full">
-                    <div className="aspect-16/9 relative">
-                      <MotionFadeIn>
-                        <SanityImage
-                          className="absolute inset-0 w-full h-full"
-                          image={resource.coverImage}
-                        />
-                      </MotionFadeIn>
-                      {resource._type && (
-                        <div className="resource-type absolute -bottom-4 left-8 bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm">
-                          {resource._type}
-                        </div>
-                      )}
-                    </div>
-                    <div className="resource-container flex flex-col justify-between h-full">
-                      <h4 className="text-2xl py-6 px-8 font-medium text-blue mt-6">
-                        {resource.title}
-                      </h4>
-                      <div className="flex justify-between items-center pb-6 px-8">
-                        <div className="publish-date flex gap-2 items-center">
-                          <CalendarIcon />
-                          <div className="text-gray-500 text-sm">
-                            <DateComponent dateString={resource.date} />
-                          </div>
-                        </div>
-                        {resource.estimatedReadingTime && (
-                          <div className="estimate-reading flex gap-2  items-center">
-                            <ClockIcon />
-                            <div className="text-gray-500 text-sm">
-                              {resource.estimatedReadingTime} min read
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </Link>
+                <div className="col-span-4 bg-white rounded-sm overflow-hidden" key={index}>
+                  <ResourceCard resource={resource} />
                 </div>
               );
             })}
           </div>
         </div>
+
+        {visibleCount < resources.length && (
+          <div className="flex justify-center mt-16">
+            <button className="btn-primary" onClick={loadMore}>
+              Load More
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

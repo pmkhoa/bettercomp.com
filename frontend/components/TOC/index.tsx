@@ -20,7 +20,7 @@ const TOC = () => {
   useEffect(() => {
     // @ts-ignore: Ignore init function
     tocbot.init({
-      headingsOffset: 80,
+      headingsOffset: 40,
       scrollSmoothOffset: -180,
       tocSelector: '.toc-container',
       // Where to grab the headings to build the table of contents.

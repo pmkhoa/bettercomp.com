@@ -14,6 +14,20 @@ export const twoColumnsContent = defineType({
       initialValue: true,
     }),
     defineField({
+      name: 'columnLayout',
+      title: 'Column Layout',
+      type: 'string',
+      options: {
+        list: [
+          { title: '1/1', value: '1/1' },
+          { title: '1/3', value: '1/3' },
+          { title: '2/3', value: '2/3' },
+        ],
+        layout: 'dropdown',
+      },
+      initialValue: '1/1',
+    }),
+    defineField({
       name: 'sectionBackground',
       title: 'Section Background',
       type: 'background',

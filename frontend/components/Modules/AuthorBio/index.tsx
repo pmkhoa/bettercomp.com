@@ -37,7 +37,7 @@ const AuthorBioModule = ({ block, pageData }: Props) => {
               <div className="content-bio">
                 <div className="flex flex-col">
                   {firstName && lastName && (
-                    <h4 className="font-bold mb-0 font-normal js-toc-ignore">
+                    <h4 className="font-bold mb-0 font-normal js-toc-ignore mt-0">
                       {firstName} {lastName}
                     </h4>
                   )}

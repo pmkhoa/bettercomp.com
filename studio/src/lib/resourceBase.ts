@@ -2,6 +2,19 @@
 import { defineField } from 'sanity';
 import { format, parseISO } from 'date-fns';
 
+export const orderings = [
+  {
+    title: 'Date — Newest First',
+    name: 'dateDesc',
+    by: [{ field: 'date', direction: 'desc' as const }],
+  },
+  {
+    title: 'Date — Oldest First',
+    name: 'dateAsc',
+    by: [{ field: 'date', direction: 'asc' as const }],
+  },
+];
+
 export const resourceBaseFields = [
   defineField({
     name: 'title',

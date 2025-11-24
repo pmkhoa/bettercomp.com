@@ -77,11 +77,10 @@ export function linkResolver(link: Link | undefined) {
 
     // Internal CMS Page (Sanity document with slug)
     case 'page':
-      if (link?.page && link?.page?._type === 'reference') {
-        return `/${link.page?.slug?.current ?? ''}`;
+      if (link?.page && link?.page?._type !== 'reference') {
+        return `/${link.page}`;
       }
       return null;
-
     // Generic resource (article, ebook, case-study, etc.)
     case 'article':
     case 'ebook':

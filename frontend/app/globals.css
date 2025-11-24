@@ -54,8 +54,6 @@
 @utility container {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
   max-width: var(--container-max);
 	width: 100%;
 }
@@ -183,9 +181,14 @@
   .toc-inner-content h2,
   .toc-inner-content h3,
   .toc-inner-content h4,
-  .toc-inner-content h5 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  .toc-inner-content h5,
+  h1:has(+ p),
+  h2:has(+ p),
+  h3:has(+ p),
+  h4:has(+ p),
+  h5:has(+ p) {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .font-serif {
