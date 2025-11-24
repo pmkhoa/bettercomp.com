@@ -4,6 +4,9 @@ import { settings } from './singletons/settings';
 import { author } from './documents/author';
 import { article } from './documents/article';
 import { webinar } from './documents/webinar';
+import { guide } from './documents/guide';
+import { template } from './documents/template';
+import { tool } from './documents/tool';
 import { ebook } from './documents/ebook';
 import { page } from './documents/page';
 import { home } from './singletons/home';
@@ -24,6 +27,7 @@ import { statNumber } from './objects/statNumber';
 // Modules
 import { accordionCenter } from './modules/accordionCenter';
 import { accordionLeftPanel } from './modules/accordionWithLeftPanel';
+import { heroCTA } from './modules/heroCta';
 import { allResources } from './modules/allResources';
 import { authorBio } from './modules/authorBio';
 import { contactForm } from './modules/contactForm';
@@ -59,6 +63,9 @@ export const schemaTypes = [
   article,
   ebook,
   divider,
+  tool,
+  template,
+  guide,
   home,
   page,
   tag,
@@ -83,6 +90,7 @@ export const schemaTypes = [
   allResources,
   authorBio,
   contactForm,
+  heroCTA,
   formContent,
   featuredResources,
   heroLarge,

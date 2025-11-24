@@ -5,6 +5,7 @@ import {
   MediaAsset,
   ResolvedLink,
   PortableText,
+  SanityImage,
 } from '@/components';
 import { Background, HeroLarge } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
@@ -43,7 +44,15 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
       )}
     >
       {backgroundEnabled && backgroundType === 'image' && (
-        <div className="absolute w-full h-full inset-0" />
+        <div className="absolute w-full h-full inset-0">
+          {asset && (
+            <SanityImage image={asset} className="w-full h-full object-cover relative" />
+          )}
+          <div
+            className="absolute w-full h-full z-10 bg-black inset-0"
+            style={{ opacity: '0.6' }}
+          />
+        </div>
       )}
       <div className={cn('order-1')}>
         <div className="container z-10 relative z-20">
