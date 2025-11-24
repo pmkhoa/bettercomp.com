@@ -3,19 +3,20 @@ import React from 'react';
 import { GetPageQueryResult } from '@/sanity.types';
 import { dataAttr } from '@/sanity/lib/utils';
 import {
+  AllResources,
   AuthorBio,
-  Logos,
-  ThreeColumnContentWithIcons,
-  TwoColumnsContent,
-  Testimonials,
-  Stats,
+  FormContent,
+  FeaturedResources,
   HeroLarge,
   HeroResource,
-  ShortCTA,
-  Richtext,
-  FormContent,
-  AllResources,
+  Logos,
   Quotation,
+  Richtext,
+  ShortCTA,
+  Stats,
+  Testimonials,
+  ThreeColumnContentWithIcons,
+  TwoColumnsContent,
 } from '@/components/Modules';
 
 type BlocksType = {
@@ -45,6 +46,7 @@ const Blocks: BlocksType = {
   threeColumnContentWithIcons: ThreeColumnContentWithIcons,
   formContent: FormContent,
   stats: Stats,
+  featuredResources: FeaturedResources,
   shortCTA: ShortCTA,
   testimonials: Testimonials,
   richtext: Richtext,

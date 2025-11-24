@@ -113,6 +113,11 @@ const pageBuilderContent = /* groq */ defineQuery(`
       "allResources": ${allResourcesQuery} { ${resourceFields} }, 
       "resources": ${allResourcesSearchQuery} { ${resourceFields} } 
     },
+    _type == 'featuredResources' => {
+      ..., 
+      selectedResources[]-> { ${resourceFields} }, 
+      "latestResources": *[_type in ["article", "ebook", "webinar"]] { ${resourceFields} } | order(date desc)[0...6] 
+    }
 	}
 
 `);

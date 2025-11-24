@@ -7,9 +7,9 @@ import cn from 'classnames';
 import s from './style.module.css';
 import { linkHelpers } from '@/sanity/lib/utils';
 
-const ResourceCard = ({ resource }: { resource: any }) => {
+const ResourceCardFeature = ({ resource }: { resource: any }) => {
   return (
-    <Link href={linkHelpers(resource)} className="flex flex-col h-full">
+    <Link href={linkHelpers(resource)} className="flex flex-col h-full relative">
       <div className="aspect-16/9 relative">
         <MotionFadeIn>
           <SanityImage
@@ -17,27 +17,25 @@ const ResourceCard = ({ resource }: { resource: any }) => {
             image={resource.coverImage}
           />
         </MotionFadeIn>
+      </div>
+      <div className="resource-container z-10 absolute bottom-0 left-0 w-full h-auto px-8 pb-2">
         {resource._type && (
-          <div className="resource-type absolute -bottom-[20px] left-8 bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm">
+          <div className="resource-type bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm inline-block">
             {resource._type}
           </div>
         )}
-      </div>
-      <div className="resource-container flex flex-col justify-between h-full bg-white border-t border-gray-100">
-        <h4 className="text-2xl py-6 px-8 font-medium text-blue mt-6">{resource.title}</h4>
-        <div className="flex justify-between items-center pb-6 px-8">
+        <h4 className="text-2xl py-4 font-medium text-white">{resource.title}</h4>
+        <div className="flex justify-between items-center pb-4">
           <div className="publish-date flex gap-2 items-center">
             <CalendarIcon />
-            <div className="text-gray-500 text-sm">
+            <div className="text-white text-sm">
               <DateComponent dateString={resource.date} />
             </div>
           </div>
           {resource.estimatedReadingTime && (
             <div className="estimate-reading flex gap-2  items-center">
               <ClockIcon />
-              <div className="text-gray-500 text-sm">
-                {resource.estimatedReadingTime} min read
-              </div>
+              <div className="text-white text-sm">{resource.estimatedReadingTime} min read</div>
             </div>
           )}
         </div>
@@ -46,4 +44,4 @@ const ResourceCard = ({ resource }: { resource: any }) => {
   );
 };
 
-export default ResourceCard;
+export default ResourceCardFeature;

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ShortCTA, GetResourceQueryResult } from '@/sanity.types';
 import { ButtonPrimary, ResolvedLink, PortableText, SanityImage } from '@/components';
+import { defaultBackground } from '@/utils/constants';
 import cn from 'classnames';
 
 const ShortCTAModule = ({
@@ -10,7 +11,7 @@ const ShortCTAModule = ({
   block: ShortCTA;
   pageData: GetResourceQueryResult;
 }) => {
-  const { enabled, description, ctaButton, sectionBackground } = block;
+  const { enabled, description, ctaButton, sectionBackground = defaultBackground } = block;
 
   if (!enabled) {
     return <div />;

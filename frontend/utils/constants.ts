@@ -19,4 +19,5 @@ export const defaultBackground = {
   backgroundType: 'color',
   backgroundColor: 'blue',
   textColor: 'white',
+  showBorderTop: false,
 };

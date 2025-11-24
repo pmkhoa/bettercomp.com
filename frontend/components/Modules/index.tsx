@@ -11,3 +11,4 @@ export { default as FormContent } from './FormContent';
 export { default as HeroResource } from './HeroResource';
 export { default as ShortCTA } from './ShortCTA';
 export { default as Quotation } from './Quotation';
+export { default as FeaturedResources } from './FeaturedResources';

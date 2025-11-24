@@ -19,6 +19,7 @@ export { default as ScriptInjections } from './ScriptInjections';
 export { default as HubspotForm } from './HubspotForm';
 export { default as TOC } from './TOC';
 export { default as ResourceCard } from './ResourceCard';
+export { default as ResourceCardFeature } from './ResourceCardFeature';
 
 /*
 
