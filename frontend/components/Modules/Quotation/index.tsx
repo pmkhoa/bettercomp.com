@@ -4,10 +4,10 @@ import { SanityImage } from '@/components';
 
 type QuotationProps = {
   block: Quotation;
-  pageData: GetResourceQueryResult;
+  pageData: any;
 };
 
-export default function Quotation({ block, pageData }: QuotationProps) {
+export default function QuotationModule({ block, pageData }: QuotationProps) {
   const enabled = block.enabled;
 
   if (!enabled) {

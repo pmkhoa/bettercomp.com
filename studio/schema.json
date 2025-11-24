@@ -3597,6 +3597,10 @@
             "of": [
               {
                 "type": "string",
+                "value": "author"
+              },
+              {
+                "type": "string",
                 "value": "href"
               },
               {
@@ -3605,11 +3609,27 @@
               },
               {
                 "type": "string",
+                "value": "file"
+              },
+              {
+                "type": "string",
                 "value": "article"
               },
               {
                 "type": "string",
-                "value": "author"
+                "value": "ebook"
+              },
+              {
+                "type": "string",
+                "value": "caseStudy"
+              },
+              {
+                "type": "string",
+                "value": "whitepaper"
+              },
+              {
+                "type": "string",
+                "value": "blog"
               }
             ]
           },

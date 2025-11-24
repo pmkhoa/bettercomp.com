@@ -1,11 +1,11 @@
 import cn from 'classnames';
-import { GetResourceQueryResult, Richtext } from '@/sanity.types';
+import { Richtext } from '@/sanity.types';
 import { urlForAsset } from '@/sanity/lib/utils';
 import { BackgroundVideo } from '@/components';
 
 type Props = {
   block: Richtext;
-  pageData: GetResourceQueryResult;
+  pageData: any;
 };
 
 export default function RichTextWithBackgroundVideo({ block, pageData }: Props) {

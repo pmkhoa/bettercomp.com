@@ -9,14 +9,13 @@ import {
   ResourceCard,
   ResourceCardFeature,
 } from '@/components';
-import { FeaturedResources } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 
-export default function FeaturedResources({
+export default function FeaturedResourcesModule({
   block,
   pageData,
 }: {
-  block: FeaturedResources;
+  block: any;
   pageData: any;
 }) {
   const {
@@ -57,7 +56,7 @@ export default function FeaturedResources({
             <div className="grid-container gap-8">
               {resourceDisplayTypes === 'mostRecents' ? (
                 <>
-                  {latestResources.slice(0, 2).map((resource) => {
+                  {latestResources.slice(0, 2).map((resource: any) => {
                     return (
                       <div className="most-recents col-span-6" key={resource._id}>
                         <ResourceCard resource={resource} />

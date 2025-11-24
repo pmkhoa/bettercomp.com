@@ -16,6 +16,7 @@
 export type TwoColumnsContent = {
   _type: 'twoColumnsContent'
   enabled?: boolean
+  columnLayout?: '1/1' | '1/3' | '2/3'
   sectionBackground?: Background
   subHeading?: string
   heading?: string
@@ -597,7 +598,16 @@ export type MediaAsset = {
 
 export type Link = {
   _type: 'link'
-  linkType?: 'href' | 'page' | 'article' | 'author'
+  linkType?:
+    | 'author'
+    | 'href'
+    | 'page'
+    | 'file'
+    | 'article'
+    | 'ebook'
+    | 'caseStudy'
+    | 'whitepaper'
+    | 'blog'
   href?: string
   page?: {
     _ref: string
@@ -1376,7 +1386,16 @@ export type SettingsQueryResult = {
     menuLabel?: string
     menuLink: {
       _type: 'link'
-      linkType?: 'article' | 'author' | 'href' | 'page'
+      linkType?:
+        | 'article'
+        | 'author'
+        | 'blog'
+        | 'caseStudy'
+        | 'ebook'
+        | 'file'
+        | 'href'
+        | 'page'
+        | 'whitepaper'
       href?: string
       page: string | null
       article: string | null
@@ -1388,7 +1407,16 @@ export type SettingsQueryResult = {
       menuLabel?: string
       menuLink: {
         _type: 'link'
-        linkType?: 'article' | 'author' | 'href' | 'page'
+        linkType?:
+          | 'article'
+          | 'author'
+          | 'blog'
+          | 'caseStudy'
+          | 'ebook'
+          | 'file'
+          | 'href'
+          | 'page'
+          | 'whitepaper'
         href?: string
         page: string | null
         article: string | null
@@ -2328,10 +2356,10 @@ export type AllResourcesSearchQueryResult = Array<
     }
 >
 // Variable: pageBuilderContent
-// Query: pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },	}
+// Query: pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in ["article", "ebook", "webinar"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}
 export type PageBuilderContentResult = never
 // Variable: authorQuery
-// Query: *[_type == "author" && slug.current == $slug][0] {		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },	},		"resources": *[_type  in ["article", "ebook", "webinar"] && author._ref == ^._id] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }	}
+// Query: *[_type == "author" && slug.current == $slug][0] {		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in ["article", "ebook", "webinar"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	},		"resources": *[_type  in ["article", "ebook", "webinar"] && author._ref == ^._id] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }	}
 export type AuthorQueryResult = {
   _id: string
   _type: 'author'
@@ -2373,7 +2401,16 @@ export type AuthorQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -2391,7 +2428,16 @@ export type AuthorQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -2417,7 +2463,16 @@ export type AuthorQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -2435,7 +2490,16 @@ export type AuthorQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -2946,18 +3010,238 @@ export type AuthorQueryResult = {
         description?: BlockContent
         ctaButton?: CtaLink
         resourceDisplayTypes?: 'custom' | 'mostRecents'
-        selectedResources?: Array<
+        selectedResources: Array<
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'article'
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
             }
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'page'
+              author: null
+              coverImage: null
+              date: null
+              estimatedReadingTime: null
+              slug: Slug
+              seo: Seo | null
+              tags: null
+              title: null
+              _createdAt: string
+              _id: string
+              _type: 'page'
+              _updatedAt: string
+            }
+        > | null
+        latestResources: Array<
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'ebook'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'webinar'
+              _updatedAt: string
             }
         >
       }
@@ -3326,6 +3610,7 @@ export type AuthorQueryResult = {
         _key: string
         _type: 'twoColumnsContent'
         enabled?: boolean
+        columnLayout?: '1/1' | '1/3' | '2/3'
         sectionBackground?: Background
         subHeading?: string
         heading?: string
@@ -3525,7 +3810,7 @@ export type GetRelatedResourcesQueryResult = Array<{
   date: string | null
 }>
 // Variable: getHomeQuery
-// Query: *[_type == "home"][0] { ..., "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },	}}
+// Query: *[_type == "home"][0] { ..., "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in ["article", "ebook", "webinar"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}}
 export type GetHomeQueryResult = {
   _id: string
   _type: 'home'
@@ -3550,7 +3835,16 @@ export type GetHomeQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -3568,7 +3862,16 @@ export type GetHomeQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -3594,7 +3897,16 @@ export type GetHomeQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -3612,7 +3924,16 @@ export type GetHomeQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -4123,18 +4444,238 @@ export type GetHomeQueryResult = {
         description?: BlockContent
         ctaButton?: CtaLink
         resourceDisplayTypes?: 'custom' | 'mostRecents'
-        selectedResources?: Array<
+        selectedResources: Array<
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'article'
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
             }
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'page'
+              author: null
+              coverImage: null
+              date: null
+              estimatedReadingTime: null
+              slug: Slug
+              seo: Seo | null
+              tags: null
+              title: null
+              _createdAt: string
+              _id: string
+              _type: 'page'
+              _updatedAt: string
+            }
+        > | null
+        latestResources: Array<
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'ebook'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'webinar'
+              _updatedAt: string
             }
         >
       }
@@ -4503,6 +5044,7 @@ export type GetHomeQueryResult = {
         _key: string
         _type: 'twoColumnsContent'
         enabled?: boolean
+        columnLayout?: '1/1' | '1/3' | '2/3'
         sectionBackground?: Background
         subHeading?: string
         heading?: string
@@ -4515,7 +5057,7 @@ export type GetHomeQueryResult = {
   seo?: Seo
 } | null
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },	}   }
+// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in ["article", "ebook", "webinar"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}   }
 export type GetPageQueryResult = {
   _id: string
   _type: 'page'
@@ -4538,7 +5080,16 @@ export type GetPageQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -4556,7 +5107,16 @@ export type GetPageQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -4582,7 +5142,16 @@ export type GetPageQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -4600,7 +5169,16 @@ export type GetPageQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -5111,18 +5689,238 @@ export type GetPageQueryResult = {
         description?: BlockContent
         ctaButton?: CtaLink
         resourceDisplayTypes?: 'custom' | 'mostRecents'
-        selectedResources?: Array<
+        selectedResources: Array<
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'article'
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
             }
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'page'
+              author: null
+              coverImage: null
+              date: null
+              estimatedReadingTime: null
+              slug: Slug
+              seo: Seo | null
+              tags: null
+              title: null
+              _createdAt: string
+              _id: string
+              _type: 'page'
+              _updatedAt: string
+            }
+        > | null
+        latestResources: Array<
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'ebook'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'webinar'
+              _updatedAt: string
             }
         >
       }
@@ -5491,6 +6289,7 @@ export type GetPageQueryResult = {
         _key: string
         _type: 'twoColumnsContent'
         enabled?: boolean
+        columnLayout?: '1/1' | '1/3' | '2/3'
         sectionBackground?: Background
         subHeading?: string
         heading?: string
@@ -5502,7 +6301,7 @@ export type GetPageQueryResult = {
   > | null
 } | null
 // Variable: getArticleQuery
-// Query: *[_type == 'article' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },	}}
+// Query: *[_type == 'article' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in ["article", "ebook", "webinar"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}}
 export type GetArticleQueryResult = {
   _id: string
   _type: 'article'
@@ -5582,7 +6381,16 @@ export type GetArticleQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -5600,7 +6408,16 @@ export type GetArticleQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -5626,7 +6443,16 @@ export type GetArticleQueryResult = {
           linkLabel?: string
           link: {
             _type: 'link'
-            linkType?: 'article' | 'author' | 'href' | 'page'
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'blog'
+              | 'caseStudy'
+              | 'ebook'
+              | 'file'
+              | 'href'
+              | 'page'
+              | 'whitepaper'
             href?: string
             page: string | null
             article: string | null
@@ -5644,7 +6470,16 @@ export type GetArticleQueryResult = {
             linkLabel?: string
             link: {
               _type: 'link'
-              linkType?: 'article' | 'author' | 'href' | 'page'
+              linkType?:
+                | 'article'
+                | 'author'
+                | 'blog'
+                | 'caseStudy'
+                | 'ebook'
+                | 'file'
+                | 'href'
+                | 'page'
+                | 'whitepaper'
               href?: string
               page: string | null
               article: string | null
@@ -6155,18 +6990,238 @@ export type GetArticleQueryResult = {
         description?: BlockContent
         ctaButton?: CtaLink
         resourceDisplayTypes?: 'custom' | 'mostRecents'
-        selectedResources?: Array<
+        selectedResources: Array<
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'article'
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
             }
           | {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'page'
+              author: null
+              coverImage: null
+              date: null
+              estimatedReadingTime: null
+              slug: Slug
+              seo: Seo | null
+              tags: null
+              title: null
+              _createdAt: string
+              _id: string
+              _type: 'page'
+              _updatedAt: string
+            }
+        > | null
+        latestResources: Array<
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'article'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'ebook'
+              _updatedAt: string
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null
+                firstName: string
+                lastName: string
+                slug: Slug
+                picture: {
+                  asset?: {
+                    _ref: string
+                    _type: 'reference'
+                    _weak?: boolean
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                  }
+                  media?: unknown
+                  hotspot?: SanityImageHotspot
+                  crop?: SanityImageCrop
+                  alt?: string
+                  _type: 'image'
+                }
+                _type: 'author'
+                _id: string
+              } | null
+              coverImage: {
+                asset?: {
+                  _ref: string
+                  _type: 'reference'
+                  _weak?: boolean
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                }
+                media?: unknown
+                hotspot?: SanityImageHotspot
+                crop?: SanityImageCrop
+                alt?: string
+                _type: 'image'
+              }
+              date: string | null
+              estimatedReadingTime: string | null
+              slug: Slug
+              seo: Seo | null
+              tags: Array<{
+                _id: string
+                _type: 'tag'
+                _createdAt: string
+                _updatedAt: string
+                _rev: string
+                name: string
+                slug: Slug
+              }> | null
+              title: string
+              _createdAt: string
+              _id: string
+              _type: 'webinar'
+              _updatedAt: string
             }
         >
       }
@@ -6535,6 +7590,7 @@ export type GetArticleQueryResult = {
         _key: string
         _type: 'twoColumnsContent'
         enabled?: boolean
+        columnLayout?: '1/1' | '1/3' | '2/3'
         sectionBackground?: Background
         subHeading?: string
         heading?: string
@@ -6552,7 +7608,7 @@ export type ArticleSlugsResult = Array<{
   slug: string
 }>
 // Variable: getResourceQuery
-// Query: *[		_type == $type &&		slug.current == $slug	][0]{		...,		author->,		tags[]->{ title, slug },		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },	}	}
+// Query: *[		_type == $type &&		slug.current == $slug	][0]{		...,		author->,		tags[]->{ title, slug },		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in ["article", "ebook", "webinar"]] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in ["article", "ebook", "webinar"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}	}
 export type GetResourceQueryResult =
   | {
       _id: string
@@ -6628,7 +7684,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -6646,7 +7711,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -6672,7 +7746,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -6690,7 +7773,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -7201,18 +8293,238 @@ export type GetResourceQueryResult =
             description?: BlockContent
             ctaButton?: CtaLink
             resourceDisplayTypes?: 'custom' | 'mostRecents'
-            selectedResources?: Array<
+            selectedResources: Array<
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'article'
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
                 }
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'page'
+                  author: null
+                  coverImage: null
+                  date: null
+                  estimatedReadingTime: null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: null
+                  title: null
+                  _createdAt: string
+                  _id: string
+                  _type: 'page'
+                  _updatedAt: string
+                }
+            > | null
+            latestResources: Array<
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'ebook'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'webinar'
+                  _updatedAt: string
                 }
             >
           }
@@ -7581,6 +8893,7 @@ export type GetResourceQueryResult =
             _key: string
             _type: 'twoColumnsContent'
             enabled?: boolean
+            columnLayout?: '1/1' | '1/3' | '2/3'
             sectionBackground?: Background
             subHeading?: string
             heading?: string
@@ -7658,7 +8971,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -7676,7 +8998,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -7702,7 +9033,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -7720,7 +9060,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -8231,18 +9580,238 @@ export type GetResourceQueryResult =
             description?: BlockContent
             ctaButton?: CtaLink
             resourceDisplayTypes?: 'custom' | 'mostRecents'
-            selectedResources?: Array<
+            selectedResources: Array<
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'article'
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
                 }
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'page'
+                  author: null
+                  coverImage: null
+                  date: null
+                  estimatedReadingTime: null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: null
+                  title: null
+                  _createdAt: string
+                  _id: string
+                  _type: 'page'
+                  _updatedAt: string
+                }
+            > | null
+            latestResources: Array<
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'ebook'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'webinar'
+                  _updatedAt: string
                 }
             >
           }
@@ -8611,6 +10180,7 @@ export type GetResourceQueryResult =
             _key: string
             _type: 'twoColumnsContent'
             enabled?: boolean
+            columnLayout?: '1/1' | '1/3' | '2/3'
             sectionBackground?: Background
             subHeading?: string
             heading?: string
@@ -8697,7 +10267,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -8715,7 +10294,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -8741,7 +10329,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -8759,7 +10356,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -9270,18 +10876,238 @@ export type GetResourceQueryResult =
             description?: BlockContent
             ctaButton?: CtaLink
             resourceDisplayTypes?: 'custom' | 'mostRecents'
-            selectedResources?: Array<
+            selectedResources: Array<
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'article'
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
                 }
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'page'
+                  author: null
+                  coverImage: null
+                  date: null
+                  estimatedReadingTime: null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: null
+                  title: null
+                  _createdAt: string
+                  _id: string
+                  _type: 'page'
+                  _updatedAt: string
+                }
+            > | null
+            latestResources: Array<
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'ebook'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'webinar'
+                  _updatedAt: string
                 }
             >
           }
@@ -9650,6 +11476,7 @@ export type GetResourceQueryResult =
             _key: string
             _type: 'twoColumnsContent'
             enabled?: boolean
+            columnLayout?: '1/1' | '1/3' | '2/3'
             sectionBackground?: Background
             subHeading?: string
             heading?: string
@@ -9685,7 +11512,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -9703,7 +11539,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -9729,7 +11574,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -9747,7 +11601,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -10258,18 +12121,238 @@ export type GetResourceQueryResult =
             description?: BlockContent
             ctaButton?: CtaLink
             resourceDisplayTypes?: 'custom' | 'mostRecents'
-            selectedResources?: Array<
+            selectedResources: Array<
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'article'
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
                 }
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'page'
+                  author: null
+                  coverImage: null
+                  date: null
+                  estimatedReadingTime: null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: null
+                  title: null
+                  _createdAt: string
+                  _id: string
+                  _type: 'page'
+                  _updatedAt: string
+                }
+            > | null
+            latestResources: Array<
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'ebook'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'webinar'
+                  _updatedAt: string
                 }
             >
           }
@@ -10638,6 +12721,7 @@ export type GetResourceQueryResult =
             _key: string
             _type: 'twoColumnsContent'
             enabled?: boolean
+            columnLayout?: '1/1' | '1/3' | '2/3'
             sectionBackground?: Background
             subHeading?: string
             heading?: string
@@ -10675,7 +12759,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -10693,7 +12786,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -10719,7 +12821,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -10737,7 +12848,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -11248,18 +13368,238 @@ export type GetResourceQueryResult =
             description?: BlockContent
             ctaButton?: CtaLink
             resourceDisplayTypes?: 'custom' | 'mostRecents'
-            selectedResources?: Array<
+            selectedResources: Array<
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'article'
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
                 }
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'page'
+                  author: null
+                  coverImage: null
+                  date: null
+                  estimatedReadingTime: null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: null
+                  title: null
+                  _createdAt: string
+                  _id: string
+                  _type: 'page'
+                  _updatedAt: string
+                }
+            > | null
+            latestResources: Array<
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'ebook'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'webinar'
+                  _updatedAt: string
                 }
             >
           }
@@ -11628,6 +13968,7 @@ export type GetResourceQueryResult =
             _key: string
             _type: 'twoColumnsContent'
             enabled?: boolean
+            columnLayout?: '1/1' | '1/3' | '2/3'
             sectionBackground?: Background
             subHeading?: string
             heading?: string
@@ -11837,7 +14178,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -11855,7 +14205,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -11881,7 +14240,16 @@ export type GetResourceQueryResult =
               linkLabel?: string
               link: {
                 _type: 'link'
-                linkType?: 'article' | 'author' | 'href' | 'page'
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'blog'
+                  | 'caseStudy'
+                  | 'ebook'
+                  | 'file'
+                  | 'href'
+                  | 'page'
+                  | 'whitepaper'
                 href?: string
                 page: string | null
                 article: string | null
@@ -11899,7 +14267,16 @@ export type GetResourceQueryResult =
                 linkLabel?: string
                 link: {
                   _type: 'link'
-                  linkType?: 'article' | 'author' | 'href' | 'page'
+                  linkType?:
+                    | 'article'
+                    | 'author'
+                    | 'blog'
+                    | 'caseStudy'
+                    | 'ebook'
+                    | 'file'
+                    | 'href'
+                    | 'page'
+                    | 'whitepaper'
                   href?: string
                   page: string | null
                   article: string | null
@@ -12410,18 +14787,238 @@ export type GetResourceQueryResult =
             description?: BlockContent
             ctaButton?: CtaLink
             resourceDisplayTypes?: 'custom' | 'mostRecents'
-            selectedResources?: Array<
+            selectedResources: Array<
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'article'
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
                 }
               | {
-                  _ref: string
-                  _type: 'reference'
-                  _weak?: boolean
-                  [internalGroqTypeReferenceTo]?: 'page'
+                  author: null
+                  coverImage: null
+                  date: null
+                  estimatedReadingTime: null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: null
+                  title: null
+                  _createdAt: string
+                  _id: string
+                  _type: 'page'
+                  _updatedAt: string
+                }
+            > | null
+            latestResources: Array<
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'article'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'ebook'
+                  _updatedAt: string
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null
+                    firstName: string
+                    lastName: string
+                    slug: Slug
+                    picture: {
+                      asset?: {
+                        _ref: string
+                        _type: 'reference'
+                        _weak?: boolean
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                      }
+                      media?: unknown
+                      hotspot?: SanityImageHotspot
+                      crop?: SanityImageCrop
+                      alt?: string
+                      _type: 'image'
+                    }
+                    _type: 'author'
+                    _id: string
+                  } | null
+                  coverImage: {
+                    asset?: {
+                      _ref: string
+                      _type: 'reference'
+                      _weak?: boolean
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+                    }
+                    media?: unknown
+                    hotspot?: SanityImageHotspot
+                    crop?: SanityImageCrop
+                    alt?: string
+                    _type: 'image'
+                  }
+                  date: string | null
+                  estimatedReadingTime: string | null
+                  slug: Slug
+                  seo: Seo | null
+                  tags: Array<{
+                    _id: string
+                    _type: 'tag'
+                    _createdAt: string
+                    _updatedAt: string
+                    _rev: string
+                    name: string
+                    slug: Slug
+                  }> | null
+                  title: string
+                  _createdAt: string
+                  _id: string
+                  _type: 'webinar'
+                  _updatedAt: string
                 }
             >
           }
@@ -12790,6 +15387,7 @@ export type GetResourceQueryResult =
             _key: string
             _type: 'twoColumnsContent'
             enabled?: boolean
+            columnLayout?: '1/1' | '1/3' | '2/3'
             sectionBackground?: Background
             subHeading?: string
             heading?: string
@@ -13239,14 +15837,14 @@ declare module '@sanity/client' {
     '\n\t*[\n\t\t_type in ["article", "ebook", "webinar"]\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesPaginatedQueryResult
     '\n\t*[\n\t\t_type in coalesce($types, ["article", "ebook", "webinar"])\n\t\t&& title match $terms\n\t\t&& (\n\t\t\tcount(tags[@->name match $topic]) > 0 ||\n\t\t\t!defined(tags) ||\n\t\t\tcount(tags) == 0\n\t\t)\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesSearchPaginatedQueryResult
     '\n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n': AllResourcesSearchQueryResult
-    '\n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n\t}\n\n': PageBuilderContentResult
-    '\n\t*[_type == "author" && slug.current == $slug][0] {\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n\t}\n\n,\n\t\t"resources": *[_type  in ["article", "ebook", "webinar"] && author._ref == ^._id] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }\n\t}\n': AuthorQueryResult
+    '\n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in ["article", "ebook", "webinar"]] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n': PageBuilderContentResult
+    '\n\t*[_type == "author" && slug.current == $slug][0] {\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in ["article", "ebook", "webinar"]] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n,\n\t\t"resources": *[_type  in ["article", "ebook", "webinar"] && author._ref == ^._id] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }\n\t}\n': AuthorQueryResult
     '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current != $slug &&\n\n\t\t// Match at least 1 tag\n\t\tcount(tags[@->slug.current in $tagSlugs]) > 0\n\t]\n\t| order(date desc)[0...3]{\n\t\ttitle,\n\t\tslug,\n\t\tcoverImage,\n\t\ttags[]->{ title, slug },\n\t\tdate\n\t}\n': GetRelatedResourcesQueryResult
-    '*[_type == "home"][0] { ..., "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n\t}\n\n}': GetHomeQueryResult
-    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n\t}\n\n \n  }\n': GetPageQueryResult
-    '\n  *[_type == \'article\' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n\t}\n\n}\n': GetArticleQueryResult
+    '*[_type == "home"][0] { ..., "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in ["article", "ebook", "webinar"]] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n}': GetHomeQueryResult
+    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in ["article", "ebook", "webinar"]] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n \n  }\n': GetPageQueryResult
+    '\n  *[_type == \'article\' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in ["article", "ebook", "webinar"]] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n}\n': GetArticleQueryResult
     '\n\t*[_type == "article" && defined(slug.current)] {"slug": slug.current}\n': ArticleSlugsResult
-    '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current == $slug\n\t][0]{\n\t\t...,\n\t\tauthor->,\n\t\ttags[]->{ title, slug },\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n\t}\n\n\n\t}\n': GetResourceQueryResult
+    '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current == $slug\n\t][0]{\n\t\t...,\n\t\tauthor->,\n\t\ttags[]->{ title, slug },\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in ["article", "ebook", "webinar"]] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in ["article", "ebook", "webinar"]] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n\n\t}\n': GetResourceQueryResult
     '\n\t*[\n\t\t_type == $type &&\n\t\tdefined(slug.current)\n\t]{\n\t\t"slug": slug.current\n\t}\n': ResourceSlugsResult
     '\n\t*[\n\t\t_type in $types &&\n\t\ttitle match $terms &&\n\t\t(\n\t\t\t$topic == "*" ||\n\t\t\tcount(tags[@->slug.current == $topic]) > 0\n\t\t)\n\t]\n\t| order(date desc){\n\t\t...,\n\t\ttags[]->{ title, slug },\n\t\tauthor->,\n\t\tcoverImage\n\t}\n': GetResourcesByTypeQueryResult
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult

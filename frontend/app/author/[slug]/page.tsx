@@ -4,6 +4,7 @@ import { ResourceCard, SanityImage, PortableText, BlockRenderer } from '@/compon
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 import PageBuilderPage from '@/components/PageBuilder';
 import { GetPageQueryResult, Page as PageType } from '@/sanity.types';
+import { get } from 'lodash';
 
 import { sanityFetch } from '@/sanity/lib/live';
 import { authorQuery } from '@/sanity/lib/queries';
@@ -27,11 +28,16 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   });
 
   return {
-    title: `${page?.firstName} ${page?.lastName}`,
-    description: page?.jobTitle,
+    title: `${get(page, 'firstName')} ${get(page, 'lastName')}`,
+    description: get(page, 'jobTitle'),
     openGraph: {
-      title: `${page?.firstName} ${page?.lastName}`,
-      images: [{ url: resolveOpenGraphImage(page?.picture || page?.coverImage)?.url || '' }],
+      title: `${get(page, 'firstName')} ${get(page, 'lastName')}`,
+      images: [
+        {
+          url:
+            resolveOpenGraphImage(get(page, 'picture') || get(page, 'coverImage'))?.url || '',
+        },
+      ],
     },
   } satisfies Metadata;
 }
@@ -45,9 +51,6 @@ export default async function Page(props: Props) {
       params: { ...params, terms: '*', types: '*', topic: '*' },
     }),
   ]);
-
-  console.log('----------debugging: author----------');
-  console.log(page);
 
   if (!page?._id) {
     return (
@@ -121,7 +124,7 @@ export default async function Page(props: Props) {
           </div>
         )}
       </section>
-      <PageBuilderPage page={page as GetPageQueryResult} />
+      <PageBuilderPage page={page as any} />
     </>
   );
 }

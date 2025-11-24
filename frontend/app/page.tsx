@@ -44,9 +44,6 @@ export default async function Page() {
     }),
   ]);
 
-  console.log('----------debugging----------');
-  console.log(page);
-
   if (!page?._id) {
     return (
       <div className="py-40">
@@ -55,5 +52,5 @@ export default async function Page() {
     );
   }
 
-  return <PageBuilderPage page={page as GetPageQueryResult} />;
+  return <PageBuilderPage page={page as any} />;
 }

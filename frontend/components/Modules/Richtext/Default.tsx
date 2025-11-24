@@ -1,10 +1,10 @@
 import cn from 'classnames';
-import { Richtext, GetResourceQueryResult } from '@/sanity.types';
+import { Richtext } from '@/sanity.types';
 import PortableText from '@/components/PortableText';
 
 type Props = {
   block: Richtext;
-  pageData: GetResourceQueryResult;
+  pageData: any;
 };
 
 export default function RichTextDefault({ block, pageData }: Props) {

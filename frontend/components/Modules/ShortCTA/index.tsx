@@ -1,16 +1,10 @@
 import Link from 'next/link';
-import { ShortCTA, GetResourceQueryResult } from '@/sanity.types';
+import { ShortCTA } from '@/sanity.types';
 import { ButtonPrimary, ResolvedLink, PortableText, SanityImage } from '@/components';
 import { defaultBackground } from '@/utils/constants';
 import cn from 'classnames';
 
-const ShortCTAModule = ({
-  block,
-  pageData,
-}: {
-  block: ShortCTA;
-  pageData: GetResourceQueryResult;
-}) => {
+const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any }) => {
   const { enabled, description, ctaButton, sectionBackground = defaultBackground } = block;
 
   if (!enabled) {
@@ -51,7 +45,9 @@ const ShortCTAModule = ({
               <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30" />
             )}
             <div className="absolute w-full h-full inset-0">
-              <SanityImage image={asset} className="w-full h-full object-cover relative" />
+              {asset && (
+                <SanityImage image={asset} className="w-full h-full object-cover relative" />
+              )}
             </div>
             <div className="grid-container items-start py-16 pl-16 pr-12 z-20 relative items-start">
               <div className="cta-content col-span-7">

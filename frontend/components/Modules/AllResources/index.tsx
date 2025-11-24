@@ -13,7 +13,6 @@ import {
 } from '@/components';
 import Link from 'next/link';
 import { CalendarIcon, ClockIcon } from '@/components/Icons';
-import { AllResources } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 
 import { useState } from 'react';
@@ -26,7 +25,7 @@ import { linkHelpers } from '@/sanity/lib/utils';
 
 const LIMIT = 12;
 
-export default function AllResourcesModule({ block }: { block: AllResources }) {
+export default function AllResourcesModule({ block }: { block: any }) {
   const { enabled, description, resources = [], allResources = [] } = block;
 
   const [visibleCount, setVisibleCount] = useState(LIMIT);

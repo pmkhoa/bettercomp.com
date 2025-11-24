@@ -70,9 +70,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     query: settingsQuery,
   });
 
-  console.log('----------debugging: settings----------');
-  console.log(settings);
-
   return (
     <html
       lang="en"
@@ -95,9 +92,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
-          {settings && <Header settings={settings} />}
+          {settings && <Header settings={settings as any} />}
           <main className="">{children}</main>
-          <Footer settings={settings} />
+          <Footer settings={settings as any} />
         </section>
         <SpeedInsights />
 

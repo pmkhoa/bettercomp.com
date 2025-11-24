@@ -8,8 +8,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import cn from 'classnames';
 import s from './style.module.css';
-import DesktopMenu from './DesktopMenu';
-import MobileMenu from './DesktopMenu';
 import LogoBlack from '@/assets/images/LogoBlack.png';
 import LogoWhite from '@/assets/images/LogoWhite.png';
 import { HelpDeskIcon, ProfileIcon } from '@/components/Icons';
@@ -186,9 +184,6 @@ export default function Header({ settings }: { settings: Settings }) {
         </motion.div>
 
         {/* MOBILE NAV */}
-        <div className="md:hidden">
-          <MobileMenu settings={settings} />
-        </div>
       </motion.header>
 
       {/* ===== SPACER (same background as header) ===== */}

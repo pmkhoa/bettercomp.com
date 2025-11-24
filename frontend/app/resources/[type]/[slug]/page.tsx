@@ -5,6 +5,7 @@ import { sanityFetch } from '@/sanity/lib/live';
 import { getResourceQuery, resourceSlugs } from '@/sanity/lib/queries';
 import { GetPageQueryResult } from '@/sanity.types';
 import { NotFound } from '@/components';
+import { get } from 'lodash';
 import { defaultResourcesType } from '@/utils/constants';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 
@@ -63,13 +64,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: page?.seo?.title || page?.title || 'Not Found',
-    description: page?.seo?.description || page?.excerpt,
+    title: get(page, 'seo.title') || get(page, 'title') || 'Not Found',
+    description: get(page, 'seo.description') || get(page, 'excerpt'),
     openGraph: {
-      title: page?.seo?.title || page?.title,
+      title: get(page, 'seo.title') || get(page, 'title') || 'Not Found',
       images: [
         {
-          url: resolveOpenGraphImage(page?.seo?.ogImage || page?.coverImage)?.url || '',
+          url:
+            resolveOpenGraphImage(get(page, 'seo.ogImage') || get(page, 'coverImage'))?.url ||
+            '',
         },
       ],
     },
@@ -99,5 +102,5 @@ export default async function Page({ params }: Props) {
     );
   }
 
-  return <PageBuilderPage page={page as GetPageQueryResult} />;
+  return <PageBuilderPage page={page as any} />;
 }

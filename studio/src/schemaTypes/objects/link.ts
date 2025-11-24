@@ -20,10 +20,15 @@ export const link = defineType({
       initialValue: 'page',
       options: {
         list: [
+          { title: 'Author', value: 'author' },
           { title: 'URL', value: 'href' },
           { title: 'Page', value: 'page' },
+          { title: 'File', value: 'file' },
           { title: 'Article', value: 'article' },
-          { title: 'Author', value: 'author' },
+          { title: 'Ebook', value: 'ebook' },
+          { title: 'Case Study', value: 'caseStudy' },
+          { title: 'Whitepaper', value: 'whitepaper' },
+          { title: 'Blog', value: 'blog' },
         ],
         layout: 'radio',
       },

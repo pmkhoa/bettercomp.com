@@ -53,7 +53,7 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
                 <PortableText value={description} />
               </div>
               <div className="hero__cta mt-12 flex flex-wrap gap-8 items-center">
-                {ctaButton && ctaButton && (
+                {ctaButton && ctaButton.linkLabel && (
                   <ButtonPrimary className="mt-6">
                     <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
                   </ButtonPrimary>

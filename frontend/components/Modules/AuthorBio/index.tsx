@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 type Props = {
   block: AuthorBio;
-  pageData: GetResourceQueryResult;
+  pageData: any;
 };
 
 const AuthorBioModule = ({ block, pageData }: Props) => {

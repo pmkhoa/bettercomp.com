@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import BlockRenderer from '@/components/BlockRenderer';
 import { TOC } from '@/components';
-import { GetPageQueryResult } from '@/sanity.types';
+import { GetPageQueryResult, GetResourceQueryResult } from '@/sanity.types';
 import { dataAttr } from '@/sanity/lib/utils';
 import { studioUrl } from '@/sanity/lib/api';
 
