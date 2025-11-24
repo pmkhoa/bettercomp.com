@@ -16,6 +16,7 @@ import {
   type DocumentLocation,
 } from 'sanity/presentation';
 import { assist } from '@sanity/assist';
+import PreviewAction from './src/components/previewAction';
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID';
@@ -54,6 +55,9 @@ export default defineConfig({
   dataset,
 
   plugins: [
+    structureTool({
+      structure, // Custom studio structure configuration, imported from ./src/structure.ts
+    }),
     // Presentation tool configuration for Visual Editing
     presentationTool({
       previewUrl: {
@@ -120,9 +124,6 @@ export default defineConfig({
         },
       },
     }),
-    structureTool({
-      structure, // Custom studio structure configuration, imported from ./src/structure.ts
-    }),
     // Additional plugins for enhanced functionality
     unsplashImageAsset(),
     assist(),
@@ -132,5 +133,19 @@ export default defineConfig({
   // Schema configuration, imported from ./src/schemaTypes/index.ts
   schema: {
     types: schemaTypes,
+  },
+
+  document: {
+    actions: (prev, context) => {
+      return context.schemaType === 'news' ||
+        context.schemaType === 'insight' ||
+        context.schemaType === 'article' ||
+        context.schemaType === 'blog' ||
+        context.schemaType === 'caseStudy' ||
+        context.schemaType === 'whitepaper' ||
+        context.schemaType === 'page' // Apply only to "news"
+        ? [...prev, PreviewAction]
+        : prev;
+    },
   },
 });
