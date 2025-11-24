@@ -50,9 +50,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const terms = '*';
   const topic = '*';
 
-  console.log('----------debugging: type and slug----------');
-  console.log(type, slug);
-
   const { data: page } = await sanityFetch({
     query: getResourceQuery,
     params: { type, slug, types, terms, topic },

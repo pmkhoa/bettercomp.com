@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import cn from 'classnames';
+import type { Metadata } from 'next';
 import { ResourceCard, SanityImage, PortableText, BlockRenderer } from '@/components';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 import PageBuilderPage from '@/components/PageBuilder';
