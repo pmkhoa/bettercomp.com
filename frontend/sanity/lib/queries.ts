@@ -152,15 +152,13 @@ export const getHomeQuery = defineQuery(
 );
 
 export const getPageQuery = defineQuery(`
-  *[_type == 'page' && slug.current == $slug][0]{
-    _id,
-    _type,
-    name,
-    slug,
-    heading,
-    subheading,
-    "pageBuilder": ${pageBuilderContent} 
-  }
+	*[_type == 'page' && slug.current match $slug][0]{
+		_id,
+		_type,
+		name,
+		slug,
+		"pageBuilder": ${pageBuilderContent}
+	}
 `);
 
 // Articles
