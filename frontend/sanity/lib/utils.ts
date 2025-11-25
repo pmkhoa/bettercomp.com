@@ -85,14 +85,12 @@ export function linkResolver(link: any) {
       return null;
     // Generic resource (article, ebook, case-study, etc.)
     case 'article':
-    // @ts-ignore
     case 'ebook':
-    // @ts-ignore
     case 'caseStudy':
-    // @ts-ignore
     case 'guide':
-    // @ts-ignore
-    case 'report':
+    case 'template':
+    case 'webinar':
+    case 'tool':
       if (link?.[link.linkType] && link?.[link.linkType]?._type === 'reference') {
         const ref = link[link.linkType];
         // @ts-ignore
@@ -111,7 +109,15 @@ export function linkHelpers(entry: any) {
   if (!entry || !entry._type) return '';
 
   // Handle resource types
-  const resourceTypes = ['article', 'ebook', 'caseStudy', 'guide', 'report'];
+  const resourceTypes = [
+    'article',
+    'ebook',
+    'caseStudy',
+    'guide',
+    'template',
+    'tool',
+    'webinar',
+  ];
 
   if (resourceTypes.includes(entry._type)) {
     return `/resources/${entry._type}/${entry?.slug?.current ?? ''}`;
@@ -120,9 +126,6 @@ export function linkHelpers(entry: any) {
   switch (entry._type) {
     case 'author':
       return `/author/${entry?.slug?.current ?? ''}`;
-
-    case 'webinar':
-      return `/webinars/${entry?.slug?.current ?? ''}`;
 
     case 'news':
       return `/news/${entry?.slug?.current ?? ''}`;

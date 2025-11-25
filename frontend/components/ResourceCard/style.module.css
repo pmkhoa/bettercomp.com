@@ -1,0 +1,7 @@
+.resource-card {
+
+}
+
+.resource-card:hover .resource-title {
+  text-decoration: underline;
+}

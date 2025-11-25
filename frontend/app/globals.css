@@ -177,19 +177,19 @@
     @apply list-decimal ml-4;
   }
 
-  .toc-inner-content h1,
-  .toc-inner-content h2,
-  .toc-inner-content h3,
-  .toc-inner-content h4,
-  .toc-inner-content h5,
+  p:has(+ p) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
   h1:has(+ p),
   h2:has(+ p),
   h3:has(+ p),
   h4:has(+ p),
   h5:has(+ p) {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
+}
 
   .font-serif {
     font-family: var(--font-zilla-slab);

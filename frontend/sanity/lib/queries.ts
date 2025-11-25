@@ -13,6 +13,10 @@ const markDefsWithLink = `
 	markDefs[] { ..., ${linkReference} }
 `;
 
+const resourceTypes = `
+  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]
+`;
+
 const linkFields = /* groq */ `
   link { ..., ${linkReference} }
 `;
@@ -51,12 +55,12 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0] {
 }`);
 
 export const allResourcesQuery = defineQuery(`
-	*[_type in ["article", "ebook", "webinar"]] | order(date desc) 
+	*[_type in ${resourceTypes} ] | order(date desc) 
 `);
 
 export const allResourcesPaginatedQuery = defineQuery(`
 	*[
-		_type in ["article", "ebook", "webinar"]
+		_type in ${resourceTypes} 
 	]
 	| order(date desc)
 	[$offset...$end]
@@ -64,7 +68,7 @@ export const allResourcesPaginatedQuery = defineQuery(`
 
 export const allResourcesSearchPaginatedQuery = defineQuery(`
 	*[
-		_type in coalesce($types, ["article", "ebook", "webinar"])
+		_type in coalesce($types, ${resourceTypes})
 		&& title match $terms
 		&& (
 			count(tags[@->name match $topic]) > 0 ||
@@ -80,7 +84,7 @@ export const allResourcesSearchPaginatedQuery = defineQuery(`
 // Filter by content types
 // Search by tags. If there's no tags associated with content types, return true.
 export const allResourcesSearchQuery = defineQuery(`
-  *[_type in coalesce($types, ["article", "ebook", "webinar"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) 
+  *[_type in coalesce($types, ${resourceTypes}) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) 
 `);
 
 const postFields = /* groq */ `
@@ -116,7 +120,7 @@ const pageBuilderContent = /* groq */ defineQuery(`
     _type == 'featuredResources' => {
       ..., 
       selectedResources[]-> { ${resourceFields} }, 
-      "latestResources": *[_type in ["article", "ebook", "webinar"]] { ${resourceFields} } | order(date desc)[0...6] 
+      "latestResources": *[_type in ${resourceTypes}] { ${resourceFields} } | order(date desc)[0...6] 
     }
 	}
 
@@ -126,7 +130,7 @@ export const authorQuery = defineQuery(`
 	*[_type == "author" && slug.current == $slug][0] {
 		...,
 		"pageBuilder": ${pageBuilderContent},
-		"resources": *[_type  in ["article", "ebook", "webinar"] && author._ref == ^._id] { ${resourceFields} }
+		"resources": *[_type  in ${resourceTypes} && author._ref == ^._id] { ${resourceFields} }
 	}
 `);
 

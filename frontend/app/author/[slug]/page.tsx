@@ -106,7 +106,7 @@ export default async function Page(props: Props) {
           </div>
         </div>
       </section>
-      <section className="section-module insights-container">
+      <section className="section-module insights-container mb-24">
         {resources && resources.length > 0 && (
           <div className="container mt-32">
             <div className="heading mb-12 text-center">

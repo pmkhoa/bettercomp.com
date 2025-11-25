@@ -152,7 +152,7 @@ export default function Header({ settings }: { settings: Settings }) {
                           )}
                           key={nav._key}
                         >
-                          {nav.menuLabel}
+                          <span className="font-bold">{nav.menuLabel}</span>
                         </ResolvedLink>
                       );
                     }

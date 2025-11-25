@@ -1,6 +1,4 @@
 import { DateComponent, MotionFadeIn, SanityImage } from '@/components';
-import { RESOURCE_CONTENT_TYPES } from '@/utils/constants';
-import { find, truncate } from 'lodash';
 import Link from 'next/link';
 import { CalendarIcon, ClockIcon } from '@/components/Icons';
 import cn from 'classnames';
@@ -9,7 +7,13 @@ import { linkHelpers } from '@/sanity/lib/utils';
 
 const ResourceCard = ({ resource }: { resource: any }) => {
   return (
-    <Link href={linkHelpers(resource)} className="flex flex-col h-full">
+    <Link
+      href={linkHelpers(resource)}
+      className={cn(
+        `flex flex-col h-full shadow-md rounded-sm resource-card`,
+        s['resource-card'],
+      )}
+    >
       <div className="aspect-16/9 relative">
         <MotionFadeIn>
           <SanityImage
@@ -24,7 +28,14 @@ const ResourceCard = ({ resource }: { resource: any }) => {
         )}
       </div>
       <div className="resource-container flex flex-col justify-between h-full bg-white border-t border-gray-100">
-        <h4 className="text-2xl py-6 px-8 font-medium text-blue mt-6">{resource.title}</h4>
+        <h4
+          className={cn(
+            'text-2xl py-6 px-8 font-medium text-blue mt-6 resource-title',
+            s['resource-title'],
+          )}
+        >
+          {resource.title}
+        </h4>
         <div className="flex justify-between items-center pb-6 px-8">
           <div className="publish-date flex gap-2 items-center">
             <CalendarIcon />

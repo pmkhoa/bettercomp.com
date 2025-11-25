@@ -40,7 +40,7 @@ export default function AllResourcesModule({ block }: { block: any }) {
     setVisibleCount((prev) => Math.min(prev + LIMIT, allResources.length));
     // Animate new items appearing
     gsap.fromTo(
-      '.insight-card',
+      '.resource-card',
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 },
     );
