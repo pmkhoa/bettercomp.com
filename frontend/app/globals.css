@@ -198,10 +198,11 @@
   margin-bottom: 0.5rem;
 }
 
-.template-resource div > h1,
-.template-resource div > h2,
-.template-resource div > h3,
-.template-resource div > h4 {
+.template-resource div + h1,
+.template-resource div + h2,
+.template-resource div + h3,
+.template-resource div + h4 {
+  margin-top: 0;
 }
 
 .section-richtext h1,
