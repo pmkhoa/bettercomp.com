@@ -63,6 +63,22 @@ export const settings = defineType({
       ],
     }),
     defineField({
+      name: 'siteBanner',
+      description: 'Top Site Banner',
+      title: 'Site Banner',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: 'loginLink',
+      title: 'Login Link',
+      type: 'string',
+    }),
+    defineField({
+      name: 'helpLink',
+      title: 'Help Link',
+      type: 'string',
+    }),
+    defineField({
       name: 'globalNav',
       description: 'Entering Global Navigation',
       title: 'Global Navigation',

@@ -12,7 +12,7 @@ export default function RichTextDefault({ block, pageData }: Props) {
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section className={cn('section-module', 'richtext-default my-20')}>
+    <section className={cn('section-module section-richtext', 'richtext-default my-20')}>
       <div className="container grid-container">
         <div
           className={cn(

@@ -13,8 +13,6 @@ import {
 } from '@/components';
 import Link from 'next/link';
 import { CalendarIcon, ClockIcon } from '@/components/Icons';
-import { defaultBackground } from '@/utils/constants';
-
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getFilterContentTypes, getFilterTopics } from '@/utils/getFilterResources';
@@ -45,6 +43,9 @@ export default function AllResourcesModule({ block }: { block: any }) {
       { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 },
     );
   };
+
+  console.log('----------debugging: resources----------');
+  console.log(resources);
 
   return (
     <section className={cn('section-all-resources relative')}>

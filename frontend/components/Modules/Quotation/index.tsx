@@ -18,7 +18,7 @@ export default function QuotationModule({ block, pageData }: QuotationProps) {
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section className={cn('section-quote section-module my-20')}>
+    <section className={cn('section-quote section-module my-20 overflow-hidden')}>
       <div className="container">
         <div className="grid-container">
           <div
@@ -27,7 +27,7 @@ export default function QuotationModule({ block, pageData }: QuotationProps) {
               'relative',
             )}
           >
-            <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md overflow-hidden" />
+            <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md overflow-hidden -left-1" />
             <div className={cn('flex flex-col py-16 px-20  bg-sand')}>
               <h5 className="mb-8 js-toc-ignore">{quote}</h5>
               <div className="quote-author flex gap-4 items-center">

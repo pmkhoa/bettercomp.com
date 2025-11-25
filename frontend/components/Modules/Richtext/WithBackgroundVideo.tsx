@@ -13,7 +13,9 @@ export default function RichTextWithBackgroundVideo({ block, pageData }: Props) 
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section className={cn('section-module', 'richtext-background-video', 'my-32')}>
+    <section
+      className={cn('section-module section-richtext', 'richtext-background-video', 'my-24')}
+    >
       <div className="container">
         <div className={cn('grid-container')}>
           {backgroundVideo && urlForAsset(backgroundVideo) && (

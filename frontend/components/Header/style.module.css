@@ -10,6 +10,12 @@
 	cursor: pointer;
 }
 
+.site-banner p,
+.site-banner h3,
+.site-banner h4 {
+  @apply text-sm;
+}
+
 .navlinks-desktop {
 	gap: 20px;
 	align-items: center;

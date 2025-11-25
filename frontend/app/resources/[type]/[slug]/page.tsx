@@ -99,5 +99,9 @@ export default async function Page({ params }: Props) {
     );
   }
 
-  return <PageBuilderPage page={page as any} />;
+  return (
+    <div className="template-resource">
+      <PageBuilderPage page={page as any} />;
+    </div>
+  );
 }

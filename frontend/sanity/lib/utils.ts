@@ -91,10 +91,9 @@ export function linkResolver(link: any) {
     case 'template':
     case 'webinar':
     case 'tool':
-      if (link?.[link.linkType] && link?.[link.linkType]?._type === 'reference') {
-        const ref = link[link.linkType];
-        // @ts-ignore
-        return `/resources/${link.linkType}/${ref.slug?.current ?? ''}`;
+      if (link?.[link.linkType] && link?.[link.linkType]?._type !== 'reference') {
+        const linkUrl = link[link.linkType];
+        return `/resources/${link.linkType}/${linkUrl}`;
       }
       return null;
 

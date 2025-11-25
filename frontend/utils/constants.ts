@@ -1,8 +1,3 @@
-export const RESOURCE_CONTENT_TYPES = [
-  { title: 'Article', value: 'article' },
-  { title: 'Ebook', value: 'ebook' },
-];
-
 export const CONTENT_TYPES = [
   { title: 'Topics', value: 'topics' },
   { title: 'Types', value: 'types' },
@@ -10,7 +5,14 @@ export const CONTENT_TYPES = [
   { title: 'All Types', value: 'alltypes' },
 ];
 
-export const defaultResourcesType = ['article', 'ebook', 'webinar'];
+export const defaultResourcesType = [
+  'article',
+  'ebook',
+  'guide',
+  'webinar',
+  'tool',
+  'template',
+];
 
 export const defaultBackground = {
   _type: 'background',

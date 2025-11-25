@@ -12,7 +12,7 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section className={cn('section-module', 'rich-text-embed', 'my-20')}>
+    <section className={cn('section-module section-richtext', 'rich-text-embed', 'my-20')}>
       <div className="container">
         <div className={cn('grid-container')}>
           {columnContent && (

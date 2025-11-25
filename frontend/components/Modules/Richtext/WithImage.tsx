@@ -12,7 +12,7 @@ export default function RichTextWithImage({ block, pageData }: Props) {
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section className={cn('section-module', 'richtext-image', 'my-20')}>
+    <section className={cn('section-module section-richtext', 'richtext-image', 'my-20')}>
       <div className="container">
         <div className={cn('grid-container')}>
           <div className={cn(useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12')}>

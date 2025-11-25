@@ -19,6 +19,9 @@ import {
  *
  * Learn more: https://www.sanity.io/docs/block-content
  */
+
+import { CheckmarkIcon, BoldIcon } from '@sanity/icons';
+
 export const blockContent = defineType({
   title: 'Block Content',
   name: 'blockContent',
@@ -28,11 +31,27 @@ export const blockContent = defineType({
     defineArrayMember(
       {
         type: 'block',
+        styles: [
+          { title: 'Normal', value: 'normal' },
+          { title: 'Heading1', value: 'h1' },
+          { title: 'Heading2', value: 'h2' },
+          { title: 'Heading3', value: 'h3' },
+          { title: 'Heading4', value: 'h4' },
+          { title: 'Heading5', value: 'h5' },
+          { title: 'Heading6', value: 'h6' },
+          { title: 'Small', value: 'small' }, // ⭐ NEW STYLE
+        ],
+        lists: [
+          { title: 'Bullet', value: 'bullet' },
+          { title: 'Numbered', value: 'number' },
+          { title: 'Checkmarks', value: 'checkmarks', icon: CheckmarkIcon }, // ← NEW LIST TYPE
+        ],
         marks: {
           decorators: [
             { title: 'Bold', value: 'strong' }, // Default bold
             { title: 'Italic', value: 'em' }, // Default italic
             { title: 'Underline', value: 'underline' }, // Default underline
+            { title: 'Semibold', value: 'semibold', icon: BoldIcon },
             { title: 'Code', value: 'code' }, // Default strike-through
           ],
           annotations: [
@@ -73,9 +92,23 @@ export const blockContent = defineType({
                       { title: 'URL', value: 'href' },
                       { title: 'File', value: 'file' },
                       { title: 'Page', value: 'page' },
+                      { title: 'Author', value: 'author' },
+                      { title: 'Article', value: 'article' },
+                      { title: 'Ebook', value: 'ebook' },
+                      { title: 'Guide', value: 'guide' },
+                      { title: 'Tool', value: 'tool' },
+                      { title: 'Template', value: 'template' },
+                      { title: 'Webinar', value: 'webinar' },
                     ],
                     layout: 'radio',
                   },
+                }),
+                defineField({
+                  name: 'author',
+                  title: 'Author',
+                  type: 'reference',
+                  to: [{ type: 'author' }],
+                  hidden: ({ parent }) => parent?.linkType !== 'author',
                 }),
                 defineField({
                   name: 'href',
@@ -91,6 +124,48 @@ export const blockContent = defineType({
                     accept: 'application/pdf',
                   },
                   hidden: ({ parent }) => parent?.linkType !== 'file',
+                }),
+                defineField({
+                  name: 'article',
+                  title: 'Article',
+                  type: 'reference',
+                  to: [{ type: 'article' }],
+                  hidden: ({ parent }) => parent?.linkType !== 'article',
+                }),
+                defineField({
+                  name: 'ebook',
+                  title: 'Ebook',
+                  type: 'reference',
+                  to: [{ type: 'ebook' }],
+                  hidden: ({ parent }) => parent?.linkType !== 'ebook',
+                }),
+                defineField({
+                  name: 'guide',
+                  title: 'Guide',
+                  type: 'reference',
+                  to: [{ type: 'guide' }],
+                  hidden: ({ parent }) => parent?.linkType !== 'guide',
+                }),
+                defineField({
+                  name: 'tool',
+                  title: 'Tool',
+                  type: 'reference',
+                  to: [{ type: 'tool' }],
+                  hidden: ({ parent }) => parent?.linkType !== 'tool',
+                }),
+                defineField({
+                  name: 'template',
+                  title: 'Template',
+                  type: 'reference',
+                  to: [{ type: 'template' }],
+                  hidden: ({ parent }) => parent?.linkType !== 'template',
+                }),
+                defineField({
+                  name: 'webinar',
+                  title: 'Webinar',
+                  type: 'reference',
+                  to: [{ type: 'webinar' }],
+                  hidden: ({ parent }) => parent?.linkType !== 'webinar',
                 }),
                 defineField({
                   name: 'page',

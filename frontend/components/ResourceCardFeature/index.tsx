@@ -1,6 +1,4 @@
 import { DateComponent, MotionFadeIn, SanityImage } from '@/components';
-import { RESOURCE_CONTENT_TYPES } from '@/utils/constants';
-import { find, truncate } from 'lodash';
 import Link from 'next/link';
 import { CalendarIcon, ClockIcon } from '@/components/Icons';
 import cn from 'classnames';

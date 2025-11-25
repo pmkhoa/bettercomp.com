@@ -17,7 +17,7 @@ const ResourceCard = ({ resource }: { resource: any }) => {
       <div className="aspect-16/9 relative">
         <MotionFadeIn>
           <SanityImage
-            className="absolute inset-0 w-full h-full object-cover"
+            className={cn('absolute inset-0 w-full h-full object-cover', s['resource-image'])}
             image={resource.coverImage}
           />
         </MotionFadeIn>

@@ -77,18 +77,25 @@ export default async function Page(props: Props) {
   const slug =
     Array.isArray(slugArray) && slugArray.length > 0 ? slugArray[slugArray.length - 1] : '';
 
-  let { terms, topic } = (await props.searchParams) || {};
-  const contentType = 'all';
+  const searchParams = (await props.searchParams) || {};
+
+  let { terms, topic } = searchParams;
+  const { contentType = '' } = searchParams;
 
   if (terms === 'all' || !terms) {
     terms = '*';
   }
 
-  if (topic === 'all' || !topic) {
+  if (topic === 'all' || topic === 'alltopics' || !topic) {
     topic = '*';
   }
 
-  const types = ['article', 'ebook', 'caseStudy'];
+  let types = ['article', 'ebook', 'guide', 'webinar', 'tool', 'template'];
+  if (contentType === 'all' || contentType === 'alltypes' || isEmpty(contentType)) {
+    types = ['article', 'ebook', 'guide', 'webinar', 'tool', 'template'];
+  } else {
+    types = [contentType];
+  }
 
   try {
     const { data: page } = await sanityFetch({

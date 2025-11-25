@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * This component uses Portable Text to render a post body.
  *
@@ -11,6 +12,7 @@
 import { PortableText, type PortableTextComponents } from 'next-sanity';
 import { SanityImage } from '@/components/SanityImage';
 import ResolvedLink from '@/components/ResolvedLink';
+import { urlForImage } from '@/sanity/lib/utils';
 
 export default function CustomPortableText({
   className,
@@ -22,7 +24,7 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     types: {
       image: ({ value }) => {
-        return <SanityImage {...value} className="w-full" />;
+        return <SanityImage alt={value?.alt} image={value} className="w-full my-4" />;
       },
       divider: ({ value }) => {
         const backgroundColor = `bg-${value.backgroundColor}`;
@@ -70,17 +72,42 @@ export default function CustomPortableText({
           </h5>
         );
       },
+      h6: ({ children, value }) => {
+        return (
+          <h6 className="group relative" id={`section-${value?._key}`}>
+            {children}
+          </h6>
+        );
+      },
+      small: ({ children, value }) => {
+        return <small className="group relative">{children}</small>;
+      },
     },
     marks: {
-      'link': ({ children, value: link }) => {
-        return <ResolvedLink link={link}>{children}</ResolvedLink>;
+      semibold: ({ children }) => <span className="font-semibold">{children}</span>,
+      link: ({ children, value: link }) => {
+        return (
+          <ResolvedLink link={link} className="underline text-midnight-blue-darker">
+            {children}
+          </ResolvedLink>
+        );
       },
-      'textColor': ({ children, value }) => {
+      textColor: ({ children, value }) => {
         const color = value?.color; // Get color from annotation
         return <span style={{ color }}>{children}</span>;
       },
-      'sup': ({ children }) => <sup>{children}</sup>,
+      sup: ({ children }) => <sup>{children}</sup>,
       'font-light': ({ children }) => <span className="font-light">{children}</span>,
+    },
+
+    list: {
+      checkmarks: ({ children }) => (
+        <ul className="space-y-2 check-list">
+          {React.Children.map(children, (child) => (
+            <>{child}</>
+          ))}
+        </ul>
+      ),
     },
   };
 

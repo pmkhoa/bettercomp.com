@@ -5,12 +5,13 @@ const linkReference = /* groq */ `
 		"page": page->slug.current,
 		"author": author->slug.current,
 		"article": article->slug.current,
+		"ebook": ebook->slug.current,
+		"guide": guide->slug.current,
+		"webinar": webinar->slug.current,
+		"tool": tool->slug.current,
+		"template": template->slug.current,
 		"file": file.asset->url,
 	}
-`;
-
-const markDefsWithLink = `
-	markDefs[] { ..., ${linkReference} }
 `;
 
 const resourceTypes = `
@@ -19,6 +20,10 @@ const resourceTypes = `
 
 const linkFields = /* groq */ `
   link { ..., ${linkReference} }
+`;
+
+const markDefsWithLink = `
+	markDefs[] { ..., ${linkReference} }
 `;
 
 const resourceFields = /* groq */ `
@@ -70,10 +75,13 @@ export const allResourcesSearchPaginatedQuery = defineQuery(`
 	*[
 		_type in coalesce($types, ${resourceTypes})
 		&& title match $terms
-		&& (
-			count(tags[@->name match $topic]) > 0 ||
-			!defined(tags) ||
-			count(tags) == 0
+		&&
+		(
+			$topic == "*" 
+			|| (
+				defined(tags) 
+				&& count(tags[@->name match $topic]) > 0
+			)
 		)
 	]
 	| order(date desc)
@@ -84,7 +92,20 @@ export const allResourcesSearchPaginatedQuery = defineQuery(`
 // Filter by content types
 // Search by tags. If there's no tags associated with content types, return true.
 export const allResourcesSearchQuery = defineQuery(`
-  *[_type in coalesce($types, ${resourceTypes}) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) 
+
+*[
+		_type in coalesce($types, ${resourceTypes})
+		&& title match $terms
+		&&
+		(
+			$topic == "*" 
+			|| (
+				defined(tags) 
+				&& count(tags[@->name match $topic]) > 0
+			)
+		)
+	] | order(date desc)
+
 `);
 
 const postFields = /* groq */ `
@@ -121,8 +142,11 @@ const pageBuilderContent = /* groq */ defineQuery(`
       ..., 
       selectedResources[]-> { ${resourceFields} }, 
       "latestResources": *[_type in ${resourceTypes}] { ${resourceFields} } | order(date desc)[0...6] 
-    }
-	}
+    },
+    _type == 'richtext' => { 
+      columnContent[] { ..., ${markDefsWithLink} }, 
+      column2Content[] { ..., ${markDefsWithLink}}},
+	  }
 
 `);
 

@@ -12,11 +12,11 @@ import LogoBlack from '@/assets/images/LogoBlack.png';
 import LogoWhite from '@/assets/images/LogoWhite.png';
 import { HelpDeskIcon, ProfileIcon } from '@/components/Icons';
 import { PopoverGroup } from '@headlessui/react';
-import { ButtonPrimary, ResolvedLink } from '@/components';
+import { PortableText, ButtonPrimary, ResolvedLink } from '@/components';
 import NavDropdownSimple from './NavDropdownSimple';
 
 export default function Header({ settings }: { settings: Settings }) {
-  const { globalNav, globalNavCta } = settings;
+  const { siteBanner, loginLink, helpLink, globalNav, globalNavCta } = settings;
   const { scrollY } = useScroll();
 
   const pathname = usePathname();
@@ -86,23 +86,27 @@ export default function Header({ settings }: { settings: Settings }) {
         <div className={cn(navTheme.topbarBg, navTheme.topbarText, 'nav-topbar')}>
           <div className="container">
             <div className="flex justify-between items-center relative h-[52px] ">
-              <div className="site-announcement">
-                <p>NEW! BetterComp secures $33M in Series A funding.</p>
+              <div className={cn('site-announcement text-sm', s['site-banner'])}>
+                <PortableText value={siteBanner} />
               </div>
 
               <div className="quick-actions flex items-center gap-8">
-                <div className="link-with-icon">
-                  <a href="#" className="flex items-center gap-4">
-                    <span>Help</span>
-                    <HelpDeskIcon />
-                  </a>
-                </div>
-                <div className="link-with-icon">
-                  <a href="#" className="flex items-center gap-4">
-                    <span>Login</span>
-                    <ProfileIcon />
-                  </a>
-                </div>
+                {helpLink && (
+                  <div className="link-with-icon">
+                    <Link href={helpLink} className="flex items-center gap-4 text-sm">
+                      <span>Help</span>
+                      <HelpDeskIcon />
+                    </Link>
+                  </div>
+                )}
+                {loginLink && (
+                  <div className="link-with-icon">
+                    <Link href={loginLink} className="flex items-center gap-4 text-sm">
+                      <span>Login</span>
+                      <ProfileIcon />
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>

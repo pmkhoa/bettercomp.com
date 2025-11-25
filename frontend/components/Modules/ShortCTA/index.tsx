@@ -42,21 +42,21 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
             )}
           >
             {showBorderTop && (
-              <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30" />
+              <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md -left-1" />
             )}
             <div className="absolute w-full h-full inset-0">
               {asset && (
                 <SanityImage image={asset} className="w-full h-full object-cover relative" />
               )}
             </div>
-            <div className="grid-container items-start py-16 pl-16 pr-12 z-20 relative items-start">
-              <div className="cta-content col-span-7">
+            <div className="grid-container p-14 z-20 relative items-start gap-6">
+              <div className="cta-content col-span-8">
                 <div className="inner-content text-white">
                   {description && <PortableText value={description} />}
                 </div>
               </div>
               <div className="col-start-9 col-span-4 flex justify-end items-start">
-                <ButtonPrimary className="mt-0">
+                <ButtonPrimary className="mt-2">
                   <ResolvedLink link={ctaButton?.link}>{ctaButton?.linkLabel}</ResolvedLink>
                 </ButtonPrimary>
               </div>
