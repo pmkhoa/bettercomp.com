@@ -617,9 +617,10 @@ export type Link = {
     | 'file'
     | 'article'
     | 'ebook'
-    | 'caseStudy'
-    | 'whitepaper'
-    | 'blog';
+    | 'guide'
+    | 'tool'
+    | 'template'
+    | 'webinar';
   href?: string;
   page?: {
     _ref: string;
@@ -632,6 +633,36 @@ export type Link = {
     _type: 'reference';
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: 'article';
+  };
+  ebook?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'ebook';
+  };
+  guide?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'guide';
+  };
+  tool?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'tool';
+  };
+  template?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'template';
+  };
+  webinar?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'webinar';
   };
   author?: {
     _ref: string;
@@ -684,8 +715,8 @@ export type BlockContent = Array<
         _type: 'span';
         _key: string;
       }>;
-      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-      listItem?: 'bullet' | 'number';
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'small';
+      listItem?: 'bullet' | 'number' | 'checkmarks';
       markDefs?: Array<
         | {
             color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3';
@@ -693,7 +724,23 @@ export type BlockContent = Array<
             _key: string;
           }
         | {
-            linkType?: 'href' | 'file' | 'page';
+            linkType?:
+              | 'href'
+              | 'file'
+              | 'page'
+              | 'author'
+              | 'article'
+              | 'ebook'
+              | 'guide'
+              | 'tool'
+              | 'template'
+              | 'webinar';
+            author?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'author';
+            };
             href?: string;
             pdfFile?: {
               asset?: {
@@ -704,6 +751,42 @@ export type BlockContent = Array<
               };
               media?: unknown;
               _type: 'file';
+            };
+            article?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'article';
+            };
+            ebook?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'ebook';
+            };
+            guide?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'guide';
+            };
+            tool?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'tool';
+            };
+            template?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'template';
+            };
+            webinar?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'webinar';
             };
             page?: {
               _ref: string;
@@ -771,17 +854,59 @@ export type Background = {
   textColor?: 'blue' | 'black' | 'white';
 };
 
-export type Webinar = {
+export type Tag = {
   _id: string;
-  _type: 'webinar';
+  _type: 'tag';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+};
+
+export type Slug = {
+  _type: 'slug';
+  current: string;
+  source?: string;
+};
+
+export type Home = {
+  _id: string;
+  _type: 'home';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  mainNavBackground?: 'blue' | 'white';
+  pageBuilder?: PageBuilder;
+  seo?: Seo;
+};
+
+export type Divider = {
+  _type: 'divider';
+  backgroundColor?:
+    | 'blue'
+    | 'orange'
+    | 'bright-blue'
+    | 'gold'
+    | 'light-blue'
+    | 'teal-green'
+    | 'accent-brick'
+    | 'black'
+    | 'black'
+    | 'sand';
+};
+
+export type Settings = {
+  _id: string;
+  _type: 'settings';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title: string;
-  slug: Slug;
-  mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
-  coverImage: {
+  description?: BlockContent;
+  ogImage?: {
     asset?: {
       _ref: string;
       _type: 'reference';
@@ -791,28 +916,48 @@ export type Webinar = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
     _type: 'image';
   };
-  date?: string;
-  estimatedReadingTime?: string;
-  showTOC?: boolean;
-  useNarrowWidthContent?: boolean;
-  tags?: Array<{
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: 'tag';
-  }>;
-  author?: {
-    _ref: string;
-    _type: 'reference';
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'author';
+  footerCTA?: PreFooterCTA;
+  globalNavCta?: {
+    linkText?: string;
+    link?: Link;
   };
-  pageBuilder?: PageBuilder;
-  seo?: Seo;
+  siteBanner?: BlockContent;
+  loginLink?: string;
+  helpLink?: string;
+  globalNav?: Array<
+    {
+      _key: string;
+    } & MenuItem
+  >;
+  footerNav?: Array<
+    {
+      _key: string;
+    } & MenuItem
+  >;
+  socialLink?: Array<{
+    name?: string;
+    url?: string;
+    socialIcon?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    _key: string;
+  }>;
+  privacyLinks?: Array<
+    {
+      _key: string;
+    } & Link
+  >;
 };
 
 export type SanityImageCrop = {
@@ -831,38 +976,38 @@ export type SanityImageHotspot = {
   width: number;
 };
 
-export type Slug = {
-  _type: 'slug';
-  current: string;
-  source?: string;
-};
-
-export type Tag = {
+export type Author = {
   _id: string;
-  _type: 'tag';
+  _type: 'author';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
-  slug: Slug;
-};
-
-export type Home = {
-  _id: string;
-  _type: 'home';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
+  jobTitle?: string;
+  linkedinUrl?: string;
+  authorBio?: BlockContent;
+  picture: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
   pageBuilder?: PageBuilder;
-  seo?: Seo;
 };
 
-export type Guide = {
+export type Article = {
   _id: string;
-  _type: 'guide';
+  _type: 'article';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -904,9 +1049,53 @@ export type Guide = {
   seo?: Seo;
 };
 
-export type Template = {
+export type Ebook = {
   _id: string;
-  _type: 'template';
+  _type: 'ebook';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  slug: Slug;
+  mainNavBackground?: 'blue' | 'white';
+  excerpt?: string;
+  coverImage: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
+  date?: string;
+  estimatedReadingTime?: string;
+  showTOC?: boolean;
+  useNarrowWidthContent?: boolean;
+  tags?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'tag';
+  }>;
+  author?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'author';
+  };
+  pageBuilder?: PageBuilder;
+  seo?: Seo;
+};
+
+export type Guide = {
+  _id: string;
+  _type: 'guide';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -992,24 +1181,9 @@ export type Tool = {
   seo?: Seo;
 };
 
-export type Divider = {
-  _type: 'divider';
-  backgroundColor?:
-    | 'blue'
-    | 'orange'
-    | 'bright-blue'
-    | 'gold'
-    | 'light-blue'
-    | 'teal-green'
-    | 'accent-brick'
-    | 'black'
-    | 'black'
-    | 'sand';
-};
-
-export type Ebook = {
+export type Template = {
   _id: string;
-  _type: 'ebook';
+  _type: 'template';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -1051,9 +1225,9 @@ export type Ebook = {
   seo?: Seo;
 };
 
-export type Article = {
+export type Webinar = {
   _id: string;
-  _type: 'article';
+  _type: 'webinar';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -1093,94 +1267,6 @@ export type Article = {
   };
   pageBuilder?: PageBuilder;
   seo?: Seo;
-};
-
-export type Author = {
-  _id: string;
-  _type: 'author';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  firstName: string;
-  lastName: string;
-  slug: Slug;
-  mainNavBackground?: 'blue' | 'white';
-  jobTitle?: string;
-  linkedinUrl?: string;
-  authorBio?: BlockContent;
-  picture: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: 'image';
-  };
-  pageBuilder?: PageBuilder;
-};
-
-export type Settings = {
-  _id: string;
-  _type: 'settings';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  description?: BlockContent;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
-  };
-  footerCTA?: PreFooterCTA;
-  globalNavCta?: {
-    linkText?: string;
-    link?: Link;
-  };
-  globalNav?: Array<
-    {
-      _key: string;
-    } & MenuItem
-  >;
-  footerNav?: Array<
-    {
-      _key: string;
-    } & MenuItem
-  >;
-  socialLink?: Array<{
-    name?: string;
-    url?: string;
-    socialIcon?: {
-      asset?: {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: 'image';
-    };
-    _key: string;
-  }>;
-  privacyLinks?: Array<
-    {
-      _key: string;
-    } & Link
-  >;
 };
 
 export type Page = {
@@ -1463,20 +1549,20 @@ export type AllSanitySchemaTypes =
   | CtaLink
   | BlockContent
   | Background
-  | Webinar
+  | Tag
+  | Slug
+  | Home
+  | Divider
+  | Settings
   | SanityImageCrop
   | SanityImageHotspot
-  | Slug
-  | Tag
-  | Home
-  | Guide
-  | Template
-  | Tool
-  | Divider
-  | Ebook
-  | Article
   | Author
-  | Settings
+  | Article
+  | Ebook
+  | Guide
+  | Tool
+  | Template
+  | Webinar
   | Page
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
@@ -1501,7 +1587,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0] {  ...,  globalNav[] {     ...,     menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	}    },    groupLinks[] {      ...,      menuLink {        ...,        	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	}      },    }  }}
+// Query: *[_type == "settings"][0] {  ...,  globalNav[] {     ...,     menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    },    groupLinks[] {      ...,      menuLink {        ...,        	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}      },    }  }}
 export type SettingsQueryResult = {
   _id: string;
   _type: 'settings';
@@ -1527,6 +1613,9 @@ export type SettingsQueryResult = {
     linkText?: string;
     link?: Link;
   };
+  siteBanner?: BlockContent;
+  loginLink?: string;
+  helpLink?: string;
   globalNav: Array<{
     _key: string;
     _type: 'menuItem';
@@ -1537,16 +1626,22 @@ export type SettingsQueryResult = {
       linkType?:
         | 'article'
         | 'author'
-        | 'blog'
-        | 'caseStudy'
         | 'ebook'
         | 'file'
+        | 'guide'
         | 'href'
         | 'page'
-        | 'whitepaper';
+        | 'template'
+        | 'tool'
+        | 'webinar';
       href?: string;
       page: string | null;
       article: string | null;
+      ebook: string | null;
+      guide: string | null;
+      tool: string | null;
+      template: string | null;
+      webinar: string | null;
       author: string | null;
       openInNewTab?: boolean;
       file: null;
@@ -1558,16 +1653,22 @@ export type SettingsQueryResult = {
         linkType?:
           | 'article'
           | 'author'
-          | 'blog'
-          | 'caseStudy'
           | 'ebook'
           | 'file'
+          | 'guide'
           | 'href'
           | 'page'
-          | 'whitepaper';
+          | 'template'
+          | 'tool'
+          | 'webinar';
         href?: string;
         page: string | null;
         article: string | null;
+        ebook: string | null;
+        guide: string | null;
+        tool: string | null;
+        template: string | null;
+        webinar: string | null;
         author: string | null;
         openInNewTab?: boolean;
         file: null;
@@ -2128,7 +2229,7 @@ export type AllResourcesPaginatedQueryResult = Array<
     }
 >;
 // Variable: allResourcesSearchPaginatedQuery
-// Query: *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&& (			count(tags[@->name match $topic]) > 0 ||			!defined(tags) ||			count(tags) == 0		)	]	| order(date desc)	[$offset...$end]
+// Query: *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	]	| order(date desc)	[$offset...$end]
 export type AllResourcesSearchPaginatedQueryResult = Array<
   | {
       _id: string;
@@ -2401,6 +2502,9 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
         linkText?: string;
         link?: Link;
       };
+      siteBanner?: BlockContent;
+      loginLink?: string;
+      helpLink?: string;
       globalNav?: Array<
         {
           _key: string;
@@ -2574,7 +2678,7 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
     }
 >;
 // Variable: allResourcesSearchQuery
-// Query: *[_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)
+// Query: *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc)
 export type AllResourcesSearchQueryResult = Array<
   | {
       _id: string;
@@ -2847,6 +2951,9 @@ export type AllResourcesSearchQueryResult = Array<
         linkText?: string;
         link?: Link;
       };
+      siteBanner?: BlockContent;
+      loginLink?: string;
+      helpLink?: string;
       globalNav?: Array<
         {
           _key: string;
@@ -3020,10 +3127,10 @@ export type AllResourcesSearchQueryResult = Array<
     }
 >;
 // Variable: pageBuilderContent
-// Query: pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}
+// Query: pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources": *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'richtext' => {       columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}},	  }
 export type PageBuilderContentResult = never;
 // Variable: authorQuery
-// Query: *[_type == "author" && slug.current == $slug][0] {		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	},		"resources": *[_type  in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] && author._ref == ^._id] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }	}
+// Query: *[_type == "author" && slug.current == $slug][0] {		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources": *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'richtext' => {       columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}},	  },		"resources": *[_type  in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] && author._ref == ^._id] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }	}
 export type AuthorQueryResult = {
   _id: string;
   _type: 'author';
@@ -3068,16 +3175,22 @@ export type AuthorQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -3095,16 +3208,22 @@ export type AuthorQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -3130,16 +3249,22 @@ export type AuthorQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -3157,16 +3282,22 @@ export type AuthorQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -4581,7 +4712,95 @@ export type AuthorQueryResult = {
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
-        columnContent?: BlockContent;
+        columnContent: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
         image?: {
           asset?: {
             _ref: string;
@@ -4607,6 +4826,7 @@ export type AuthorQueryResult = {
           media?: unknown;
           _type: 'file';
         };
+        column2Content: null;
       }
     | {
         _key: string;
@@ -5131,7 +5351,7 @@ export type GetRelatedResourcesQueryResult = Array<{
   date: string | null;
 }>;
 // Variable: getHomeQuery
-// Query: *[_type == "home"][0] { ..., "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}}
+// Query: *[_type == "home"][0] { ..., "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources": *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'richtext' => {       columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}},	  }}
 export type GetHomeQueryResult = {
   _id: string;
   _type: 'home';
@@ -5159,16 +5379,22 @@ export type GetHomeQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -5186,16 +5412,22 @@ export type GetHomeQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -5221,16 +5453,22 @@ export type GetHomeQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -5248,16 +5486,22 @@ export type GetHomeQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -6672,7 +6916,95 @@ export type GetHomeQueryResult = {
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
-        columnContent?: BlockContent;
+        columnContent: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
         image?: {
           asset?: {
             _ref: string;
@@ -6698,6 +7030,7 @@ export type GetHomeQueryResult = {
           media?: unknown;
           _type: 'file';
         };
+        column2Content: null;
       }
     | {
         _key: string;
@@ -6873,7 +7206,7 @@ export type GetHomeQueryResult = {
   seo?: Seo;
 } | null;
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current match $slug][0]{		_id,		_type,		name,		slug,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}	}
+// Query: *[_type == 'page' && slug.current match $slug][0]{		_id,		_type,		name,		slug,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources": *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'richtext' => {       columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}},	  }	}
 export type GetPageQueryResult = {
   _id: string;
   _type: 'page';
@@ -6897,16 +7230,22 @@ export type GetPageQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -6924,16 +7263,22 @@ export type GetPageQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -6959,16 +7304,22 @@ export type GetPageQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -6986,16 +7337,22 @@ export type GetPageQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -8410,7 +8767,95 @@ export type GetPageQueryResult = {
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
-        columnContent?: BlockContent;
+        columnContent: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
         image?: {
           asset?: {
             _ref: string;
@@ -8436,6 +8881,7 @@ export type GetPageQueryResult = {
           media?: unknown;
           _type: 'file';
         };
+        column2Content: null;
       }
     | {
         _key: string;
@@ -8610,7 +9056,7 @@ export type GetPageQueryResult = {
   > | null;
 } | null;
 // Variable: getArticleQuery
-// Query: *[_type == 'article' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}}
+// Query: *[_type == 'article' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources": *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'richtext' => {       columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}},	  }}
 export type GetArticleQueryResult = {
   _id: string;
   _type: 'article';
@@ -8693,16 +9139,22 @@ export type GetArticleQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -8720,16 +9172,22 @@ export type GetArticleQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -8755,16 +9213,22 @@ export type GetArticleQueryResult = {
             linkType?:
               | 'article'
               | 'author'
-              | 'blog'
-              | 'caseStudy'
               | 'ebook'
               | 'file'
+              | 'guide'
               | 'href'
               | 'page'
-              | 'whitepaper';
+              | 'template'
+              | 'tool'
+              | 'webinar';
             href?: string;
             page: string | null;
             article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
             file: null;
@@ -8782,16 +9246,22 @@ export type GetArticleQueryResult = {
               linkType?:
                 | 'article'
                 | 'author'
-                | 'blog'
-                | 'caseStudy'
                 | 'ebook'
                 | 'file'
+                | 'guide'
                 | 'href'
                 | 'page'
-                | 'whitepaper';
+                | 'template'
+                | 'tool'
+                | 'webinar';
               href?: string;
               page: string | null;
               article: string | null;
+              ebook: string | null;
+              guide: string | null;
+              tool: string | null;
+              template: string | null;
+              webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
               file: null;
@@ -10206,7 +10676,95 @@ export type GetArticleQueryResult = {
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
-        columnContent?: BlockContent;
+        columnContent: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
         image?: {
           asset?: {
             _ref: string;
@@ -10232,6 +10790,7 @@ export type GetArticleQueryResult = {
           media?: unknown;
           _type: 'file';
         };
+        column2Content: null;
       }
     | {
         _key: string;
@@ -10412,7 +10971,7 @@ export type ArticleSlugsResult = Array<{
   slug: string;
 }>;
 // Variable: getResourceQuery
-// Query: *[		_type == $type &&		slug.current == $slug	][0]{		...,		author->,		tags[]->{ title, slug },		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     }	}	}
+// Query: *[		_type == $type &&		slug.current == $slug	][0]{		...,		author->,		tags[]->{ title, slug },		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       accordions[] { ..., ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }} }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources": *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'richtext' => {       columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}},	  }	}
 export type GetResourceQueryResult =
   | {
       _id: string;
@@ -10491,16 +11050,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -10518,16 +11083,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -10553,16 +11124,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -10580,16 +11157,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -12004,7 +12587,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -12030,6 +12701,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -12273,16 +12945,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -12300,16 +12978,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -12335,16 +13019,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -12362,16 +13052,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -13786,7 +14482,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -13812,6 +14596,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -14064,16 +14849,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -14091,16 +14882,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -14126,16 +14923,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -14153,16 +14956,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -15577,7 +16386,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -15603,6 +16500,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -15854,16 +16752,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -15881,16 +16785,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -15916,16 +16826,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -15943,16 +16859,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -17367,7 +18289,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -17393,6 +18403,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -17594,16 +18605,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -17621,16 +18638,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -17656,16 +18679,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -17683,16 +18712,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -19107,7 +20142,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -19133,6 +20256,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -19336,16 +20460,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -19363,16 +20493,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -19398,16 +20534,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -19425,16 +20567,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -20849,7 +21997,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -20875,6 +22111,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -21125,6 +22362,9 @@ export type GetResourceQueryResult =
         linkText?: string;
         link?: Link;
       };
+      siteBanner?: BlockContent;
+      loginLink?: string;
+      helpLink?: string;
       globalNav?: Array<
         {
           _key: string;
@@ -21250,16 +22490,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -21277,16 +22523,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -21312,16 +22564,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -21339,16 +22597,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -22763,7 +24027,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -22789,6 +24141,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -23040,16 +24393,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -23067,16 +24426,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -23102,16 +24467,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -23129,16 +24500,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -24553,7 +25930,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -24579,6 +26044,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -24830,16 +26296,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -24857,16 +26329,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -24892,16 +26370,22 @@ export type GetResourceQueryResult =
                 linkType?:
                   | 'article'
                   | 'author'
-                  | 'blog'
-                  | 'caseStudy'
                   | 'ebook'
                   | 'file'
+                  | 'guide'
                   | 'href'
                   | 'page'
-                  | 'whitepaper';
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
                 href?: string;
                 page: string | null;
                 article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
                 file: null;
@@ -24919,16 +26403,22 @@ export type GetResourceQueryResult =
                   linkType?:
                     | 'article'
                     | 'author'
-                    | 'blog'
-                    | 'caseStudy'
                     | 'ebook'
                     | 'file'
+                    | 'guide'
                     | 'href'
                     | 'page'
-                    | 'whitepaper';
+                    | 'template'
+                    | 'tool'
+                    | 'webinar';
                   href?: string;
                   page: string | null;
                   article: string | null;
+                  ebook: string | null;
+                  guide: string | null;
+                  tool: string | null;
+                  template: string | null;
+                  webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
                   file: null;
@@ -26343,7 +27833,95 @@ export type GetResourceQueryResult =
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
-            columnContent?: BlockContent;
+            columnContent: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
             image?: {
               asset?: {
                 _ref: string;
@@ -26369,6 +27947,7 @@ export type GetResourceQueryResult =
               media?: unknown;
               _type: 'file';
             };
+            column2Content: null;
           }
         | {
             _key: string;
@@ -26898,6 +28477,9 @@ export type GetResourcesByTypeQueryResult = Array<
         linkText?: string;
         link?: Link;
       };
+      siteBanner?: BlockContent;
+      loginLink?: string;
+      helpLink?: string;
       globalNav?: Array<
         {
           _key: string;
@@ -27147,7 +28729,7 @@ export type AllPostsQueryResult = Array<never>;
 // Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type MorePostsQueryResult = Array<never>;
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"file": file.asset->url,	}    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
+// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type PostQueryResult = null;
 // Variable: postPagesSlugs
 // Query: *[_type == "post" && defined(slug.current)]  {"slug": slug.current}
@@ -27162,25 +28744,25 @@ export type PagesSlugsResult = Array<{
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "settings"][0] {\n  ...,\n  globalNav[] { \n    ..., \n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    },\n    groupLinks[] {\n      ...,\n      menuLink {\n        ...,\n        \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n      },\n    }\n  }\n}': SettingsQueryResult;
+    '*[_type == "settings"][0] {\n  ...,\n  globalNav[] { \n    ..., \n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    },\n    groupLinks[] {\n      ...,\n      menuLink {\n        ...,\n        \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n      },\n    }\n  }\n}': SettingsQueryResult;
     '\n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n': AllResourcesQueryResult;
     '\n\t*[\n\t\t_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n \n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesPaginatedQueryResult;
-    '\n\t*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&& (\n\t\t\tcount(tags[@->name match $topic]) > 0 ||\n\t\t\t!defined(tags) ||\n\t\t\tcount(tags) == 0\n\t\t)\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesSearchPaginatedQueryResult;
-    '\n  *[_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n': AllResourcesSearchQueryResult;
-    '\n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n': PageBuilderContentResult;
-    '\n\t*[_type == "author" && slug.current == $slug][0] {\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n,\n\t\t"resources": *[_type  in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n && author._ref == ^._id] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }\n\t}\n': AuthorQueryResult;
+    '\n\t*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesSearchPaginatedQueryResult;
+    '\n\n*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n\n': AllResourcesSearchQueryResult;
+    '\n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n\n*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'richtext\' => { \n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n}},\n\t  }\n\n': PageBuilderContentResult;
+    '\n\t*[_type == "author" && slug.current == $slug][0] {\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n\n*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'richtext\' => { \n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n}},\n\t  }\n\n,\n\t\t"resources": *[_type  in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n && author._ref == ^._id] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }\n\t}\n': AuthorQueryResult;
     '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current != $slug &&\n\n\t\t// Match at least 1 tag\n\t\tcount(tags[@->slug.current in $tagSlugs]) > 0\n\t]\n\t| order(date desc)[0...3]{\n\t\ttitle,\n\t\tslug,\n\t\tcoverImage,\n\t\ttags[]->{ title, slug },\n\t\tdate\n\t}\n': GetRelatedResourcesQueryResult;
-    '*[_type == "home"][0] { ..., "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n}': GetHomeQueryResult;
-    '\n\t*[_type == \'page\' && slug.current match $slug][0]{\n\t\t_id,\n\t\t_type,\n\t\tname,\n\t\tslug,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n\n\t}\n': GetPageQueryResult;
-    '\n  *[_type == \'article\' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n}\n': GetArticleQueryResult;
+    '*[_type == "home"][0] { ..., "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n\n*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'richtext\' => { \n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n}},\n\t  }\n\n}': GetHomeQueryResult;
+    '\n\t*[_type == \'page\' && slug.current match $slug][0]{\n\t\t_id,\n\t\t_type,\n\t\tname,\n\t\tslug,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n\n*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'richtext\' => { \n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n}},\n\t  }\n\n\n\t}\n': GetPageQueryResult;
+    '\n  *[_type == \'article\' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n\n*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'richtext\' => { \n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n}},\n\t  }\n\n}\n': GetArticleQueryResult;
     '\n\t*[_type == "article" && defined(slug.current)] {"slug": slug.current}\n': ArticleSlugsResult;
-    '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current == $slug\n\t][0]{\n\t\t...,\n\t\tauthor->,\n\t\ttags[]->{ title, slug },\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n) && title match $terms && (count(tags[@->name match $topic]) > 0 || !defined(tags) || count(tags) == 0 )] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    }\n\t}\n\n\n\t}\n': GetResourceQueryResult;
+    '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current == $slug\n\t][0]{\n\t\t...,\n\t\tauthor->,\n\t\ttags[]->{ title, slug },\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      accordions[] { ..., ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n\n*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'richtext\' => { \n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n}},\n\t  }\n\n\n\t}\n': GetResourceQueryResult;
     '\n\t*[\n\t\t_type == $type &&\n\t\tdefined(slug.current)\n\t]{\n\t\t"slug": slug.current\n\t}\n': ResourceSlugsResult;
     '\n\t*[\n\t\t_type in $types &&\n\t\ttitle match $terms &&\n\t\t(\n\t\t\t$topic == "*" ||\n\t\t\tcount(tags[@->slug.current == $topic]) > 0\n\t\t)\n\t]\n\t| order(date desc){\n\t\t...,\n\t\ttags[]->{ title, slug },\n\t\tauthor->,\n\t\tcoverImage\n\t}\n': GetResourcesByTypeQueryResult;
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult;
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult;
     '\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': MorePostsQueryResult;
-    '\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': PostQueryResult;
+    '\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': PostQueryResult;
     '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult;
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult;
   }
