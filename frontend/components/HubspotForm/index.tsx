@@ -18,11 +18,7 @@ function HubspotForm({
 
   if (!formId) {
     if (formType === 'contact') {
-      formByType = '08be6bf9-1561-444a-a4ba-31e46ab25068';
-    } else if (formType === 'newsletter') {
-      formByType = '8cf65307-b8c0-4094-836a-77cc6e322379';
-    } else if (formType === 'ebook') {
-      formByType = 'bb9c78df-1bde-4d73-928a-6e768da0f2ca';
+      formByType = '941ff838-5777-41fc-a7e2-34e8e6783138';
     }
   }
   useEffect(() => {

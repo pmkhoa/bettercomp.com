@@ -10,24 +10,27 @@ const ResourceCard = ({ resource }: { resource: any }) => {
     <Link
       href={linkHelpers(resource)}
       className={cn(
-        `flex flex-col h-full shadow-md rounded-sm resource-card`,
+        `flex flex-col h-full shadow-md rounded-sm resource-card overflow-hidden`,
         s['resource-card'],
       )}
     >
       <div className="aspect-16/9 relative">
         <MotionFadeIn>
           <SanityImage
-            className={cn('absolute inset-0 w-full h-full object-cover', s['resource-image'])}
+            className={cn(
+              'absolute inset-0 w-full h-full object-cover z-10',
+              s['resource-image'],
+            )}
             image={resource.coverImage}
           />
         </MotionFadeIn>
         {resource._type && (
-          <div className="resource-type absolute -bottom-[20px] left-8 bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm">
+          <div className="resource-type absolute -bottom-[20px] left-8 bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm z-30">
             {resource._type}
           </div>
         )}
       </div>
-      <div className="resource-container flex flex-col justify-between h-full bg-white border-t border-gray-100">
+      <div className="resource-container flex flex-col justify-between h-full bg-white border-t border-gray-100 relative z-20">
         <h4
           className={cn(
             'text-2xl py-6 px-8 font-medium text-blue mt-6 resource-title',

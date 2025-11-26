@@ -1033,27 +1033,6 @@
           },
           "optional": true
         },
-        "textAlign": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "center"
-              },
-              {
-                "type": "string",
-                "value": "left"
-              },
-              {
-                "type": "string",
-                "value": "right"
-              }
-            ]
-          },
-          "optional": true
-        },
         "description": {
           "type": "objectAttribute",
           "value": {
@@ -1067,14 +1046,6 @@
           "value": {
             "type": "inline",
             "name": "ctaLink"
-          },
-          "optional": true
-        },
-        "sectionBackground": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "background"
           },
           "optional": true
         }
@@ -5989,13 +5960,6 @@
         },
         "optional": true
       },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "coverImage": {
         "type": "objectAttribute",
         "value": {
@@ -6256,13 +6220,6 @@
               "value": "white"
             }
           ]
-        },
-        "optional": true
-      },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       },
@@ -6529,13 +6486,6 @@
         },
         "optional": true
       },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "coverImage": {
         "type": "objectAttribute",
         "value": {
@@ -6796,13 +6746,6 @@
               "value": "white"
             }
           ]
-        },
-        "optional": true
-      },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       },
@@ -7069,13 +7012,6 @@
         },
         "optional": true
       },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "coverImage": {
         "type": "objectAttribute",
         "value": {
@@ -7336,13 +7272,6 @@
               "value": "white"
             }
           ]
-        },
-        "optional": true
-      },
-      "excerpt": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       },

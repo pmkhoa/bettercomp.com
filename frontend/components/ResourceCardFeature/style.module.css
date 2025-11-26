@@ -1,0 +1,16 @@
+.resource-card {
+}
+
+.resource-card:hover .resource-title {
+  text-decoration: underline;
+}
+
+.resource-card .resource-image {
+  transition: all 0.4s;
+  transform: scale(1);
+}
+
+.resource-card:hover .resource-image {
+  transition: all 0.4s;
+  transform: scale(1.02);
+}

@@ -7,11 +7,20 @@ import { linkHelpers } from '@/sanity/lib/utils';
 
 const ResourceCardFeature = ({ resource }: { resource: any }) => {
   return (
-    <Link href={linkHelpers(resource)} className="flex flex-col h-full relative">
+    <Link
+      href={linkHelpers(resource)}
+      className={cn(
+        'flex flex-col h-full relative resource-card overflow-hidden',
+        s['resource-card'],
+      )}
+    >
       <div className="aspect-16/9 relative">
         <MotionFadeIn>
           <SanityImage
-            className="absolute inset-0 w-full h-full object-cover"
+            className={cn(
+              'absolute inset-0 w-full h-full object-cover resource-image',
+              s['resource-image'],
+            )}
             image={resource.coverImage}
           />
         </MotionFadeIn>
@@ -22,7 +31,9 @@ const ResourceCardFeature = ({ resource }: { resource: any }) => {
             {resource._type}
           </div>
         )}
-        <h4 className="text-2xl py-4 font-medium text-white">{resource.title}</h4>
+        <h4 className={cn('text-2xl py-4 font-medium text-white', s['resource-title'])}>
+          {resource.title}
+        </h4>
         <div className="flex justify-between items-center pb-4">
           <div className="publish-date flex gap-2 items-center">
             <CalendarIcon />

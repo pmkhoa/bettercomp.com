@@ -53,7 +53,7 @@ const NavDropdownSimple = ({
                       className="border-b-2 border-gray-100 menu-link hover:bg-green py-4 px-8 transition duration-400 text-sm text-left font-medium"
                       key={subNavLink._key}
                     >
-                      {subNavLink.menuLabel}
+                      <span onClick={() => close()}>{subNavLink.menuLabel}</span>
                     </ResolvedLink>
                   );
                 })}

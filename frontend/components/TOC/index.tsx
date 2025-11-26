@@ -1,4 +1,5 @@
 'use client';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import * as tocbot from 'tocbot';
 import { LinkIcon, TwitterIcon, FacebookIcon, LinkedinIcon } from '@/components/Icons';
@@ -11,6 +12,7 @@ import {
 import './style.css';
 
 const TOC = () => {
+  const pathname = usePathname();
   const [currentUrl, setCurrentUrl] = useState('');
 
   useEffect(() => {
@@ -20,8 +22,8 @@ const TOC = () => {
   useEffect(() => {
     // @ts-ignore: Ignore init function
     tocbot.init({
-      headingsOffset: 40,
-      scrollSmoothOffset: -180,
+      headingsOffset: 420,
+      scrollSmoothOffset: -120,
       tocSelector: '.toc-container',
       // Where to grab the headings to build the table of contents.
       contentSelector: '.inner-content',
@@ -30,7 +32,10 @@ const TOC = () => {
       hasInnerContainers: true,
       enableUrlHashUpdateOnScroll: false,
     });
-  }, []);
+
+    // @ts-ignore: Ignore init function
+    tocbot.refresh();
+  }, [pathname]);
 
   return (
     <>
