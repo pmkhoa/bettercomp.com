@@ -188,21 +188,58 @@
   margin-bottom: 1rem;
 }
 
-.template-resource h1:has(+ p),
-.template-resource h2:has(+ p),
-.template-resource h3:has(+ p),
-.template-resource h4:has(+ p),
-.template-resource h5:has(+ p),
-.template-resource h6:has(+ p) {
+.section-richtext h1:has(+ p),
+.section-richtext h1:has(+ h2),
+.section-richtext h1:has(+ h3),
+.section-richtext h1:has(+ h4),
+.section-richtext h1:has(+ h5),
+.section-richtext h1:has(+ h6),
+.section-richtext h2:has(+ p),
+.section-richtext h2:has(+ h3),
+.section-richtext h2:has(+ h4),
+.section-richtext h2:has(+ h5),
+.section-richtext h2:has(+ h6),
+.section-richtext h3:has(+ p),
+.section-richtext h3:has(+ h4),
+.section-richtext h3:has(+ h5),
+.section-richtext h3:has(+ h6),
+.section-richtext h4:has(+ p),
+.section-richtext h4:has(+ h1),
+.section-richtext h4:has(+ h2),
+.section-richtext h4:has(+ h3),
+.section-richtext h4:has(+ h5),
+.section-richtext h4:has(+ h6),
+.section-richtext h5:has(+ p),
+.section-richtext h5:has(+ h6),
+.section-richtext h5:has(+ h1),
+.section-richtext h5:has(+ h2),
+.section-richtext h5:has(+ h3),
+.section-richtext h5:has(+ h4),
+.section-richtext h6:has(+ h1),
+.section-richtext h6:has(+ h2),
+.section-richtext h6:has(+ h3),
+.section-richtext h6:has(+ h4),
+.section-richtext h6:has(+ h5),
+.section-richtext  h6:has(+ p) {
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
 }
+j
 
-.template-resource div + h1,
-.template-resource div + h2,
-.template-resource div + h3,
-.template-resource div + h4 {
+.section-richtext ul + p {
+  margin-bottom: 2.5rem;
+}
+
+.section-richtext div + h1,
+.section-richtext div + h2,
+.section-richtext div + h3,
+.section-richtext div + h4 {
   margin-top: 0;
+}
+
+.section-richtext h6 + h4 {
+  margin-top: 0;
+  margin-bottom: 2.5rem;
 }
 
 .section-richtext h1,
@@ -213,11 +250,11 @@
 }
 
 .check-list {
-	@apply list-none pl-0 ml-0 space-y-2;
+	@apply list-none pl-0 ml-0 space-y-2 mt-2 mb-8;
 }
 
 .check-list li {
-	@apply relative;
+	@apply relative my-2;
 	padding-left: 2rem;
 }
 

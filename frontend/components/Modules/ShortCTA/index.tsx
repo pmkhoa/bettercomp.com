@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { ShortCTA } from '@/sanity.types';
 import { ButtonPrimary, ResolvedLink, PortableText, SanityImage } from '@/components';
+import Image from 'next/image';
 import { defaultBackground } from '@/utils/constants';
 import cn from 'classnames';
+import ShortCTABg from '@/assets/images/short-cta-bg.jpg';
 
 const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any }) => {
   const { enabled, description, ctaButton, sectionBackground = defaultBackground } = block;
@@ -11,28 +13,10 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
     return <div />;
   }
 
-  const {
-    enabled: backgroundEnabled,
-    backgroundType,
-    backgroundColor,
-    asset,
-    textColor,
-    showBorderTop,
-  } = sectionBackground;
-
-  const bgColor = `bg-${backgroundColor}`;
-  const sectionTextColor = `text-${textColor}`;
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section
-      className={cn(
-        'hero-with-bg overflow-hidden relative',
-        backgroundEnabled && backgroundType === 'color' ? 'py-24' : 'my-24',
-        backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
-        sectionTextColor,
-      )}
-    >
+    <section className={cn('hero-with-bg overflow-hidden relative')}>
       <div className="container">
         <div className="grid-container">
           <div
@@ -41,12 +25,16 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
               'relative',
             )}
           >
-            {showBorderTop && (
-              <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md -left-1" />
-            )}
+            <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md -left-1" />
             <div className="absolute w-full h-full inset-0">
-              {asset && (
-                <SanityImage image={asset} className="w-full h-full object-cover relative" />
+              {ShortCTABg && (
+                <Image
+                  src={ShortCTABg}
+                  alt="background"
+                  width={1000}
+                  height={1000}
+                  className="w-full h-full object-cover relative"
+                />
               )}
             </div>
             <div className="grid-container p-14 z-20 relative items-start gap-6">

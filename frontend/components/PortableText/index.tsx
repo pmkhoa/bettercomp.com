@@ -24,7 +24,7 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     types: {
       image: ({ value }) => {
-        return <SanityImage alt={value?.alt} image={value} className="w-full my-4" />;
+        return <SanityImage alt={value?.alt} image={value} className="w-full my-10" />;
       },
       divider: ({ value }) => {
         const backgroundColor = `bg-${value.backgroundColor}`;

@@ -19,19 +19,6 @@ export const shortCTA = defineType({
       initialValue: true,
     }),
     defineField({
-      name: 'textAlign',
-      title: 'Text Align',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Center', value: 'center' },
-          { title: 'Left', value: 'left' },
-          { title: 'Right', value: 'right' },
-        ], // <-- predefined values
-      },
-      initialValue: 'left',
-    }),
-    defineField({
       name: 'description',
       title: 'Description',
       type: 'blockContent',
@@ -40,11 +27,6 @@ export const shortCTA = defineType({
       name: 'ctaButton',
       title: 'CTA Button',
       type: 'ctaLink',
-    }),
-    defineField({
-      name: 'sectionBackground',
-      title: 'Section Background',
-      type: 'background',
     }),
   ],
   preview: {

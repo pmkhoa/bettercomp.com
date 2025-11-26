@@ -49,12 +49,6 @@ export const resourceBaseFields = [
     },
     initialValue: 'white',
   }),
-
-  defineField({
-    name: 'excerpt',
-    title: 'Excerpt',
-    type: 'text',
-  }),
   defineField({
     name: 'coverImage',
     title: 'Cover Image',
