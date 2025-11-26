@@ -84,8 +84,12 @@ export default async function Page(props: Props) {
             <div className="content-photo col-start-2 col-end-5">
               <div className="flex justify-center">
                 {picture?.asset?._ref && (
-                  <div className="mr-4 aspect-3/4 overflow-hidden">
-                    <SanityImage alt={picture?.alt || ''} image={picture} />
+                  <div className="mr-4 overflow-hidden relative">
+                    <SanityImage
+                      alt={picture?.alt || ''}
+                      image={picture}
+                      className="w-full h-full"
+                    />
                   </div>
                 )}
               </div>
