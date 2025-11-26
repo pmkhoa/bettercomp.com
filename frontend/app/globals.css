@@ -230,10 +230,12 @@ j
   margin-bottom: 2.5rem;
 }
 
-.section-richtext div + h1,
-.section-richtext div + h2,
-.section-richtext div + h3,
-.section-richtext div + h4 {
+.section-richtext .portable-text > h1:first-child,
+.section-richtext .portable-text > h2:first-child,
+.section-richtext .portable-text > h2:first-child,
+.section-richtext .portable-text > h4:first-child,
+.section-richtext .portable-text > h5:first-child,
+.section-richtext .portable-text > h6:first-child {
   margin-top: 0;
 }
 

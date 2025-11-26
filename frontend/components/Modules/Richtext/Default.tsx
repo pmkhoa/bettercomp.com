@@ -20,7 +20,7 @@ export default function RichTextDefault({ block, pageData }: Props) {
             'relative',
           )}
         >
-          <div className={cn(`text-${textAlign}`)}>
+          <div className={'richtext-inner'}>
             <PortableText value={columnContent} />
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 /**
  * This component uses Portable Text to render a post body.
  *
@@ -112,7 +113,7 @@ export default function CustomPortableText({
   };
 
   return (
-    <div className={[className].filter(Boolean).join(' ')}>
+    <div className={cn('portable-text', [className].filter(Boolean).join(' '))}>
       <PortableText components={components} value={value} />
     </div>
   );
