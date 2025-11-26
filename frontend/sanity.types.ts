@@ -177,10 +177,8 @@ export type Stats = {
 export type ShortCTA = {
   _type: 'shortCTA';
   enabled?: boolean;
-  textAlign?: 'center' | 'left' | 'right';
   description?: BlockContent;
   ctaButton?: CtaLink;
-  sectionBackground?: Background;
 };
 
 export type Richtext = {
@@ -1014,7 +1012,6 @@ export type Article = {
   title: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
   coverImage: {
     asset?: {
       _ref: string;
@@ -1058,7 +1055,6 @@ export type Ebook = {
   title: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
   coverImage: {
     asset?: {
       _ref: string;
@@ -1102,7 +1098,6 @@ export type Guide = {
   title: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
   coverImage: {
     asset?: {
       _ref: string;
@@ -1146,7 +1141,6 @@ export type Tool = {
   title: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
   coverImage: {
     asset?: {
       _ref: string;
@@ -1190,7 +1184,6 @@ export type Template = {
   title: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
   coverImage: {
     asset?: {
       _ref: string;
@@ -1234,7 +1227,6 @@ export type Webinar = {
   title: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
   coverImage: {
     asset?: {
       _ref: string;
@@ -1716,7 +1708,6 @@ export type AllResourcesQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -1759,7 +1750,6 @@ export type AllResourcesQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -1802,7 +1792,6 @@ export type AllResourcesQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -1845,7 +1834,6 @@ export type AllResourcesQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -1888,7 +1876,6 @@ export type AllResourcesQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -1931,7 +1918,6 @@ export type AllResourcesQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -1978,7 +1964,6 @@ export type AllResourcesPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2021,7 +2006,6 @@ export type AllResourcesPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2064,7 +2048,6 @@ export type AllResourcesPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2107,7 +2090,6 @@ export type AllResourcesPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2150,7 +2132,6 @@ export type AllResourcesPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2193,7 +2174,6 @@ export type AllResourcesPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2240,7 +2220,6 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2333,7 +2312,6 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2376,7 +2354,6 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2556,7 +2533,6 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2599,7 +2575,6 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2642,7 +2617,6 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2689,7 +2663,6 @@ export type AllResourcesSearchQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2782,7 +2755,6 @@ export type AllResourcesSearchQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -2825,7 +2797,6 @@ export type AllResourcesSearchQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -3005,7 +2976,6 @@ export type AllResourcesSearchQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -3048,7 +3018,6 @@ export type AllResourcesSearchQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -3091,7 +3060,6 @@ export type AllResourcesSearchQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -4832,10 +4800,8 @@ export type AuthorQueryResult = {
         _key: string;
         _type: 'shortCTA';
         enabled?: boolean;
-        textAlign?: 'center' | 'left' | 'right';
         description?: BlockContent;
         ctaButton?: CtaLink;
-        sectionBackground?: Background;
       }
     | {
         _key: string;
@@ -7036,10 +7002,8 @@ export type GetHomeQueryResult = {
         _key: string;
         _type: 'shortCTA';
         enabled?: boolean;
-        textAlign?: 'center' | 'left' | 'right';
         description?: BlockContent;
         ctaButton?: CtaLink;
-        sectionBackground?: Background;
       }
     | {
         _key: string;
@@ -8887,10 +8851,8 @@ export type GetPageQueryResult = {
         _key: string;
         _type: 'shortCTA';
         enabled?: boolean;
-        textAlign?: 'center' | 'left' | 'right';
         description?: BlockContent;
         ctaButton?: CtaLink;
-        sectionBackground?: Background;
       }
     | {
         _key: string;
@@ -9066,7 +9028,6 @@ export type GetArticleQueryResult = {
   title: string;
   slug: Slug;
   mainNavBackground?: 'blue' | 'white';
-  excerpt?: string;
   coverImage: {
     asset?: {
       _ref: string;
@@ -10796,10 +10757,8 @@ export type GetArticleQueryResult = {
         _key: string;
         _type: 'shortCTA';
         enabled?: boolean;
-        textAlign?: 'center' | 'left' | 'right';
         description?: BlockContent;
         ctaButton?: CtaLink;
-        sectionBackground?: Background;
       }
     | {
         _key: string;
@@ -10982,7 +10941,6 @@ export type GetResourceQueryResult =
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -12707,10 +12665,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -14602,10 +14558,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -14781,7 +14735,6 @@ export type GetResourceQueryResult =
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -16506,10 +16459,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -16684,7 +16635,6 @@ export type GetResourceQueryResult =
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -18409,10 +18359,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -20262,10 +20210,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -22117,10 +22063,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -22422,7 +22366,6 @@ export type GetResourceQueryResult =
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -24147,10 +24090,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -24325,7 +24266,6 @@ export type GetResourceQueryResult =
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -26050,10 +25990,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -26228,7 +26166,6 @@ export type GetResourceQueryResult =
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -27953,10 +27890,8 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'shortCTA';
             enabled?: boolean;
-            textAlign?: 'center' | 'left' | 'right';
             description?: BlockContent;
             ctaButton?: CtaLink;
-            sectionBackground?: Background;
           }
         | {
             _key: string;
@@ -28140,7 +28075,6 @@ export type GetResourcesByTypeQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -28258,7 +28192,6 @@ export type GetResourcesByTypeQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -28320,7 +28253,6 @@ export type GetResourcesByTypeQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -28537,7 +28469,6 @@ export type GetResourcesByTypeQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -28599,7 +28530,6 @@ export type GetResourcesByTypeQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;
@@ -28661,7 +28591,6 @@ export type GetResourcesByTypeQueryResult = Array<
       title: string;
       slug: Slug;
       mainNavBackground?: 'blue' | 'white';
-      excerpt?: string;
       coverImage: {
         asset?: {
           _ref: string;

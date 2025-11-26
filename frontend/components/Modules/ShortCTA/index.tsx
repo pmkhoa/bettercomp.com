@@ -7,7 +7,7 @@ import cn from 'classnames';
 import ShortCTABg from '@/assets/images/short-cta-bg.jpg';
 
 const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any }) => {
-  const { enabled, description, ctaButton, sectionBackground = defaultBackground } = block;
+  const { enabled, description, ctaButton } = block;
 
   if (!enabled) {
     return <div />;
