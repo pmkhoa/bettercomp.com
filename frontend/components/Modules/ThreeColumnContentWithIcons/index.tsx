@@ -1,10 +1,4 @@
-import {
-  SanityImage,
-  ButtonPrimary,
-  PortableText,
-  MediaAsset,
-  ResolvedLink,
-} from '@/components';
+import { SanityImage, ButtonPrimary, PortableText, MediaAsset, ResolvedLink } from '@/components';
 import cn from 'classnames';
 import { ThreeColumnContentWithIcons } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
@@ -33,16 +27,23 @@ export default function ThreeColumnContentWithIconsModule({
         'section-module relative',
         'three-column-content',
         backgroundEnabled && backgroundType === 'color' ? 'py-24' : 'my-24',
-        backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
+        backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white'
       )}
     >
       {backgroundEnabled && backgroundType === 'image' && (
         <div className="absolute w-full h-full inset-0" />
       )}
       <div className="container">
-        {heading && (
-          <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12">{heading}</h2>
-        )}
+        <div className="flex justify-between items-center mb-8 pb-8 border-b border-green">
+          {heading && (
+            <h2 className="text-2xl md:text-3xl font-semibold text-center mb-0">{heading}</h2>
+          )}
+          {ctaButton && ctaButton.linkLabel && (
+            <ButtonPrimary>
+              <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
+            </ButtonPrimary>
+          )}
+        </div>
         <div className="grid-container gap-12">
           {listItem?.map((content) => {
             return (
@@ -68,11 +69,6 @@ export default function ThreeColumnContentWithIconsModule({
                     <div className="my-6">
                       <PortableText value={content.content} />
                     </div>
-                  )}
-                  {ctaButton && ctaButton && (
-                    <ButtonPrimary className="">
-                      <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
-                    </ButtonPrimary>
                   )}
                 </div>
               </div>

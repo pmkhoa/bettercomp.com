@@ -3,8 +3,10 @@ import type { PropsWithChildren } from 'react';
 import { useRef, useEffect } from 'react';
 import { Carousel } from '@fancyapps/ui';
 import { Thumbs } from '@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js';
+import { Autoplay } from '@fancyapps/ui/dist/carousel/carousel.autoplay.esm.js';
 import type { OptionsType } from '@fancyapps/ui/types/Carousel/options';
 import '@fancyapps/ui/dist/carousel/carousel.thumbs.css';
+import '@fancyapps/ui/dist/carousel/carousel.autoplay.css';
 import '@fancyapps/ui/dist/carousel/carousel.css';
 
 interface Props {
@@ -30,6 +32,11 @@ const defaults: Partial<OptionsType> = {
 				<path d="M30.9812 24.4429L33.2344 26.696L24.7074 35.2214L33.2344 43.7469L30.9812 46L20.2042 35.2214L30.9812 24.4429Z" fill="#FB8722"/>
 			</svg>`,
   },
+  Autoplay: {
+    isEnabled: false,
+    pauseOnHover: false,
+    showProgressbar: false,
+  },
   Thumbs: { type: 'classic' },
   transition: 'slide',
   infinite: true,
@@ -47,7 +54,6 @@ function CarouselWrapper(props: PropsWithChildren<Props>) {
       on: {
         change: (instance: any) => {
           // Current page
-          console.log(instance);
           if (props.onChangeComplete) {
             props.onChangeComplete(instance.page);
           }
@@ -59,7 +65,7 @@ function CarouselWrapper(props: PropsWithChildren<Props>) {
       },
     };
 
-    const instance = new Carousel(container, options, { Thumbs });
+    const instance = new Carousel(container, options, { Thumbs, Autoplay });
     const navContainer = navRef.current;
 
     if (navContainer) {
@@ -89,11 +95,7 @@ function CarouselWrapper(props: PropsWithChildren<Props>) {
           {props.slides.map((slide) => {
             const { slideTitle } = slide;
             return (
-              <div
-                className="f-carousel__slide f-carousel__thumb"
-                key={slide._key}
-                role="button"
-              >
+              <div className="f-carousel__slide f-carousel__thumb" key={slide._key} role="button">
                 <div className="name">{slideTitle}</div>
               </div>
             );

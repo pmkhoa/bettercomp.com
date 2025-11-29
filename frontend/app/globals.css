@@ -288,12 +288,12 @@ j
   }
 
   .btn-secondary {
-    @apply text-black font-bold rounded py-3 px-8 min-w-[150px] border-2 border-blue;
-    transition: all 0.4s ease-out;
+    @apply text-blue font-bold rounded py-3 px-8 min-w-[150px] border-1 border-blue;
+    transition: all 0.3s ease-out;
   }
   .btn-secondary:hover {
-    @apply text-white font-bold rounded py-3 px-8 min-w-[150px] border-2 border-blue bg-blue;
-    transition: all 0.4s ease-out;
+    @apply text-white font-bold rounded py-3 px-8 min-w-[150px] border-1 border-blue bg-blue;
+    transition: all 0.3s ease-out;
   }
 
   .text-balance {

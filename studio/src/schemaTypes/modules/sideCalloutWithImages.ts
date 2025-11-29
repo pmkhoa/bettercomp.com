@@ -1,9 +1,9 @@
-import { defineField, defineType } from 'sanity';
-import { TextIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {TextIcon} from '@sanity/icons'
 
-export const resourcesWithLeftPanel = defineType({
-  name: 'resourcesWithLeftPanel',
-  title: 'Resources With Left Panel',
+export const sideCalloutWithImages = defineType({
+  name: 'sideCalloutWithImages',
+  title: 'Side Callout With Images',
   type: 'object',
   icon: TextIcon,
   fields: [
@@ -45,7 +45,7 @@ export const resourcesWithLeftPanel = defineType({
               name: 'image',
               title: 'Image',
               type: 'image',
-              options: { hotspot: true },
+              options: {hotspot: true},
               fields: [
                 defineField({
                   name: 'alt',
@@ -54,6 +54,14 @@ export const resourcesWithLeftPanel = defineType({
                 }),
               ],
             }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              hidden: true,
+              type: 'string',
+              initialValue: 'Item Content',
+            }),
+
             defineField({
               name: 'content',
               title: 'Content',
@@ -74,11 +82,11 @@ export const resourcesWithLeftPanel = defineType({
     select: {
       title: 'heading',
     },
-    prepare({ title }) {
+    prepare({title}) {
       return {
         title: title || 'Untitled Resource With Left Panel',
         subtitle: `Resource with left panel`,
-      };
+      }
     },
   },
-});
+})

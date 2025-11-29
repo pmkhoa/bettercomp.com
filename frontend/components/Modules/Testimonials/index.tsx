@@ -35,21 +35,29 @@ export default function SectionTestimonialsModule({ block }: Props) {
               slidesPerPage: 1,
               center: false,
               adaptiveHeight: true,
+              showProgressbar: false,
+              Autoplay: {
+                isEnabled: true,
+                showProgressbar: false,
+              },
+              Dots: false,
+              transition: 'fade',
+              Panzoom: {
+                touch: false,
+              },
               Navigation: {
                 nextTpl: `
-								<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
-									<rect opacity="0.4" width="70" height="70" fill="#E5EDF1"/>
-									<path d="M21 33.1689H45.9339V36.3858H21V33.1689Z" fill="#687FA0"/>
-									<path d="M39.0188 45.5571L36.7656 43.304L45.2926 34.7786L36.7656 26.2531L39.0188 24L49.7958 34.7786L39.0188 45.5571Z" fill="#687FA0"/>
-								</svg>
+                <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="-1" width="59" height="59" transform="matrix(1 0 0 -1 0 59)" fill="white" stroke="#F24E1A" stroke-width="2"/>
+                  <path d="M24.0001 39.7L26.3334 42L38 30.5L26.3333 19L24 21.3L33.3333 30.5L24.0001 39.7Z" fill="#F24E1A"/>
+                </svg>
 								`,
                 prevTpl: `
-							<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
-								<rect opacity="0.4" width="70" height="70" fill="#E5EDF1"/>
-								<path d="M49 36.8311H24.0661V33.6142H49V36.8311Z" fill="#687FA0"/>
-								<path d="M30.9812 24.4429L33.2344 26.696L24.7074 35.2214L33.2344 43.7469L30.9812 46L20.2042 35.2214L30.9812 24.4429Z" fill="#687FA0"/>
-							</svg>
-						`,
+                <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="-1" y="1" width="59" height="59" transform="matrix(-1 0 0 1 59 0)" fill="white" stroke="#F24E1A" stroke-width="2"/>
+                  <path d="M36.9999 21.3L34.6666 19L23 30.5L34.6667 42L37 39.7L27.6667 30.5L36.9999 21.3Z" fill="#F24E1A"/>
+                </svg>
+						    `,
               },
             }}
           >
@@ -59,40 +67,49 @@ export default function SectionTestimonialsModule({ block }: Props) {
               return (
                 <div
                   className={cn(
-                    'f-carousel__slide carousel__slide-container items-start gap-8 mt-16 w-full overflow-visible pt-20',
+                    'f-carousel__slide carousel__slide-container items-start gap-8 mt-16 w-full overflow-visible pt-20'
                   )}
                   key={d._key}
                 >
                   <div
                     className={cn(
                       s['testimonial-content'],
-                      'pt-16 pb-12 px-16 relative bg-sand mt-24',
+                      'pt-16 pb-12 px-16 relative bg-sand mt-24'
                     )}
                   >
                     <div className="company-icon absolute -top-12 left-16 flex justify-start">
                       <SanityImage image={companyIcon} className="max-h-[94px] h-auto w-auto" />
                     </div>
-                    <div className={s['content-heading']}>
-                      <div className="title my-4">
-                        <strong>{title}</strong>
+                    <div className="grid-container">
+                      <div className="col-span-9">
+                        <div className={s['content-heading']}>
+                          <div className="title my-4">
+                            <strong>{title}</strong>
+                          </div>
+                        </div>
+                        <div className={s['content-inner']}>
+                          <PortableText value={content} />
+                        </div>
+                        <div className="flex gap-4 items-center mt-6">
+                          {avatarIcon && (
+                            <div className="avatar max-h-[40px] relative max-w-[120px]">
+                              <SanityImage
+                                image={avatarIcon}
+                                className="w-auto h-auto object-contain min-h-[40px]"
+                              />
+                            </div>
+                          )}
+                          <div className="font-bold">{reviewer}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className={s['content-inner']}>
-                      <PortableText value={content} />
-                    </div>
-                    <div className="review-stars my-8">
-                      <SanityImage image={totalStars} className="max-h-[24px] w-auto" />
-                    </div>
-                    <div className="flex gap-4 items-center mt-6">
-                      {avatarIcon && (
-                        <div className="avatar max-h-[40px] relative max-w-[120px]">
+                      <div className="review-stars my-8 col-span-3">
+                        <div className="flex justify-end">
                           <SanityImage
-                            image={avatarIcon}
-                            className="w-auto h-auto object-contain min-h-[40px]"
+                            image={totalStars}
+                            className="max-h-[24px] min-w-[140px] w-auto"
                           />
                         </div>
-                      )}
-                      <div className="font-bold">{reviewer}</div>
+                      </div>
                     </div>
                   </div>
                 </div>

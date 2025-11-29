@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { InlineIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {InlineIcon} from '@sanity/icons'
 
 export const threeColumnContentWithNumbers = defineType({
   name: 'threeColumnContentWithNumbers',
@@ -45,7 +45,7 @@ export const threeColumnContentWithNumbers = defineType({
               name: 'image',
               title: 'Image',
               type: 'image',
-              options: { hotspot: true },
+              options: {hotspot: true},
               fields: [
                 defineField({
                   name: 'alt',
@@ -74,11 +74,11 @@ export const threeColumnContentWithNumbers = defineType({
     select: {
       heading: 'heading',
     },
-    prepare({ heading }) {
+    prepare({heading}) {
       return {
         title: heading,
-        subtitle: `3 columns icon cards`,
-      };
+        subtitle: `3 columns with numbers`,
+      }
     },
   },
-});
+})

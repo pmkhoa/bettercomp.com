@@ -215,8 +215,8 @@ export type Richtext = {
   };
 };
 
-export type ResourcesWithLeftPanel = {
-  _type: 'resourcesWithLeftPanel';
+export type SideCalloutWithImages = {
+  _type: 'sideCalloutWithImages';
   enabled?: boolean;
   subheading?: string;
   heading?: string;
@@ -236,6 +236,7 @@ export type ResourcesWithLeftPanel = {
       alt?: string;
       _type: 'image';
     };
+    title?: string;
     content?: BlockContent;
     _key: string;
   }>;
@@ -319,7 +320,7 @@ export type PageBuilder = Array<
     } & PreFooterCTA)
   | ({
       _key: string;
-    } & ResourcesWithLeftPanel)
+    } & SideCalloutWithImages)
   | ({
       _key: string;
     } & Richtext)
@@ -421,9 +422,30 @@ export type HeroShort = {
   _type: 'heroShort';
   enabled?: boolean;
   heading?: string;
-  heroImage?: MediaAsset;
-  backgroundDesktop?: Background;
-  backgroundMobile?: Background;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  heroImageMobile?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
   ctaButton?: CtaLink;
 };
 
@@ -1514,7 +1536,7 @@ export type AllSanitySchemaTypes =
   | Stats
   | ShortCTA
   | Richtext
-  | ResourcesWithLeftPanel
+  | SideCalloutWithImages
   | PreFooterCTA
   | PageBuilder
   | Logos
@@ -4544,9 +4566,30 @@ export type AuthorQueryResult = {
         _type: 'heroShort';
         enabled?: boolean;
         heading?: string;
-        heroImage?: MediaAsset;
-        backgroundDesktop?: Background;
-        backgroundMobile?: Background;
+        heroImage?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        heroImageMobile?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
         ctaButton?: CtaLink;
       }
     | {
@@ -4645,33 +4688,6 @@ export type AuthorQueryResult = {
           _type: 'image';
         };
         additionalInfo?: string;
-      }
-    | {
-        _key: string;
-        _type: 'resourcesWithLeftPanel';
-        enabled?: boolean;
-        subheading?: string;
-        heading?: string;
-        description?: BlockContent;
-        ctaButton?: CtaLink;
-        listItem: Array<{
-          image?: {
-            asset?: {
-              _ref: string;
-              _type: 'reference';
-              _weak?: boolean;
-              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-            };
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            alt?: string;
-            _type: 'image';
-          };
-          content?: BlockContent;
-          _key: string;
-        }>;
-        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -4802,6 +4818,34 @@ export type AuthorQueryResult = {
         enabled?: boolean;
         description?: BlockContent;
         ctaButton?: CtaLink;
+      }
+    | {
+        _key: string;
+        _type: 'sideCalloutWithImages';
+        enabled?: boolean;
+        subheading?: string;
+        heading?: string;
+        description?: BlockContent;
+        ctaButton?: CtaLink;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content?: BlockContent;
+          _key: string;
+        }>;
+        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -6746,9 +6790,30 @@ export type GetHomeQueryResult = {
         _type: 'heroShort';
         enabled?: boolean;
         heading?: string;
-        heroImage?: MediaAsset;
-        backgroundDesktop?: Background;
-        backgroundMobile?: Background;
+        heroImage?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        heroImageMobile?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
         ctaButton?: CtaLink;
       }
     | {
@@ -6847,33 +6912,6 @@ export type GetHomeQueryResult = {
           _type: 'image';
         };
         additionalInfo?: string;
-      }
-    | {
-        _key: string;
-        _type: 'resourcesWithLeftPanel';
-        enabled?: boolean;
-        subheading?: string;
-        heading?: string;
-        description?: BlockContent;
-        ctaButton?: CtaLink;
-        listItem: Array<{
-          image?: {
-            asset?: {
-              _ref: string;
-              _type: 'reference';
-              _weak?: boolean;
-              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-            };
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            alt?: string;
-            _type: 'image';
-          };
-          content?: BlockContent;
-          _key: string;
-        }>;
-        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -7004,6 +7042,34 @@ export type GetHomeQueryResult = {
         enabled?: boolean;
         description?: BlockContent;
         ctaButton?: CtaLink;
+      }
+    | {
+        _key: string;
+        _type: 'sideCalloutWithImages';
+        enabled?: boolean;
+        subheading?: string;
+        heading?: string;
+        description?: BlockContent;
+        ctaButton?: CtaLink;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content?: BlockContent;
+          _key: string;
+        }>;
+        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -8595,9 +8661,30 @@ export type GetPageQueryResult = {
         _type: 'heroShort';
         enabled?: boolean;
         heading?: string;
-        heroImage?: MediaAsset;
-        backgroundDesktop?: Background;
-        backgroundMobile?: Background;
+        heroImage?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        heroImageMobile?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
         ctaButton?: CtaLink;
       }
     | {
@@ -8696,33 +8783,6 @@ export type GetPageQueryResult = {
           _type: 'image';
         };
         additionalInfo?: string;
-      }
-    | {
-        _key: string;
-        _type: 'resourcesWithLeftPanel';
-        enabled?: boolean;
-        subheading?: string;
-        heading?: string;
-        description?: BlockContent;
-        ctaButton?: CtaLink;
-        listItem: Array<{
-          image?: {
-            asset?: {
-              _ref: string;
-              _type: 'reference';
-              _weak?: boolean;
-              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-            };
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            alt?: string;
-            _type: 'image';
-          };
-          content?: BlockContent;
-          _key: string;
-        }>;
-        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -8853,6 +8913,34 @@ export type GetPageQueryResult = {
         enabled?: boolean;
         description?: BlockContent;
         ctaButton?: CtaLink;
+      }
+    | {
+        _key: string;
+        _type: 'sideCalloutWithImages';
+        enabled?: boolean;
+        subheading?: string;
+        heading?: string;
+        description?: BlockContent;
+        ctaButton?: CtaLink;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content?: BlockContent;
+          _key: string;
+        }>;
+        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -10501,9 +10589,30 @@ export type GetArticleQueryResult = {
         _type: 'heroShort';
         enabled?: boolean;
         heading?: string;
-        heroImage?: MediaAsset;
-        backgroundDesktop?: Background;
-        backgroundMobile?: Background;
+        heroImage?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        heroImageMobile?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
         ctaButton?: CtaLink;
       }
     | {
@@ -10602,33 +10711,6 @@ export type GetArticleQueryResult = {
           _type: 'image';
         };
         additionalInfo?: string;
-      }
-    | {
-        _key: string;
-        _type: 'resourcesWithLeftPanel';
-        enabled?: boolean;
-        subheading?: string;
-        heading?: string;
-        description?: BlockContent;
-        ctaButton?: CtaLink;
-        listItem: Array<{
-          image?: {
-            asset?: {
-              _ref: string;
-              _type: 'reference';
-              _weak?: boolean;
-              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-            };
-            media?: unknown;
-            hotspot?: SanityImageHotspot;
-            crop?: SanityImageCrop;
-            alt?: string;
-            _type: 'image';
-          };
-          content?: BlockContent;
-          _key: string;
-        }>;
-        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -10759,6 +10841,34 @@ export type GetArticleQueryResult = {
         enabled?: boolean;
         description?: BlockContent;
         ctaButton?: CtaLink;
+      }
+    | {
+        _key: string;
+        _type: 'sideCalloutWithImages';
+        enabled?: boolean;
+        subheading?: string;
+        heading?: string;
+        description?: BlockContent;
+        ctaButton?: CtaLink;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content?: BlockContent;
+          _key: string;
+        }>;
+        summaryText?: BlockContent;
       }
     | {
         _key: string;
@@ -12409,9 +12519,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -12510,33 +12641,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -12667,6 +12771,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -14302,9 +14434,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -14403,33 +14556,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -14560,6 +14686,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -16203,9 +16357,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -16304,33 +16479,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -16461,6 +16609,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -18103,9 +18279,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -18204,33 +18401,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -18361,6 +18531,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -19954,9 +20152,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -20055,33 +20274,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -20212,6 +20404,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -21807,9 +22027,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -21908,33 +22149,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -22065,6 +22279,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -23834,9 +24076,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -23935,33 +24198,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -24092,6 +24328,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -25734,9 +25998,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -25835,33 +26120,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -25992,6 +26250,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -27634,9 +27920,30 @@ export type GetResourceQueryResult =
             _type: 'heroShort';
             enabled?: boolean;
             heading?: string;
-            heroImage?: MediaAsset;
-            backgroundDesktop?: Background;
-            backgroundMobile?: Background;
+            heroImage?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
+            heroImageMobile?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: 'image';
+            };
             ctaButton?: CtaLink;
           }
         | {
@@ -27735,33 +28042,6 @@ export type GetResourceQueryResult =
               _type: 'image';
             };
             additionalInfo?: string;
-          }
-        | {
-            _key: string;
-            _type: 'resourcesWithLeftPanel';
-            enabled?: boolean;
-            subheading?: string;
-            heading?: string;
-            description?: BlockContent;
-            ctaButton?: CtaLink;
-            listItem: Array<{
-              image?: {
-                asset?: {
-                  _ref: string;
-                  _type: 'reference';
-                  _weak?: boolean;
-                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                };
-                media?: unknown;
-                hotspot?: SanityImageHotspot;
-                crop?: SanityImageCrop;
-                alt?: string;
-                _type: 'image';
-              };
-              content?: BlockContent;
-              _key: string;
-            }>;
-            summaryText?: BlockContent;
           }
         | {
             _key: string;
@@ -27892,6 +28172,34 @@ export type GetResourceQueryResult =
             enabled?: boolean;
             description?: BlockContent;
             ctaButton?: CtaLink;
+          }
+        | {
+            _key: string;
+            _type: 'sideCalloutWithImages';
+            enabled?: boolean;
+            subheading?: string;
+            heading?: string;
+            description?: BlockContent;
+            ctaButton?: CtaLink;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content?: BlockContent;
+              _key: string;
+            }>;
+            summaryText?: BlockContent;
           }
         | {
             _key: string;

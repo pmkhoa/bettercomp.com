@@ -48,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const zillaSlab = Zilla_Slab({
   subsets: ['latin'],
-  weight: ['400', '700'], // choose what you use
+  weight: ['400', '600', '700'], // choose what you use
   variable: '--font-zilla-slab', // optional CSS variable
   display: 'swap',
 });
@@ -71,10 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   });
 
   return (
-    <html
-      lang="en"
-      className={`${brockmann.variable} ${zillaSlab.variable} bg-white text-black`}
-    >
+    <html lang="en" className={`${brockmann.variable} ${zillaSlab.variable} bg-white text-black`}>
       <link rel="preconnect" href="https://mkcq8qmf.api.sanity.io" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
@@ -99,12 +96,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <SpeedInsights />
 
         <Script id="hs-script-loader" async defer src="//js.hs-scripts.com/21848769.js" />
-        <Script
-          id="hs-form-script-loader"
-          async
-          defer
-          src="//js.hsforms.net/forms/embed/v2.js"
-        />
+        <Script id="hs-form-script-loader" async defer src="//js.hsforms.net/forms/embed/v2.js" />
       </body>
     </html>
   );

@@ -5,7 +5,10 @@ import { dataAttr } from '@/sanity/lib/utils';
 import {
   AllResources,
   AuthorBio,
+  AccordionLeftPanel,
+  AccordionCenter,
   FormContent,
+  FullWidthCTA,
   FeaturedResources,
   HeroLarge,
   HeroResource,
@@ -19,6 +22,7 @@ import {
   Testimonials,
   ThreeColumnContentWithIcons,
   TwoColumnsContent,
+  TwoColumnPhotoCards,
 } from '@/components/Modules';
 
 type BlocksType = {
@@ -41,17 +45,21 @@ type BlockProps = {
 const Blocks: BlocksType = {
   allResources: AllResources,
   authorBio: AuthorBio,
+  accordionLeftPanel: AccordionLeftPanel,
+  accordionCenter: AccordionCenter,
   heroLarge: HeroLarge,
   heroResource: HeroResource,
   heroShort: HeroShort,
   heroCTA: HeroCTA,
   logos: Logos,
   twoColumnsContent: TwoColumnsContent,
+  twoColumnPhotoCards: TwoColumnPhotoCards,
   threeColumnContentWithIcons: ThreeColumnContentWithIcons,
   formContent: FormContent,
   stats: Stats,
   featuredResources: FeaturedResources,
   shortCTA: ShortCTA,
+  fullWidthCTA: FullWidthCTA,
   testimonials: Testimonials,
   richtext: Richtext,
   quotation: Quotation,
@@ -60,13 +68,7 @@ const Blocks: BlocksType = {
 /**
  * Used by the <PageBuilder>, this component renders a the component that matches the block type.
  */
-export default function BlockRenderer({
-  block,
-  index,
-  pageId,
-  pageType,
-  pageData,
-}: BlockProps) {
+export default function BlockRenderer({ block, index, pageId, pageType, pageData }: BlockProps) {
   // Block does exist
   if (typeof Blocks[block._type] !== 'undefined') {
     return (
@@ -94,6 +96,6 @@ export default function BlockRenderer({
         A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
       </div>
     ),
-    { key: block._key },
+    { key: block._key }
   );
 }

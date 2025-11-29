@@ -34,26 +34,21 @@ const AccordionTextModule = ({ accordionList = [] }: AccordionProps) => {
         <div className="accordion-container my-4">
           {accordionList.map((item: any, index: number) => {
             const label = get(item, 'title');
-            const { linkText, link, content } = item;
+            const { ctaButton, content } = item;
 
             return (
-              <div
-                className={cn(s['accordion-item'], 'border-b border-light-gray py-8 px-3')}
-                key={index}
-              >
+              <div className={cn(s['accordion-item'], 'py-6 px-3')} key={index}>
                 <Disclosure as="div" className="w-full">
                   {({ open }) => (
                     <>
                       <DisclosureButton
                         id={kebabCase(`${label}-${index}`)}
                         className={cn(s['label'], `is-open-${open}`)}
-                        onClick={() =>
-                          hideOtherDisclosuresHandle(kebabCase(`${label}-${index}`))
-                        }
+                        onClick={() => hideOtherDisclosuresHandle(kebabCase(`${label}-${index}`))}
                       >
-                        <h4 className="text-left pr-10">{label}</h4>
+                        <h4 className="text-left pr-10 my-0">{label}</h4>
                       </DisclosureButton>
-                      <div className="overflow-hidden">
+                      <div className="overflow-hidden pr-10">
                         <AnimatePresence>
                           {open && (
                             <>
@@ -72,10 +67,15 @@ const AccordionTextModule = ({ accordionList = [] }: AccordionProps) => {
                                 {({ close }) => (
                                   <div className="pt-4 cursor-pointer" onClick={() => close()}>
                                     <PortableText value={content} />
-                                    {linkText && link && (
-                                      <ResolvedLink link={link} className={'button mt-6'}>
-                                        {linkText}
-                                      </ResolvedLink>
+                                    {ctaButton && ctaButton.linkLabel && (
+                                      <div className="cta-wrapper mt-6 mb-3">
+                                        <ResolvedLink
+                                          link={ctaButton.link}
+                                          className={'btn-secondary inline-block'}
+                                        >
+                                          {ctaButton.linkLabel}
+                                        </ResolvedLink>
+                                      </div>
                                     )}
                                   </div>
                                 )}

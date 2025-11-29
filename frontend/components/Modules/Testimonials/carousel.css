@@ -13,8 +13,7 @@
 }
 
 .testimonial-carousel .f-carousel__nav {
-	@apply relative bottom-[-66px] w-full ml-0 flex items-center justify-between;
-	@apply md:top-auto md:bottom-[-80px] md:w-[420px] md:relative md:ml-auto md:mr-auto;
+	@apply absolute flex items-center justify-between gap-5 absolute top-60 right-16;
 }
 
 .testimonial-carousel .f-carousel__nav .f-button {
@@ -30,7 +29,7 @@
 .testimonial-carousel .f-carousel__nav .f-button svg {
 	width: 60px;
 	height: 60px;
-	color: #687FA0;
+	color: #F24E1A;
 }
 
 .testimonial-carousel .f-carousel__nav .f-button.is-prev {
@@ -44,19 +43,5 @@
 }
 
 .testimonial-carousel .f-carousel__dots {
-	opacity: 1;
-	bottom: -50px;
-	@apply md:bottom-[-66px];
-}
-
-.testimonial-carousel .f-carousel__dots .f-carousel__dot {
-	background-color: #9EBAC8;
-}
-
-.carousel-container .f-carousel__dots li {
-	opacity: 0.2;
-}
-
-.carousel-container .f-carousel__dots .is-current {
-	opacity: 1;
+  display: none;
 }

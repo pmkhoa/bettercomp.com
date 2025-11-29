@@ -2,20 +2,23 @@ import { ButtonPrimary, AccordionText, PortableText, ResolvedLink } from '@/comp
 import cn from 'classnames';
 import { AccordionLeftPanel } from '@/sanity.types';
 
-export default function SectionAccordionLeftPanel({ block }: { block: AccordionLeftPanel }) {
+export default function SideCalloutWithImagesModule({ block }: { block: AccordionLeftPanel }) {
   if (!block.enabled) return null;
 
-  const { heading, accordions, description, ctaButton } = block;
+  const { subHeading, heading, accordions, description, ctaButton } = block;
   return (
-    <section className={cn('accordion-simple', 'section-module')}>
+    <section className={cn('accordion-simple', 'section-module my-24')}>
       <div className="container">
-        <h2 className="heading my-8">{heading}</h2>
         <div className="grid-container gap-0 md:gap-16">
           <div className="col-span-12 md:col-span-5">
+            {subHeading && (
+              <h6 className="font-serif font-semibold text-green mb-2">{subHeading}</h6>
+            )}
+            {heading && <h3 className="heading mb-6">{heading}</h3>}
             <PortableText value={description} />
-            <div className="cta-wrapper my-12">
+            <div className="cta-wrapper mt-8">
               {ctaButton && ctaButton.linkLabel && (
-                <ButtonPrimary className="mt-6">
+                <ButtonPrimary>
                   <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
                 </ButtonPrimary>
               )}

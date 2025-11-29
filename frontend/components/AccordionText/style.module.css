@@ -1,13 +1,14 @@
 .accordion-item {
 	transition: all 0.4s;
+	border-bottom: 1px solid var(--color-bright-blue);
 }
 .accordion-item:hover {
 	transition: all 0.4s;
-	background: var(--color-lightest-gray);
+	background: var(--color-sand);
 }
 
 .accordion-item:first-child {
-	border-top: 1px solid var(--color-light-gray);
+	border-top: 1px solid var(--color-bright-blue);
 }
 
 .label {
@@ -21,9 +22,9 @@
 	position: absolute;
 	color: var(--color-red);
 	right: 0;
-	top: -10px;
+	top: -2px;
 	content: '+';
-	font-size: 1.5rem;
+	font-size: 36px;
 }
 
 .label[aria-expanded='true']:after {
@@ -31,6 +32,6 @@
 	color: var(--color-red);
 	position: absolute;
 	right: 0;
-	top: -10px;
-	font-size: 1.5rem;
+	top: -2px;
+	font-size: 36px;
 }

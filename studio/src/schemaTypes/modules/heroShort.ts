@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { UlistIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {UlistIcon} from '@sanity/icons'
 
 export const heroShort = defineType({
   name: 'heroShort',
@@ -21,17 +21,12 @@ export const heroShort = defineType({
     defineField({
       name: 'heroImage',
       title: 'Hero Image',
-      type: 'mediaAsset',
+      type: 'image',
     }),
     defineField({
-      name: 'backgroundDesktop',
-      title: 'Background Desktop',
-      type: 'background',
-    }),
-    defineField({
-      name: 'backgroundMobile',
-      title: 'Background Mobile',
-      type: 'background',
+      name: 'heroImageMobile',
+      title: 'Hero Image Mobile',
+      type: 'image',
     }),
     defineField({
       name: 'ctaButton',
@@ -43,11 +38,11 @@ export const heroShort = defineType({
     select: {
       title: 'heading',
     },
-    prepare({ title }) {
+    prepare({title}) {
       return {
         title,
         subtitle: 'Hero Short',
-      };
+      }
     },
   },
-});
+})

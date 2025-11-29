@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { InlineIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {InlineIcon} from '@sanity/icons'
 
 export const twoColumnPhotoCards = defineType({
   name: 'twoColumnPhotoCards',
@@ -19,8 +19,8 @@ export const twoColumnPhotoCards = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Sand', value: 'sand' },
-          { title: 'White', value: 'white' },
+          {title: 'Sand', value: 'sand'},
+          {title: 'White', value: 'white'},
         ],
         layout: 'dropdown',
       },
@@ -53,7 +53,7 @@ export const twoColumnPhotoCards = defineType({
               name: 'image',
               title: 'Image',
               type: 'image',
-              options: { hotspot: true },
+              options: {hotspot: true},
               fields: [
                 defineField({
                   name: 'alt',
@@ -87,11 +87,11 @@ export const twoColumnPhotoCards = defineType({
     select: {
       title: 'heading',
     },
-    prepare({ title }) {
+    prepare({title}) {
       return {
         title: title,
-        subtitle: `3 columns icon cards`,
-      };
+        subtitle: `Two Column Photo Cards`,
+      }
     },
   },
-});
+})

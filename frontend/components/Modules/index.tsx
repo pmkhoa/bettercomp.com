@@ -1,6 +1,9 @@
 export { default as AuthorBio } from './AuthorBio';
+export { default as AccordionLeftPanel } from './AccordionLeftPanel';
+export { default as AccordionCenter } from './AccordionCenter';
 export { default as TwoColumnsContent } from './TwoColumnsContent';
 export { default as ThreeColumnContentWithIcons } from './ThreeColumnContentWithIcons';
+export { default as TwoColumnPhotoCards } from './TwoColumnPhotoCards';
 export { default as Stats } from './Stats';
 export { default as Logos } from './Logos';
 export { default as Testimonials } from './Testimonials';
@@ -12,5 +15,6 @@ export { default as HeroResource } from './HeroResource';
 export { default as HeroShort } from './HeroShort';
 export { default as HeroCTA } from './HeroCTA';
 export { default as ShortCTA } from './ShortCTA';
+export { default as FullWidthCTA } from './FullWidthCTA';
 export { default as Quotation } from './Quotation';
 export { default as FeaturedResources } from './FeaturedResources';
