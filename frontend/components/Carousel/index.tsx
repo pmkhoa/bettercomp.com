@@ -32,9 +32,13 @@ const defaults: Partial<OptionsType> = {
 				<path d="M30.9812 24.4429L33.2344 26.696L24.7074 35.2214L33.2344 43.7469L30.9812 46L20.2042 35.2214L30.9812 24.4429Z" fill="#FB8722"/>
 			</svg>`,
   },
+  // @ts-ignore
   Autoplay: {
+    // @ts-ignore
     isEnabled: false,
+    // @ts-ignore
     pauseOnHover: false,
+    // @ts-ignore
     showProgressbar: false,
   },
   Thumbs: { type: 'classic' },

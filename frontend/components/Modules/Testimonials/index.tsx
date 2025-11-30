@@ -36,8 +36,11 @@ export default function SectionTestimonialsModule({ block }: Props) {
               center: false,
               adaptiveHeight: true,
               showProgressbar: false,
+              // @ts-ignore
               Autoplay: {
+                // @ts-ignore
                 isEnabled: true,
+                // @ts-ignore
                 showProgressbar: false,
               },
               Dots: false,

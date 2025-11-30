@@ -1,12 +1,12 @@
 import { SanityImage, ButtonPrimary, PortableText, MediaAsset, ResolvedLink } from '@/components';
 import cn from 'classnames';
-import { ThreeColumnContentWithIcons } from '@/sanity.types';
+import { ThreeColumnContentWithNumbers } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 
-export default function ThreeColumnContentWithIconsModule({
+export default function ThreeColumnContentWithNumbersModule({
   block,
 }: {
-  block: ThreeColumnContentWithIcons;
+  block: ThreeColumnContentWithNumbers;
 }) {
   if (!block.enabled) return null;
   const {

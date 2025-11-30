@@ -7,10 +7,10 @@ import {
   PortableText,
   SanityImage,
 } from '@/components';
-import { Background, HeroLarge } from '@/sanity.types';
+import { Background, FullWidthCTA } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 
-export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
+export default function SectionFullWidthCTA({ block }: { block: FullWidthCTA }) {
   const { background = defaultBackground, enabled, description, ctaButton, textAlign } = block;
 
   if (!enabled) {
@@ -27,11 +27,6 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
 
   const bgColor = `bg-${backgroundColor}`;
   const sectionTextColor = `text-${textColor}`;
-
-  console.log('----------debugging: section background----------');
-  console.log(block);
-  console.log('----------debugging: text align----------');
-  console.log(textAlign);
 
   return (
     <section
