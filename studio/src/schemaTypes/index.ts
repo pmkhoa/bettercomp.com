@@ -38,7 +38,7 @@ import {shortCTA} from './modules/shortCTA'
 import {heroLarge} from './modules/heroLarge'
 import {heroResource} from './modules/heroResource'
 import {heroShort} from './modules/heroShort'
-import {iconCards} from './modules/iconCards'
+import {threeColumnWithIcons} from './modules/threeColumnWithIcons'
 import {quotation} from './modules/quotation'
 import {logos} from './modules/logos'
 import {pageBuilder} from './modules/pageBuilder'
@@ -95,7 +95,7 @@ export const schemaTypes = [
   featuredResources,
   heroLarge,
   heroShort,
-  iconCards,
+  threeColumnWithIcons,
   quotation,
   logos,
   pageBuilder,

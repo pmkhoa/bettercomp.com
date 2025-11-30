@@ -64,6 +64,11 @@ export const threeColumnContentWithNumbers = defineType({
               title: 'Content',
               type: 'blockContent',
             }),
+            defineField({
+              name: 'ctaButton',
+              title: 'CTA Button',
+              type: 'ctaLink',
+            }),
           ],
         },
       ],

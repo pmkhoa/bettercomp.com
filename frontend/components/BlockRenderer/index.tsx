@@ -3,17 +3,18 @@ import React from 'react';
 import { GetPageQueryResult } from '@/sanity.types';
 import { dataAttr } from '@/sanity/lib/utils';
 import {
+  AccordionCenter,
+  AccordionLeftPanel,
   AllResources,
   AuthorBio,
-  AccordionLeftPanel,
-  AccordionCenter,
+  ContactFormInfo,
+  FeaturedResources,
   FormContent,
   FullWidthCTA,
-  FeaturedResources,
+  HeroCTA,
   HeroLarge,
   HeroResource,
   HeroShort,
-  HeroCTA,
   Logos,
   Quotation,
   Richtext,
@@ -21,8 +22,10 @@ import {
   Stats,
   Testimonials,
   ThreeColumnContentWithIcons,
-  TwoColumnsContent,
+  ThreeColumnContentWithNumbers,
+  SideCalloutWithImages,
   TwoColumnPhotoCards,
+  TwoColumnsContent,
 } from '@/components/Modules';
 
 type BlocksType = {
@@ -47,6 +50,7 @@ const Blocks: BlocksType = {
   authorBio: AuthorBio,
   accordionLeftPanel: AccordionLeftPanel,
   accordionCenter: AccordionCenter,
+  contactForm: ContactFormInfo,
   heroLarge: HeroLarge,
   heroResource: HeroResource,
   heroShort: HeroShort,
@@ -55,6 +59,7 @@ const Blocks: BlocksType = {
   twoColumnsContent: TwoColumnsContent,
   twoColumnPhotoCards: TwoColumnPhotoCards,
   threeColumnContentWithIcons: ThreeColumnContentWithIcons,
+  threeColumnContentWithNumbers: ThreeColumnContentWithNumbers,
   formContent: FormContent,
   stats: Stats,
   featuredResources: FeaturedResources,
@@ -63,6 +68,7 @@ const Blocks: BlocksType = {
   testimonials: Testimonials,
   richtext: Richtext,
   quotation: Quotation,
+  sideCalloutWithImages: SideCalloutWithImages,
 };
 
 /**

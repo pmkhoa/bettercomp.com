@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { TextIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {TextIcon} from '@sanity/icons'
 
 export const contactForm = defineType({
   name: 'contactForm',
@@ -26,7 +26,7 @@ export const contactForm = defineType({
     defineField({
       name: 'address',
       title: 'Address',
-      type: 'text',
+      type: 'blockContent',
     }),
     defineField({
       name: 'phone',
@@ -39,16 +39,21 @@ export const contactForm = defineType({
       type: 'blockContent',
     }),
     defineField({
-      name: 'map',
-      title: 'Embedded Map',
+      name: 'mapLink',
+      title: 'Embedded Map Link',
       type: 'string',
+    }),
+    defineField({
+      name: 'mapPhoto',
+      title: 'Map Photo',
+      type: 'image',
     }),
   ],
   preview: {
     prepare() {
       return {
         title: 'Contact Form Info',
-      };
+      }
     },
   },
-});
+})

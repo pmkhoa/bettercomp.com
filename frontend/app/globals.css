@@ -183,6 +183,11 @@
   }
 }
 
+.portable-text h4:has(+p),
+.portable-text h5:has(+p) {
+  margin-bottom: 1rem;
+}
+
 .template-resource p:has(+ p) {
   margin-top: 1rem;
   margin-bottom: 1rem;

@@ -92,8 +92,7 @@ export const allResourcesSearchPaginatedQuery = defineQuery(`
 // Filter by content types
 // Search by tags. If there's no tags associated with content types, return true.
 export const allResourcesSearchQuery = defineQuery(`
-
-*[
+  *[
 		_type in coalesce($types, ${resourceTypes})
 		&& title match $terms
 		&&
@@ -105,7 +104,6 @@ export const allResourcesSearchQuery = defineQuery(`
 			)
 		)
 	] | order(date desc)
-
 `);
 
 const postFields = /* groq */ `
@@ -125,14 +123,27 @@ const pageBuilderContent = /* groq */ defineQuery(`
     _type == 'accordionCenter' => {
       ..., 
       ctaButton {..., ${linkFields} },
-      accordions[] { ..., ctaButton { ..., ${linkFields}} } 
+      description[] { ..., ${markDefsWithLink} },
+      accordions[] { 
+        ..., 
+        content[] { ..., ${markDefsWithLink} }, 
+        ctaButton { ..., ${linkFields}} 
+      } 
     },
     _type == 'accordionLeftPanel' => {
       ..., 
       ctaButton { ..., ${linkFields} }, 
-      accordions[] { ..., ctaButton { ..., ${linkFields}} } 
+      description[] { ..., ${markDefsWithLink} },
+      accordions[] { 
+        ..., 
+        content[] { ..., ${markDefsWithLink} }, 
+        ctaButton { ..., ${linkFields}} 
+      } 
     },
-    _type == 'authorBio' => { ..., teamMember-> },
+    _type == 'authorBio' => { 
+      ..., 
+      teamMember-> 
+    },
     _type == 'allResources' => { 
       ..., 
       "allResources": ${allResourcesQuery} { ${resourceFields} }, 
@@ -143,11 +154,83 @@ const pageBuilderContent = /* groq */ defineQuery(`
       selectedResources[]-> { ${resourceFields} }, 
       "latestResources": *[_type in ${resourceTypes}] { ${resourceFields} } | order(date desc)[0...6] 
     },
+    _type == 'formContent' => { 
+      ...,  
+      description[] { ..., ${markDefsWithLink} },
+    },
+    _type == 'fullWidthCTA' => { 
+      ...,  
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+    },
+    _type == 'heroCta' => { 
+      ...,  
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+    },
+    _type == 'heroLarge' => { 
+      ...,  
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+    },
+    _type == 'heroResource' => { 
+      ...,  
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+    },
+    _type == 'heroShort' => { 
+      ...,  
+      ctaButton {..., ${linkFields} },
+    },
+    _type == 'shortCTA' => { 
+      ...,  
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+    },
+    _type == 'iconCards' => { 
+      ...,  
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+    },
     _type == 'richtext' => { 
+      ...,
       columnContent[] { ..., ${markDefsWithLink} }, 
-      column2Content[] { ..., ${markDefsWithLink}}},
-	  }
-
+      column2Content[] { ..., ${markDefsWithLink}},
+	  },
+    _type == 'testimonials' => { 
+      ...,
+      description[] { ..., ${markDefsWithLink} },
+	  },
+    _type == 'threeColumnContentWithIcons' => { 
+      ...,
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+      listItem [] { ..., content[] { ..., ${markDefsWithLink} }, ctaButton {..., ${linkFields} }},
+    },
+    _type == 'threeColumnContentWithNumbers' => { 
+      ...,
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+      listItem [] { ..., content[] { ..., ${markDefsWithLink} }, ctaButton {..., ${linkFields} }},
+	  },
+    _type == 'twoColumnPhotoCards' => { 
+      ...,
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+	  },
+    _type == 'twoColumnsContent' => { 
+      ...,
+      description[] { ..., ${markDefsWithLink} },
+      ctaButton {..., ${linkFields} },
+	  },
+    _type == 'sideCalloutWithImages' => { 
+      ...,
+      ctaButton {..., ${linkFields} },
+      description[] { ..., ${markDefsWithLink} },
+      summaryText[] { ..., ${markDefsWithLink} }, 
+      listItem [] { ..., content[] { ..., ${markDefsWithLink} }},
+	  },
+  }
 `);
 
 export const authorQuery = defineQuery(`
@@ -176,7 +259,7 @@ export const getRelatedResourcesQuery = defineQuery(`
 `);
 
 export const getHomeQuery = defineQuery(
-  `*[_type == "home"][0] { ..., "pageBuilder": ${pageBuilderContent}}`,
+  `*[_type == "home"][0] { ..., "pageBuilder": ${pageBuilderContent}}`
 );
 
 export const getPageQuery = defineQuery(`

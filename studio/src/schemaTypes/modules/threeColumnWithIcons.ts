@@ -1,9 +1,9 @@
-import { defineField, defineType } from 'sanity';
-import { InlineIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {InlineIcon} from '@sanity/icons'
 
-export const iconCards = defineType({
-  name: 'iconCards',
-  title: 'Icon Cards',
+export const threeColumnWithIcons = defineType({
+  name: 'threeColumnWithIcons',
+  title: 'Three Column With Icons or Numbers',
   type: 'object',
   icon: InlineIcon,
   fields: [
@@ -12,11 +12,6 @@ export const iconCards = defineType({
       title: 'Enabled',
       type: 'boolean',
       initialValue: true,
-    }),
-    defineField({
-      name: 'sectionBackground',
-      title: 'Background',
-      type: 'background',
     }),
     defineField({
       name: 'heading',
@@ -45,7 +40,7 @@ export const iconCards = defineType({
               name: 'image',
               title: 'Image',
               type: 'image',
-              options: { hotspot: true },
+              options: {hotspot: true},
               fields: [
                 defineField({
                   name: 'alt',
@@ -65,8 +60,8 @@ export const iconCards = defineType({
               type: 'blockContent',
             }),
             defineField({
-              name: 'ctaLink',
-              title: 'CTA Link',
+              name: 'ctaButton',
+              title: 'CTA Button',
               type: 'ctaLink',
             }),
           ],
@@ -79,11 +74,11 @@ export const iconCards = defineType({
     select: {
       title: 'heading',
     },
-    prepare({ title }) {
+    prepare({title}) {
       return {
         title: title,
-        subtitle: `3 columns icon cards`,
-      };
+        subtitle: `Three Column With Icons or Numbers`,
+      }
     },
   },
-});
+})

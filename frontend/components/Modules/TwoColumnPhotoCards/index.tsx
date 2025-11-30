@@ -20,10 +20,14 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
     >
       <div className="container">
         <div className="flex justify-center items-center text-center mb-8 pb-8">
-          {heading && (
-            <h2 className="text-2xl md:text-3xl font-semibold text-center mb-0">{heading}</h2>
-          )}
+          <div className="description max-w-3xl">
+            {heading && (
+              <h2 className="text-2xl md:text-3xl font-semibold text-center mb-4">{heading}</h2>
+            )}
+            {description && <PortableText value={description} />}
+          </div>
         </div>
+
         <div className="grid-container gap-12">
           {listItem?.map((content) => {
             return (
