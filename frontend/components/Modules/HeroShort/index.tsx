@@ -19,7 +19,7 @@ export default function SectionHeroLarge({ block }: { block: HeroShort }) {
 
   return (
     <section className={cn('hero-with-bg overflow-hidden relative bg-blue')}>
-      <div className="container z-10 relative z-20 text-white  py-24">
+      <div className="container z-10 relative z-20 text-white  py-30">
         <div className="grid-container justify-between items-center gap-y-16 gap-0 md:gap-4">
           <div className={cn('col-span-12 md:col-span-8 relative z-20')}>
             <div className={'hero-description'}>
