@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { SparkleIcon } from '@sanity/icons';
+import {SparkleIcon} from '@sanity/icons'
+import {defineField, defineType} from 'sanity'
 
 export const testimonials = defineType({
   name: 'testimonials',
@@ -14,19 +14,9 @@ export const testimonials = defineType({
       initialValue: true,
     }),
     defineField({
-      name: 'subHeading',
-      title: 'Sub Heading',
-      type: 'string',
-    }),
-    defineField({
-      name: 'heading',
-      title: 'Heading',
-      type: 'string',
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'blockContent',
+      name: 'readAllReviews',
+      title: 'Read All Reviews',
+      type: 'ctaLink',
     }),
     defineField({
       name: 'testimonialList',
@@ -40,7 +30,7 @@ export const testimonials = defineType({
               name: 'companyIcon',
               title: 'Company Icon',
               type: 'image',
-              options: { hotspot: true },
+              options: {hotspot: true},
               fields: [
                 defineField({
                   name: 'alt',
@@ -53,7 +43,7 @@ export const testimonials = defineType({
               name: 'totalStars',
               title: 'Total Stars',
               type: 'image',
-              options: { hotspot: true },
+              options: {hotspot: true},
               fields: [
                 defineField({
                   name: 'alt',
@@ -76,7 +66,7 @@ export const testimonials = defineType({
               name: 'avatarIcon',
               title: 'Avatar Icon',
               type: 'image',
-              options: { hotspot: true },
+              options: {hotspot: true},
               fields: [
                 defineField({
                   name: 'alt',
@@ -101,11 +91,11 @@ export const testimonials = defineType({
       title: 'heading',
       testimonialList: 'testimonialList',
     },
-    prepare({ testimonialList, title }) {
+    prepare({testimonialList, title}) {
       return {
         title: title || 'Testimonials',
         subtitle: `${testimonialList.length} testimonials`,
-      };
+      }
     },
   },
-});
+})

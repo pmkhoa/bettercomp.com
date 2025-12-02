@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { PortableText, Carousel, SanityImage } from '@/components';
+import { PortableText, Carousel, SanityImage, ResolvedLink } from '@/components';
 import { Testimonials } from '@/sanity.types';
 import s from './style.module.css';
 import './carousel.css';
@@ -15,20 +15,11 @@ export default function SectionTestimonialsModule({ block }: Props) {
     return <div />;
   }
 
-  const { heading, subHeading, testimonialList = [] } = block;
+  const { readAllReviews, testimonialList = [] } = block;
 
   return (
     <section className={cn('section-module testimonial-carousel', 'pb-[48px]')}>
       <div className="container">
-        {heading && (
-          <div className="grid-container items-center mt-8 justify-between">
-            <div className="section__description col-span-12 md:col-start-2 md:col-span-10 text-center">
-              {subHeading && <div className="text-artic mb-3 h5">{subHeading}</div>}
-              {heading && <h2>{heading}</h2>}
-            </div>
-          </div>
-        )}
-
         <div className={cn(s['content-wrapper'])}>
           <Carousel
             options={{
@@ -107,10 +98,22 @@ export default function SectionTestimonialsModule({ block }: Props) {
                       </div>
                       <div className="review-stars my-8 col-span-3">
                         <div className="flex justify-end">
-                          <SanityImage
-                            image={totalStars}
-                            className="max-h-[24px] min-w-[140px] w-auto"
-                          />
+                          <div className="wrapper">
+                            <SanityImage
+                              image={totalStars}
+                              className="max-h-[24px] min-w-[140px] w-auto"
+                            />
+                            {readAllReviews && readAllReviews.link && (
+                              <div className="review-stars">
+                                <ResolvedLink
+                                  link={readAllReviews.link}
+                                  className={'inline-block my-4'}
+                                >
+                                  {readAllReviews.linkLabel}
+                                </ResolvedLink>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>

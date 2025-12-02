@@ -3,7 +3,7 @@ import { UlistIcon } from '@sanity/icons';
 
 export const accordionCenter = defineType({
   name: 'accordionCenter',
-  title: 'Accordion Centerl',
+  title: 'Accordion Center',
   type: 'object',
   icon: UlistIcon,
   fields: [

@@ -655,25 +655,11 @@
           },
           "optional": true
         },
-        "subHeading": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": true
-        },
-        "heading": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": true
-        },
-        "description": {
+        "readAllReviews": {
           "type": "objectAttribute",
           "value": {
             "type": "inline",
-            "name": "blockContent"
+            "name": "ctaLink"
           },
           "optional": true
         },

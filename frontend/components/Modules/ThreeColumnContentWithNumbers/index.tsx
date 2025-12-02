@@ -84,7 +84,7 @@ export default function ThreeColumnContentWithNumbersModule({
                     </div>
                   )}
                   <div className="cta-wrapper mt-8">
-                    {content.ctaButton && content.ctaButton.linkLabel && (
+                    {content.ctaButton && content.ctaButton.linkLabel && content.ctaButton.link && (
                       <ResolvedLink link={content.ctaButton?.link} className="btn-secondary">
                         {content.ctaButton?.linkLabel}
                       </ResolvedLink>

@@ -14,6 +14,7 @@ export { default as HeroCTA } from './HeroCTA';
 export { default as ShortCTA } from './ShortCTA';
 export { default as FullWidthCTA } from './FullWidthCTA';
 export { default as Quotation } from './Quotation';
+export { default as IconCards } from './IconCards';
 export { default as FeaturedResources } from './FeaturedResources';
 export { default as ThreeColumnContentWithIcons } from './ThreeColumnContentWithIcons';
 export { default as ThreeColumnContentWithNumbers } from './ThreeColumnContentWithNumbers';

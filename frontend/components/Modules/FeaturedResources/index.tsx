@@ -32,16 +32,13 @@ export default function FeaturedResourcesModule({
     return null;
   }
 
-  console.log('----------debugging: featured resources----------');
-  console.log(block);
-
   return (
     <section className={cn('section-module relative py-24 bg-blue text-white')}>
       <div className="container">
         <div className="grid-container gap-8 my-8">
           <div className="col-span-12 md:col-span-4">
             <div className="featured-description">
-              <h6 className="text-green font-serif font-bold">{subheading}</h6>
+              <h6 className="text-green font-serif font-bold mb-2">{subheading}</h6>
               <div className="description">
                 <PortableText value={description} />
                 {ctaButton && ctaButton && (

@@ -20,6 +20,7 @@ export const pageBuilder = defineField({
     {type: 'heroShort'},
     {type: 'quotation'},
     {type: 'logos'},
+    {type: 'iconCards'},
     {type: 'preFooterCTA'},
     {type: 'sideCalloutWithImages'},
     {type: 'richtext'},

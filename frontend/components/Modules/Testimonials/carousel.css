@@ -13,7 +13,7 @@
 }
 
 .testimonial-carousel .f-carousel__nav {
-	@apply absolute flex items-center justify-between gap-5 absolute top-60 right-16;
+	@apply absolute flex items-center justify-between gap-5 absolute bottom-30 right-16;
 }
 
 .testimonial-carousel .f-carousel__nav .f-button {
@@ -43,5 +43,9 @@
 }
 
 .testimonial-carousel .f-carousel__dots {
+  display: none;
+}
+
+.testimonial-carousel .f-progress {
   display: none;
 }

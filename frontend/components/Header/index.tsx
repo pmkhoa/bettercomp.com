@@ -28,6 +28,7 @@ export default function Header({ settings }: { settings: Settings }) {
     navLinksText: string;
     dropdownBg: string;
     dropdownText: string;
+    borderBottom: string;
     logo: any;
   } | null>(null);
 
@@ -52,6 +53,7 @@ export default function Header({ settings }: { settings: Settings }) {
         dropdownBg: 'bg-blue',
         dropdownText: 'text-white',
         logo: LogoBlack,
+        borderBottom: 'border-gray-200',
       });
     } else {
       setNavTheme({
@@ -62,6 +64,7 @@ export default function Header({ settings }: { settings: Settings }) {
         dropdownBg: 'bg-white',
         dropdownText: 'text-blue',
         logo: LogoWhite,
+        borderBottom: 'border-midnight-blue-darker',
       });
     }
   }, [pathname]);
@@ -80,6 +83,7 @@ export default function Header({ settings }: { settings: Settings }) {
           'border-gray-200 border-b site-header fixed z-50 inset-0 overflow-visible',
           navTheme.headerBg,
           navTheme.topbarText,
+          navTheme.borderBottom
         )}
       >
         {/* TOP BAR */}
@@ -142,7 +146,7 @@ export default function Header({ settings }: { settings: Settings }) {
                   className={cn(
                     'hidden md:flex navlinks-desktop',
                     s['navlinks-desktop'],
-                    navTheme.navLinksText,
+                    navTheme.navLinksText
                   )}
                 >
                   {globalNav.map((nav) => {
@@ -152,7 +156,7 @@ export default function Header({ settings }: { settings: Settings }) {
                           link={nav.menuLink}
                           className={cn(
                             'menu-link transition duration-400 font-bold hover:text-orange',
-                            navTheme.navLinksText,
+                            navTheme.navLinksText
                           )}
                           key={nav._key}
                         >
@@ -177,9 +181,7 @@ export default function Header({ settings }: { settings: Settings }) {
               {globalNavCta && (
                 <div className="cta-wrapper">
                   <ButtonPrimary>
-                    <ResolvedLink link={globalNavCta.link}>
-                      {globalNavCta.linkText}
-                    </ResolvedLink>
+                    <ResolvedLink link={globalNavCta.link}>{globalNavCta.linkText}</ResolvedLink>
                   </ButtonPrimary>
                 </div>
               )}

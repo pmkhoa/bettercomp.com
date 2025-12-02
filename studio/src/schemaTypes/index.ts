@@ -33,6 +33,7 @@ import {authorBio} from './modules/authorBio'
 import {contactForm} from './modules/contactForm'
 import {featuredResources} from './modules/featuredResources'
 import {formContent} from './modules/formContent'
+import {iconCards} from './modules/iconCards'
 import {fullWidthCTA} from './modules/fullWidthCTA'
 import {shortCTA} from './modules/shortCTA'
 import {heroLarge} from './modules/heroLarge'
@@ -92,6 +93,7 @@ export const schemaTypes = [
   contactForm,
   heroCTA,
   formContent,
+  iconCards,
   featuredResources,
   heroLarge,
   heroShort,

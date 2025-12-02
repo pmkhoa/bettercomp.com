@@ -140,10 +140,7 @@ const pageBuilderContent = /* groq */ defineQuery(`
         ctaButton { ..., ${linkFields}} 
       } 
     },
-    _type == 'authorBio' => { 
-      ..., 
-      teamMember-> 
-    },
+    _type == 'authorBio' => { ..., teamMember-> },
     _type == 'allResources' => { 
       ..., 
       "allResources": ${allResourcesQuery} { ${resourceFields} }, 
@@ -191,15 +188,12 @@ const pageBuilderContent = /* groq */ defineQuery(`
       ...,  
       description[] { ..., ${markDefsWithLink} },
       ctaButton {..., ${linkFields} },
+      listItem [] { ..., content[] { ..., ${markDefsWithLink} }, ctaButton {..., ${linkFields} }},
     },
     _type == 'richtext' => { 
       ...,
       columnContent[] { ..., ${markDefsWithLink} }, 
       column2Content[] { ..., ${markDefsWithLink}},
-	  },
-    _type == 'testimonials' => { 
-      ...,
-      description[] { ..., ${markDefsWithLink} },
 	  },
     _type == 'threeColumnContentWithIcons' => { 
       ...,
@@ -230,6 +224,10 @@ const pageBuilderContent = /* groq */ defineQuery(`
       summaryText[] { ..., ${markDefsWithLink} }, 
       listItem [] { ..., content[] { ..., ${markDefsWithLink} }},
 	  },
+    _type == 'testimonials' => { 
+      ..., 
+      readAllReviews {..., ${linkFields} } 
+    },
   }
 `);
 
