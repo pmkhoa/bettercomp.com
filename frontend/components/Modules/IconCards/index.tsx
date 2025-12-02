@@ -5,7 +5,7 @@ import { IconCards } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 import iconCardsBg from '@/assets/images/iconcards-bg.png';
 
-export default function IconCards({ block }: { block: IconCards }) {
+export default function IconCardsModule({ block }: { block: IconCards }) {
   if (!block.enabled) return null;
   const { heading, description, ctaButton, listItem, layout } = block;
 

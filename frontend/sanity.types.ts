@@ -112,9 +112,7 @@ export type ThreeColumnContentWithIcons = {
 export type Testimonials = {
   _type: 'testimonials';
   enabled?: boolean;
-  subHeading?: string;
-  heading?: string;
-  description?: BlockContent;
+  readAllReviews?: CtaLink;
   testimonialList: Array<{
     companyIcon?: {
       asset?: {
@@ -313,6 +311,9 @@ export type PageBuilder = Array<
   | ({
       _key: string;
     } & Logos)
+  | ({
+      _key: string;
+    } & IconCards)
   | ({
       _key: string;
     } & PreFooterCTA)
@@ -615,6 +616,34 @@ export type FeaturedResources = {
         [internalGroqTypeReferenceTo]?: 'article';
       }
   >;
+};
+
+export type IconCards = {
+  _type: 'iconCards';
+  enabled?: boolean;
+  heading?: string;
+  description?: BlockContent;
+  layout?: 'two' | 'three';
+  ctaButton?: CtaLink;
+  listItem: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+    };
+    title?: string;
+    content?: BlockContent;
+    ctaLink?: CtaLink;
+    _key: string;
+  }>;
 };
 
 export type FormContent = {
@@ -1558,6 +1587,7 @@ export type AllSanitySchemaTypes =
   | HeroShort
   | HeroLarge
   | FeaturedResources
+  | IconCards
   | FormContent
   | HeroCTA
   | ContactForm
@@ -3126,10 +3156,10 @@ export type AllResourcesSearchQueryResult = Array<
     }
 >;
 // Variable: pageBuilderContent
-// Query: pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }
+// Query: pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }
 export type PageBuilderContentResult = never;
 // Variable: authorQuery
-// Query: *[_type == "author" && slug.current == $slug][0] {		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  },		"resources": *[_type  in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] && author._ref == ^._id] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }	}
+// Query: *[_type == "author" && slug.current == $slug][0] {		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  },		"resources": *[_type  in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] && author._ref == ^._id] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }	}
 export type AuthorQueryResult = {
   _id: string;
   _type: 'author';
@@ -5435,6 +5465,240 @@ export type AuthorQueryResult = {
       }
     | {
         _key: string;
+        _type: 'iconCards';
+        enabled?: boolean;
+        heading?: string;
+        description: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
+        layout?: 'three' | 'two';
+        ctaButton: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>;
+                  text?: string;
+                  _type: 'span';
+                  _key: string;
+                }>;
+                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                listItem?: 'bullet' | 'checkmarks' | 'number';
+                markDefs: Array<
+                  | {
+                      linkType?:
+                        | 'article'
+                        | 'author'
+                        | 'ebook'
+                        | 'file'
+                        | 'guide'
+                        | 'href'
+                        | 'page'
+                        | 'template'
+                        | 'tool'
+                        | 'webinar';
+                      author: string | null;
+                      href?: string;
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string;
+                          _type: 'reference';
+                          _weak?: boolean;
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                        };
+                        media?: unknown;
+                        _type: 'file';
+                      };
+                      article: string | null;
+                      ebook: string | null;
+                      guide: string | null;
+                      tool: string | null;
+                      template: string | null;
+                      webinar: string | null;
+                      page: string | null;
+                      openInNewTab?: boolean;
+                      _type: 'link';
+                      _key: string;
+                      file: null;
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      _type: 'textColor';
+                      _key: string;
+                    }
+                > | null;
+                level?: number;
+                _type: 'block';
+                _key: string;
+              }
+            | {
+                _key: string;
+                _type: 'divider';
+                backgroundColor?:
+                  | 'accent-brick'
+                  | 'black'
+                  | 'blue'
+                  | 'bright-blue'
+                  | 'gold'
+                  | 'light-blue'
+                  | 'orange'
+                  | 'sand'
+                  | 'teal-green';
+                markDefs: null;
+              }
+            | {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                caption?: string;
+                _type: 'image';
+                _key: string;
+                markDefs: null;
+              }
+          > | null;
+          ctaLink?: CtaLink;
+          _key: string;
+          ctaButton: null;
+        }>;
+      }
+    | {
+        _key: string;
         _type: 'logos';
         enabled?: boolean;
         heading?: string;
@@ -6087,9 +6351,36 @@ export type AuthorQueryResult = {
         _key: string;
         _type: 'testimonials';
         enabled?: boolean;
-        subHeading?: string;
-        heading?: string;
-        description?: BlockContent;
+        readAllReviews: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
         testimonialList: Array<{
           companyIcon?: {
             asset?: {
@@ -6135,7 +6426,6 @@ export type AuthorQueryResult = {
           reviewer?: string;
           _key: string;
         }>;
-        readAllReviews: null;
       }
     | {
         _key: string;
@@ -7260,7 +7550,7 @@ export type GetRelatedResourcesQueryResult = Array<{
   date: string | null;
 }>;
 // Variable: getHomeQuery
-// Query: *[_type == "home"][0] { ..., "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }}
+// Query: *[_type == "home"][0] { ..., "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }}
 export type GetHomeQueryResult = {
   _id: string;
   _type: 'home';
@@ -9549,6 +9839,240 @@ export type GetHomeQueryResult = {
       }
     | {
         _key: string;
+        _type: 'iconCards';
+        enabled?: boolean;
+        heading?: string;
+        description: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
+        layout?: 'three' | 'two';
+        ctaButton: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>;
+                  text?: string;
+                  _type: 'span';
+                  _key: string;
+                }>;
+                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                listItem?: 'bullet' | 'checkmarks' | 'number';
+                markDefs: Array<
+                  | {
+                      linkType?:
+                        | 'article'
+                        | 'author'
+                        | 'ebook'
+                        | 'file'
+                        | 'guide'
+                        | 'href'
+                        | 'page'
+                        | 'template'
+                        | 'tool'
+                        | 'webinar';
+                      author: string | null;
+                      href?: string;
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string;
+                          _type: 'reference';
+                          _weak?: boolean;
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                        };
+                        media?: unknown;
+                        _type: 'file';
+                      };
+                      article: string | null;
+                      ebook: string | null;
+                      guide: string | null;
+                      tool: string | null;
+                      template: string | null;
+                      webinar: string | null;
+                      page: string | null;
+                      openInNewTab?: boolean;
+                      _type: 'link';
+                      _key: string;
+                      file: null;
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      _type: 'textColor';
+                      _key: string;
+                    }
+                > | null;
+                level?: number;
+                _type: 'block';
+                _key: string;
+              }
+            | {
+                _key: string;
+                _type: 'divider';
+                backgroundColor?:
+                  | 'accent-brick'
+                  | 'black'
+                  | 'blue'
+                  | 'bright-blue'
+                  | 'gold'
+                  | 'light-blue'
+                  | 'orange'
+                  | 'sand'
+                  | 'teal-green';
+                markDefs: null;
+              }
+            | {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                caption?: string;
+                _type: 'image';
+                _key: string;
+                markDefs: null;
+              }
+          > | null;
+          ctaLink?: CtaLink;
+          _key: string;
+          ctaButton: null;
+        }>;
+      }
+    | {
+        _key: string;
         _type: 'logos';
         enabled?: boolean;
         heading?: string;
@@ -10201,9 +10725,36 @@ export type GetHomeQueryResult = {
         _key: string;
         _type: 'testimonials';
         enabled?: boolean;
-        subHeading?: string;
-        heading?: string;
-        description?: BlockContent;
+        readAllReviews: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
         testimonialList: Array<{
           companyIcon?: {
             asset?: {
@@ -10249,7 +10800,6 @@ export type GetHomeQueryResult = {
           reviewer?: string;
           _key: string;
         }>;
-        readAllReviews: null;
       }
     | {
         _key: string;
@@ -11025,7 +11575,7 @@ export type GetHomeQueryResult = {
   seo?: Seo;
 } | null;
 // Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current match $slug][0]{		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }	}
+// Query: *[_type == 'page' && slug.current match $slug][0]{		...,		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }	}
 export type GetPageQueryResult = {
   _id: string;
   _type: 'page';
@@ -13314,6 +13864,240 @@ export type GetPageQueryResult = {
       }
     | {
         _key: string;
+        _type: 'iconCards';
+        enabled?: boolean;
+        heading?: string;
+        description: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
+        layout?: 'three' | 'two';
+        ctaButton: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>;
+                  text?: string;
+                  _type: 'span';
+                  _key: string;
+                }>;
+                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                listItem?: 'bullet' | 'checkmarks' | 'number';
+                markDefs: Array<
+                  | {
+                      linkType?:
+                        | 'article'
+                        | 'author'
+                        | 'ebook'
+                        | 'file'
+                        | 'guide'
+                        | 'href'
+                        | 'page'
+                        | 'template'
+                        | 'tool'
+                        | 'webinar';
+                      author: string | null;
+                      href?: string;
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string;
+                          _type: 'reference';
+                          _weak?: boolean;
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                        };
+                        media?: unknown;
+                        _type: 'file';
+                      };
+                      article: string | null;
+                      ebook: string | null;
+                      guide: string | null;
+                      tool: string | null;
+                      template: string | null;
+                      webinar: string | null;
+                      page: string | null;
+                      openInNewTab?: boolean;
+                      _type: 'link';
+                      _key: string;
+                      file: null;
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      _type: 'textColor';
+                      _key: string;
+                    }
+                > | null;
+                level?: number;
+                _type: 'block';
+                _key: string;
+              }
+            | {
+                _key: string;
+                _type: 'divider';
+                backgroundColor?:
+                  | 'accent-brick'
+                  | 'black'
+                  | 'blue'
+                  | 'bright-blue'
+                  | 'gold'
+                  | 'light-blue'
+                  | 'orange'
+                  | 'sand'
+                  | 'teal-green';
+                markDefs: null;
+              }
+            | {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                caption?: string;
+                _type: 'image';
+                _key: string;
+                markDefs: null;
+              }
+          > | null;
+          ctaLink?: CtaLink;
+          _key: string;
+          ctaButton: null;
+        }>;
+      }
+    | {
+        _key: string;
         _type: 'logos';
         enabled?: boolean;
         heading?: string;
@@ -13966,9 +14750,36 @@ export type GetPageQueryResult = {
         _key: string;
         _type: 'testimonials';
         enabled?: boolean;
-        subHeading?: string;
-        heading?: string;
-        description?: BlockContent;
+        readAllReviews: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
         testimonialList: Array<{
           companyIcon?: {
             asset?: {
@@ -14014,7 +14825,6 @@ export type GetPageQueryResult = {
           reviewer?: string;
           _key: string;
         }>;
-        readAllReviews: null;
       }
     | {
         _key: string;
@@ -14790,7 +15600,7 @@ export type GetPageQueryResult = {
   seo?: Seo;
 } | null;
 // Variable: getArticleQuery
-// Query: *[_type == 'article' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }}
+// Query: *[_type == 'article' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }}
 export type GetArticleQueryResult = {
   _id: string;
   _type: 'article';
@@ -17133,6 +17943,240 @@ export type GetArticleQueryResult = {
       }
     | {
         _key: string;
+        _type: 'iconCards';
+        enabled?: boolean;
+        heading?: string;
+        description: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: 'span';
+                _key: string;
+              }>;
+              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              listItem?: 'bullet' | 'checkmarks' | 'number';
+              markDefs: Array<
+                | {
+                    linkType?:
+                      | 'article'
+                      | 'author'
+                      | 'ebook'
+                      | 'file'
+                      | 'guide'
+                      | 'href'
+                      | 'page'
+                      | 'template'
+                      | 'tool'
+                      | 'webinar';
+                    author: string | null;
+                    href?: string;
+                    pdfFile?: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                      };
+                      media?: unknown;
+                      _type: 'file';
+                    };
+                    article: string | null;
+                    ebook: string | null;
+                    guide: string | null;
+                    tool: string | null;
+                    template: string | null;
+                    webinar: string | null;
+                    page: string | null;
+                    openInNewTab?: boolean;
+                    _type: 'link';
+                    _key: string;
+                    file: null;
+                  }
+                | {
+                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    _type: 'textColor';
+                    _key: string;
+                  }
+              > | null;
+              level?: number;
+              _type: 'block';
+              _key: string;
+            }
+          | {
+              _key: string;
+              _type: 'divider';
+              backgroundColor?:
+                | 'accent-brick'
+                | 'black'
+                | 'blue'
+                | 'bright-blue'
+                | 'gold'
+                | 'light-blue'
+                | 'orange'
+                | 'sand'
+                | 'teal-green';
+              markDefs: null;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              caption?: string;
+              _type: 'image';
+              _key: string;
+              markDefs: null;
+            }
+        > | null;
+        layout?: 'three' | 'two';
+        ctaButton: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
+        listItem: Array<{
+          image?: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          };
+          title?: string;
+          content: Array<
+            | {
+                children?: Array<{
+                  marks?: Array<string>;
+                  text?: string;
+                  _type: 'span';
+                  _key: string;
+                }>;
+                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                listItem?: 'bullet' | 'checkmarks' | 'number';
+                markDefs: Array<
+                  | {
+                      linkType?:
+                        | 'article'
+                        | 'author'
+                        | 'ebook'
+                        | 'file'
+                        | 'guide'
+                        | 'href'
+                        | 'page'
+                        | 'template'
+                        | 'tool'
+                        | 'webinar';
+                      author: string | null;
+                      href?: string;
+                      pdfFile?: {
+                        asset?: {
+                          _ref: string;
+                          _type: 'reference';
+                          _weak?: boolean;
+                          [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                        };
+                        media?: unknown;
+                        _type: 'file';
+                      };
+                      article: string | null;
+                      ebook: string | null;
+                      guide: string | null;
+                      tool: string | null;
+                      template: string | null;
+                      webinar: string | null;
+                      page: string | null;
+                      openInNewTab?: boolean;
+                      _type: 'link';
+                      _key: string;
+                      file: null;
+                    }
+                  | {
+                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      _type: 'textColor';
+                      _key: string;
+                    }
+                > | null;
+                level?: number;
+                _type: 'block';
+                _key: string;
+              }
+            | {
+                _key: string;
+                _type: 'divider';
+                backgroundColor?:
+                  | 'accent-brick'
+                  | 'black'
+                  | 'blue'
+                  | 'bright-blue'
+                  | 'gold'
+                  | 'light-blue'
+                  | 'orange'
+                  | 'sand'
+                  | 'teal-green';
+                markDefs: null;
+              }
+            | {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                caption?: string;
+                _type: 'image';
+                _key: string;
+                markDefs: null;
+              }
+          > | null;
+          ctaLink?: CtaLink;
+          _key: string;
+          ctaButton: null;
+        }>;
+      }
+    | {
+        _key: string;
         _type: 'logos';
         enabled?: boolean;
         heading?: string;
@@ -17785,9 +18829,36 @@ export type GetArticleQueryResult = {
         _key: string;
         _type: 'testimonials';
         enabled?: boolean;
-        subHeading?: string;
-        heading?: string;
-        description?: BlockContent;
+        readAllReviews: {
+          _type: 'ctaLink';
+          showCtaLink?: boolean;
+          linkLabel?: string;
+          link: {
+            _type: 'link';
+            linkType?:
+              | 'article'
+              | 'author'
+              | 'ebook'
+              | 'file'
+              | 'guide'
+              | 'href'
+              | 'page'
+              | 'template'
+              | 'tool'
+              | 'webinar';
+            href?: string;
+            page: string | null;
+            article: string | null;
+            ebook: string | null;
+            guide: string | null;
+            tool: string | null;
+            template: string | null;
+            webinar: string | null;
+            author: string | null;
+            openInNewTab?: boolean;
+            file: null;
+          } | null;
+        } | null;
         testimonialList: Array<{
           companyIcon?: {
             asset?: {
@@ -17833,7 +18904,6 @@ export type GetArticleQueryResult = {
           reviewer?: string;
           _key: string;
         }>;
-        readAllReviews: null;
       }
     | {
         _key: string;
@@ -18614,7 +19684,7 @@ export type ArticleSlugsResult = Array<{
   slug: string;
 }>;
 // Variable: getResourceQuery
-// Query: *[		_type == $type &&		slug.current == $slug	][0]{		...,		author->,		tags[]->{ title, slug },		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }	}
+// Query: *[		_type == $type &&		slug.current == $slug	][0]{		...,		author->,		tags[]->{ title, slug },		"pageBuilder": 	pageBuilder[] {		 ...,    _type == 'accordionCenter' => {      ...,       ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'accordionLeftPanel' => {      ...,       ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      accordions[] {         ...,         content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },         ctaButton { ...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }}       }     },    _type == 'authorBio' => { ..., teamMember-> },    _type == 'allResources' => {       ...,       "allResources": 	*[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)  {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "resources":   *[		_type in coalesce($types,   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"])		&& title match $terms		&&		(			$topic == "*" 			|| (				defined(tags) 				&& count(tags[@->name match $topic]) > 0			)		)	] | order(date desc) {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, }     },    _type == 'featuredResources' => {      ...,       selectedResources[]-> {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, },       "latestResources": *[_type in   ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]] {   author-> { authorBio, firstName, lastName, slug, picture, _type, _id},	coverImage,	date,  estimatedReadingTime,  slug,  seo,  tags[]->,	title,	_createdAt,	_id,	_type,	_updatedAt, } | order(date desc)[0...6]     },    _type == 'formContent' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'fullWidthCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroCta' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroLarge' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroResource' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'heroShort' => {       ...,        ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'shortCTA' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },    },    _type == 'iconCards' => {       ...,        description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'richtext' => {       ...,      columnContent[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       column2Content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},	  },    _type == 'threeColumnContentWithIcons' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},    },    _type == 'threeColumnContentWithNumbers' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }, ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'twoColumnPhotoCards' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'twoColumnsContent' => {       ...,      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },	  },    _type == 'sideCalloutWithImages' => {       ...,      ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      description[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },      summaryText[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },       listItem [] { ..., content[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},	  },    _type == 'testimonials' => {       ...,       readAllReviews {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }     },  }	}
 export type GetResourceQueryResult =
   | {
       _id: string;
@@ -20953,6 +22023,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -21605,9 +22909,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -21653,7 +22984,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -24758,6 +26088,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -25410,9 +26974,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -25458,7 +27049,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -28571,6 +30161,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -29223,9 +31047,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -29271,7 +31122,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -32383,6 +34233,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -33035,9 +35119,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -33083,7 +35194,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -36146,6 +38256,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -36798,9 +39142,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -36846,7 +39217,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -39911,6 +42281,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -40563,9 +43167,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -40611,7 +43242,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -43850,6 +46480,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -44502,9 +47366,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -44550,7 +47441,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -47662,6 +50552,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -48314,9 +51438,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -48362,7 +51513,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -51474,6 +54624,240 @@ export type GetResourceQueryResult =
           }
         | {
             _key: string;
+            _type: 'iconCards';
+            enabled?: boolean;
+            heading?: string;
+            description: Array<
+              | {
+                  children?: Array<{
+                    marks?: Array<string>;
+                    text?: string;
+                    _type: 'span';
+                    _key: string;
+                  }>;
+                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  listItem?: 'bullet' | 'checkmarks' | 'number';
+                  markDefs: Array<
+                    | {
+                        linkType?:
+                          | 'article'
+                          | 'author'
+                          | 'ebook'
+                          | 'file'
+                          | 'guide'
+                          | 'href'
+                          | 'page'
+                          | 'template'
+                          | 'tool'
+                          | 'webinar';
+                        author: string | null;
+                        href?: string;
+                        pdfFile?: {
+                          asset?: {
+                            _ref: string;
+                            _type: 'reference';
+                            _weak?: boolean;
+                            [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                          };
+                          media?: unknown;
+                          _type: 'file';
+                        };
+                        article: string | null;
+                        ebook: string | null;
+                        guide: string | null;
+                        tool: string | null;
+                        template: string | null;
+                        webinar: string | null;
+                        page: string | null;
+                        openInNewTab?: boolean;
+                        _type: 'link';
+                        _key: string;
+                        file: null;
+                      }
+                    | {
+                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        _type: 'textColor';
+                        _key: string;
+                      }
+                  > | null;
+                  level?: number;
+                  _type: 'block';
+                  _key: string;
+                }
+              | {
+                  _key: string;
+                  _type: 'divider';
+                  backgroundColor?:
+                    | 'accent-brick'
+                    | 'black'
+                    | 'blue'
+                    | 'bright-blue'
+                    | 'gold'
+                    | 'light-blue'
+                    | 'orange'
+                    | 'sand'
+                    | 'teal-green';
+                  markDefs: null;
+                }
+              | {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  caption?: string;
+                  _type: 'image';
+                  _key: string;
+                  markDefs: null;
+                }
+            > | null;
+            layout?: 'three' | 'two';
+            ctaButton: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
+            listItem: Array<{
+              image?: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              title?: string;
+              content: Array<
+                | {
+                    children?: Array<{
+                      marks?: Array<string>;
+                      text?: string;
+                      _type: 'span';
+                      _key: string;
+                    }>;
+                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    listItem?: 'bullet' | 'checkmarks' | 'number';
+                    markDefs: Array<
+                      | {
+                          linkType?:
+                            | 'article'
+                            | 'author'
+                            | 'ebook'
+                            | 'file'
+                            | 'guide'
+                            | 'href'
+                            | 'page'
+                            | 'template'
+                            | 'tool'
+                            | 'webinar';
+                          author: string | null;
+                          href?: string;
+                          pdfFile?: {
+                            asset?: {
+                              _ref: string;
+                              _type: 'reference';
+                              _weak?: boolean;
+                              [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+                            };
+                            media?: unknown;
+                            _type: 'file';
+                          };
+                          article: string | null;
+                          ebook: string | null;
+                          guide: string | null;
+                          tool: string | null;
+                          template: string | null;
+                          webinar: string | null;
+                          page: string | null;
+                          openInNewTab?: boolean;
+                          _type: 'link';
+                          _key: string;
+                          file: null;
+                        }
+                      | {
+                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          _type: 'textColor';
+                          _key: string;
+                        }
+                    > | null;
+                    level?: number;
+                    _type: 'block';
+                    _key: string;
+                  }
+                | {
+                    _key: string;
+                    _type: 'divider';
+                    backgroundColor?:
+                      | 'accent-brick'
+                      | 'black'
+                      | 'blue'
+                      | 'bright-blue'
+                      | 'gold'
+                      | 'light-blue'
+                      | 'orange'
+                      | 'sand'
+                      | 'teal-green';
+                    markDefs: null;
+                  }
+                | {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    caption?: string;
+                    _type: 'image';
+                    _key: string;
+                    markDefs: null;
+                  }
+              > | null;
+              ctaLink?: CtaLink;
+              _key: string;
+              ctaButton: null;
+            }>;
+          }
+        | {
+            _key: string;
             _type: 'logos';
             enabled?: boolean;
             heading?: string;
@@ -52126,9 +55510,36 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'testimonials';
             enabled?: boolean;
-            subHeading?: string;
-            heading?: string;
-            description?: BlockContent;
+            readAllReviews: {
+              _type: 'ctaLink';
+              showCtaLink?: boolean;
+              linkLabel?: string;
+              link: {
+                _type: 'link';
+                linkType?:
+                  | 'article'
+                  | 'author'
+                  | 'ebook'
+                  | 'file'
+                  | 'guide'
+                  | 'href'
+                  | 'page'
+                  | 'template'
+                  | 'tool'
+                  | 'webinar';
+                href?: string;
+                page: string | null;
+                article: string | null;
+                ebook: string | null;
+                guide: string | null;
+                tool: string | null;
+                template: string | null;
+                webinar: string | null;
+                author: string | null;
+                openInNewTab?: boolean;
+                file: null;
+              } | null;
+            } | null;
             testimonialList: Array<{
               companyIcon?: {
                 asset?: {
@@ -52174,7 +55585,6 @@ export type GetResourceQueryResult =
               reviewer?: string;
               _key: string;
             }>;
-            readAllReviews: null;
           }
         | {
             _key: string;
@@ -53570,14 +56980,14 @@ declare module '@sanity/client' {
     '\n\t*[\n\t\t_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n \n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesPaginatedQueryResult;
     '\n\t*[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesSearchPaginatedQueryResult;
     '\n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n': AllResourcesSearchQueryResult;
-    '\n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n': PageBuilderContentResult;
-    '\n\t*[_type == "author" && slug.current == $slug][0] {\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n,\n\t\t"resources": *[_type  in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n && author._ref == ^._id] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }\n\t}\n': AuthorQueryResult;
+    '\n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n': PageBuilderContentResult;
+    '\n\t*[_type == "author" && slug.current == $slug][0] {\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n,\n\t\t"resources": *[_type  in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n && author._ref == ^._id] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }\n\t}\n': AuthorQueryResult;
     '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current != $slug &&\n\n\t\t// Match at least 1 tag\n\t\tcount(tags[@->slug.current in $tagSlugs]) > 0\n\t]\n\t| order(date desc)[0...3]{\n\t\ttitle,\n\t\tslug,\n\t\tcoverImage,\n\t\ttags[]->{ title, slug },\n\t\tdate\n\t}\n': GetRelatedResourcesQueryResult;
-    '*[_type == "home"][0] { ..., "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n}': GetHomeQueryResult;
-    '\n\t*[_type == \'page\' && slug.current match $slug][0]{\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n\n\t}\n': GetPageQueryResult;
-    '\n  *[_type == \'article\' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n}\n': GetArticleQueryResult;
+    '*[_type == "home"][0] { ..., "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n}': GetHomeQueryResult;
+    '\n\t*[_type == \'page\' && slug.current match $slug][0]{\n\t\t...,\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n\n\t}\n': GetPageQueryResult;
+    '\n  *[_type == \'article\' && slug.current == $slug][0] {..., author->, tags[]->, "pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n}\n': GetArticleQueryResult;
     '\n\t*[_type == "article" && defined(slug.current)] {"slug": slug.current}\n': ArticleSlugsResult;
-    '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current == $slug\n\t][0]{\n\t\t...,\n\t\tauthor->,\n\t\ttags[]->{ title, slug },\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n\n\t}\n': GetResourceQueryResult;
+    '\n\t*[\n\t\t_type == $type &&\n\t\tslug.current == $slug\n\t][0]{\n\t\t...,\n\t\tauthor->,\n\t\ttags[]->{ title, slug },\n\t\t"pageBuilder": \n\tpageBuilder[] {\n\t\t ...,\n    _type == \'accordionCenter\' => {\n      ..., \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'accordionLeftPanel\' => {\n      ..., \n      ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      accordions[] { \n        ..., \n        content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n        ctaButton { ..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n} \n      } \n    },\n    _type == \'authorBio\' => { ..., teamMember-> },\n    _type == \'allResources\' => { \n      ..., \n      "allResources": \n\t*[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "resources": \n  *[\n\t\t_type in coalesce($types, \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t] | order(date desc)\n { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } \n    },\n    _type == \'featuredResources\' => {\n      ..., \n      selectedResources[]-> { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n }, \n      "latestResources": *[_type in \n  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n] { \n  author-> { authorBio, firstName, lastName, slug, picture, _type, _id},\n\tcoverImage,\n\tdate,\n  estimatedReadingTime,\n  slug,\n  seo,\n  tags[]->,\n\ttitle,\n\t_createdAt,\n\t_id,\n\t_type,\n\t_updatedAt,\n } | order(date desc)[0...6] \n    },\n    _type == \'formContent\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'fullWidthCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroCta\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroLarge\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroResource\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'heroShort\' => { \n      ...,  \n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'shortCTA\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n    },\n    _type == \'iconCards\' => { \n      ...,  \n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'richtext\' => { \n      ...,\n      columnContent[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      column2Content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n\t  },\n    _type == \'threeColumnContentWithIcons\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n    },\n    _type == \'threeColumnContentWithNumbers\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'twoColumnPhotoCards\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'twoColumnsContent\' => { \n      ...,\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n\t  },\n    _type == \'sideCalloutWithImages\' => { \n      ...,\n      ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      description[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n      summaryText[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }, \n      listItem [] { ..., content[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n\t  },\n    _type == \'testimonials\' => { \n      ..., \n      readAllReviews {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n } \n    },\n  }\n\n\t}\n': GetResourceQueryResult;
     '\n\t*[\n\t\t_type == $type &&\n\t\tdefined(slug.current)\n\t]{\n\t\t"slug": slug.current\n\t}\n': ResourceSlugsResult;
     '\n\t*[\n\t\t_type in $types &&\n\t\ttitle match $terms &&\n\t\t(\n\t\t\t$topic == "*" ||\n\t\t\tcount(tags[@->slug.current == $topic]) > 0\n\t\t)\n\t]\n\t| order(date desc){\n\t\t...,\n\t\ttags[]->{ title, slug },\n\t\tauthor->,\n\t\tcoverImage\n\t}\n': GetResourcesByTypeQueryResult;
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult;
