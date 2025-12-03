@@ -22,7 +22,7 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
           <div
             className={cn(
               useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
-              'relative',
+              'relative'
             )}
           >
             <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md -left-1" />
@@ -43,11 +43,13 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
                   {description && <PortableText value={description} />}
                 </div>
               </div>
-              <div className="col-start-9 col-span-4 flex justify-end items-start">
-                <ButtonPrimary className="mt-2">
-                  <ResolvedLink link={ctaButton?.link}>{ctaButton?.linkLabel}</ResolvedLink>
-                </ButtonPrimary>
-              </div>
+              {ctaButton && ctaButton?.showCtaLink && ctaButton?.linkLabel && (
+                <div className="col-start-9 col-span-4 flex justify-end items-start">
+                  <ButtonPrimary className="mt-2">
+                    <ResolvedLink link={ctaButton?.link}>{ctaButton?.linkLabel}</ResolvedLink>
+                  </ButtonPrimary>
+                </div>
+              )}
             </div>
           </div>
         </div>

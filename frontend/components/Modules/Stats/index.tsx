@@ -34,14 +34,16 @@ export default function StatsModule({ block }: { block: Stats }) {
 
             return (
               <div className="col-span-12 md:col-span-3" key={get(stat, '_key')}>
-                <div className={cn('stats-number', 'flex relative justify-center')}>
+                <div
+                  className={cn('stats-number', 'flex relative justify-center text-bright-blue')}
+                >
                   <AnimateNumber
                     start={parseInt(startNumber, 10)}
                     end={parseInt(endNumber, 10)}
                     increment={parseInt(increaseStep, 10)}
                     asType={'h1'}
                   />
-                  <div className="h1">{suffix}</div>
+                  <div className="h1 text-bright-blue">{suffix}</div>
                 </div>
                 <div className="my-2 font-normal text-center text-lg">{description}</div>
               </div>

@@ -5,21 +5,14 @@ export const CONTENT_TYPES = [
   { title: 'All Types', value: 'alltypes' },
 ];
 
-export const defaultResourcesType = [
-  'article',
-  'ebook',
-  'guide',
-  'webinar',
-  'tool',
-  'template',
-];
+export const defaultResourcesType = ['article', 'ebook', 'guide', 'webinar', 'tool', 'template'];
 
 export const defaultBackground = {
   _type: 'background',
   asset: null,
-  enabled: true,
+  enabled: false,
   backgroundType: 'color',
-  backgroundColor: 'blue',
-  textColor: 'white',
+  backgroundColor: 'white',
+  textColor: 'blue',
   showBorderTop: false,
 };

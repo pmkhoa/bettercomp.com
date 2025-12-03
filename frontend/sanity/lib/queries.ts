@@ -188,7 +188,15 @@ const pageBuilderContent = /* groq */ defineQuery(`
       ...,  
       description[] { ..., ${markDefsWithLink} },
       ctaButton {..., ${linkFields} },
-      listItem [] { ..., content[] { ..., ${markDefsWithLink} }, ctaButton {..., ${linkFields} }},
+      listItem [] { 
+        ..., 
+        content[] { 
+          ..., 
+          ${markDefsWithLink},
+          
+        }, 
+        ctaLink {..., ${linkFields} }
+      },
     },
     _type == 'richtext' => { 
       ...,

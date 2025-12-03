@@ -106,7 +106,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
     if (action.document.pageBuilder) {
       // Reconcile References. https://www.sanity.io/docs/enabling-drag-and-drop#ffe728eea8c1
       return action.document.pageBuilder.map(
-        (section) => currentSections?.find((s) => s._key === section?._key) || section,
+        (section) => currentSections?.find((s) => s._key === section?._key) || section
       );
     }
 
@@ -144,7 +144,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
               <div className="grid-container gap-8">
                 <div className="hidden md:block md:col-span-3 py-20">
                   <div className="toc-inner">
-                    <h6 className="text-bright-blue font-bold mb-4 font-zilla-slab">
+                    <h6 className="text-bright-blue font-semibold mb-4 font-zilla-slab">
                       SECTIONS
                     </h6>
                     <TOC />
