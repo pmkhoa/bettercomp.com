@@ -149,6 +149,7 @@ const pageBuilderContent = /* groq */ defineQuery(`
     _type == 'featuredResources' => {
       ..., 
       selectedResources[]-> { ${resourceFields} }, 
+      ctaButton {..., ${linkFields} },
       "latestResources": *[_type in ${resourceTypes}] { ${resourceFields} } | order(date desc)[0...6] 
     },
     _type == 'formContent' => { 

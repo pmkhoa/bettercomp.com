@@ -41,7 +41,7 @@ export default function FeaturedResourcesModule({
               <h6 className="text-green font-serif font-bold mb-2">{subheading}</h6>
               <div className="description">
                 <PortableText value={description} />
-                {ctaButton && ctaButton && (
+                {ctaButton && ctaButton.link && (
                   <ButtonPrimary className="mt-6">
                     <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
                   </ButtonPrimary>
