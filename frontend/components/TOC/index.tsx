@@ -24,8 +24,10 @@ const TOC = () => {
 
     const initToc = () => {
       try {
+        // @ts-ignore: ignore type
         tocbot.destroy();
 
+        // @ts-ignore: ignore type
         tocbot.init({
           tocSelector: '.toc-container',
           contentSelector: '.inner-content',
@@ -42,6 +44,8 @@ const TOC = () => {
     };
 
     /** 1️⃣ Initialize immediately */
+
+    // @ts-ignore: ignore type
     initToc();
 
     /** 2️⃣ Observe inner-content for ANY change (e.g., lazy-loaded images shifting layout) */
@@ -74,6 +78,7 @@ const TOC = () => {
 
     /** Cleanup on unmount or route change */
     return () => {
+      // @ts-ignore: ignore type
       tocbot.destroy();
       observer?.disconnect();
     };
