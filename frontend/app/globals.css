@@ -237,7 +237,7 @@ j
 
 .section-richtext .portable-text > h1:first-child,
 .section-richtext .portable-text > h2:first-child,
-.section-richtext .portable-text > h2:first-child,
+.section-richtext .portable-text > h3:first-child,
 .section-richtext .portable-text > h4:first-child,
 .section-richtext .portable-text > h5:first-child,
 .section-richtext .portable-text > h6:first-child {
@@ -247,6 +247,11 @@ j
 .section-richtext h6 + h4 {
   margin-top: 0;
   margin-bottom: 2.5rem;
+}
+
+.template-resource .two-columns-feature-content {
+  margin-bottom: -40px;
+  margin-top: -40px;
 }
 
 .section-richtext h1,

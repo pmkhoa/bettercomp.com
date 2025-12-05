@@ -17,9 +17,8 @@ type Props = {
  * 1. Static Params (SSG)
  * ----------------------------------------------------- */
 export async function generateStaticParams() {
-  const resourceTypes = ['article', 'ebook', 'caseStudy'];
-
   const params: { type: string; slug: string }[] = [];
+  const resourceTypes = ['article'];
 
   for (const type of resourceTypes) {
     const { data } = await sanityFetch({
@@ -33,7 +32,7 @@ export async function generateStaticParams() {
       params.push({
         type,
         slug: item.slug,
-      }),
+      })
     );
   }
 
@@ -44,15 +43,15 @@ export async function generateStaticParams() {
  * 2. Metadata
  * ----------------------------------------------------- */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { type, slug } = await params;
+  const { slug } = await params;
 
-  const types = defaultResourcesType;
+  const types = ['article'];
   const terms = '*';
   const topic = '*';
 
   const { data: page } = await sanityFetch({
     query: getResourceQuery,
-    params: { type, slug, types, terms, topic },
+    params: { type: 'article', slug, types, terms, topic },
     stega: false,
   });
 
@@ -68,8 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [
         {
           url:
-            resolveOpenGraphImage(get(page, 'seo.ogImage') || get(page, 'coverImage'))?.url ||
-            '',
+            resolveOpenGraphImage(get(page, 'seo.ogImage') || get(page, 'coverImage'))?.url || '',
         },
       ],
     },
@@ -80,15 +78,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * 3. Page Component
  * ----------------------------------------------------- */
 export default async function Page({ params }: Props) {
-  const { type, slug } = await params;
+  const { slug } = await params;
 
-  const types = defaultResourcesType;
+  const types = ['article'];
   const terms = '*';
   const topic = '*';
 
   const { data: page } = await sanityFetch({
     query: getResourceQuery,
-    params: { type, slug, types, terms, topic },
+    params: { type: 'article', slug, types, terms, topic },
   });
 
   if (!page?._id) {

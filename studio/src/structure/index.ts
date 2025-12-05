@@ -1,8 +1,8 @@
-import { HomeIcon, CogIcon, DocumentsIcon } from '@sanity/icons';
-import type { StructureBuilder, StructureResolver } from 'sanity/structure';
-import pluralize from 'pluralize-esm';
+import {HomeIcon, CogIcon, DocumentsIcon} from '@sanity/icons'
+import type {StructureBuilder, StructureResolver} from 'sanity/structure'
+import pluralize from 'pluralize-esm'
 
-const RESOURCE_TYPES = ['article', 'ebook', 'guide', 'template', 'tool', 'webinar']; // Add more types here
+const RESOURCE_TYPES = ['article', 'ebook', 'guide', 'template', 'tool', 'webinar'] // Add more types here
 
 const DISABLED_TYPES = [
   'author',
@@ -11,7 +11,7 @@ const DISABLED_TYPES = [
   'settings',
   'assist.instruction.context',
   ...RESOURCE_TYPES,
-];
+]
 
 export const structure: StructureResolver = (S: StructureBuilder) =>
   S.list()
@@ -64,4 +64,4 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
         .title('Site Settings')
         .child(S.document().schemaType('settings').documentId('siteSettings'))
         .icon(CogIcon),
-    ]);
+    ])

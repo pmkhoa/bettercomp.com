@@ -18,7 +18,7 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
   return (
     <section className={cn('hero-with-bg overflow-hidden relative')}>
       <div className="container">
-        <div className="grid-container">
+        <div className="grid-container overflow-hidden">
           <div
             className={cn(
               useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',

@@ -34,10 +34,7 @@ export const urlForImage = (source: any) => {
     const top = Math.floor(height * crop.top);
 
     // gather into a url
-    return imageBuilder
-      ?.image(source)
-      .rect(left, top, croppedWidth, croppedHeight)
-      .auto('format');
+    return imageBuilder?.image(source).rect(left, top, croppedWidth, croppedHeight).auto('format');
   }
 
   return imageBuilder?.image(source).auto('format');
@@ -85,6 +82,11 @@ export function linkResolver(link: any) {
       return null;
     // Generic resource (article, ebook, case-study, etc.)
     case 'article':
+      if (link?.[link.linkType]?._type !== 'reference') {
+        const linkUrl = link['article'];
+        return `/blog/${linkUrl}`;
+      }
+      return null;
     case 'ebook':
     case 'caseStudy':
     case 'guide':
@@ -93,7 +95,7 @@ export function linkResolver(link: any) {
     case 'tool':
       if (link?.[link.linkType] && link?.[link.linkType]?._type !== 'reference') {
         const linkUrl = link[link.linkType];
-        return `/resources/${link.linkType}/${linkUrl}`;
+        return `/${link.linkType}/${linkUrl}`;
       }
       return null;
 
@@ -108,18 +110,13 @@ export function linkHelpers(entry: any) {
   if (!entry || !entry._type) return '';
 
   // Handle resource types
-  const resourceTypes = [
-    'article',
-    'ebook',
-    'caseStudy',
-    'guide',
-    'template',
-    'tool',
-    'webinar',
-  ];
+  const resourceTypes = ['article', 'ebook', 'caseStudy', 'guide', 'template', 'tool', 'webinar'];
 
   if (resourceTypes.includes(entry._type)) {
-    return `/resources/${entry._type}/${entry?.slug?.current ?? ''}`;
+    if (entry._type === 'article') {
+      return `/blog/${entry?.slug?.current ?? ''}`;
+    }
+    return `/${entry._type}/${entry?.slug?.current ?? ''}`;
   }
 
   switch (entry._type) {
