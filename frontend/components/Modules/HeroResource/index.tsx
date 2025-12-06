@@ -48,7 +48,7 @@ export default function HeroResourceModule({
     return (
       <section
         className={cn(
-          'hero-with-bg overflow-hidden relative py-24 md:py-32 min-h-[60vh] flex flex-col justify-center',
+          'hero-with-bg overflow-hidden relative py-24 md:py-32 min-h-[60vh] flex flex-col justify-center'
         )}
       >
         <div className="absolute w-full h-full inset-0">
@@ -64,7 +64,7 @@ export default function HeroResourceModule({
               <div className={cn('col-span-12 md:col-span-9 lg:col-span-6 text-white')}>
                 <div className="flex resource-info gap-8 mb-8">
                   <div className="resource-type flex bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm text-center justify-center items-center">
-                    {pageData._type}
+                    {pageData._type === 'article' ? 'Blog' : pageData._type}
                   </div>
                   {estimatedReadingTime && (
                     <div className="estimate-reading flex gap-2  items-center">
@@ -99,7 +99,7 @@ export default function HeroResourceModule({
         'hero-with-bg overflow-hidden relative',
         backgroundEnabled && backgroundType === 'color' ? 'py-24' : 'my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
-        sectionTextColor,
+        sectionTextColor
       )}
     >
       {backgroundEnabled && backgroundType === 'image' && asset && (
@@ -139,9 +139,7 @@ export default function HeroResourceModule({
                 )}
               </div>
             </div>
-            <div
-              className={cn('h-full flex items-center justify-end col-span-12 md:col-span-6')}
-            >
+            <div className={cn('h-full flex items-center justify-end col-span-12 md:col-span-6')}>
               <MotionFadeIn className="w-full">
                 <div className="relative z-30 w-full h-full">
                   {heroImage && <MediaAsset mediaAsset={heroImage} />}

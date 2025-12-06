@@ -7,6 +7,7 @@ const RESOURCE_TYPES = ['article', 'ebook', 'guide', 'template', 'tool', 'webina
 const DISABLED_TYPES = [
   'author',
   'page',
+  'blog',
   'home',
   'settings',
   'assist.instruction.context',

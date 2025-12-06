@@ -40,12 +40,15 @@ export default function AllResourcesModule({ block }: { block: any }) {
     gsap.fromTo(
       '.resource-card',
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 }
     );
   };
 
   console.log('----------debugging: resources----------');
   console.log(resources);
+
+  console.log('----------debugging----------');
+  console.log(getFilterContentTypes(allResources || []));
 
   return (
     <section className={cn('section-all-resources relative')}>
@@ -53,7 +56,7 @@ export default function AllResourcesModule({ block }: { block: any }) {
         <div
           className={cn(
             'grid-container justify-between items-center gap-y-16 gap-0',
-            'md:gap-4 my-24',
+            'md:gap-4 my-24'
           )}
         >
           <div className={cn('col-span-12 md:col-span-7')}>
@@ -71,7 +74,9 @@ export default function AllResourcesModule({ block }: { block: any }) {
               />
               <FilterBy
                 filterType="contentType"
-                filterList={getFilterContentTypes(allResources || [])}
+                filterList={getFilterContentTypes(allResources || []).map((item) =>
+                  item === 'article' ? 'blog' : item
+                )}
                 preFilterParam={params.get('types') || 'All Types'}
                 filterLabel={''}
               />

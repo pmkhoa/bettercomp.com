@@ -41,7 +41,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const slug =
     Array.isArray(slugArray) && slugArray.length > 0 ? slugArray[slugArray.length - 1] : '';
 
-  const types = ['article', 'ebook', 'caseStudy'];
+  const types = defaultResourcesType;
   const terms = '*';
   const topic = '*';
 
@@ -78,9 +78,11 @@ export default async function Page(props: Props) {
     Array.isArray(slugArray) && slugArray.length > 0 ? slugArray[slugArray.length - 1] : '';
 
   const searchParams = (await props.searchParams) || {};
+  let { contentType = '', terms, topic } = searchParams;
 
-  let { terms, topic } = searchParams;
-  const { contentType = '' } = searchParams;
+  if (contentType === 'blog') {
+    contentType = 'article';
+  }
 
   if (terms === 'all' || !terms) {
     terms = '*';
@@ -90,9 +92,9 @@ export default async function Page(props: Props) {
     topic = '*';
   }
 
-  let types = ['article', 'ebook', 'guide', 'webinar', 'tool', 'template'];
+  let types = defaultResourcesType;
   if (contentType === 'all' || contentType === 'alltypes' || isEmpty(contentType)) {
-    types = ['article', 'ebook', 'guide', 'webinar', 'tool', 'template'];
+    types = defaultResourcesType;
   } else {
     types = [contentType];
   }

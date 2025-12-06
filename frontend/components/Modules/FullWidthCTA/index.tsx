@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import Image from 'next/image';
 import {
   ButtonPrimary,
   MotionFadeIn,
@@ -9,6 +10,7 @@ import {
 } from '@/components';
 import { Background, FullWidthCTA } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
+import BgGraphicalGrid from '@/assets/images/bg-graphical-grid.svg';
 
 export default function SectionFullWidthCTA({ block }: { block: FullWidthCTA }) {
   const { background = defaultBackground, enabled, description, ctaButton, textAlign } = block;
@@ -25,7 +27,12 @@ export default function SectionFullWidthCTA({ block }: { block: FullWidthCTA }) 
     textColor,
   } = background;
 
-  const bgColor = `bg-${backgroundColor}`;
+  let bgColor = `bg-blue`;
+  if (backgroundColor === 'blueWithGraphic') {
+    bgColor = `bg-blue`;
+  } else {
+    bgColor = `bg-${backgroundColor}`;
+  }
   const sectionTextColor = `text-${textColor}`;
 
   return (
@@ -37,6 +44,17 @@ export default function SectionFullWidthCTA({ block }: { block: FullWidthCTA }) 
         textAlign === 'center' ? 'py-40' : 'py-24'
       )}
     >
+      {backgroundEnabled && backgroundColor === 'blueWithGraphic' && (
+        <div className="absolute w-full h-[32%] left-0 bottom-0">
+          <Image
+            src={BgGraphicalGrid}
+            alt="background"
+            width={1600}
+            height={1000}
+            className="w-full h-full object-cover relative"
+          />
+        </div>
+      )}
       {backgroundEnabled && backgroundType === 'image' && (
         <div className="absolute w-full h-full inset-0">
           {asset && <SanityImage image={asset} className="w-full h-full object-cover relative" />}

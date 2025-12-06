@@ -11,22 +11,19 @@ const ResourceCard = ({ resource }: { resource: any }) => {
       href={linkHelpers(resource)}
       className={cn(
         `flex flex-col h-full shadow-md rounded-sm resource-card overflow-hidden`,
-        s['resource-card'],
+        s['resource-card']
       )}
     >
       <div className="aspect-16/9 relative">
         <MotionFadeIn>
           <SanityImage
-            className={cn(
-              'absolute inset-0 w-full h-full object-cover z-10',
-              s['resource-image'],
-            )}
+            className={cn('absolute inset-0 w-full h-full object-cover z-10', s['resource-image'])}
             image={resource.coverImage}
           />
         </MotionFadeIn>
         {resource._type && (
           <div className="resource-type absolute -bottom-[20px] left-8 bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm z-30">
-            {resource._type}
+            {resource._type === 'article' ? 'Blog' : resource._type}
           </div>
         )}
       </div>
@@ -34,7 +31,7 @@ const ResourceCard = ({ resource }: { resource: any }) => {
         <h4
           className={cn(
             'text-2xl py-6 px-8 font-medium text-blue mt-6 resource-title',
-            s['resource-title'],
+            s['resource-title']
           )}
         >
           {resource.title}
@@ -49,9 +46,7 @@ const ResourceCard = ({ resource }: { resource: any }) => {
           {resource.estimatedReadingTime && (
             <div className="estimate-reading flex gap-2  items-center">
               <ClockIcon />
-              <div className="text-gray-500 text-sm">
-                {resource.estimatedReadingTime} min read
-              </div>
+              <div className="text-gray-500 text-sm">{resource.estimatedReadingTime} min read</div>
             </div>
           )}
         </div>

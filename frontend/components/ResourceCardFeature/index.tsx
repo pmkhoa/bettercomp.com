@@ -11,7 +11,7 @@ const ResourceCardFeature = ({ resource }: { resource: any }) => {
       href={linkHelpers(resource)}
       className={cn(
         'flex flex-col h-full relative resource-card overflow-hidden',
-        s['resource-card'],
+        s['resource-card']
       )}
     >
       <div className="aspect-16/9 relative">
@@ -19,7 +19,7 @@ const ResourceCardFeature = ({ resource }: { resource: any }) => {
           <SanityImage
             className={cn(
               'absolute inset-0 w-full h-full object-cover resource-image',
-              s['resource-image'],
+              s['resource-image']
             )}
             image={resource.coverImage}
           />
@@ -28,7 +28,7 @@ const ResourceCardFeature = ({ resource }: { resource: any }) => {
       <div className="resource-container z-10 absolute bottom-0 left-0 w-full h-auto px-8 pb-2">
         {resource._type && (
           <div className="resource-type bg-green text-blue capitalize p-2 min-w-24 text-center rounded-sm inline-block">
-            {resource._type}
+            {resource._type === 'article' ? 'Blog' : resource._type}
           </div>
         )}
         <h4 className={cn('text-2xl py-4 font-medium text-white', s['resource-title'])}>

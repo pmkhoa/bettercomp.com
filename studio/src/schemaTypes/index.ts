@@ -4,6 +4,7 @@ import {settings} from './singletons/settings'
 import {author} from './documents/author'
 import {article} from './documents/article'
 import {webinar} from './documents/webinar'
+import {blog} from './documents/blog'
 import {guide} from './documents/guide'
 import {template} from './documents/template'
 import {tool} from './documents/tool'
@@ -62,6 +63,7 @@ export const schemaTypes = [
   // Documents
   author,
   article,
+  blog,
   ebook,
   divider,
   tool,
