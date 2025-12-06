@@ -67,11 +67,11 @@ export const blockContent = defineType({
                   type: 'string',
                   options: {
                     list: [
-                      { title: 'Black', value: '#141414' },
-                      { title: 'Red', value: '#EF1F03' },
-                      { title: 'Gray', value: '#898989' },
-                      { title: 'Light Gray', value: '#cbcbcb' },
-                      { title: 'Lightest Gray', value: '#f3f3f3' },
+                      { title: 'Blue', value: '#002952' },
+                      { title: 'Orange', value: '#F24E1A' },
+                      { title: 'Gold', value: '#FFA700' },
+                      { title: 'White', value: '#ffffff' },
+                      { title: 'Green', value: '#2CB592' },
                     ],
                   },
                 },

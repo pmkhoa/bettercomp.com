@@ -38,9 +38,9 @@ const NavDropdownSimple = ({
           className={cn(
             s['popover-panel-simple'],
             s['popover-panel-center'],
-            'shadow-lg',
+            'shadow-lg border-1 border-white rounded-sm',
             dropdownBg,
-            dropdownText,
+            dropdownText
           )}
         >
           {({ close }) => (
@@ -50,7 +50,7 @@ const NavDropdownSimple = ({
                   return (
                     <ResolvedLink
                       link={subNavLink.menuLink}
-                      className="border-b-2 border-gray-100 menu-link hover:bg-green py-4 px-8 transition duration-400 text-sm text-left font-medium"
+                      className="border-b-1 border-white/10 menu-link hover:bg-green py-4 px-8 transition duration-400 text-sm text-left font-medium"
                       key={subNavLink._key}
                     >
                       <span onClick={() => close()}>{subNavLink.menuLabel}</span>

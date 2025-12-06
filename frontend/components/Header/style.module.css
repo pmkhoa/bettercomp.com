@@ -16,6 +16,10 @@
   @apply text-sm;
 }
 
+.site-banner a {
+  color: white;
+}
+
 .navlinks-desktop {
 	gap: 20px;
 	align-items: center;

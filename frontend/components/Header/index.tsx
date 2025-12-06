@@ -10,7 +10,7 @@ import cn from 'classnames';
 import s from './style.module.css';
 import LogoBlack from '@/assets/images/LogoBlack.png';
 import LogoWhite from '@/assets/images/LogoWhite.png';
-import { HelpDeskIcon, ProfileIcon } from '@/components/Icons';
+import { SearchIcon, HelpDeskIcon, ProfileIcon } from '@/components/Icons';
 import { PopoverGroup } from '@headlessui/react';
 import { PortableText, ButtonPrimary, ResolvedLink } from '@/components';
 import NavDropdownSimple from './NavDropdownSimple';
@@ -20,6 +20,7 @@ export default function Header({ settings }: { settings: Settings }) {
   const { scrollY } = useScroll();
 
   const pathname = usePathname();
+  const [searchActive, setSearchActive] = useState(false);
 
   const [navTheme, setNavTheme] = useState<{
     headerBg: string;
@@ -61,8 +62,8 @@ export default function Header({ settings }: { settings: Settings }) {
         topbarBg: 'bg-midnight-blue-darker',
         topbarText: 'text-white',
         navLinksText: 'text-white',
-        dropdownBg: 'bg-white',
-        dropdownText: 'text-blue',
+        dropdownBg: 'bg-blue',
+        dropdownText: 'text-white',
         logo: LogoWhite,
         borderBottom: 'border-midnight-blue-darker',
       });
@@ -140,8 +141,8 @@ export default function Header({ settings }: { settings: Settings }) {
             </motion.div>
 
             {/* DESKTOP NAV */}
-            <div className="desktop-menu menu-wrapper flex-end items-center gap-12 hidden md:flex">
-              <div className="flex items-center m-0 gap-3 xl:gap-8 font-normal list-none">
+            <div className="desktop-menu menu-wrapper flex-end items-center gap-8 hidden md:flex">
+              <div className="flex items-center my-0 gap-3 xl:gap-8 font-normal list-none mr-24">
                 <PopoverGroup
                   className={cn(
                     'hidden md:flex navlinks-desktop',
@@ -178,6 +179,9 @@ export default function Header({ settings }: { settings: Settings }) {
                   })}
                 </PopoverGroup>
               </div>
+              <button onClick={() => setSearchActive(true)} className="cursor-pointer">
+                <SearchIcon />
+              </button>
               {globalNavCta && (
                 <div className="cta-wrapper">
                   <ButtonPrimary>

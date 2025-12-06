@@ -44,6 +44,7 @@ const resourceFields = /* groq */ `
 
 export const settingsQuery = defineQuery(`*[_type == "settings"][0] {
   ...,
+  siteBanner[] { ..., ${markDefsWithLink} },
   globalNav[] { 
     ..., 
     menuLink {
