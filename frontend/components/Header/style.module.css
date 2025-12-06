@@ -22,6 +22,10 @@
 	@apply md:gap-[28px] lg:gap-[30px] xl:gap-[60px];
 }
 
+.navlinks-desktop.text-white {
+  display: none;
+}
+
 .transition-dropdown {
   @apply transition data-[closed]:-translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in;
 }
