@@ -4,9 +4,10 @@ import type { Metadata } from 'next';
 import PageBuilderPage from '@/components/PageBuilder';
 import { sanityFetch } from '@/sanity/lib/live';
 import { getPageQuery, pagesSlugs } from '@/sanity/lib/queries';
-import { defaultResourcesType } from '@/utils/constants';
 import { NotFound } from '@/components';
 import { isEmpty, get } from 'lodash';
+
+const RESOURCE_TYPES = ['blog', 'ebook', 'guide', 'webinar', 'tool', 'template'];
 
 type Props = {
   params: Promise<{ slug: string[] }>;
@@ -41,7 +42,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const slug =
     Array.isArray(slugArray) && slugArray.length > 0 ? slugArray[slugArray.length - 1] : '';
 
-  const types = defaultResourcesType;
+  const types = RESOURCE_TYPES;
   const terms = '*';
   const topic = '*';
 
@@ -89,9 +90,9 @@ export default async function Page(props: Props) {
     topic = '*';
   }
 
-  let types = defaultResourcesType;
+  let types = RESOURCE_TYPES;
   if (contentType === 'all' || contentType === 'alltypes' || isEmpty(contentType)) {
-    types = defaultResourcesType;
+    types = RESOURCE_TYPES;
   } else {
     types = [contentType];
   }
