@@ -34,7 +34,7 @@ const AuthorBioModule = ({ block, pageData }: Props) => {
                   <SanityImage image={picture} className="object-contain" alt={picture?.alt} />
                 </div>
               )}
-              <div className="content-bio">
+              <div className="content-bio w-full">
                 <div className="flex flex-col">
                   {firstName && lastName && (
                     <h4 className="font-bold mb-0 font-normal js-toc-ignore mt-0">
