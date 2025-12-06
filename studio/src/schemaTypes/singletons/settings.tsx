@@ -128,7 +128,23 @@ export const settings = defineType({
       description: 'Entering Extra Links',
       title: 'Privacy Links',
       type: 'array',
-      of: [{ type: 'link' }],
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'menuLabel',
+              title: 'Menu Label',
+              type: 'string',
+            }),
+            defineField({
+              name: 'menuLink',
+              title: 'Menu Link',
+              type: 'link',
+            }),
+          ],
+        },
+      ],
     }),
   ],
   preview: {

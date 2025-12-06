@@ -6319,16 +6319,32 @@
           "of": {
             "type": "object",
             "attributes": {
-              "_key": {
+              "menuLabel": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
-                }
+                },
+                "optional": true
+              },
+              "menuLink": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "inline",
+                  "name": "link"
+                },
+                "optional": true
               }
             },
             "rest": {
-              "type": "inline",
-              "name": "link"
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },

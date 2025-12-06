@@ -57,7 +57,29 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0] {
         ${linkReference}
       },
     }
+  },
+  footerNav[] { 
+    ..., 
+    menuLink {
+      ...,
+      ${linkReference}
+    },
+    groupLinks[] {
+      ...,
+      menuLink {
+        ...,
+        ${linkReference}
+      },
+    }
+  },
+  privacyLinks[] {
+    ...,
+    menuLink {
+      ...,
+      ${linkReference}
+    }
   }
+
 }`);
 
 export const allResourcesQuery = defineQuery(`

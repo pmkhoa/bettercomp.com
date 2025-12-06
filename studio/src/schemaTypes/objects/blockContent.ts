@@ -40,6 +40,7 @@ export const blockContent = defineType({
           { title: 'Heading5', value: 'h5' },
           { title: 'Heading6', value: 'h6' },
           { title: 'Small', value: 'small' }, // ⭐ NEW STYLE
+          {title: 'Quote', value: 'blockquote'}
         ],
         lists: [
           { title: 'Bullet', value: 'bullet' },
@@ -93,7 +94,7 @@ export const blockContent = defineType({
                       { title: 'File', value: 'file' },
                       { title: 'Page', value: 'page' },
                       { title: 'Author', value: 'author' },
-                      { title: 'Article', value: 'article' },
+                      { title: 'Blog', value: 'blog' },
                       { title: 'Ebook', value: 'ebook' },
                       { title: 'Guide', value: 'guide' },
                       { title: 'Tool', value: 'tool' },
@@ -130,7 +131,7 @@ export const blockContent = defineType({
                   title: 'Article',
                   type: 'reference',
                   to: [{ type: 'article' }],
-                  hidden: ({ parent }) => parent?.linkType !== 'article',
+                  hidden: ({ parent }) => parent?.linkType !== 'blog',
                 }),
                 defineField({
                   name: 'ebook',

@@ -5,6 +5,7 @@
 /studio/node_modules
 /frontend/node_modules
 /frontend/.next
+/hubspot-import/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz

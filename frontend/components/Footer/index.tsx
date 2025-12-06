@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 
 export default function Footer({ settings }: { settings: Settings }) {
-  const { footerCTA, footerNav, socialLink } = settings;
+  const { footerCTA, footerNav, socialLink, privacyLinks } = settings;
 
   return (
-    <footer className="bg-midnight-blue-darker relative text-white">
+    <footer className="bg-midnight-blue-darker relative text-white py-1">
       <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-full absolute inset-0 z-10" />
       <div className="container relative">
         <div className="grid-container items-start py-20">
@@ -46,8 +46,8 @@ export default function Footer({ settings }: { settings: Settings }) {
           </div>
         </div>
       </div>
-      <div className="container relative">
-        <div className="footer-links border-t border-sand/20 flex gap-8  py-20 justify-between">
+      <div className="container relative  ">
+        <div className="footer-links border-t border-sand/20 flex gap-8 justify-between py-10">
           <div className="flex gap-8 items-start">
             {footerNav?.map((footerLinkColumn) => {
               return (
@@ -72,7 +72,7 @@ export default function Footer({ settings }: { settings: Settings }) {
               );
             })}
           </div>
-          <div className="flex gap-4 social-links mt-8">
+          <div className="flex gap-4 social-links mt-6">
             {socialLink?.map((link) => {
               if (link.socialIcon) {
                 return (
@@ -89,6 +89,26 @@ export default function Footer({ settings }: { settings: Settings }) {
                 );
               }
               return null;
+            })}
+          </div>
+        </div>
+      </div>
+      <div className="container relative mt-10 mb-20">
+        <div className="grid-container">
+          <div className="col-span-4">
+            <div className="copyright-info text-sm">
+              <small>
+                Copyright © BetterComp, {new Date().getFullYear()}. All Rights Reserved.
+              </small>
+            </div>
+          </div>
+          <div className="col-span-8 flex flex-start gap-4 items-center">
+            {privacyLinks?.map((link: any) => {
+              return (
+                <ResolvedLink link={link.menuLink} key={link._key} className="underline">
+                  <small>{link.menuLabel}</small>
+                </ResolvedLink>
+              );
             })}
           </div>
         </div>
