@@ -5,6 +5,7 @@ const linkReference = /* groq */ `
 		"page": page->slug.current,
 		"author": author->slug.current,
 		"article": article->slug.current,
+		"blog": blog->slug.current,
 		"ebook": ebook->slug.current,
 		"guide": guide->slug.current,
 		"webinar": webinar->slug.current,
@@ -15,7 +16,7 @@ const linkReference = /* groq */ `
 `;
 
 const resourceTypes = `
-  ["article", "ebook", "caseStude", "guide", "webinar", "tool", "template"]
+  ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]
 `;
 
 const linkFields = /* groq */ `

@@ -3,48 +3,47 @@
  * Learn more: https://www.sanity.io/docs/configuration
  */
 
-import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
-import { visionTool } from '@sanity/vision';
-import { schemaTypes } from './src/schemaTypes';
-import { structure } from './src/structure';
-import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
+import {defineConfig} from 'sanity'
+import {structureTool} from 'sanity/structure'
+import {visionTool} from '@sanity/vision'
+import {schemaTypes} from './src/schemaTypes'
+import {structure} from './src/structure'
+import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {
   presentationTool,
   defineDocuments,
   defineLocations,
   type DocumentLocation,
-} from 'sanity/presentation';
-import { assist } from '@sanity/assist';
-import PreviewAction from './src/components/previewAction';
+} from 'sanity/presentation'
+import {assist} from '@sanity/assist'
+import PreviewAction from './src/components/previewAction'
 
 // Environment variables for project configuration
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID';
-const dataset = process.env.SANITY_STUDIO_DATASET || 'production';
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
+const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 // URL for preview functionality, defaults to localhost:3000 if not set
-const SANITY_STUDIO_PREVIEW_URL =
-  process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000';
+const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
 
 // Define the home location for the presentation tool
 const homeLocation = {
   title: 'Home',
   href: '/',
-} satisfies DocumentLocation;
+} satisfies DocumentLocation
 
 // resolveHref() is a convenience function that resolves the URL
 // path for different document types and used in the presentation tool.
 function resolveHref(documentType?: string, slug?: string): string | undefined {
   switch (documentType) {
-    case 'article':
-      return slug ? `/resources/article/${slug}` : undefined;
+    case 'blog':
+      return slug ? `/blog/${slug}` : undefined
     case 'ebook':
-      return slug ? `/resources/ebook/${slug}` : undefined;
+      return slug ? `/ebook/${slug}` : undefined
     case 'page':
-      return slug ? `/${slug}` : undefined;
+      return slug ? `/${slug}` : undefined
     default:
-      console.warn('Invalid document type:', documentType);
-      return undefined;
+      console.warn('Invalid document type:', documentType)
+      return undefined
   }
 }
 
@@ -78,10 +77,6 @@ export default defineConfig({
           {
             route: '/:slug',
             filter: `_type == "page" && slug.current == $slug || _id == $slug`,
-          },
-          {
-            route: '/posts/:slug',
-            filter: `_type == "post" && slug.current == $slug || _id == $slug`,
           },
         ]),
         // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
@@ -140,6 +135,7 @@ export default defineConfig({
   document: {
     actions: (prev, context) => {
       return context.schemaType === 'news' ||
+        context.schemaType === 'blog' ||
         context.schemaType === 'ebook' ||
         context.schemaType === 'article' ||
         context.schemaType === 'tool' ||
@@ -147,7 +143,7 @@ export default defineConfig({
         context.schemaType === 'template' ||
         context.schemaType === 'page' // Apply only to "news"
         ? [...prev, PreviewAction]
-        : prev;
+        : prev
     },
   },
-});
+})

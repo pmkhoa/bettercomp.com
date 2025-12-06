@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
-		"import:blogs": "ts-node-esm hubspot-import/importHubspotBlogs.ts"
+		"import:blogs": "ts-node-esm hubspot-import/importHubspotBlogs.ts",
+		"copy:ArticleToBlog": "ts-node-esm copyArticleToBlog.ts"
 	},
 	"dependencies": {
 		"@portabletext/block-tools": "^1.0.0",

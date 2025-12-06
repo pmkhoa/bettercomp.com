@@ -2,12 +2,12 @@ import {HomeIcon, CogIcon, DocumentsIcon} from '@sanity/icons'
 import type {StructureBuilder, StructureResolver} from 'sanity/structure'
 import pluralize from 'pluralize-esm'
 
-const RESOURCE_TYPES = ['article', 'ebook', 'guide', 'template', 'tool', 'webinar'] // Add more types here
+const RESOURCE_TYPES = ['blog', 'ebook', 'guide', 'template', 'tool', 'webinar'] // Add more types here
 
 const DISABLED_TYPES = [
+  'article',
   'author',
   'page',
-  'blog',
   'home',
   'settings',
   'assist.instruction.context',

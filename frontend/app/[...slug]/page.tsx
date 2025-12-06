@@ -78,11 +78,8 @@ export default async function Page(props: Props) {
     Array.isArray(slugArray) && slugArray.length > 0 ? slugArray[slugArray.length - 1] : '';
 
   const searchParams = (await props.searchParams) || {};
-  let { contentType = '', terms, topic } = searchParams;
-
-  if (contentType === 'blog') {
-    contentType = 'article';
-  }
+  let { terms, topic } = searchParams;
+  const { contentType = '' } = searchParams;
 
   if (terms === 'all' || !terms) {
     terms = '*';

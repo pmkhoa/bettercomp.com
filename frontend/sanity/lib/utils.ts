@@ -80,13 +80,7 @@ export function linkResolver(link: any) {
         return `/${link.page}`;
       }
       return null;
-    // Generic resource (article, ebook, case-study, etc.)
-    case 'article':
-      if (link?.[link.linkType]?._type !== 'reference') {
-        const linkUrl = link['article'];
-        return `/blog/${linkUrl}`;
-      }
-      return null;
+    case 'blog':
     case 'ebook':
     case 'caseStudy':
     case 'guide':
@@ -110,12 +104,9 @@ export function linkHelpers(entry: any) {
   if (!entry || !entry._type) return '';
 
   // Handle resource types
-  const resourceTypes = ['article', 'ebook', 'caseStudy', 'guide', 'template', 'tool', 'webinar'];
+  const resourceTypes = ['blog', 'ebook', 'caseStudy', 'guide', 'template', 'tool', 'webinar'];
 
   if (resourceTypes.includes(entry._type)) {
-    if (entry._type === 'article') {
-      return `/blog/${entry?.slug?.current ?? ''}`;
-    }
     return `/${entry._type}/${entry?.slug?.current ?? ''}`;
   }
 

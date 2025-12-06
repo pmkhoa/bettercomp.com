@@ -74,10 +74,8 @@ export default function AllResourcesModule({ block }: { block: any }) {
               />
               <FilterBy
                 filterType="contentType"
-                filterList={getFilterContentTypes(allResources || []).map((item) =>
-                  item === 'article' ? 'blog' : item
-                )}
-                preFilterParam={params.get('types') || 'All Types'}
+                filterList={getFilterContentTypes(allResources || [])}
+                preFilterParam={params.get('contentType') || 'All Types'}
                 filterLabel={''}
               />
             </div>

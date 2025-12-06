@@ -5,7 +5,7 @@ export const CONTENT_TYPES = [
   { title: 'All Types', value: 'alltypes' },
 ];
 
-export const defaultResourcesType = ['article', 'ebook', 'guide', 'webinar', 'tool', 'template'];
+export const defaultResourcesType = ['blog', 'ebook', 'guide', 'webinar', 'tool', 'template'];
 
 export const defaultBackground = {
   _type: 'background',
