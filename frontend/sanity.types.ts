@@ -431,7 +431,7 @@ export type BlockContent = Array<
         _type: 'span';
         _key: string;
       }>;
-      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'small';
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'small' | 'blockquote';
       listItem?: 'bullet' | 'number' | 'checkmarks';
       markDefs?: Array<
         | {
@@ -445,7 +445,7 @@ export type BlockContent = Array<
               | 'file'
               | 'page'
               | 'author'
-              | 'article'
+              | 'blog'
               | 'ebook'
               | 'guide'
               | 'tool'
@@ -812,7 +812,7 @@ export type Link = {
     | 'href'
     | 'page'
     | 'file'
-    | 'article'
+    | 'blog'
     | 'ebook'
     | 'guide'
     | 'tool'
@@ -825,11 +825,11 @@ export type Link = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: 'page';
   };
-  article?: {
+  blog?: {
     _ref: string;
     _type: 'reference';
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: 'article';
+    [internalGroqTypeReferenceTo]?: 'blog';
   };
   ebook?: {
     _ref: string;
@@ -1070,11 +1070,11 @@ export type Settings = {
     };
     _key: string;
   }>;
-  privacyLinks?: Array<
-    {
-      _key: string;
-    } & Link
-  >;
+  privacyLinks?: Array<{
+    menuLabel?: string;
+    menuLink?: Link;
+    _key: string;
+  }>;
 };
 
 export type Author = {
@@ -1684,7 +1684,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0] {  ...,  globalNav[] {     ...,     menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    },    groupLinks[] {      ...,      menuLink {        ...,        	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}      },    }  }}
+// Query: *[_type == "settings"][0] {  ...,  globalNav[] {     ...,     menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    },    groupLinks[] {      ...,      menuLink {        ...,        	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}      },    }  },  footerNav[] {     ...,     menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    },    groupLinks[] {      ...,      menuLink {        ...,        	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}      },    }  },  privacyLinks[] {    ...,    menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    }  }}
 export type SettingsQueryResult = {
   _id: string;
   _type: 'settings';
@@ -1721,8 +1721,8 @@ export type SettingsQueryResult = {
     menuLink: {
       _type: 'link';
       linkType?:
-        | 'article'
         | 'author'
+        | 'blog'
         | 'ebook'
         | 'file'
         | 'guide'
@@ -1733,7 +1733,7 @@ export type SettingsQueryResult = {
         | 'webinar';
       href?: string;
       page: string | null;
-      article: string | null;
+      blog: string | null;
       ebook: string | null;
       guide: string | null;
       tool: string | null;
@@ -1741,7 +1741,7 @@ export type SettingsQueryResult = {
       webinar: string | null;
       author: string | null;
       openInNewTab?: boolean;
-      blog: null;
+      article: null;
       file: null;
     } | null;
     groupLinks: Array<{
@@ -1749,8 +1749,8 @@ export type SettingsQueryResult = {
       menuLink: {
         _type: 'link';
         linkType?:
-          | 'article'
           | 'author'
+          | 'blog'
           | 'ebook'
           | 'file'
           | 'guide'
@@ -1761,7 +1761,7 @@ export type SettingsQueryResult = {
           | 'webinar';
         href?: string;
         page: string | null;
-        article: string | null;
+        blog: string | null;
         ebook: string | null;
         guide: string | null;
         tool: string | null;
@@ -1769,17 +1769,74 @@ export type SettingsQueryResult = {
         webinar: string | null;
         author: string | null;
         openInNewTab?: boolean;
-        blog: null;
+        article: null;
         file: null;
       } | null;
       _key: string;
     }> | null;
   }> | null;
-  footerNav?: Array<
-    {
+  footerNav: Array<{
+    _key: string;
+    _type: 'menuItem';
+    menuItemType?: 'default' | 'groupLinks';
+    menuLabel?: string;
+    menuLink: {
+      _type: 'link';
+      linkType?:
+        | 'author'
+        | 'blog'
+        | 'ebook'
+        | 'file'
+        | 'guide'
+        | 'href'
+        | 'page'
+        | 'template'
+        | 'tool'
+        | 'webinar';
+      href?: string;
+      page: string | null;
+      blog: string | null;
+      ebook: string | null;
+      guide: string | null;
+      tool: string | null;
+      template: string | null;
+      webinar: string | null;
+      author: string | null;
+      openInNewTab?: boolean;
+      article: null;
+      file: null;
+    } | null;
+    groupLinks: Array<{
+      menuLabel?: string;
+      menuLink: {
+        _type: 'link';
+        linkType?:
+          | 'author'
+          | 'blog'
+          | 'ebook'
+          | 'file'
+          | 'guide'
+          | 'href'
+          | 'page'
+          | 'template'
+          | 'tool'
+          | 'webinar';
+        href?: string;
+        page: string | null;
+        blog: string | null;
+        ebook: string | null;
+        guide: string | null;
+        tool: string | null;
+        template: string | null;
+        webinar: string | null;
+        author: string | null;
+        openInNewTab?: boolean;
+        article: null;
+        file: null;
+      } | null;
       _key: string;
-    } & MenuItem
-  >;
+    }> | null;
+  }> | null;
   socialLink?: Array<{
     name?: string;
     url?: string;
@@ -1797,11 +1854,36 @@ export type SettingsQueryResult = {
     };
     _key: string;
   }>;
-  privacyLinks?: Array<
-    {
-      _key: string;
-    } & Link
-  >;
+  privacyLinks: Array<{
+    menuLabel?: string;
+    menuLink: {
+      _type: 'link';
+      linkType?:
+        | 'author'
+        | 'blog'
+        | 'ebook'
+        | 'file'
+        | 'guide'
+        | 'href'
+        | 'page'
+        | 'template'
+        | 'tool'
+        | 'webinar';
+      href?: string;
+      page: string | null;
+      blog: string | null;
+      ebook: string | null;
+      guide: string | null;
+      tool: string | null;
+      template: string | null;
+      webinar: string | null;
+      author: string | null;
+      openInNewTab?: boolean;
+      article: null;
+      file: null;
+    } | null;
+    _key: string;
+  }> | null;
 } | null;
 // Variable: allResourcesQuery
 // Query: *[_type in   ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)
@@ -2658,11 +2740,11 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
         };
         _key: string;
       }>;
-      privacyLinks?: Array<
-        {
-          _key: string;
-        } & Link
-      >;
+      privacyLinks?: Array<{
+        menuLabel?: string;
+        menuLink?: Link;
+        _key: string;
+      }>;
     }
   | {
       _id: string;
@@ -3143,11 +3225,11 @@ export type AllResourcesSearchQueryResult = Array<
         };
         _key: string;
       }>;
-      privacyLinks?: Array<
-        {
-          _key: string;
-        } & Link
-      >;
+      privacyLinks?: Array<{
+        menuLabel?: string;
+        menuLink?: Link;
+        _key: string;
+      }>;
     }
   | {
       _id: string;
@@ -3332,13 +3414,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -3421,8 +3503,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -3433,7 +3515,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -3441,7 +3523,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -3455,13 +3537,13 @@ export type AuthorQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -3544,8 +3626,8 @@ export type AuthorQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -3556,7 +3638,7 @@ export type AuthorQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -3564,7 +3646,7 @@ export type AuthorQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -3586,13 +3668,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -3675,8 +3757,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -3687,7 +3769,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -3695,7 +3777,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -3709,13 +3791,13 @@ export type AuthorQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -3798,8 +3880,8 @@ export type AuthorQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -3810,7 +3892,7 @@ export type AuthorQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -3818,7 +3900,7 @@ export type AuthorQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -4719,8 +4801,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -4731,7 +4813,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -4739,7 +4821,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -5153,13 +5235,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -5250,13 +5332,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -5339,8 +5421,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -5351,7 +5433,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -5359,7 +5441,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -5386,13 +5468,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -5477,8 +5559,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -5489,7 +5571,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -5497,7 +5579,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -5516,13 +5598,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -5607,8 +5689,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -5619,7 +5701,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -5627,7 +5709,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -5668,8 +5750,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -5680,7 +5762,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -5688,7 +5770,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -5706,13 +5788,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -5796,8 +5878,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -5808,7 +5890,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -5816,7 +5898,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -5843,13 +5925,13 @@ export type AuthorQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -5932,8 +6014,8 @@ export type AuthorQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -5944,7 +6026,7 @@ export type AuthorQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -5952,7 +6034,7 @@ export type AuthorQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -6043,13 +6125,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -6164,13 +6246,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -6253,8 +6335,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -6265,7 +6347,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -6273,7 +6355,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -6292,13 +6374,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -6381,8 +6463,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -6393,7 +6475,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -6401,7 +6483,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -6428,13 +6510,13 @@ export type AuthorQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -6520,13 +6602,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -6627,8 +6709,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -6639,7 +6721,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -6647,7 +6729,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -6711,13 +6793,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -6800,8 +6882,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -6812,7 +6894,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -6820,7 +6902,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -6847,13 +6929,13 @@ export type AuthorQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -6947,13 +7029,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -7036,8 +7118,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -7048,7 +7130,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -7056,7 +7138,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -7083,13 +7165,13 @@ export type AuthorQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -7172,8 +7254,8 @@ export type AuthorQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -7184,7 +7266,7 @@ export type AuthorQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -7192,7 +7274,7 @@ export type AuthorQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -7213,13 +7295,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -7302,8 +7384,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -7314,7 +7396,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -7322,7 +7404,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -7362,13 +7444,13 @@ export type AuthorQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -7451,8 +7533,8 @@ export type AuthorQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -7463,7 +7545,7 @@ export type AuthorQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -7471,7 +7553,7 @@ export type AuthorQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -7857,13 +7939,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -7946,8 +8028,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -7958,7 +8040,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -7966,7 +8048,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -7980,13 +8062,13 @@ export type GetHomeQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -8069,8 +8151,8 @@ export type GetHomeQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -8081,7 +8163,7 @@ export type GetHomeQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -8089,7 +8171,7 @@ export type GetHomeQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -8111,13 +8193,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -8200,8 +8282,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -8212,7 +8294,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -8220,7 +8302,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -8234,13 +8316,13 @@ export type GetHomeQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -8323,8 +8405,8 @@ export type GetHomeQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -8335,7 +8417,7 @@ export type GetHomeQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -8343,7 +8425,7 @@ export type GetHomeQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -9244,8 +9326,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -9256,7 +9338,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -9264,7 +9346,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -9678,13 +9760,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -9775,13 +9857,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -9864,8 +9946,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -9876,7 +9958,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -9884,7 +9966,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -9911,13 +9993,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -10002,8 +10084,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -10014,7 +10096,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -10022,7 +10104,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -10041,13 +10123,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -10132,8 +10214,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -10144,7 +10226,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -10152,7 +10234,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -10193,8 +10275,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -10205,7 +10287,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -10213,7 +10295,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -10231,13 +10313,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -10321,8 +10403,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -10333,7 +10415,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -10341,7 +10423,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -10368,13 +10450,13 @@ export type GetHomeQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -10457,8 +10539,8 @@ export type GetHomeQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -10469,7 +10551,7 @@ export type GetHomeQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -10477,7 +10559,7 @@ export type GetHomeQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -10568,13 +10650,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -10689,13 +10771,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -10778,8 +10860,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -10790,7 +10872,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -10798,7 +10880,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -10817,13 +10899,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -10906,8 +10988,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -10918,7 +11000,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -10926,7 +11008,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -10953,13 +11035,13 @@ export type GetHomeQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -11045,13 +11127,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -11152,8 +11234,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -11164,7 +11246,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -11172,7 +11254,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -11236,13 +11318,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -11325,8 +11407,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -11337,7 +11419,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -11345,7 +11427,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -11372,13 +11454,13 @@ export type GetHomeQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -11472,13 +11554,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -11561,8 +11643,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -11573,7 +11655,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -11581,7 +11663,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -11608,13 +11690,13 @@ export type GetHomeQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -11697,8 +11779,8 @@ export type GetHomeQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -11709,7 +11791,7 @@ export type GetHomeQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -11717,7 +11799,7 @@ export type GetHomeQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -11738,13 +11820,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -11827,8 +11909,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -11839,7 +11921,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -11847,7 +11929,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -11887,13 +11969,13 @@ export type GetHomeQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -11976,8 +12058,8 @@ export type GetHomeQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -11988,7 +12070,7 @@ export type GetHomeQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -11996,7 +12078,7 @@ export type GetHomeQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -12033,13 +12115,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -12122,8 +12204,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -12134,7 +12216,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -12142,7 +12224,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -12156,13 +12238,13 @@ export type GetPageQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -12245,8 +12327,8 @@ export type GetPageQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -12257,7 +12339,7 @@ export type GetPageQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -12265,7 +12347,7 @@ export type GetPageQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -12287,13 +12369,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -12376,8 +12458,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -12388,7 +12470,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -12396,7 +12478,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -12410,13 +12492,13 @@ export type GetPageQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -12499,8 +12581,8 @@ export type GetPageQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -12511,7 +12593,7 @@ export type GetPageQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -12519,7 +12601,7 @@ export type GetPageQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -13420,8 +13502,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -13432,7 +13514,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -13440,7 +13522,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -13854,13 +13936,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -13951,13 +14033,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -14040,8 +14122,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -14052,7 +14134,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -14060,7 +14142,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -14087,13 +14169,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -14178,8 +14260,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -14190,7 +14272,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -14198,7 +14280,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -14217,13 +14299,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -14308,8 +14390,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -14320,7 +14402,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -14328,7 +14410,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -14369,8 +14451,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -14381,7 +14463,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -14389,7 +14471,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -14407,13 +14489,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -14497,8 +14579,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -14509,7 +14591,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -14517,7 +14599,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -14544,13 +14626,13 @@ export type GetPageQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -14633,8 +14715,8 @@ export type GetPageQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -14645,7 +14727,7 @@ export type GetPageQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -14653,7 +14735,7 @@ export type GetPageQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -14744,13 +14826,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -14865,13 +14947,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -14954,8 +15036,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -14966,7 +15048,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -14974,7 +15056,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -14993,13 +15075,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -15082,8 +15164,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -15094,7 +15176,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -15102,7 +15184,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -15129,13 +15211,13 @@ export type GetPageQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -15221,13 +15303,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -15328,8 +15410,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -15340,7 +15422,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -15348,7 +15430,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -15412,13 +15494,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -15501,8 +15583,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -15513,7 +15595,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -15521,7 +15603,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -15548,13 +15630,13 @@ export type GetPageQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -15648,13 +15730,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -15737,8 +15819,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -15749,7 +15831,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -15757,7 +15839,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -15784,13 +15866,13 @@ export type GetPageQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -15873,8 +15955,8 @@ export type GetPageQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -15885,7 +15967,7 @@ export type GetPageQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -15893,7 +15975,7 @@ export type GetPageQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -15914,13 +15996,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -16003,8 +16085,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -16015,7 +16097,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -16023,7 +16105,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -16063,13 +16145,13 @@ export type GetPageQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -16152,8 +16234,8 @@ export type GetPageQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -16164,7 +16246,7 @@ export type GetPageQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -16172,7 +16254,7 @@ export type GetPageQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -16263,13 +16345,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -16352,8 +16434,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -16364,7 +16446,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -16372,7 +16454,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -16386,13 +16468,13 @@ export type GetArticleQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -16475,8 +16557,8 @@ export type GetArticleQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -16487,7 +16569,7 @@ export type GetArticleQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -16495,7 +16577,7 @@ export type GetArticleQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -16517,13 +16599,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -16606,8 +16688,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -16618,7 +16700,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -16626,7 +16708,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -16640,13 +16722,13 @@ export type GetArticleQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -16729,8 +16811,8 @@ export type GetArticleQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -16741,7 +16823,7 @@ export type GetArticleQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -16749,7 +16831,7 @@ export type GetArticleQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -17650,8 +17732,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -17662,7 +17744,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -17670,7 +17752,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -18084,13 +18166,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -18181,13 +18263,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -18270,8 +18352,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -18282,7 +18364,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -18290,7 +18372,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -18317,13 +18399,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -18408,8 +18490,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -18420,7 +18502,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -18428,7 +18510,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -18447,13 +18529,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -18538,8 +18620,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -18550,7 +18632,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -18558,7 +18640,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -18599,8 +18681,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -18611,7 +18693,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -18619,7 +18701,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -18637,13 +18719,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -18727,8 +18809,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -18739,7 +18821,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -18747,7 +18829,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -18774,13 +18856,13 @@ export type GetArticleQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -18863,8 +18945,8 @@ export type GetArticleQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -18875,7 +18957,7 @@ export type GetArticleQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -18883,7 +18965,7 @@ export type GetArticleQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -18974,13 +19056,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -19095,13 +19177,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -19184,8 +19266,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -19196,7 +19278,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -19204,7 +19286,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -19223,13 +19305,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -19312,8 +19394,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -19324,7 +19406,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -19332,7 +19414,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -19359,13 +19441,13 @@ export type GetArticleQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -19451,13 +19533,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -19558,8 +19640,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -19570,7 +19652,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -19578,7 +19660,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -19642,13 +19724,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -19731,8 +19813,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -19743,7 +19825,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -19751,7 +19833,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -19778,13 +19860,13 @@ export type GetArticleQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -19878,13 +19960,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -19967,8 +20049,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -19979,7 +20061,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -19987,7 +20069,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -20014,13 +20096,13 @@ export type GetArticleQueryResult = {
                   _type: 'span';
                   _key: string;
                 }>;
-                style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
                       linkType?:
-                        | 'article'
                         | 'author'
+                        | 'blog'
                         | 'ebook'
                         | 'file'
                         | 'guide'
@@ -20103,8 +20185,8 @@ export type GetArticleQueryResult = {
             link: {
               _type: 'link';
               linkType?:
-                | 'article'
                 | 'author'
+                | 'blog'
                 | 'ebook'
                 | 'file'
                 | 'guide'
@@ -20115,7 +20197,7 @@ export type GetArticleQueryResult = {
                 | 'webinar';
               href?: string;
               page: string | null;
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -20123,7 +20205,7 @@ export type GetArticleQueryResult = {
               webinar: string | null;
               author: string | null;
               openInNewTab?: boolean;
-              blog: null;
+              article: null;
               file: null;
             } | null;
           } | null;
@@ -20144,13 +20226,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -20233,8 +20315,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -20245,7 +20327,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -20253,7 +20335,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -20293,13 +20375,13 @@ export type GetArticleQueryResult = {
                 _type: 'span';
                 _key: string;
               }>;
-              style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+              style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
                     linkType?:
-                      | 'article'
                       | 'author'
+                      | 'blog'
                       | 'ebook'
                       | 'file'
                       | 'guide'
@@ -20382,8 +20464,8 @@ export type GetArticleQueryResult = {
           link: {
             _type: 'link';
             linkType?:
-              | 'article'
               | 'author'
+              | 'blog'
               | 'ebook'
               | 'file'
               | 'guide'
@@ -20394,7 +20476,7 @@ export type GetArticleQueryResult = {
               | 'webinar';
             href?: string;
             page: string | null;
-            article: string | null;
+            blog: string | null;
             ebook: string | null;
             guide: string | null;
             tool: string | null;
@@ -20402,7 +20484,7 @@ export type GetArticleQueryResult = {
             webinar: string | null;
             author: string | null;
             openInNewTab?: boolean;
-            blog: null;
+            article: null;
             file: null;
           } | null;
         } | null;
@@ -20494,13 +20576,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -20583,8 +20674,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -20595,7 +20686,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -20603,7 +20694,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -20617,13 +20708,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -20706,8 +20806,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -20718,7 +20818,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -20726,7 +20826,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -20748,13 +20848,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -20837,8 +20946,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -20849,7 +20958,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -20857,7 +20966,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -20871,13 +20980,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -20960,8 +21078,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -20972,7 +21090,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -20980,7 +21098,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -21881,8 +21999,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -21893,7 +22011,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -21901,7 +22019,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -22315,13 +22433,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -22412,13 +22539,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -22501,8 +22637,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -22513,7 +22649,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -22521,7 +22657,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -22548,13 +22684,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -22639,8 +22784,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -22651,7 +22796,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -22659,7 +22804,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -22678,13 +22823,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -22769,8 +22923,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -22781,7 +22935,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -22789,7 +22943,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -22830,8 +22984,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -22842,7 +22996,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -22850,7 +23004,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -22868,13 +23022,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -22958,8 +23121,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -22970,7 +23133,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -22978,7 +23141,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -23005,13 +23168,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -23094,8 +23266,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -23106,7 +23278,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -23114,7 +23286,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -23205,13 +23377,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -23326,13 +23507,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -23415,8 +23605,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -23427,7 +23617,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -23435,7 +23625,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -23454,13 +23644,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -23543,8 +23742,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -23555,7 +23754,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -23563,7 +23762,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -23590,13 +23789,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -23682,13 +23890,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -23789,8 +24006,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -23801,7 +24018,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -23809,7 +24026,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -23873,13 +24090,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -23962,8 +24188,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -23974,7 +24200,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -23982,7 +24208,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -24009,13 +24235,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -24109,13 +24344,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -24198,8 +24442,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -24210,7 +24454,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -24218,7 +24462,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -24245,13 +24489,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -24334,8 +24587,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -24346,7 +24599,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -24354,7 +24607,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -24375,13 +24628,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -24464,8 +24726,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -24476,7 +24738,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -24484,7 +24746,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -24524,13 +24786,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -24613,8 +24884,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -24625,7 +24896,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -24633,7 +24904,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -24710,13 +24981,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -24799,8 +25079,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -24811,7 +25091,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -24819,7 +25099,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -24833,13 +25113,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -24922,8 +25211,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -24934,7 +25223,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -24942,7 +25231,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -24964,13 +25253,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -25053,8 +25351,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -25065,7 +25363,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -25073,7 +25371,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -25087,13 +25385,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -25176,8 +25483,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -25188,7 +25495,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -25196,7 +25503,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -26097,8 +26404,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -26109,7 +26416,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -26117,7 +26424,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -26531,13 +26838,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -26628,13 +26944,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -26717,8 +27042,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -26729,7 +27054,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -26737,7 +27062,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -26764,13 +27089,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -26855,8 +27189,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -26867,7 +27201,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -26875,7 +27209,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -26894,13 +27228,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -26985,8 +27328,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -26997,7 +27340,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -27005,7 +27348,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -27046,8 +27389,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -27058,7 +27401,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -27066,7 +27409,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -27084,13 +27427,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -27174,8 +27526,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -27186,7 +27538,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -27194,7 +27546,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -27221,13 +27573,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -27310,8 +27671,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -27322,7 +27683,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -27330,7 +27691,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -27421,13 +27782,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -27542,13 +27912,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -27631,8 +28010,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -27643,7 +28022,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -27651,7 +28030,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -27670,13 +28049,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -27759,8 +28147,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -27771,7 +28159,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -27779,7 +28167,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -27806,13 +28194,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -27898,13 +28295,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -28005,8 +28411,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -28017,7 +28423,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -28025,7 +28431,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -28089,13 +28495,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -28178,8 +28593,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -28190,7 +28605,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -28198,7 +28613,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -28225,13 +28640,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -28325,13 +28749,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -28414,8 +28847,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -28426,7 +28859,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -28434,7 +28867,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -28461,13 +28894,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -28550,8 +28992,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -28562,7 +29004,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -28570,7 +29012,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -28591,13 +29033,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -28680,8 +29131,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -28692,7 +29143,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -28700,7 +29151,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -28740,13 +29191,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -28829,8 +29289,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -28841,7 +29301,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -28849,7 +29309,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -28934,13 +29394,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -29023,8 +29492,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -29035,7 +29504,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -29043,7 +29512,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -29057,13 +29526,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -29146,8 +29624,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -29158,7 +29636,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -29166,7 +29644,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -29188,13 +29666,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -29277,8 +29764,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -29289,7 +29776,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -29297,7 +29784,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -29311,13 +29798,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -29400,8 +29896,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -29412,7 +29908,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -29420,7 +29916,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -30321,8 +30817,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -30333,7 +30829,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -30341,7 +30837,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -30755,13 +31251,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -30852,13 +31357,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -30941,8 +31455,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -30953,7 +31467,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -30961,7 +31475,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -30988,13 +31502,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -31079,8 +31602,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -31091,7 +31614,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -31099,7 +31622,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -31118,13 +31641,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -31209,8 +31741,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -31221,7 +31753,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -31229,7 +31761,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -31270,8 +31802,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -31282,7 +31814,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -31290,7 +31822,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -31308,13 +31840,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -31398,8 +31939,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -31410,7 +31951,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -31418,7 +31959,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -31445,13 +31986,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -31534,8 +32084,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -31546,7 +32096,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -31554,7 +32104,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -31645,13 +32195,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -31766,13 +32325,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -31855,8 +32423,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -31867,7 +32435,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -31875,7 +32443,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -31894,13 +32462,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -31983,8 +32560,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -31995,7 +32572,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -32003,7 +32580,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -32030,13 +32607,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -32122,13 +32708,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -32229,8 +32824,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -32241,7 +32836,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -32249,7 +32844,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -32313,13 +32908,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -32402,8 +33006,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -32414,7 +33018,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -32422,7 +33026,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -32449,13 +33053,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -32549,13 +33162,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -32638,8 +33260,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -32650,7 +33272,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -32658,7 +33280,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -32685,13 +33307,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -32774,8 +33405,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -32786,7 +33417,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -32794,7 +33425,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -32815,13 +33446,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -32904,8 +33544,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -32916,7 +33556,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -32924,7 +33564,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -32964,13 +33604,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -33053,8 +33702,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -33065,7 +33714,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -33073,7 +33722,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -33157,13 +33806,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -33246,8 +33904,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -33258,7 +33916,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -33266,7 +33924,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -33280,13 +33938,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -33369,8 +34036,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -33381,7 +34048,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -33389,7 +34056,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -33411,13 +34078,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -33500,8 +34176,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -33512,7 +34188,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -33520,7 +34196,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -33534,13 +34210,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -33623,8 +34308,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -33635,7 +34320,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -33643,7 +34328,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -34544,8 +35229,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -34556,7 +35241,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -34564,7 +35249,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -34978,13 +35663,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -35075,13 +35769,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -35164,8 +35867,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -35176,7 +35879,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -35184,7 +35887,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -35211,13 +35914,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -35302,8 +36014,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -35314,7 +36026,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -35322,7 +36034,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -35341,13 +36053,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -35432,8 +36153,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -35444,7 +36165,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -35452,7 +36173,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -35493,8 +36214,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -35505,7 +36226,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -35513,7 +36234,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -35531,13 +36252,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -35621,8 +36351,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -35633,7 +36363,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -35641,7 +36371,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -35668,13 +36398,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -35757,8 +36496,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -35769,7 +36508,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -35777,7 +36516,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -35868,13 +36607,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -35989,13 +36737,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -36078,8 +36835,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -36090,7 +36847,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -36098,7 +36855,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -36117,13 +36874,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -36206,8 +36972,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -36218,7 +36984,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -36226,7 +36992,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -36253,13 +37019,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -36345,13 +37120,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -36452,8 +37236,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -36464,7 +37248,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -36472,7 +37256,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -36536,13 +37320,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -36625,8 +37418,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -36637,7 +37430,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -36645,7 +37438,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -36672,13 +37465,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -36772,13 +37574,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -36861,8 +37672,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -36873,7 +37684,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -36881,7 +37692,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -36908,13 +37719,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -36997,8 +37817,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -37009,7 +37829,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -37017,7 +37837,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -37038,13 +37858,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -37127,8 +37956,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -37139,7 +37968,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -37147,7 +37976,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -37187,13 +38016,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -37276,8 +38114,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -37288,7 +38126,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -37296,7 +38134,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -37380,13 +38218,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -37469,8 +38316,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -37481,7 +38328,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -37489,7 +38336,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -37503,13 +38350,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -37592,8 +38448,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -37604,7 +38460,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -37612,7 +38468,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -37634,13 +38490,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -37723,8 +38588,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -37735,7 +38600,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -37743,7 +38608,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -37757,13 +38622,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -37846,8 +38720,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -37858,7 +38732,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -37866,7 +38740,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -38767,8 +39641,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -38779,7 +39653,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -38787,7 +39661,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -39201,13 +40075,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -39298,13 +40181,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -39387,8 +40279,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -39399,7 +40291,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -39407,7 +40299,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -39434,13 +40326,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -39525,8 +40426,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -39537,7 +40438,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -39545,7 +40446,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -39564,13 +40465,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -39655,8 +40565,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -39667,7 +40577,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -39675,7 +40585,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -39716,8 +40626,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -39728,7 +40638,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -39736,7 +40646,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -39754,13 +40664,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -39844,8 +40763,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -39856,7 +40775,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -39864,7 +40783,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -39891,13 +40810,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -39980,8 +40908,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -39992,7 +40920,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -40000,7 +40928,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -40091,13 +41019,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -40212,13 +41149,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -40301,8 +41247,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -40313,7 +41259,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -40321,7 +41267,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -40340,13 +41286,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -40429,8 +41384,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -40441,7 +41396,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -40449,7 +41404,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -40476,13 +41431,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -40568,13 +41532,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -40675,8 +41648,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -40687,7 +41660,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -40695,7 +41668,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -40759,13 +41732,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -40848,8 +41830,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -40860,7 +41842,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -40868,7 +41850,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -40895,13 +41877,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -40995,13 +41986,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -41084,8 +42084,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -41096,7 +42096,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -41104,7 +42104,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -41131,13 +42131,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -41220,8 +42229,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -41232,7 +42241,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -41240,7 +42249,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -41261,13 +42270,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -41350,8 +42368,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -41362,7 +42380,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -41370,7 +42388,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -41410,13 +42428,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -41499,8 +42526,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -41511,7 +42538,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -41519,7 +42546,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -41554,13 +42581,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -41643,8 +42679,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -41655,7 +42691,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -41663,7 +42699,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -41677,13 +42713,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -41766,8 +42811,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -41778,7 +42823,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -41786,7 +42831,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -41808,13 +42853,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -41897,8 +42951,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -41909,7 +42963,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -41917,7 +42971,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -41931,13 +42985,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -42020,8 +43083,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -42032,7 +43095,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -42040,7 +43103,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -42941,8 +44004,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -42953,7 +44016,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -42961,7 +44024,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -43375,13 +44438,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -43472,13 +44544,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -43561,8 +44642,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -43573,7 +44654,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -43581,7 +44662,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -43608,13 +44689,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -43699,8 +44789,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -43711,7 +44801,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -43719,7 +44809,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -43738,13 +44828,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -43829,8 +44928,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -43841,7 +44940,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -43849,7 +44948,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -43890,8 +44989,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -43902,7 +45001,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -43910,7 +45009,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -43928,13 +45027,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -44018,8 +45126,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -44030,7 +45138,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -44038,7 +45146,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -44065,13 +45173,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -44154,8 +45271,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -44166,7 +45283,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -44174,7 +45291,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -44265,13 +45382,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -44386,13 +45512,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -44475,8 +45610,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -44487,7 +45622,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -44495,7 +45630,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -44514,13 +45649,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -44603,8 +45747,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -44615,7 +45759,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -44623,7 +45767,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -44650,13 +45794,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -44742,13 +45895,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -44849,8 +46011,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -44861,7 +46023,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -44869,7 +46031,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -44933,13 +46095,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -45022,8 +46193,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -45034,7 +46205,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -45042,7 +46213,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -45069,13 +46240,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -45169,13 +46349,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -45258,8 +46447,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -45270,7 +46459,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -45278,7 +46467,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -45305,13 +46494,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -45394,8 +46592,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -45406,7 +46604,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -45414,7 +46612,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -45435,13 +46633,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -45524,8 +46731,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -45536,7 +46743,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -45544,7 +46751,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -45584,13 +46791,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -45673,8 +46889,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -45685,7 +46901,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -45693,7 +46909,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -45730,13 +46946,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -45819,8 +47044,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -45831,7 +47056,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -45839,7 +47064,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -45853,13 +47078,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -45942,8 +47176,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -45954,7 +47188,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -45962,7 +47196,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -45984,13 +47218,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -46073,8 +47316,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -46085,7 +47328,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -46093,7 +47336,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -46107,13 +47350,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -46196,8 +47448,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -46208,7 +47460,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -46216,7 +47468,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -47117,8 +48369,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -47129,7 +48381,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -47137,7 +48389,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -47551,13 +48803,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -47648,13 +48909,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -47737,8 +49007,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -47749,7 +49019,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -47757,7 +49027,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -47784,13 +49054,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -47875,8 +49154,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -47887,7 +49166,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -47895,7 +49174,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -47914,13 +49193,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -48005,8 +49293,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -48017,7 +49305,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -48025,7 +49313,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -48066,8 +49354,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -48078,7 +49366,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -48086,7 +49374,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -48104,13 +49392,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -48194,8 +49491,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -48206,7 +49503,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -48214,7 +49511,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -48241,13 +49538,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -48330,8 +49636,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -48342,7 +49648,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -48350,7 +49656,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -48441,13 +49747,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -48562,13 +49877,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -48651,8 +49975,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -48663,7 +49987,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -48671,7 +49995,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -48690,13 +50014,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -48779,8 +50112,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -48791,7 +50124,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -48799,7 +50132,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -48826,13 +50159,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -48918,13 +50260,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -49025,8 +50376,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -49037,7 +50388,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -49045,7 +50396,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -49109,13 +50460,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -49198,8 +50558,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -49210,7 +50570,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -49218,7 +50578,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -49245,13 +50605,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -49345,13 +50714,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -49434,8 +50812,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -49446,7 +50824,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -49454,7 +50832,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -49481,13 +50859,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -49570,8 +50957,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -49582,7 +50969,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -49590,7 +50977,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -49611,13 +50998,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -49700,8 +51096,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -49712,7 +51108,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -49720,7 +51116,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -49760,13 +51156,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -49849,8 +51254,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -49861,7 +51266,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -49869,7 +51274,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -49985,11 +51390,11 @@ export type GetResourceQueryResult =
         };
         _key: string;
       }>;
-      privacyLinks?: Array<
-        {
-          _key: string;
-        } & Link
-      >;
+      privacyLinks?: Array<{
+        menuLabel?: string;
+        menuLink?: Link;
+        _key: string;
+      }>;
       author: null;
       tags: null;
       pageBuilder: null;
@@ -50080,13 +51485,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -50169,8 +51583,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -50181,7 +51595,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -50189,7 +51603,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -50203,13 +51617,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -50292,8 +51715,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -50304,7 +51727,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -50312,7 +51735,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -50334,13 +51757,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -50423,8 +51855,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -50435,7 +51867,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -50443,7 +51875,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -50457,13 +51889,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -50546,8 +51987,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -50558,7 +51999,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -50566,7 +52007,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -51467,8 +52908,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -51479,7 +52920,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -51487,7 +52928,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -51901,13 +53342,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -51998,13 +53448,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -52087,8 +53546,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -52099,7 +53558,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -52107,7 +53566,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -52134,13 +53593,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -52225,8 +53693,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -52237,7 +53705,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -52245,7 +53713,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -52264,13 +53732,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -52355,8 +53832,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -52367,7 +53844,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -52375,7 +53852,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -52416,8 +53893,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -52428,7 +53905,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -52436,7 +53913,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -52454,13 +53931,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -52544,8 +54030,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -52556,7 +54042,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -52564,7 +54050,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -52591,13 +54077,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -52680,8 +54175,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -52692,7 +54187,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -52700,7 +54195,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -52791,13 +54286,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -52912,13 +54416,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -53001,8 +54514,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -53013,7 +54526,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -53021,7 +54534,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -53040,13 +54553,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -53129,8 +54651,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -53141,7 +54663,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -53149,7 +54671,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -53176,13 +54698,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -53268,13 +54799,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -53375,8 +54915,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -53387,7 +54927,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -53395,7 +54935,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -53459,13 +54999,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -53548,8 +55097,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -53560,7 +55109,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -53568,7 +55117,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -53595,13 +55144,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -53695,13 +55253,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -53784,8 +55351,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -53796,7 +55363,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -53804,7 +55371,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -53831,13 +55398,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -53920,8 +55496,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -53932,7 +55508,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -53940,7 +55516,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -53961,13 +55537,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -54050,8 +55635,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -54062,7 +55647,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -54070,7 +55655,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -54110,13 +55695,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -54199,8 +55793,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -54211,7 +55805,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -54219,7 +55813,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -54303,13 +55897,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -54392,8 +55995,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -54404,7 +56007,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -54412,7 +56015,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -54426,13 +56029,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -54515,8 +56127,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -54527,7 +56139,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -54535,7 +56147,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -54557,13 +56169,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -54646,8 +56267,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -54658,7 +56279,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -54666,7 +56287,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -54680,13 +56301,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -54769,8 +56399,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -54781,7 +56411,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -54789,7 +56419,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -55690,8 +57320,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -55702,7 +57332,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -55710,7 +57340,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -56124,13 +57754,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -56221,13 +57860,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -56310,8 +57958,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -56322,7 +57970,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -56330,7 +57978,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -56357,13 +58005,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -56448,8 +58105,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -56460,7 +58117,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -56468,7 +58125,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -56487,13 +58144,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -56578,8 +58244,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -56590,7 +58256,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -56598,7 +58264,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -56639,8 +58305,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -56651,7 +58317,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -56659,7 +58325,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -56677,13 +58343,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -56767,8 +58442,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -56779,7 +58454,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -56787,7 +58462,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -56814,13 +58489,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -56903,8 +58587,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -56915,7 +58599,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -56923,7 +58607,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -57014,13 +58698,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -57135,13 +58828,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -57224,8 +58926,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -57236,7 +58938,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -57244,7 +58946,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -57263,13 +58965,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -57352,8 +59063,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -57364,7 +59075,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -57372,7 +59083,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -57399,13 +59110,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -57491,13 +59211,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -57598,8 +59327,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -57610,7 +59339,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -57618,7 +59347,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -57682,13 +59411,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -57771,8 +59509,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -57783,7 +59521,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -57791,7 +59529,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -57818,13 +59556,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -57918,13 +59665,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -58007,8 +59763,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -58019,7 +59775,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -58027,7 +59783,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -58054,13 +59810,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -58143,8 +59908,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -58155,7 +59920,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -58163,7 +59928,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -58184,13 +59949,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -58273,8 +60047,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -58285,7 +60059,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -58293,7 +60067,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -58333,13 +60107,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -58422,8 +60205,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -58434,7 +60217,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -58442,7 +60225,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -58526,13 +60309,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -58615,8 +60407,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -58627,7 +60419,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -58635,7 +60427,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -58649,13 +60441,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -58738,8 +60539,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -58750,7 +60551,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -58758,7 +60559,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -58780,13 +60581,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -58869,8 +60679,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -58881,7 +60691,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -58889,7 +60699,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -58903,13 +60713,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -58992,8 +60811,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -59004,7 +60823,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -59012,7 +60831,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -59913,8 +61732,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -59925,7 +61744,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -59933,7 +61752,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -60347,13 +62166,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -60444,13 +62272,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -60533,8 +62370,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -60545,7 +62382,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -60553,7 +62390,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -60580,13 +62417,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -60671,8 +62517,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -60683,7 +62529,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -60691,7 +62537,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -60710,13 +62556,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -60801,8 +62656,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -60813,7 +62668,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -60821,7 +62676,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -60862,8 +62717,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -60874,7 +62729,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -60882,7 +62737,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -60900,13 +62755,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -60990,8 +62854,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -61002,7 +62866,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -61010,7 +62874,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -61037,13 +62901,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -61126,8 +62999,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -61138,7 +63011,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -61146,7 +63019,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -61237,13 +63110,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -61358,13 +63240,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -61447,8 +63338,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -61459,7 +63350,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -61467,7 +63358,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -61486,13 +63377,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -61575,8 +63475,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -61587,7 +63487,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -61595,7 +63495,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -61622,13 +63522,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -61714,13 +63623,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -61821,8 +63739,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -61833,7 +63751,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -61841,7 +63759,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -61905,13 +63823,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -61994,8 +63921,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -62006,7 +63933,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -62014,7 +63941,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -62041,13 +63968,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -62141,13 +64077,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -62230,8 +64175,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -62242,7 +64187,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -62250,7 +64195,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -62277,13 +64222,22 @@ export type GetResourceQueryResult =
                       _type: 'span';
                       _key: string;
                     }>;
-                    style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                    style?:
+                      | 'blockquote'
+                      | 'h1'
+                      | 'h2'
+                      | 'h3'
+                      | 'h4'
+                      | 'h5'
+                      | 'h6'
+                      | 'normal'
+                      | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
                           linkType?:
-                            | 'article'
                             | 'author'
+                            | 'blog'
                             | 'ebook'
                             | 'file'
                             | 'guide'
@@ -62366,8 +64320,8 @@ export type GetResourceQueryResult =
                 link: {
                   _type: 'link';
                   linkType?:
-                    | 'article'
                     | 'author'
+                    | 'blog'
                     | 'ebook'
                     | 'file'
                     | 'guide'
@@ -62378,7 +64332,7 @@ export type GetResourceQueryResult =
                     | 'webinar';
                   href?: string;
                   page: string | null;
-                  article: string | null;
+                  blog: string | null;
                   ebook: string | null;
                   guide: string | null;
                   tool: string | null;
@@ -62386,7 +64340,7 @@ export type GetResourceQueryResult =
                   webinar: string | null;
                   author: string | null;
                   openInNewTab?: boolean;
-                  blog: null;
+                  article: null;
                   file: null;
                 } | null;
               } | null;
@@ -62407,13 +64361,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -62496,8 +64459,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -62508,7 +64471,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -62516,7 +64479,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -62556,13 +64519,22 @@ export type GetResourceQueryResult =
                     _type: 'span';
                     _key: string;
                   }>;
-                  style?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
+                  style?:
+                    | 'blockquote'
+                    | 'h1'
+                    | 'h2'
+                    | 'h3'
+                    | 'h4'
+                    | 'h5'
+                    | 'h6'
+                    | 'normal'
+                    | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
                         linkType?:
-                          | 'article'
                           | 'author'
+                          | 'blog'
                           | 'ebook'
                           | 'file'
                           | 'guide'
@@ -62645,8 +64617,8 @@ export type GetResourceQueryResult =
               link: {
                 _type: 'link';
                 linkType?:
-                  | 'article'
                   | 'author'
+                  | 'blog'
                   | 'ebook'
                   | 'file'
                   | 'guide'
@@ -62657,7 +64629,7 @@ export type GetResourceQueryResult =
                   | 'webinar';
                 href?: string;
                 page: string | null;
-                article: string | null;
+                blog: string | null;
                 ebook: string | null;
                 guide: string | null;
                 tool: string | null;
@@ -62665,7 +64637,7 @@ export type GetResourceQueryResult =
                 webinar: string | null;
                 author: string | null;
                 openInNewTab?: boolean;
-                blog: null;
+                article: null;
                 file: null;
               } | null;
             } | null;
@@ -63118,11 +65090,11 @@ export type GetResourcesByTypeQueryResult = Array<
         };
         _key: string;
       }>;
-      privacyLinks?: Array<
-        {
-          _key: string;
-        } & Link
-      >;
+      privacyLinks?: Array<{
+        menuLabel?: string;
+        menuLink?: Link;
+        _key: string;
+      }>;
       tags: null;
       author: null;
       coverImage: null;
@@ -63352,7 +65324,7 @@ export type PagesSlugsResult = Array<{
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "settings"][0] {\n  ...,\n  globalNav[] { \n    ..., \n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    },\n    groupLinks[] {\n      ...,\n      menuLink {\n        ...,\n        \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n      },\n    }\n  }\n}': SettingsQueryResult;
+    '*[_type == "settings"][0] {\n  ...,\n  globalNav[] { \n    ..., \n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    },\n    groupLinks[] {\n      ...,\n      menuLink {\n        ...,\n        \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n      },\n    }\n  },\n  footerNav[] { \n    ..., \n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    },\n    groupLinks[] {\n      ...,\n      menuLink {\n        ...,\n        \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n      },\n    }\n  },\n  privacyLinks[] {\n    ...,\n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    }\n  }\n\n}': SettingsQueryResult;
     '\n\t*[_type in \n  ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n': AllResourcesQueryResult;
     '\n\t*[\n\t\t_type in \n  ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n \n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesPaginatedQueryResult;
     '\n\t*[\n\t\t_type in coalesce($types, \n  ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesSearchPaginatedQueryResult;

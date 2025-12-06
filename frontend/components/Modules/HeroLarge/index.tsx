@@ -40,14 +40,12 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
         'hero-with-bg overflow-hidden relative',
         backgroundEnabled && backgroundType === 'color' ? 'py-24' : 'my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
-        sectionTextColor,
+        sectionTextColor
       )}
     >
       {backgroundEnabled && backgroundType === 'image' && (
         <div className="absolute w-full h-full inset-0">
-          {asset && (
-            <SanityImage image={asset} className="w-full h-full object-cover relative" />
-          )}
+          {asset && <SanityImage image={asset} className="w-full h-full object-cover relative" />}
           <div
             className="absolute w-full h-full z-10 bg-black inset-0"
             style={{ opacity: '0.6' }}
@@ -69,9 +67,7 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
                 )}
               </div>
             </div>
-            <div
-              className={cn('h-full flex items-center justify-end col-span-12 md:col-span-7')}
-            >
+            <div className={cn('h-full flex items-center justify-end col-span-12 md:col-span-7')}>
               <div className="relative">
                 <MotionFadeIn>
                   <div className="relative z-30">

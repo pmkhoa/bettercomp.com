@@ -2599,6 +2599,10 @@
                     {
                       "type": "string",
                       "value": "small"
+                    },
+                    {
+                      "type": "string",
+                      "value": "blockquote"
                     }
                   ]
                 },
@@ -2710,7 +2714,7 @@
                                 },
                                 {
                                   "type": "string",
-                                  "value": "article"
+                                  "value": "blog"
                                 },
                                 {
                                   "type": "string",
@@ -4841,7 +4845,7 @@
               },
               {
                 "type": "string",
-                "value": "article"
+                "value": "blog"
               },
               {
                 "type": "string",
@@ -4904,7 +4908,7 @@
           },
           "optional": true
         },
-        "article": {
+        "blog": {
           "type": "objectAttribute",
           "value": {
             "type": "object",
@@ -4930,7 +4934,7 @@
                 "optional": true
               }
             },
-            "dereferencesTo": "article"
+            "dereferencesTo": "blog"
           },
           "optional": true
         },
