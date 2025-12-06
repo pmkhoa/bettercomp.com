@@ -8,7 +8,7 @@ export default function Footer({ settings }: { settings: Settings }) {
   return (
     <footer className="bg-midnight-blue-darker relative text-white">
       <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-full absolute inset-0 z-10" />
-      <div className="container relative pt-20">
+      <div className="container relative">
         <div className="grid-container items-start py-20">
           <div className="cta-content col-span-6">
             {footerCTA?.subheading && (

@@ -13,16 +13,16 @@ export default function ScrollingCustomerWithStoriesModule({ block }: Props) {
   const { heading, logoGroup, useMarqueeEffect } = block;
 
   return (
-    <section className={cn('section-module', 'my-24')}>
+    <section className={cn('section-module', 'my-10')}>
       <div className="container">
         <div className="grid-container items-center justify-between">
           <div
             className={cn(
-              'section__description col-span-12 text-center max-w-[220px] mx-auto md:ml-0',
-              'md:col-start-1 md:col-span-4 md:text-left',
+              'section__description col-span-12 text-center max-w-[224px] mx-auto md:ml-0',
+              'md:col-start-1 md:col-span-4 md:text-left'
             )}
           >
-            {heading && <div className="text-2xl">{heading} </div>}
+            {heading && <div className="text-2xl font-medium">{heading}</div>}
           </div>
 
           <div className={cn('col-span-12 md:col-span-8 md:col-start-5')}>

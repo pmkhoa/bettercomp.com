@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { ShortCTA } from '@/sanity.types';
-import { ButtonPrimary, ResolvedLink, PortableText, SanityImage } from '@/components';
+import { ButtonPrimary, ResolvedLink, PortableText } from '@/components';
 import Image from 'next/image';
-import { defaultBackground } from '@/utils/constants';
 import cn from 'classnames';
 import ShortCTABg from '@/assets/images/short-cta-bg.jpg';
 
@@ -25,7 +24,12 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
               'relative'
             )}
           >
-            <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md -left-1" />
+            <div
+              className={cn(
+                'bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)]',
+                'w-[70%] absolute inset-0 z-30 rounded-md -left-1 h-2 '
+              )}
+            />
             <div className="absolute w-full h-full inset-0">
               {ShortCTABg && (
                 <Image
@@ -39,7 +43,7 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
             </div>
             <div className="grid-container p-14 z-20 relative items-start gap-6">
               <div className="cta-content col-span-8">
-                <div className="inner-content text-white">
+                <div className="inner-content text-white section-richtext">
                   {description && <PortableText value={description} />}
                 </div>
               </div>

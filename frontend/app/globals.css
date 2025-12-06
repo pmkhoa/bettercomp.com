@@ -244,6 +244,15 @@ j
   margin-top: 0;
 }
 
+.section-richtext .portable-text > h3:first-of-type:not(:has(~ p)),
+.section-richtext .portable-text > h2:first-of-type:not(:has(~ p)),
+.section-richtext .portable-text > h3:first-of-type:not(:has(~ p)),
+.section-richtext .portable-text > h4:first-of-type:not(:has(~ p)),
+.section-richtext .portable-text > h5:first-of-type:not(:has(~ p)),
+.section-richtext .portable-text > h6:first-of-type:not(:has(~ p)) {
+  margin-bottom: 0;
+}
+
 .section-richtext h6 + h4 {
   margin-top: 0;
   margin-bottom: 2.5rem;

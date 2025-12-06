@@ -33,9 +33,13 @@ export default function FeaturedResourcesModule({
   }
 
   return (
-    <section className={cn('section-module relative py-24 bg-blue text-white')}>
-      <div className="container">
-        <div className="grid-container gap-8 my-8">
+    <section className={cn('section-module relative pt-30 pb-20 bg-blue text-white')}>
+      <div
+        className="absolute bg-cover bg-center bg-repeat h-[86%] w-[63%] right-0 top-[8%] z-10"
+        style={{ backgroundImage: `url('/images/bg-graphical-grid.svg')`, backgroundSize: '100%' }}
+      />
+      <div className="container relative z-20">
+        <div className="grid-container gap-8">
           <div className="col-span-12 md:col-span-4">
             <div className="featured-description">
               <h6 className="text-green font-serif font-bold mb-2">{subheading}</h6>
@@ -78,7 +82,7 @@ export default function FeaturedResourcesModule({
             </div>
           </div>
         </div>
-        <div className="grid-container gap-8 my-8">
+        <div className="grid-container gap-8 mt-8">
           {resourceDisplayTypes === 'mostRecents' ? (
             <>
               {latestResources[2] && (

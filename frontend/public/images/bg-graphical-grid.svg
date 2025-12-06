@@ -1,0 +1,11 @@
+<svg width="1294" height="167" viewBox="0 0 1294 167" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<path d="M0 0H1294V163C1294 165.209 1292.21 167 1290 167H4.00003C1.79089 167 0 165.209 0 163V0Z" fill="#002952"/>
+<path d="M0 0H1294V163C1294 165.209 1292.21 167 1290 167H4.00003C1.79089 167 0 165.209 0 163V0Z" fill="url(#pattern0_940_4752)" fill-opacity="0.2"/>
+<defs>
+<pattern id="pattern0_940_4752" patternUnits="userSpaceOnUse" patternTransform="matrix(10 0 0 10 0 0)" preserveAspectRatio="none" viewBox="0 0 10 10" width="1" height="1">
+<g id="pattern0_940_4752_inner">
+<rect width="10" height="10" fill="#002952"/>
+<rect opacity="0.2" width="3" height="3" fill="white"/>
+</g>
+</pattern></defs>
+</svg>

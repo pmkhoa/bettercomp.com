@@ -34,8 +34,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: `${get(page, 'firstName')} ${get(page, 'lastName')}`,
       images: [
         {
-          url:
-            resolveOpenGraphImage(get(page, 'picture') || get(page, 'coverImage'))?.url || '',
+          url: resolveOpenGraphImage(get(page, 'picture') || get(page, 'coverImage'))?.url || '',
         },
       ],
     },
@@ -60,7 +59,7 @@ export default async function Page(props: Props) {
             <div className="grid-container justify-center items-center  gap-none">
               <div
                 className={cn(
-                  'col-span-12 md:col-start-3 md:col-span-8 my-32 md:my-40 text-center',
+                  'col-span-12 md:col-start-3 md:col-span-8 my-32 md:my-40 text-center'
                 )}
               >
                 <div className={'my-4'}>
@@ -112,7 +111,7 @@ export default async function Page(props: Props) {
       </section>
       <section className="section-module insights-container mb-24">
         {resources && resources.length > 0 && (
-          <div className="container mt-32">
+          <div className="container mt-20">
             <div className="heading mb-12 text-center">
               <h4>{`Read more from ${firstName}`} </h4>
             </div>

@@ -18,7 +18,7 @@ export default function SectionTestimonialsModule({ block }: Props) {
   const { readAllReviews, testimonialList = [] } = block;
 
   return (
-    <section className={cn('section-module testimonial-carousel', 'pb-[48px]')}>
+    <section className={cn('section-module testimonial-carousel', 'my-20')}>
       <div className="container">
         <div className={cn(s['content-wrapper'])}>
           <Carousel
