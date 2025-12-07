@@ -25,7 +25,9 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     types: {
       image: ({ value }) => {
-        if (value.markDefs) {
+        console.log('----------debugging: image----------');
+        console.log(value);
+        if (value.asset) {
           return <SanityImage alt={value?.alt} image={value} className="w-full my-10" />;
         }
         return null;

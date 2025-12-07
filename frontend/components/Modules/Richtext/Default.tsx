@@ -17,10 +17,10 @@ export default function RichTextDefault({ block, pageData }: Props) {
         <div
           className={cn(
             useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
-            'relative',
+            'relative'
           )}
         >
-          <div className={'richtext-inner'}>
+          <div className={cn('richtext-inner', `text-${textAlign}`)}>
             <PortableText value={columnContent} />
           </div>
         </div>
