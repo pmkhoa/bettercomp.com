@@ -76,7 +76,7 @@ export default function ThreeColumnContentWithNumbersModule({
                     </div>
                   )}
                   <div className="flex justify-between items-center mt-8">
-                    {content.title && <h4 className="font-medium">{content.title}</h4>}
+                    {content.title && <h5 className="font-medium mb-3">{content.title}</h5>}
                   </div>
                   {content.content && (
                     <div className="my-0">

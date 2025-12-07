@@ -36,8 +36,11 @@ export default function ThreeColumnContentWithIconsModule({
       <div className="container">
         <div className="flex justify-between items-center mb-8 pb-8 border-b border-green">
           {heading && (
-            <h2 className="text-2xl md:text-3xl font-semibold text-center mb-0">{heading}</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-left md:text-center mb-0">
+              {heading}
+            </h2>
           )}
+          {description && <PortableText value={description} />}
           {ctaButton && ctaButton.linkLabel && (
             <ButtonPrimary>
               <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
@@ -48,14 +51,12 @@ export default function ThreeColumnContentWithIconsModule({
           {listItem?.map((content) => {
             return (
               <div
-                className={'py-2 col-span-12 sm:col-span-6 md:col-span-4 gap-4'}
+                className={'py-2 col-span-12 xs:col-span-6 md:col-span-4 gap-4'}
                 key={content._key}
               >
                 <div className="content-wrapper">
                   <div className="flex justify-between items-center">
-                    {content.title && (
-                      <p className="max-w-[180px] text-xl font-medium">{content.title}</p>
-                    )}
+                    {content.title && <h5 className="w-full pr-8 font-medium">{content.title}</h5>}
                     {content?.image && (
                       <div className="relative w-[70px] h-[60px]">
                         <SanityImage
@@ -66,7 +67,7 @@ export default function ThreeColumnContentWithIconsModule({
                     )}
                   </div>
                   {content.content && (
-                    <div className="my-6">
+                    <div className="mt-3">
                       <PortableText value={content.content} />
                     </div>
                   )}
