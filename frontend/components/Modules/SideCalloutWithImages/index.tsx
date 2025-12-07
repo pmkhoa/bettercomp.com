@@ -8,7 +8,7 @@ export default function SideCalloutWithImagesModule({ block }: { block: SideCall
   const { subheading, heading, listItem, description, ctaButton, summaryText } = block;
 
   return (
-    <section className={cn('accordion-simple', 'section-module my-24')}>
+    <section className={cn('side-callout-with-image', 'section-module my-24')}>
       <div className="container">
         <div className="grid-container gap-0 md:gap-16">
           <div className="col-span-12 md:col-span-5">
@@ -28,7 +28,10 @@ export default function SideCalloutWithImagesModule({ block }: { block: SideCall
           <div className="col-span-12 md:col-span-7 flex flex-col gap-8">
             {listItem?.map((content) => {
               return (
-                <div className="flex gap-8 border-b border-bright-blue pb-8" key={content._key}>
+                <div
+                  className="flex gap-8 border-b border-bright-blue pb-8 items-center"
+                  key={content._key}
+                >
                   <div className="content-image max-w-[200px]">
                     {content.image && (
                       <div className="relative w-full">

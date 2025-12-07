@@ -8,8 +8,15 @@ type Props = {
 };
 
 export default function RichTextWithEmbedded({ block, pageData }: Props) {
-  const { columnContent, embeddedContent, textAlign } = block;
+  const { columnContent, embeddedContent, contentMaxWidth, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
+
+  let maxWidth = 'w-full';
+  if (contentMaxWidth === 'medium') {
+    maxWidth = 'max-w-3xl';
+  } else if (contentMaxWidth === 'narrow') {
+    maxWidth = 'max-w-2xl';
+  }
 
   return (
     <section className={cn('section-module section-richtext', 'rich-text-embed', 'my-20')}>
@@ -19,17 +26,26 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
             <div
               className={cn(
                 useNarrowWidthContent && showTOC ? 'col-span-9' : 'col-span-12',
-                `text-${textAlign}`
+                `relative`
               )}
             >
-              <PortableText value={columnContent} />
+              <div
+                className={cn(
+                  'richtext-inner',
+                  `text-${textAlign}`,
+                  maxWidth,
+                  textAlign === 'center' && 'mx-auto'
+                )}
+              >
+                <PortableText value={columnContent} />
+              </div>
             </div>
           )}
           {embeddedContent && (
             <div
               className={cn(
                 useNarrowWidthContent ? 'col-span-9' : 'col-span-12',
-                'relative responsive-iframe-container text-center',
+                'relative responsive-iframe-container text-center mt-8',
                 'flex flex-col w-full',
                 `justify-${textAlign === 'center' ? 'center' : 'flex-start'}`
               )}

@@ -8,8 +8,15 @@ type Props = {
 };
 
 export default function RichTextDefault({ block, pageData }: Props) {
-  const { columnContent, textAlign } = block;
+  const { columnContent, contentMaxWidth, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
+
+  let maxWidth = 'w-full';
+  if (contentMaxWidth === 'medium') {
+    maxWidth = 'max-w-3xl';
+  } else if (contentMaxWidth === 'narrow') {
+    maxWidth = 'max-w-2xl';
+  }
 
   return (
     <section className={cn('section-module section-richtext', 'richtext-default my-20')}>
@@ -20,7 +27,14 @@ export default function RichTextDefault({ block, pageData }: Props) {
             'relative'
           )}
         >
-          <div className={cn('richtext-inner', `text-${textAlign}`)}>
+          <div
+            className={cn(
+              'richtext-inner',
+              `text-${textAlign}`,
+              maxWidth,
+              textAlign === 'center' && 'mx-auto'
+            )}
+          >
             <PortableText value={columnContent} />
           </div>
         </div>

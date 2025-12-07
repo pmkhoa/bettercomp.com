@@ -18,6 +18,7 @@
 
 .site-banner a {
   color: white;
+  text-decoration: underline;
 }
 
 .navlinks-desktop {

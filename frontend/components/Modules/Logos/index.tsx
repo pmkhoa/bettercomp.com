@@ -18,7 +18,7 @@ export default function ScrollingCustomerWithStoriesModule({ block }: Props) {
         <div className="grid-container items-center justify-between">
           <div
             className={cn(
-              'section__description col-span-12 text-center max-w-[224px] mx-auto md:ml-0',
+              'section__description col-span-12 text-center max-w-[226px] mx-auto md:ml-0',
               'md:col-start-1 md:col-span-4 md:text-left'
             )}
           >

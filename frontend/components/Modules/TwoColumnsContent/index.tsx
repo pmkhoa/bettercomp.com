@@ -33,7 +33,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
     <section
       className={cn(
         'two-columns-feature-content relative',
-        backgroundEnabled && backgroundType === 'color' ? 'py-20' : 'my-20',
+        backgroundEnabled && backgroundType === 'color' ? 'py-24' : 'my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
         sectionTextColor
       )}

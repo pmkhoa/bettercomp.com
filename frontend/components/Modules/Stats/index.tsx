@@ -15,14 +15,14 @@ export default function StatsModule({ block }: { block: Stats }) {
   const { heading, ctaButton, statNumber } = block;
 
   return (
-    <section className={cn('stats-module section-module', 'my-24')}>
+    <section className={cn('stats-module section-module', 'my-32')}>
       <div className="container">
         <div className="grid-container items-center justify-between">
           <div className="section__description col-span-12 text-center">
             <h4>{heading}</h4>
           </div>
         </div>
-        <div className={cn('grid-container items-start mx-auto pt-16')}>
+        <div className={cn('flex gap-8 justify-center mx-auto pt-8')}>
           {statNumber?.map((stat: StatNumber) => {
             const {
               endNumber = '',
@@ -33,7 +33,7 @@ export default function StatsModule({ block }: { block: Stats }) {
             } = stat;
 
             return (
-              <div className="col-span-12 md:col-span-3" key={get(stat, '_key')}>
+              <div className="w-full md:w-1/4" key={get(stat, '_key')}>
                 <div
                   className={cn('stats-number', 'flex relative justify-center text-bright-blue')}
                 >

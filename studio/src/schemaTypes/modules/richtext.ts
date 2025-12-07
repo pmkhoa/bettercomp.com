@@ -40,7 +40,6 @@ export const richtext = defineType({
         ], // <-- predefined values
       },
       initialValue: 'full',
-      hidden: true,
     }),
     defineField({
       name: 'textAlign',

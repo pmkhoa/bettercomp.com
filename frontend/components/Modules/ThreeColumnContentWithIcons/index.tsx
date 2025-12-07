@@ -36,9 +36,7 @@ export default function ThreeColumnContentWithIconsModule({
       <div className="container">
         <div className="flex justify-between items-center mb-8 pb-8 border-b border-green">
           {heading && (
-            <h2 className="text-2xl md:text-3xl font-semibold text-left md:text-center mb-0">
-              {heading}
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-left mb-0">{heading}</h2>
           )}
           {description && <PortableText value={description} />}
           {ctaButton && ctaButton.linkLabel && (
@@ -50,10 +48,7 @@ export default function ThreeColumnContentWithIconsModule({
         <div className="grid-container gap-12">
           {listItem?.map((content) => {
             return (
-              <div
-                className={'py-2 col-span-12 xs:col-span-6 md:col-span-4 gap-4'}
-                key={content._key}
-              >
+              <div className={'col-span-12 xs:col-span-6 md:col-span-4 gap-4'} key={content._key}>
                 <div className="content-wrapper">
                   <div className="flex justify-between items-center">
                     {content.title && <h5 className="w-full pr-8 font-medium">{content.title}</h5>}

@@ -29,7 +29,7 @@ export default function Footer({ settings }: { settings: Settings }) {
                 <div className="mb-4">
                   <PortableText value={footerCTA?.awardDescription} />
                 </div>
-                <div className="flex gap-4 justify-even">
+                <div className="flex gap-4 justify-around">
                   {footerCTA?.awardLogos?.map((logo) => {
                     if (logo) {
                       return (
@@ -48,7 +48,7 @@ export default function Footer({ settings }: { settings: Settings }) {
       </div>
       <div className="container relative  ">
         <div className="footer-links border-t border-sand/20 flex gap-8 justify-between py-10">
-          <div className="flex gap-8 items-start">
+          <div className="flex gap-8 items-start flex-wrap">
             {footerNav?.map((footerLinkColumn) => {
               return (
                 <div className="link-column" key={footerLinkColumn._key}>
@@ -72,7 +72,7 @@ export default function Footer({ settings }: { settings: Settings }) {
               );
             })}
           </div>
-          <div className="flex gap-4 social-links mt-6">
+          <div className="flex gap-4 social-links mt-5">
             {socialLink?.map((link) => {
               if (link.socialIcon) {
                 return (

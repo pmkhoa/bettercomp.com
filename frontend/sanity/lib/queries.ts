@@ -294,7 +294,7 @@ export const getHomeQuery = defineQuery(
 );
 
 export const getPageQuery = defineQuery(`
-	*[_type == 'page' && slug.current match $slug][0]{
+	*[_type == 'page' && slug.current == $slug][0]{
 		...,
 		"pageBuilder": ${pageBuilderContent}
 	}
