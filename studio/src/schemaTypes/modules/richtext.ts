@@ -27,6 +27,7 @@ export const richtext = defineType({
       },
       initialValue: 'default',
     }),
+
     defineField({
       name: 'contentMaxWidth',
       title: 'Content Max Width',
@@ -39,9 +40,7 @@ export const richtext = defineType({
         ], // <-- predefined values
       },
       initialValue: 'full',
-      hidden: ({ parent }) => {
-        return parent?.richTextType === 'twoColumns';
-      },
+      hidden: true,
     }),
     defineField({
       name: 'textAlign',
@@ -59,13 +58,6 @@ export const richtext = defineType({
       name: 'columnContent',
       title: 'Column Content',
       type: 'blockContent',
-      hidden: ({ parent }) => {
-        return (
-          parent?.richTextType === 'withImage' ||
-          parent?.richTextType === 'withEmbedded' ||
-          parent?.richTextType === 'withBackgroundVideo'
-        );
-      },
     }),
     defineField({
       name: 'image',

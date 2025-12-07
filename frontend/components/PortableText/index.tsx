@@ -25,10 +25,27 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     types: {
       image: ({ value }) => {
-        console.log('----------debugging: image----------');
-        console.log(value);
-        if (value.asset) {
-          return <SanityImage alt={value?.alt} image={value} className="w-full my-10" />;
+        if (value && value.asset) {
+          if (value.caption) {
+            return (
+              <div className="my-8">
+                <SanityImage
+                  alt={value?.alt}
+                  image={value}
+                  className="w-full"
+                  caption={value.caption}
+                />
+              </div>
+            );
+          }
+          return (
+            <SanityImage
+              alt={value?.alt}
+              image={value}
+              className="w-full my-8"
+              caption={value.caption}
+            />
+          );
         }
         return null;
       },

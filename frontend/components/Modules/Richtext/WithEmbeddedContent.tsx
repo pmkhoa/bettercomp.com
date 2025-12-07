@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function RichTextWithEmbedded({ block, pageData }: Props) {
-  const { columnContent, embeddedContent } = block;
+  const { columnContent, embeddedContent, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
@@ -17,7 +17,10 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
         <div className={cn('grid-container')}>
           {columnContent && (
             <div
-              className={cn(useNarrowWidthContent && showTOC ? 'col-span-9' : 'col-span-12')}
+              className={cn(
+                useNarrowWidthContent && showTOC ? 'col-span-9' : 'col-span-12',
+                `text-${textAlign}`
+              )}
             >
               <PortableText value={columnContent} />
             </div>
@@ -27,6 +30,8 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
               className={cn(
                 useNarrowWidthContent ? 'col-span-9' : 'col-span-12',
                 'relative responsive-iframe-container text-center',
+                'flex flex-col w-full',
+                `justify-${textAlign === 'center' ? 'center' : 'flex-start'}`
               )}
               dangerouslySetInnerHTML={{
                 __html: embeddedContent,

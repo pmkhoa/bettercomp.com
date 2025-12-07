@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function RichTextDefault({ block, pageData }: Props) {
-  const { columnContent, contentMaxWidth, textAlign } = block;
+  const { columnContent, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (

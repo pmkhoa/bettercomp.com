@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Richtext } from '@/sanity.types';
 import { urlForAsset } from '@/sanity/lib/utils';
-import { BackgroundVideo } from '@/components';
+import { PortableText, BackgroundVideo } from '@/components';
 
 type Props = {
   block: Richtext;
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function RichTextWithBackgroundVideo({ block, pageData }: Props) {
-  const { backgroundVideo } = block;
+  const { columnContent, backgroundVideo, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
@@ -18,11 +18,19 @@ export default function RichTextWithBackgroundVideo({ block, pageData }: Props) 
     >
       <div className="container">
         <div className={cn('grid-container')}>
+          <div
+            className={cn(
+              useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
+              `text-${textAlign}`
+            )}
+          >
+            <PortableText value={columnContent} />
+          </div>
           {backgroundVideo && urlForAsset(backgroundVideo) && (
             <div
               className={cn(
                 useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
-                'relative responsive-iframe-container text-center',
+                'relative responsive-iframe-container text-center'
               )}
             >
               <BackgroundVideo src={urlForAsset(backgroundVideo)} />
