@@ -41,7 +41,7 @@ export default function SectionFullWidthCTA({ block }: { block: FullWidthCTA }) 
         'hero-with-bg overflow-hidden relative',
         sectionTextColor,
         backgroundEnabled && backgroundType === 'color' && bgColor,
-        textAlign === 'center' ? 'py-40' : 'py-24'
+        textAlign === 'center' ? 'py-24 md:py-40' : 'py-24'
       )}
     >
       {backgroundEnabled && backgroundColor === 'blueWithGraphic' && (

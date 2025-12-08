@@ -20,13 +20,13 @@ export default function SectionHeroCTA({ block, pageData }: { block: HeroCTA; pa
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section className={cn('hero-with-bg overflow-hidden relative')}>
-      <div className="container z-10 relative z-20 text-white  py-20  bg-blue px-20">
+    <section className={cn('hero-cta overflow-hidden relative')}>
+      <div className="container z-10 relative z-20 text-white py-16 md:py-20 bg-blue px-4 md:px-20">
         <div className="grid-container">
           <div
             className={cn(
               useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
-              'relative',
+              'relative'
             )}
           >
             <div className="absolute w-full h-full inset-0">

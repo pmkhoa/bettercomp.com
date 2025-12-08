@@ -14,7 +14,7 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
       className={cn(
         'section-module relative',
         'three-column-content',
-        sectionBackground === 'sand' ? 'py-24' : 'my-24',
+        sectionBackground === 'sand' ? 'py-12 md:py-24' : 'my-12 md:my-24',
         bgColor
       )}
     >
@@ -28,7 +28,7 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
           </div>
         </div>
 
-        <div className="grid-container gap-12">
+        <div className="grid-container gap-y-4 md:gap-12">
           {listItem?.map((content) => {
             return (
               <div
@@ -37,17 +37,17 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
                 }
                 key={content._key}
               >
-                <div className="content-wrapper grid-container gap-4 bg-white shadow-md">
-                  <div className="col-span-6">
+                <div className="content-wrapper grid-container md:gap-4 bg-white shadow-md">
+                  <div className="col-span-12 md:col-span-6">
                     {content?.image && (
                       <div className="relative">
                         <SanityImage image={content.image} className="w-full h-auto" />
                       </div>
                     )}
                   </div>
-                  <div className="col-span-6 p-6">
+                  <div className="col-span-12 md:col-span-6 p-6">
                     <div className="inner-content">
-                      {content.title && <p className="text-xl font-medium">{content.title}</p>}
+                      {content.title && <h5 className="font-medium">{content.title}</h5>}
                     </div>
                     {content.content && (
                       <div className="my-6">

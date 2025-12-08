@@ -1,8 +1,9 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useState, useLayoutEffect } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { useEffect, useState, useLayoutEffect } from 'react';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import { Settings } from '@/sanity.types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ import { SearchIcon, HelpDeskIcon, ProfileIcon } from '@/components/Icons';
 import { PopoverGroup } from '@headlessui/react';
 import { PortableText, ButtonPrimary, ResolvedLink } from '@/components';
 import NavDropdownSimple from './NavDropdownSimple';
+import MobileMenu from './MobileMenu';
 
 export default function Header({ settings }: { settings: Settings }) {
   const { siteBanner, loginLink, helpLink, globalNav, globalNavCta } = settings;
@@ -30,6 +32,7 @@ export default function Header({ settings }: { settings: Settings }) {
     dropdownBg: string;
     dropdownText: string;
     borderBottom: string;
+    mobileMenu: string;
     logo: any;
   } | null>(null);
 
@@ -54,6 +57,7 @@ export default function Header({ settings }: { settings: Settings }) {
         dropdownBg: 'bg-blue',
         dropdownText: 'text-white',
         logo: LogoBlack,
+        mobileMenu: 'bg-blue',
         borderBottom: 'border-gray-200',
       });
     } else {
@@ -65,6 +69,7 @@ export default function Header({ settings }: { settings: Settings }) {
         dropdownBg: 'bg-blue',
         dropdownText: 'text-white',
         logo: LogoWhite,
+        mobileMenu: 'bg-white',
         borderBottom: 'border-midnight-blue-darker',
       });
     }
@@ -74,7 +79,33 @@ export default function Header({ settings }: { settings: Settings }) {
 
   return (
     <>
-      {/* ===== HEADER ===== */}
+      {/* ===== HEADER: MOBILE ===== */}
+      <header
+        className={cn(
+          'border-gray-200 border-b site-header fixed z-50 inset-0 overflow-visible h-[110px]',
+          'md:hidden',
+          navTheme.headerBg,
+          navTheme.topbarText,
+          navTheme.borderBottom
+        )}
+      >
+        {/* TOP BAR: MOBILE */}
+        <div className={cn(navTheme.topbarBg, navTheme.topbarText, 'nav-topbar')}>
+          <div className="container">
+            <div className="flex justify-between items-center relative h-[38px] ">
+              <div className={cn('site-announcement text-sm', s['site-banner'])}>
+                <PortableText value={siteBanner} />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* MAIN NAV */}
+        <div className="main-nav nav-main overflow-visible">
+          <MobileMenu settings={settings} navTheme={navTheme} />
+        </div>
+      </header>
+
+      {/* ===== HEADER: DESKTOP ===== */}
       <motion.header
         style={{
           height: headerHeight,
@@ -82,6 +113,7 @@ export default function Header({ settings }: { settings: Settings }) {
         transition={{ type: 'spring', stiffness: 180, damping: 26 }}
         className={cn(
           'border-gray-200 border-b site-header fixed z-50 inset-0 overflow-visible',
+          'hidden md:block',
           navTheme.headerBg,
           navTheme.topbarText,
           navTheme.borderBottom
@@ -197,7 +229,7 @@ export default function Header({ settings }: { settings: Settings }) {
       </motion.header>
 
       {/* ===== SPACER (same background as header) ===== */}
-      <div className={cn('spacer h-24 lg:h-[172px]', navTheme.headerBg)} />
+      <div className={cn('spacer h-[110px] lg:h-[172px]', navTheme.headerBg)} />
     </>
   );
 }

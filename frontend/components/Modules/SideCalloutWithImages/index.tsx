@@ -8,13 +8,11 @@ export default function SideCalloutWithImagesModule({ block }: { block: SideCall
   const { subheading, heading, listItem, description, ctaButton, summaryText } = block;
 
   return (
-    <section className={cn('side-callout-with-image', 'section-module my-24')}>
+    <section className={cn('side-callout-with-image', 'section-module my-16 md:my-24')}>
       <div className="container">
-        <div className="grid-container gap-0 md:gap-16">
+        <div className="grid-container gap-x-0 gap-y-16 md:gap-16">
           <div className="col-span-12 md:col-span-5">
-            {subheading && (
-              <h6 className="font-serif font-semibold text-green mb-2">{subheading}</h6>
-            )}
+            {subheading && <h6 className="font-serif font-bold text-green mb-2">{subheading}</h6>}
             {heading && <h3 className="heading mb-6">{heading}</h3>}
             {description && <PortableText value={description} />}
             <div className="cta-wrapper mt-8">
@@ -29,10 +27,10 @@ export default function SideCalloutWithImagesModule({ block }: { block: SideCall
             {listItem?.map((content) => {
               return (
                 <div
-                  className="flex gap-8 border-b border-bright-blue pb-8 items-center"
+                  className="flex gap-4 md:gap-8 border-b border-bright-blue pb-8 items-start"
                   key={content._key}
                 >
-                  <div className="content-image max-w-[200px]">
+                  <div className="content-image max-w-[200px] min-w-[40px]">
                     {content.image && (
                       <div className="relative w-full">
                         <SanityImage image={content.image} className="w-full h-auto" />

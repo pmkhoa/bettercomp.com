@@ -104,7 +104,7 @@ export default function SectionTestimonialsModule({ block }: Props) {
                               className="max-h-[24px] min-w-[140px] w-auto"
                             />
                             {readAllReviews && readAllReviews.link && (
-                              <div className="review-stars">
+                              <div className="review-stars mt-2">
                                 <ResolvedLink
                                   link={readAllReviews.link}
                                   className={'inline-block my-4'}

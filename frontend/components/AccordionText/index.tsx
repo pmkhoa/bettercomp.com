@@ -37,7 +37,7 @@ const AccordionTextModule = ({ accordionList = [] }: AccordionProps) => {
             const { ctaButton, content } = item;
 
             return (
-              <div className={cn(s['accordion-item'], 'py-6 px-3')} key={index}>
+              <div className={cn(s['accordion-item'], 'py-4 md:py-6 px-3')} key={index}>
                 <Disclosure as="div" className="w-full">
                   {({ open }) => (
                     <>
@@ -46,7 +46,7 @@ const AccordionTextModule = ({ accordionList = [] }: AccordionProps) => {
                         className={cn(s['label'], `is-open-${open}`)}
                         onClick={() => hideOtherDisclosuresHandle(kebabCase(`${label}-${index}`))}
                       >
-                        <h4 className="text-left pr-10 my-0">{label}</h4>
+                        <div className="text-left pr-10 my-0 h5 md:h4">{label}</div>
                       </DisclosureButton>
                       <div className="overflow-hidden pr-10">
                         <AnimatePresence>

@@ -10,7 +10,7 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
   const { heading, description, ctaButton, listItem, layout } = block;
 
   return (
-    <section className={cn('section-module relative', 'icon-cards bg-blue py-24')}>
+    <section className={cn('section-module relative', 'icon-cards bg-blue py-16 md:py-24')}>
       <div className="bg-top  w-full h-[50%] absolute top-0 left-0 z-10">
         <Image
           src={iconCardsBg}
@@ -28,7 +28,7 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
           </div>
         </div>
 
-        <div className="grid-container gap-12">
+        <div className="grid-container gap-y-6  md:gap-12">
           {listItem?.map((content) => {
             return (
               <div
@@ -41,9 +41,9 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
               >
                 <div
                   className={cn(
-                    'content-wrapper gap-4 bg-white shadow-md',
-                    layout === 'two' && 'p-12',
-                    layout === 'three' && 'p-8'
+                    'content-wrapper bg-white shadow-md',
+                    layout === 'two' && 'p-8 md:p-12',
+                    layout === 'three' && 'p-8 md:p-8'
                   )}
                 >
                   {content?.image && (
@@ -74,13 +74,13 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
           })}
         </div>
 
-        <div className="btn__cta mt-16 flex flex-wrap gap-8 items-center justify-center">
-          {ctaButton && ctaButton.linkLabel && (
+        {ctaButton && ctaButton.linkLabel && (
+          <div className="btn__cta mt-10 md:mt-16 flex flex-wrap gap-8 items-center justify-center">
             <ButtonPrimary>
               <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
             </ButtonPrimary>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );

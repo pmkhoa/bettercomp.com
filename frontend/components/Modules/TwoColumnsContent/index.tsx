@@ -33,7 +33,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
     <section
       className={cn(
         'two-columns-feature-content relative',
-        backgroundEnabled && backgroundType === 'color' ? 'py-24' : 'my-24',
+        backgroundEnabled && backgroundType === 'color' ? 'py-12 md:py-24' : 'my-12 md:my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
         sectionTextColor
       )}
@@ -50,7 +50,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
       <div className="container">
         <div className="grid-container">
           <div className="col-span-12 col-start-1">
-            <div className="grid-container md:gap-x-12 gap-y-4 md:gap-y-16 items-center">
+            <div className="grid-container md:gap-x-12 gap-y-12 md:gap-y-16 items-center">
               <div
                 className={cn(
                   'flex flex-col',
@@ -72,7 +72,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
                 )}
               >
                 {subHeading && <h6 className="font-semibold mb-4 text-green">{subHeading}</h6>}
-                {heading && <h2 className="text-2xl md:text-3xl font-semibold mb-4">{heading}</h2>}
+                {heading && <h2 className="text-2xl md:text-3xl font-medium mb-4">{heading}</h2>}
 
                 <div className="flex-1">{description && <PortableText value={description} />}</div>
 

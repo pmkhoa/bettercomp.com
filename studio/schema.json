@@ -2646,23 +2646,23 @@
                               "of": [
                                 {
                                   "type": "string",
-                                  "value": "#141414"
+                                  "value": "#002952"
                                 },
                                 {
                                   "type": "string",
-                                  "value": "#EF1F03"
+                                  "value": "#F24E1A"
                                 },
                                 {
                                   "type": "string",
-                                  "value": "#898989"
+                                  "value": "#FFA700"
                                 },
                                 {
                                   "type": "string",
-                                  "value": "#cbcbcb"
+                                  "value": "#ffffff"
                                 },
                                 {
                                   "type": "string",
-                                  "value": "#f3f3f3"
+                                  "value": "#2CB592"
                                 }
                               ]
                             },

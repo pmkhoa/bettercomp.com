@@ -11,15 +11,15 @@ export default function ContactFormInfoModule({ block }: Props) {
   const { form, contactInfo, address, phone, email, mapPhoto, mapLink } = block;
 
   return (
-    <section className={cn('section-module section-richtext', 'richtext-default my-20')}>
-      <div className="container grid-container gap-12">
+    <section className={cn('section-module section-richtext', 'contact-info my-12 md:my-20')}>
+      <div className="container grid-container md:gap-12">
         <div className={cn('col-span-12 md:col-span-5', 'relative')}>
           <div className="mb-8">
             <PortableText value={contactInfo} />
           </div>
           <div className="address-info my-8">
             {address && (
-              <div className="flex justify-start">
+              <div className="flex justify-start flex-wrap">
                 <div className="min-w-full md:min-w-[140px] font-medium">Address: </div>
                 <div className="max-w-md">
                   <PortableText value={address} />
@@ -29,7 +29,7 @@ export default function ContactFormInfoModule({ block }: Props) {
           </div>
           <div className="address-info my-8">
             {phone && (
-              <div className="flex justify-start">
+              <div className="flex justify-start flex-wrap">
                 <div className="min-w-full md:min-w-[140px] font-medium">Phone: </div>
                 <div className="max-w-md">
                   <p>{phone}</p>
@@ -39,7 +39,7 @@ export default function ContactFormInfoModule({ block }: Props) {
           </div>
           <div className="address-info my-8">
             {email && (
-              <div className="flex justify-start">
+              <div className="flex justify-start flex-wrap">
                 <div className="min-w-full md:min-w-[140px] font-medium">Email: </div>
                 <div className="max-w-md">
                   <PortableText value={email} />

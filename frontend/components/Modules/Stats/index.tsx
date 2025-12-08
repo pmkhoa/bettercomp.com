@@ -15,14 +15,14 @@ export default function StatsModule({ block }: { block: Stats }) {
   const { heading, ctaButton, statNumber } = block;
 
   return (
-    <section className={cn('stats-module section-module', 'my-32')}>
+    <section className={cn('stats-module section-module', 'my-20 md:my-32')}>
       <div className="container">
         <div className="grid-container items-center justify-between">
           <div className="section__description col-span-12 text-center">
             <h4>{heading}</h4>
           </div>
         </div>
-        <div className={cn('flex gap-8 justify-center mx-auto pt-8')}>
+        <div className={cn('flex gap-0 gap-y-8 md:gap-8 justify-center mx-auto pt-8 flex-wrap')}>
           {statNumber?.map((stat: StatNumber) => {
             const {
               endNumber = '',
@@ -33,7 +33,7 @@ export default function StatsModule({ block }: { block: Stats }) {
             } = stat;
 
             return (
-              <div className="w-full md:w-1/4" key={get(stat, '_key')}>
+              <div className="w-full md:w-1/4 my-2 px-4" key={get(stat, '_key')}>
                 <div
                   className={cn('stats-number', 'flex relative justify-center text-bright-blue')}
                 >
@@ -41,11 +41,11 @@ export default function StatsModule({ block }: { block: Stats }) {
                     start={parseInt(startNumber, 10)}
                     end={parseInt(endNumber, 10)}
                     increment={parseInt(increaseStep, 10)}
-                    asType={'h1'}
+                    asType={'h1 mb-2'}
                   />
-                  <div className="h1 text-bright-blue">{suffix}</div>
+                  {suffix && <div className="h1 mb-0 text-bright-blue">{suffix}</div>}
                 </div>
-                <div className="my-2 font-normal text-center text-lg">{description}</div>
+                <div className="font-normal text-center md:text-xl">{description}</div>
               </div>
             );
           })}

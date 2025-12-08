@@ -33,16 +33,18 @@ export default function FeaturedResourcesModule({
   }
 
   return (
-    <section className={cn('section-module relative pt-30 pb-20 bg-blue text-white')}>
+    <section
+      className={cn('section-module relative pt-16 pb-16 md:pt-30 md:pb-20 bg-blue text-white')}
+    >
       <div
         className="absolute bg-cover bg-center bg-repeat h-[86%] w-[63%] right-0 top-[8%] z-10"
         style={{ backgroundImage: `url('/images/bg-graphical-grid.svg')`, backgroundSize: '100%' }}
       />
       <div className="container relative z-20">
-        <div className="grid-container gap-8">
+        <div className="grid-container gap-y-12 md:gap-8">
           <div className="col-span-12 md:col-span-4">
             <div className="featured-description">
-              <h6 className="text-green font-serif font-bold mb-2">{subheading}</h6>
+              <h6 className="text-green font-serif font-semibold mb-2">{subheading}</h6>
               <div className="description">
                 <PortableText value={description} />
                 {ctaButton && ctaButton.link && (
@@ -54,12 +56,12 @@ export default function FeaturedResourcesModule({
             </div>
           </div>
           <div className="col-span-12 md:col-span-8">
-            <div className="grid-container gap-8">
+            <div className="grid-container gap-4 md:gap-8">
               {resourceDisplayTypes === 'mostRecents' ? (
                 <>
                   {latestResources.slice(0, 2).map((resource: any) => {
                     return (
-                      <div className="most-recents col-span-6" key={resource._id}>
+                      <div className="most-recents col-span-12 md:col-span-6" key={resource._id}>
                         <ResourceCard resource={resource} />
                       </div>
                     );
@@ -68,12 +70,12 @@ export default function FeaturedResourcesModule({
               ) : (
                 <>
                   {selectedResources[0] && (
-                    <div className="most-recents col-span-6">
+                    <div className="most-recents col-span-12 md:col-span-6">
                       <ResourceCard resource={selectedResources[0]} />
                     </div>
                   )}
                   {selectedResources[1] && (
-                    <div className="most-recents col-span-6">
+                    <div className="most-recents col-span-12 md:col-span-6">
                       <ResourceCard resource={selectedResources[1]} />
                     </div>
                   )}
@@ -82,16 +84,18 @@ export default function FeaturedResourcesModule({
             </div>
           </div>
         </div>
-        <div className="grid-container gap-8 mt-8">
+        <div className="grid-container gap-4 mt-4 md:gap-8 md:mt-8">
           {resourceDisplayTypes === 'mostRecents' ? (
             <>
               {latestResources[2] && (
-                <div className="most-recents col-span-8">
-                  <ResourceCardFeature resource={latestResources[2]} />
-                </div>
+                <>
+                  <div className="most-recents col-span-12 md:col-span-8">
+                    <ResourceCardFeature resource={latestResources[2]} />
+                  </div>
+                </>
               )}
               {latestResources[3] && (
-                <div className="most-recents col-span-4">
+                <div className="most-recents col-span-12 md:col-span-4">
                   <ResourceCard resource={latestResources[3]} />
                 </div>
               )}
@@ -99,12 +103,12 @@ export default function FeaturedResourcesModule({
           ) : (
             <>
               {selectedResources[2] && (
-                <div className="most-recents col-span-8">
+                <div className="most-recents col-span-12 md:col-span-8">
                   <ResourceCardFeature resource={selectedResources[2]} />
                 </div>
               )}
               {selectedResources[3] && (
-                <div className="most-recents col-span-4">
+                <div className="most-recents col-span-12 md:col-span-4">
                   <ResourceCard resource={selectedResources[3]} />
                 </div>
               )}

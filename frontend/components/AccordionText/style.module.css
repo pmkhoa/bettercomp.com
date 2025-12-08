@@ -24,7 +24,12 @@
 	right: 0;
 	top: -2px;
 	content: '+';
-	font-size: 36px;
+	font-size: 24px;
+  @media screen and (min-width: 768px) {
+    top: -10px;
+    content: '+';
+    font-size: 36px;
+  }
 }
 
 .label[aria-expanded='true']:after {
@@ -33,5 +38,10 @@
 	position: absolute;
 	right: 0;
 	top: -2px;
-	font-size: 36px;
+	font-size: 24px;
+  @media screen and (min-width: 768px) {
+    top: -10px;
+    content: '+';
+    font-size: 36px;
+  }
 }

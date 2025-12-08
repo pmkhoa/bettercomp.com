@@ -32,7 +32,7 @@ export default function ThreeColumnContentWithNumbersModule({
       className={cn(
         'section-module relative',
         'three-column-content',
-        backgroundEnabled && backgroundType === 'color' ? 'py-24' : 'my-24',
+        backgroundEnabled && backgroundType === 'color' ? 'py-12 md:py-24' : 'my-12 md:my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
         sectionTextColor
       )}
@@ -41,13 +41,13 @@ export default function ThreeColumnContentWithNumbersModule({
         <div className="absolute w-full h-full inset-0" />
       )}
       <div className="container">
-        <div className="grid-container mb-12 gap-8">
+        <div className="grid-container gap-8 mb-12">
           <div className="description col-span-8">
-            {heading && <h2 className="text-2xl md:text-3xl font-semibold mb-4">{heading}</h2>}
+            {heading && <h2 className="text-2xl md:text-3xl font-medium mb-4">{heading}</h2>}
             {description && <PortableText value={description} />}
           </div>
           {ctaButton && ctaButton.linkLabel && (
-            <div className="col-span-4 flex justify-end h-auto">
+            <div className="col-span-4 flex md:justify-end h-auto">
               <div className="button-wrapper">
                 <ButtonPrimary>
                   <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
@@ -56,7 +56,7 @@ export default function ThreeColumnContentWithNumbersModule({
             </div>
           )}
         </div>
-        <div className="grid-container gap-12">
+        <div className="grid-container gap-x-0 gap-y-10 md:gap-12">
           {listItem?.map((content) => {
             return (
               <div
@@ -66,7 +66,7 @@ export default function ThreeColumnContentWithNumbersModule({
                 <div className="content-wrapper">
                   {content?.image && (
                     <div className="flex justify-between items-center gap-8">
-                      <div className="relative w-[80px] h-[80px]">
+                      <div className="relative w-[80px] h-[60px] md:h-[80px]">
                         <SanityImage
                           image={content.image}
                           className="object-contain w-full h-full absolute inset-0"
@@ -75,7 +75,7 @@ export default function ThreeColumnContentWithNumbersModule({
                       <div className="h-[1px] bg-bright-blue w-full" />
                     </div>
                   )}
-                  <div className="flex justify-between items-center mt-8">
+                  <div className="flex justify-between items-center mt-6">
                     {content.title && <h5 className="font-medium mb-3">{content.title}</h5>}
                   </div>
                   {content.content && (
@@ -83,13 +83,13 @@ export default function ThreeColumnContentWithNumbersModule({
                       <PortableText value={content.content} />
                     </div>
                   )}
-                  <div className="cta-wrapper mt-8">
-                    {content.ctaButton && content.ctaButton.linkLabel && content.ctaButton.link && (
+                  {content.ctaButton && content.ctaButton.linkLabel && content.ctaButton.link && (
+                    <div className="cta-wrapper mt-8">
                       <ResolvedLink link={content.ctaButton?.link} className="btn-secondary">
                         {content.ctaButton?.linkLabel}
                       </ResolvedLink>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             );

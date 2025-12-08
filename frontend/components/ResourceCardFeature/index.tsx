@@ -14,7 +14,7 @@ const ResourceCardFeature = ({ resource }: { resource: any }) => {
         s['resource-card']
       )}
     >
-      <div className="aspect-16/9 relative">
+      <div className="aspect-4/5 md:aspect-16/9 relative rounded-md overflow-hidden">
         <MotionFadeIn>
           <SanityImage
             className={cn(
@@ -24,6 +24,7 @@ const ResourceCardFeature = ({ resource }: { resource: any }) => {
             image={resource.coverImage}
           />
         </MotionFadeIn>
+        <div className="absolute w-full h-full z-10 bg-black inset-0" style={{ opacity: '0.7' }} />
       </div>
       <div className="resource-container z-10 absolute bottom-0 left-0 w-full h-auto px-8 pb-2">
         {resource._type && (
