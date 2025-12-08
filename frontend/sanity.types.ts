@@ -435,7 +435,7 @@ export type BlockContent = Array<
       listItem?: 'bullet' | 'number' | 'checkmarks';
       markDefs?: Array<
         | {
-            color?: '#141414' | '#EF1F03' | '#898989' | '#cbcbcb' | '#f3f3f3';
+            color?: '#002952' | '#F24E1A' | '#FFA700' | '#ffffff' | '#2CB592';
             _type: 'textColor';
             _key: string;
           }
@@ -1759,7 +1759,7 @@ export type SettingsQueryResult = {
               file: null;
             }
           | {
-              color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+              color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
               _type: 'textColor';
               _key: string;
             }
@@ -3544,7 +3544,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -3667,7 +3667,7 @@ export type AuthorQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -3798,7 +3798,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -3921,7 +3921,7 @@ export type AuthorQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -5365,7 +5365,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -5462,7 +5462,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -5598,7 +5598,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -5728,7 +5728,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -5918,7 +5918,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -6055,7 +6055,7 @@ export type AuthorQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -6255,7 +6255,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -6376,7 +6376,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -6504,7 +6504,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -6640,7 +6640,7 @@ export type AuthorQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -6732,7 +6732,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -6923,7 +6923,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -7059,7 +7059,7 @@ export type AuthorQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -7159,7 +7159,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -7295,7 +7295,7 @@ export type AuthorQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -7425,7 +7425,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -7574,7 +7574,7 @@ export type AuthorQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -8069,7 +8069,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -8192,7 +8192,7 @@ export type GetHomeQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -8323,7 +8323,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -8446,7 +8446,7 @@ export type GetHomeQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -9890,7 +9890,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -9987,7 +9987,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -10123,7 +10123,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -10253,7 +10253,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -10443,7 +10443,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -10580,7 +10580,7 @@ export type GetHomeQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -10780,7 +10780,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -10901,7 +10901,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -11029,7 +11029,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -11165,7 +11165,7 @@ export type GetHomeQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -11257,7 +11257,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -11448,7 +11448,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -11584,7 +11584,7 @@ export type GetHomeQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -11684,7 +11684,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -11820,7 +11820,7 @@ export type GetHomeQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -11950,7 +11950,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -12099,7 +12099,7 @@ export type GetHomeQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -12245,7 +12245,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -12368,7 +12368,7 @@ export type GetPageQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -12499,7 +12499,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -12622,7 +12622,7 @@ export type GetPageQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -14066,7 +14066,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -14163,7 +14163,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -14299,7 +14299,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -14429,7 +14429,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -14619,7 +14619,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -14756,7 +14756,7 @@ export type GetPageQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -14956,7 +14956,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -15077,7 +15077,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -15205,7 +15205,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -15341,7 +15341,7 @@ export type GetPageQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -15433,7 +15433,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -15624,7 +15624,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -15760,7 +15760,7 @@ export type GetPageQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -15860,7 +15860,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -15996,7 +15996,7 @@ export type GetPageQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -16126,7 +16126,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -16275,7 +16275,7 @@ export type GetPageQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -16475,7 +16475,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -16598,7 +16598,7 @@ export type GetArticleQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -16729,7 +16729,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -16852,7 +16852,7 @@ export type GetArticleQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -18296,7 +18296,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -18393,7 +18393,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -18529,7 +18529,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -18659,7 +18659,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -18849,7 +18849,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -18986,7 +18986,7 @@ export type GetArticleQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -19186,7 +19186,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -19307,7 +19307,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -19435,7 +19435,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -19571,7 +19571,7 @@ export type GetArticleQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -19663,7 +19663,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -19854,7 +19854,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -19990,7 +19990,7 @@ export type GetArticleQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -20090,7 +20090,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -20226,7 +20226,7 @@ export type GetArticleQueryResult = {
                       file: null;
                     }
                   | {
-                      color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                      color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                       _type: 'textColor';
                       _key: string;
                     }
@@ -20356,7 +20356,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -20505,7 +20505,7 @@ export type GetArticleQueryResult = {
                     file: null;
                   }
                 | {
-                    color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                    color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                     _type: 'textColor';
                     _key: string;
                   }
@@ -20715,7 +20715,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -20847,7 +20847,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -20987,7 +20987,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -21119,7 +21119,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -22572,7 +22572,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -22678,7 +22678,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -22823,7 +22823,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -22962,7 +22962,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -23161,7 +23161,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -23307,7 +23307,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -23516,7 +23516,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -23646,7 +23646,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -23783,7 +23783,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -23928,7 +23928,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -24029,7 +24029,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -24229,7 +24229,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -24374,7 +24374,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -24483,7 +24483,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -24628,7 +24628,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -24767,7 +24767,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -24925,7 +24925,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -25120,7 +25120,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -25252,7 +25252,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -25392,7 +25392,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -25524,7 +25524,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -26977,7 +26977,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -27083,7 +27083,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -27228,7 +27228,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -27367,7 +27367,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -27566,7 +27566,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -27712,7 +27712,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -27921,7 +27921,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -28051,7 +28051,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -28188,7 +28188,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -28333,7 +28333,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -28434,7 +28434,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -28634,7 +28634,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -28779,7 +28779,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -28888,7 +28888,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -29033,7 +29033,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -29172,7 +29172,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -29330,7 +29330,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -29533,7 +29533,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -29665,7 +29665,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -29805,7 +29805,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -29937,7 +29937,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -31390,7 +31390,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -31496,7 +31496,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -31641,7 +31641,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -31780,7 +31780,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -31979,7 +31979,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -32125,7 +32125,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -32334,7 +32334,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -32464,7 +32464,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -32601,7 +32601,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -32746,7 +32746,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -32847,7 +32847,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -33047,7 +33047,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -33192,7 +33192,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -33301,7 +33301,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -33446,7 +33446,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -33585,7 +33585,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -33743,7 +33743,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -33945,7 +33945,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -34077,7 +34077,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -34217,7 +34217,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -34349,7 +34349,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -35802,7 +35802,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -35908,7 +35908,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -36053,7 +36053,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -36192,7 +36192,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -36391,7 +36391,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -36537,7 +36537,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -36746,7 +36746,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -36876,7 +36876,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -37013,7 +37013,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -37158,7 +37158,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -37259,7 +37259,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -37459,7 +37459,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -37604,7 +37604,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -37713,7 +37713,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -37858,7 +37858,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -37997,7 +37997,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -38155,7 +38155,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -38357,7 +38357,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -38489,7 +38489,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -38629,7 +38629,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -38761,7 +38761,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -40214,7 +40214,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -40320,7 +40320,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -40465,7 +40465,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -40604,7 +40604,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -40803,7 +40803,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -40949,7 +40949,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -41158,7 +41158,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -41288,7 +41288,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -41425,7 +41425,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -41570,7 +41570,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -41671,7 +41671,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -41871,7 +41871,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -42016,7 +42016,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -42125,7 +42125,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -42270,7 +42270,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -42409,7 +42409,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -42567,7 +42567,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -42720,7 +42720,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -42852,7 +42852,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -42992,7 +42992,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -43124,7 +43124,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -44577,7 +44577,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -44683,7 +44683,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -44828,7 +44828,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -44967,7 +44967,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -45166,7 +45166,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -45312,7 +45312,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -45521,7 +45521,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -45651,7 +45651,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -45788,7 +45788,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -45933,7 +45933,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -46034,7 +46034,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -46234,7 +46234,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -46379,7 +46379,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -46488,7 +46488,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -46633,7 +46633,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -46772,7 +46772,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -46930,7 +46930,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -47085,7 +47085,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -47217,7 +47217,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -47357,7 +47357,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -47489,7 +47489,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -48942,7 +48942,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -49048,7 +49048,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -49193,7 +49193,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -49332,7 +49332,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -49531,7 +49531,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -49677,7 +49677,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -49886,7 +49886,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -50016,7 +50016,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -50153,7 +50153,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -50298,7 +50298,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -50399,7 +50399,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -50599,7 +50599,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -50744,7 +50744,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -50853,7 +50853,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -50998,7 +50998,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -51137,7 +51137,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -51295,7 +51295,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -51624,7 +51624,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -51756,7 +51756,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -51896,7 +51896,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -52028,7 +52028,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -53481,7 +53481,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -53587,7 +53587,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -53732,7 +53732,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -53871,7 +53871,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -54070,7 +54070,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -54216,7 +54216,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -54425,7 +54425,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -54555,7 +54555,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -54692,7 +54692,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -54837,7 +54837,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -54938,7 +54938,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -55138,7 +55138,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -55283,7 +55283,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -55392,7 +55392,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -55537,7 +55537,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -55676,7 +55676,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -55834,7 +55834,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -56036,7 +56036,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -56168,7 +56168,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -56308,7 +56308,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -56440,7 +56440,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -57893,7 +57893,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -57999,7 +57999,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -58144,7 +58144,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -58283,7 +58283,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -58482,7 +58482,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -58628,7 +58628,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -58837,7 +58837,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -58967,7 +58967,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -59104,7 +59104,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -59249,7 +59249,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -59350,7 +59350,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -59550,7 +59550,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -59695,7 +59695,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -59804,7 +59804,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -59949,7 +59949,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -60088,7 +60088,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -60246,7 +60246,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -60448,7 +60448,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -60580,7 +60580,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -60720,7 +60720,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -60852,7 +60852,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -62305,7 +62305,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -62411,7 +62411,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -62556,7 +62556,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -62695,7 +62695,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -62894,7 +62894,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -63040,7 +63040,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -63249,7 +63249,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -63379,7 +63379,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -63516,7 +63516,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -63661,7 +63661,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -63762,7 +63762,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -63962,7 +63962,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -64107,7 +64107,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -64216,7 +64216,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -64361,7 +64361,7 @@ export type GetResourceQueryResult =
                           file: null;
                         }
                       | {
-                          color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                          color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                           _type: 'textColor';
                           _key: string;
                         }
@@ -64500,7 +64500,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }
@@ -64658,7 +64658,7 @@ export type GetResourceQueryResult =
                         file: null;
                       }
                     | {
-                        color?: '#141414' | '#898989' | '#cbcbcb' | '#EF1F03' | '#f3f3f3';
+                        color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
                         _type: 'textColor';
                         _key: string;
                       }

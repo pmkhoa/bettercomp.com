@@ -12,6 +12,7 @@ import cn from 'classnames';
 
 type MobileMenuProps = {
   settings: Settings;
+  navTheme: any;
 };
 
 const lockBodyScroll = (lock: boolean) => {
@@ -24,7 +25,7 @@ const MobileMenuContent = ({
   settings,
   navTheme,
 }: {
-  navTheme;
+  navTheme: any;
   open: boolean;
   settings: Settings;
 }) => {
@@ -74,15 +75,7 @@ const MobileMenuContent = ({
                   }
 
                   if (nav.menuItemType === 'groupLinks') {
-                    return (
-                      <DropdownMobile
-                        nav={nav}
-                        key={nav._key}
-                        dropdownBg={navTheme.dropdownBg}
-                        dropdownText={navTheme.dropdownText}
-                        closeMainMenu={close}
-                      />
-                    );
+                    return <DropdownMobile nav={nav} key={nav._key} closeMainMenu={close} />;
                   }
                 })}
               </div>

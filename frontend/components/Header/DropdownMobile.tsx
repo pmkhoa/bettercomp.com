@@ -6,13 +6,7 @@ import { kebabCase } from 'lodash';
 import cn from 'classnames';
 import s from './style.module.css';
 
-const DropdownMobile = ({
-  nav,
-  closeMainMenu = () => {},
-}: {
-  nav: any;
-  closeMainMenu: () => void;
-}) => {
+const DropdownMobile = ({ nav, closeMainMenu = () => {} }: { nav: any; closeMainMenu: any }) => {
   const { menuLabel, groupLinks } = nav;
 
   return (
