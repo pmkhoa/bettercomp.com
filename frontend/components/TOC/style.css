@@ -18,14 +18,20 @@
 }
 .toc > .toc-list > li {
 	list-style: none;
-  border-left: 3px solid transparent;
 	margin-bottom: 10px;
 	padding: 2px 6px 2px 28px;
   font-weight: 700;
+  position: relative;
 }
 
-.toc > .toc-list > li.is-active-li {
-	border-left: 3px solid #002952;
+.toc > .toc-list > li.is-active-li:before {
+  content: '';
+  height: 32px;
+  width: 4px;
+  background: #002952;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .toc-list {
@@ -34,18 +40,17 @@
 }
 
 a.toc-link {
-	color: #002952;
-  opacity: 0.4;
-	font-weight: 700;
+	color: #bbbdc9;
+	font-weight: 600;
 	height: 100%;
 	text-decoration: none;
 	text-decoration-line: unset !important;
+  transition: color 0.3s;
 }
 
 .is-collapsible {
 	max-height: 1000px;
 	overflow: hidden;
-	transition: all 300ms ease-in-out;
 }
 
 .is-collapsed {
@@ -53,9 +58,9 @@ a.toc-link {
 }
 
 a.is-active-link {
-	font-weight: 700;
+	font-weight: 600;
 	color: #002952;
-  opacity: 1;
+  transition: color 0.3s;
 }
 
 .toc-inner {

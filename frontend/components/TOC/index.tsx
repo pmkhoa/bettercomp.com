@@ -35,7 +35,7 @@ const TOC = () => {
           hasInnerContainers: true,
           scrollSmoothOffset: -120,
           headingsOffset: 420,
-          collapseDepth: 0,
+          collapseDepth: 5,
           enableUrlHashUpdateOnScroll: false,
         });
       } catch (e) {
