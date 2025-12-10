@@ -66,7 +66,7 @@ export default function ThreeColumnContentWithIconsModule({
                     )}
                   </div>
                   {content.content && (
-                    <div className="mt-3">
+                    <div className="mt-3 md:pr-10">
                       <PortableText value={content.content} />
                     </div>
                   )}
