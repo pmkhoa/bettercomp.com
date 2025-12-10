@@ -11,7 +11,7 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
 
   return (
     <section className={cn('section-module relative', 'icon-cards bg-blue py-16 md:py-24')}>
-      <div className="h-4 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-full max-w-[740px] left-[25%] absolute top-[-8px] z-20" />
+      <div className="h-4 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[80%] max-w-[740px] left-[10%] md:left-[25%] absolute top-[-8px] z-20" />
       <div
         className="bg-top  w-full h-[50%] absolute top-0 left-0 z-10"
         style={{ backgroundImage: `url('/images/bg-graphical-grid.svg')`, backgroundSize: '100%' }}

@@ -368,8 +368,9 @@ export type Logos = {
 export type Quotation = {
   _type: 'quotation';
   enabled?: boolean;
-  layout?: 'wide' | 'narrow';
+  layout?: 'left' | 'top';
   textAlign?: 'center' | 'left';
+  quoteText?: BlockContent;
   quote?: string;
   quoteFontWeight?: 'medium' | 'normal' | 'light';
   authorInfo?: string;
@@ -639,6 +640,7 @@ export type IconCards = {
       alt?: string;
       _type: 'image';
     };
+    subTitle?: string;
     title?: string;
     content?: BlockContent;
     ctaLink?: CtaLink;
@@ -1684,7 +1686,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0] {  ...,  siteBanner[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },  globalNav[] {     ...,     menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    },    groupLinks[] {      ...,      menuLink {        ...,        	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}      },    }  },  footerNav[] {     ...,     menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    },    groupLinks[] {      ...,      menuLink {        ...,        	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}      },    }  },  privacyLinks[] {    ...,    menuLink {      ...,      	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	}    }  }}
+// Query: *[_type == "settings"][0] {  ...,  siteBanner[] { ..., 	markDefs[] { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } },  globalNavCta {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} }},  footerCTA {..., ctaButton {...,   link { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }},  globalNav[] {     ...,     menuLink { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} },    groupLinks[] { ..., menuLink { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }  },  footerNav[] {     ...,     menuLink { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} },    groupLinks[] { ..., menuLink { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }  },  privacyLinks[] { ..., menuLink { ..., 	_type == "link" => {		"page": page->slug.current,		"author": author->slug.current,		"article": article->slug.current,		"blog": blog->slug.current,		"ebook": ebook->slug.current,		"guide": guide->slug.current,		"webinar": webinar->slug.current,		"tool": tool->slug.current,		"template": template->slug.current,		"file": file.asset->url,	} } }}
 export type SettingsQueryResult = {
   _id: string;
   _type: 'settings';
@@ -1705,11 +1707,87 @@ export type SettingsQueryResult = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  footerCTA?: PreFooterCTA;
-  globalNavCta?: {
+  footerCTA: {
+    _type: 'preFooterCTA';
+    enabled?: boolean;
+    subheading?: string;
+    content?: BlockContent;
+    ctaButton: {
+      _type: 'ctaLink';
+      showCtaLink?: boolean;
+      linkLabel?: string;
+      link: {
+        _type: 'link';
+        linkType?:
+          | 'author'
+          | 'blog'
+          | 'ebook'
+          | 'file'
+          | 'guide'
+          | 'href'
+          | 'page'
+          | 'template'
+          | 'tool'
+          | 'webinar';
+        href?: string;
+        page: string | null;
+        blog: string | null;
+        ebook: string | null;
+        guide: string | null;
+        tool: string | null;
+        template: string | null;
+        webinar: string | null;
+        author: string | null;
+        openInNewTab?: boolean;
+        article: null;
+        file: null;
+      } | null;
+    } | null;
+    awardDescription?: BlockContent;
+    awardLogos?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+      _key: string;
+    }>;
+  } | null;
+  globalNavCta: {
     linkText?: string;
-    link?: Link;
-  };
+    link: {
+      _type: 'link';
+      linkType?:
+        | 'author'
+        | 'blog'
+        | 'ebook'
+        | 'file'
+        | 'guide'
+        | 'href'
+        | 'page'
+        | 'template'
+        | 'tool'
+        | 'webinar';
+      href?: string;
+      page: string | null;
+      blog: string | null;
+      ebook: string | null;
+      guide: string | null;
+      tool: string | null;
+      template: string | null;
+      webinar: string | null;
+      author: string | null;
+      openInNewTab?: boolean;
+      article: null;
+      file: null;
+    } | null;
+  } | null;
   siteBanner: Array<
     | {
         children?: Array<{
@@ -6005,6 +6083,7 @@ export type AuthorQueryResult = {
             alt?: string;
             _type: 'image';
           };
+          subTitle?: string;
           title?: string;
           content: Array<
             | {
@@ -6179,8 +6258,9 @@ export type AuthorQueryResult = {
         _key: string;
         _type: 'quotation';
         enabled?: boolean;
-        layout?: 'narrow' | 'wide';
+        layout?: 'left' | 'top';
         textAlign?: 'center' | 'left';
+        quoteText?: BlockContent;
         quote?: string;
         quoteFontWeight?: 'light' | 'medium' | 'normal';
         authorInfo?: string;
@@ -10530,6 +10610,7 @@ export type GetHomeQueryResult = {
             alt?: string;
             _type: 'image';
           };
+          subTitle?: string;
           title?: string;
           content: Array<
             | {
@@ -10704,8 +10785,9 @@ export type GetHomeQueryResult = {
         _key: string;
         _type: 'quotation';
         enabled?: boolean;
-        layout?: 'narrow' | 'wide';
+        layout?: 'left' | 'top';
         textAlign?: 'center' | 'left';
+        quoteText?: BlockContent;
         quote?: string;
         quoteFontWeight?: 'light' | 'medium' | 'normal';
         authorInfo?: string;
@@ -14706,6 +14788,7 @@ export type GetPageQueryResult = {
             alt?: string;
             _type: 'image';
           };
+          subTitle?: string;
           title?: string;
           content: Array<
             | {
@@ -14880,8 +14963,9 @@ export type GetPageQueryResult = {
         _key: string;
         _type: 'quotation';
         enabled?: boolean;
-        layout?: 'narrow' | 'wide';
+        layout?: 'left' | 'top';
         textAlign?: 'center' | 'left';
+        quoteText?: BlockContent;
         quote?: string;
         quoteFontWeight?: 'light' | 'medium' | 'normal';
         authorInfo?: string;
@@ -18936,6 +19020,7 @@ export type GetArticleQueryResult = {
             alt?: string;
             _type: 'image';
           };
+          subTitle?: string;
           title?: string;
           content: Array<
             | {
@@ -19110,8 +19195,9 @@ export type GetArticleQueryResult = {
         _key: string;
         _type: 'quotation';
         enabled?: boolean;
-        layout?: 'narrow' | 'wide';
+        layout?: 'left' | 'top';
         textAlign?: 'center' | 'left';
+        quoteText?: BlockContent;
         quote?: string;
         quoteFontWeight?: 'light' | 'medium' | 'normal';
         authorInfo?: string;
@@ -23248,6 +23334,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -23431,8 +23518,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -27653,6 +27741,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -27836,8 +27925,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -32066,6 +32156,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -32249,8 +32340,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -36478,6 +36570,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -36661,8 +36754,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -40890,6 +40984,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -41073,8 +41168,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -45253,6 +45349,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -45436,8 +45533,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -49618,6 +49716,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -49801,8 +49900,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -54157,6 +54257,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -54340,8 +54441,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -58569,6 +58671,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -58752,8 +58855,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -62981,6 +63085,7 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
+              subTitle?: string;
               title?: string;
               content: Array<
                 | {
@@ -63164,8 +63269,9 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'quotation';
             enabled?: boolean;
-            layout?: 'narrow' | 'wide';
+            layout?: 'left' | 'top';
             textAlign?: 'center' | 'left';
+            quoteText?: BlockContent;
             quote?: string;
             quoteFontWeight?: 'light' | 'medium' | 'normal';
             authorInfo?: string;
@@ -65413,7 +65519,7 @@ export type PagesSlugsResult = Array<{
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "settings"][0] {\n  ...,\n  siteBanner[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n  globalNav[] { \n    ..., \n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    },\n    groupLinks[] {\n      ...,\n      menuLink {\n        ...,\n        \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n      },\n    }\n  },\n  footerNav[] { \n    ..., \n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    },\n    groupLinks[] {\n      ...,\n      menuLink {\n        ...,\n        \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n      },\n    }\n  },\n  privacyLinks[] {\n    ...,\n    menuLink {\n      ...,\n      \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n\n    }\n  }\n\n}': SettingsQueryResult;
+    '*[_type == "settings"][0] {\n  ...,\n  siteBanner[] { ..., \n\tmarkDefs[] { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n },\n  globalNavCta {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n},\n  footerCTA {..., ctaButton {..., \n  link { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n }\n }},\n  globalNav[] { \n    ..., \n    menuLink { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n },\n    groupLinks[] { ..., menuLink { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n } }\n  },\n  footerNav[] { \n    ..., \n    menuLink { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n },\n    groupLinks[] { ..., menuLink { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n } }\n  },\n  privacyLinks[] { ..., menuLink { ..., \n\t_type == "link" => {\n\t\t"page": page->slug.current,\n\t\t"author": author->slug.current,\n\t\t"article": article->slug.current,\n\t\t"blog": blog->slug.current,\n\t\t"ebook": ebook->slug.current,\n\t\t"guide": guide->slug.current,\n\t\t"webinar": webinar->slug.current,\n\t\t"tool": tool->slug.current,\n\t\t"template": template->slug.current,\n\t\t"file": file.asset->url,\n\t}\n } }\n\n}': SettingsQueryResult;
     '\n\t*[_type in \n  ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n ] | order(date desc) \n': AllResourcesQueryResult;
     '\n\t*[\n\t\t_type in \n  ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n \n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesPaginatedQueryResult;
     '\n\t*[\n\t\t_type in coalesce($types, \n  ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]\n)\n\t\t&& title match $terms\n\t\t&&\n\t\t(\n\t\t\t$topic == "*" \n\t\t\t|| (\n\t\t\t\tdefined(tags) \n\t\t\t\t&& count(tags[@->name match $topic]) > 0\n\t\t\t)\n\t\t)\n\t]\n\t| order(date desc)\n\t[$offset...$end]\n': AllResourcesSearchPaginatedQueryResult;

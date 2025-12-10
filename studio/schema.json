@@ -2151,11 +2151,11 @@
             "of": [
               {
                 "type": "string",
-                "value": "wide"
+                "value": "left"
               },
               {
                 "type": "string",
-                "value": "narrow"
+                "value": "top"
               }
             ]
           },
@@ -2175,6 +2175,14 @@
                 "value": "left"
               }
             ]
+          },
+          "optional": true
+        },
+        "quoteText": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "blockContent"
           },
           "optional": true
         },
@@ -3794,6 +3802,13 @@
                         }
                       }
                     }
+                  },
+                  "optional": true
+                },
+                "subTitle": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
                   },
                   "optional": true
                 },

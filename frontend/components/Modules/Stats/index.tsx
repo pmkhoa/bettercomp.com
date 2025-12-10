@@ -22,7 +22,12 @@ export default function StatsModule({ block }: { block: Stats }) {
             <h4>{heading}</h4>
           </div>
         </div>
-        <div className={cn('flex gap-0 gap-y-8 md:gap-8 justify-center mx-auto pt-8 flex-wrap')}>
+        <div
+          className={cn(
+            'flex gap-0 gap-y-8 md:gap-8 justify-center mx-auto pt-8 flex-wrap',
+            statNumber && statNumber.length > 3 && 'gap-x-0'
+          )}
+        >
           {statNumber?.map((stat: StatNumber) => {
             const {
               endNumber = '',
@@ -33,7 +38,7 @@ export default function StatsModule({ block }: { block: Stats }) {
             } = stat;
 
             return (
-              <div className="w-full md:w-1/4 my-2 px-4" key={get(stat, '_key')}>
+              <div className={cn('w-full md:w-1/4 my-2 px-4')} key={get(stat, '_key')}>
                 <div
                   className={cn('stats-number', 'flex relative justify-center text-bright-blue')}
                 >

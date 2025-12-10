@@ -1,4 +1,11 @@
-import { SanityImage, PortableText, MediaAsset, ButtonPrimary, ResolvedLink } from '@/components';
+import {
+  MotionFadeIn,
+  SanityImage,
+  PortableText,
+  MediaAsset,
+  ButtonPrimary,
+  ResolvedLink,
+} from '@/components';
 import cn from 'classnames';
 import { TwoColumnsContent } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
@@ -60,7 +67,11 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
                   columnLayout === '2/3' && 'col-span-12 md:col-span-8'
                 )}
               >
-                {asset && <MediaAsset mediaAsset={asset} />}
+                {asset && (
+                  <MotionFadeIn>
+                    <MediaAsset mediaAsset={asset} />
+                  </MotionFadeIn>
+                )}
               </div>
 
               <div
@@ -73,9 +84,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
               >
                 {subHeading && <h6 className="font-semibold mb-4 text-green">{subHeading}</h6>}
                 {heading && <h2 className="text-2xl md:text-3xl font-medium mb-4">{heading}</h2>}
-
                 <div className="flex-1">{description && <PortableText value={description} />}</div>
-
                 {ctaButton && ctaButton.linkLabel && (
                   <ButtonPrimary className="mt-8">
                     <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>

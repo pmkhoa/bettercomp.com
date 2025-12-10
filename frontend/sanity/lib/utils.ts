@@ -40,6 +40,21 @@ export const urlForImage = (source: any) => {
   return imageBuilder?.image(source).auto('format');
 };
 
+export const getImageDimension = (source: any) => {
+  // Ensure that source image contains a valid reference
+  if (!source?.asset?._ref) {
+    return { width: 0, height: 0 };
+  }
+
+  const imageRef = source?.asset?._ref;
+  const crop = source.crop;
+
+  // get the image's og dimensions
+  const { width, height } = getImageDimensions(imageRef);
+
+  return { width: width || 0, height: height || 0 };
+};
+
 export const urlForAsset = (source: any) => {
   // Ensure that source image contains a valid reference
   if (!source?.asset?._ref) {

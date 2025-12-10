@@ -2,12 +2,26 @@ import { SanityImage, ButtonPrimary, PortableText, MediaAsset, ResolvedLink } fr
 import cn from 'classnames';
 import { TwoColumnPhotoCards } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
+import { getImageDimension } from '@/sanity/lib/utils';
+
+export function getTallestAspectRatio(images: any): number {
+  if (!images?.length) return 0;
+
+  return images.reduce((maxRatio: any, img: any) => {
+    const { width, height } = getImageDimension(img);
+    const ratio = height / width;
+
+    return Math.max(maxRatio, ratio);
+  }, 0);
+}
 
 export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnPhotoCards }) {
   if (!block.enabled) return null;
-  const { sectionBackground, heading, description, ctaButton, listItem } = block;
+  const { sectionBackground, heading, description, ctaButton, listItem = [] } = block;
 
   const bgColor = `bg-${sectionBackground}`;
+
+  const tallestRatio = getTallestAspectRatio(listItem.map((content) => content.image));
 
   return (
     <section
@@ -32,16 +46,22 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
           {listItem?.map((content) => {
             return (
               <div
-                className={
-                  'col-span-12 sm:col-span-6 md:col-span-6 gap-4 border-1 border-gray-100 rounded-md overflow-hidden'
-                }
+                className={cn(
+                  'col-span-12 gap-4 border-1 border-gray-100 rounded-md overflow-hidden h-full',
+                  'sm:col-span-6 md:col-span-6'
+                )}
                 key={content._key}
               >
-                <div className="content-wrapper grid-container md:gap-4 bg-white shadow-md">
+                <div
+                  className={cn('content-wrapper grid-container bg-white shadow-md', 'md:gap-4')}
+                >
                   <div className="col-span-12 md:col-span-6">
                     {content?.image && (
-                      <div className="relative">
-                        <SanityImage image={content.image} className="w-full h-auto" />
+                      <div className="relative" style={{ aspectRatio: 1 / tallestRatio }}>
+                        <SanityImage
+                          image={content.image}
+                          className="w-full h-full absolute object-cover"
+                        />
                       </div>
                     )}
                   </div>
