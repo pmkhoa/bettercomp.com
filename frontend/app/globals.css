@@ -41,7 +41,7 @@
   --font-serif:  var(--font-zilla-slab), 'serif';
 
   --default-transition-duration: 250ms;
-  --container-max: 1320px;
+  --container-max: 1380px;
 
   --breakpoint-xs: 30rem;
   --breakpoint-sm: 40rem;
