@@ -31,7 +31,7 @@ const TOC = () => {
         tocbot.init({
           tocSelector: '.toc-container',
           contentSelector: '.inner-content',
-          headingSelector: 'h1, h2, h3, h4',
+          headingSelector: 'h3, h4',
           hasInnerContainers: true,
           scrollSmoothOffset: -120,
           headingsOffset: 420,

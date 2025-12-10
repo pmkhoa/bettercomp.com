@@ -15,6 +15,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
 
   const {
     asset,
+    assetUrl,
     assetPosition,
     columnLayout,
     ctaButton,
@@ -35,6 +36,9 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
 
   const bgColor = `bg-${backgroundColor}`;
   const sectionTextColor = `text-${textColor}`;
+
+  console.log('----------debugging----------');
+  console.log(block);
 
   return (
     <section
@@ -68,9 +72,22 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
                 )}
               >
                 {asset && (
-                  <MotionFadeIn>
-                    <MediaAsset mediaAsset={asset} />
-                  </MotionFadeIn>
+                  <>
+                    {assetUrl ? (
+                      <ResolvedLink link={assetUrl}>
+                        <MotionFadeIn>
+                          <MediaAsset
+                            mediaAsset={asset}
+                            className="transition-transform duration-300 hover:scale-105"
+                          />
+                        </MotionFadeIn>
+                      </ResolvedLink>
+                    ) : (
+                      <MotionFadeIn>
+                        <MediaAsset mediaAsset={asset} />
+                      </MotionFadeIn>
+                    )}
+                  </>
                 )}
               </div>
 

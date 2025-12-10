@@ -35,9 +35,7 @@ export default function Media({
     return (
       <div className={'background-container w-full h-full'}>
         {backgroundVideo && urlForAsset(backgroundVideo) && (
-          <div
-            className={`content-embed w-full responsive-iframe-container h-full  ${className}`}
-          >
+          <div className={`content-embed w-full responsive-iframe-container h-full  ${className}`}>
             <BackgroundVideo src={urlForAsset(backgroundVideo)} />
           </div>
         )}

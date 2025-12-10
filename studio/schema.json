@@ -95,6 +95,14 @@
           },
           "optional": true
         },
+        "assetUrl": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "link"
+          },
+          "optional": true
+        },
         "asset": {
           "type": "objectAttribute",
           "value": {
@@ -4747,6 +4755,14 @@
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
+                },
+                "optional": true
+              },
+              "link": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "inline",
+                  "name": "link"
                 },
                 "optional": true
               },

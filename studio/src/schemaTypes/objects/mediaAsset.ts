@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { ImageIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {ImageIcon} from '@sanity/icons'
 
 export const mediaAsset = defineType({
   name: 'mediaAsset',
@@ -13,9 +13,9 @@ export const mediaAsset = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'With Image', value: 'withImage' },
-          { title: 'With Embedded Content', value: 'withEmbedded' },
-          { title: 'With Background Video', value: 'withBackgroundVideo' },
+          {title: 'With Image', value: 'withImage'},
+          {title: 'With Embedded Content', value: 'withEmbedded'},
+          {title: 'With Background Video', value: 'withBackgroundVideo'},
         ],
       },
     }),
@@ -23,7 +23,7 @@ export const mediaAsset = defineType({
       name: 'image',
       title: 'Image',
       type: 'image',
-      hidden: ({ parent }) => parent?.mediaType !== 'withImage',
+      hidden: ({parent}) => parent?.mediaType !== 'withImage',
       fields: [
         defineField({
           name: 'alt',
@@ -35,19 +35,24 @@ export const mediaAsset = defineType({
           type: 'string',
           title: 'Caption',
         }),
+        defineField({
+          name: 'link',
+          type: 'link',
+          title: 'Link',
+        }),
       ],
     }),
     defineField({
       name: 'embeddedContent',
       title: 'Embedded Content',
       type: 'text',
-      hidden: ({ parent }) => parent?.mediaType !== 'withEmbedded',
+      hidden: ({parent}) => parent?.mediaType !== 'withEmbedded',
     }),
     defineField({
       name: 'backgroundVideo',
       title: 'With Background Video',
       type: 'file',
-      hidden: ({ parent }) => parent?.mediaType !== 'withBackgroundVideo',
+      hidden: ({parent}) => parent?.mediaType !== 'withBackgroundVideo',
     }),
   ],
   preview: {
@@ -55,11 +60,11 @@ export const mediaAsset = defineType({
       title: 'mediaType',
       image: 'image',
     },
-    prepare({ title, image }) {
+    prepare({title, image}) {
       return {
         title,
         media: image,
-      };
+      }
     },
   },
-});
+})

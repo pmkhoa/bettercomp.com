@@ -226,6 +226,7 @@ const pageBuilderContent = /* groq */ defineQuery(`
     _type == 'twoColumnsContent' => { 
       ...,
       description[] { ..., ${markDefsWithLink} },
+      assetUrl {..., ${linkReference} },
       ctaButton {..., ${linkFields} },
 	  },
     _type == 'sideCalloutWithImages' => { 

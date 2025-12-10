@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { UlistIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {UlistIcon} from '@sanity/icons'
 
 export const twoColumnsContent = defineType({
   name: 'twoColumnsContent',
@@ -19,9 +19,9 @@ export const twoColumnsContent = defineType({
       type: 'string',
       options: {
         list: [
-          { title: '1/1', value: '1/1' },
-          { title: '1/3', value: '1/3' },
-          { title: '2/3', value: '2/3' },
+          {title: '1/1', value: '1/1'},
+          {title: '1/3', value: '1/3'},
+          {title: '2/3', value: '2/3'},
         ],
         layout: 'dropdown',
       },
@@ -58,11 +58,16 @@ export const twoColumnsContent = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Left', value: 'left' },
-          { title: 'Right', value: 'right' },
+          {title: 'Left', value: 'left'},
+          {title: 'Right', value: 'right'},
         ],
       },
       initialValue: 'left',
+    }),
+    defineField({
+      name: 'assetUrl',
+      title: 'Asset Url',
+      type: 'link',
     }),
     defineField({
       name: 'asset',
@@ -75,11 +80,11 @@ export const twoColumnsContent = defineType({
       title: 'heading',
       assetPosition: 'assetPosition',
     },
-    prepare({ title, assetPosition }) {
+    prepare({title, assetPosition}) {
       return {
         title: title || 'Two Columns Content',
         subtitle: `Media position - ${assetPosition}`,
-      };
+      }
     },
   },
-});
+})

@@ -31,7 +31,7 @@ export const link = defineType({
           { title: 'Resource Template', value: 'template' },
           { title: 'Webinar', value: 'webinar' },
         ],
-        layout: 'radio',
+        layout: 'dropdown',
       },
     }),
     defineField({
