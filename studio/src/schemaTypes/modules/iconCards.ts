@@ -62,6 +62,11 @@ export const iconCards = defineType({
               ],
             }),
             defineField({
+              name: 'subTitle',
+              title: 'Sub Title',
+              type: 'string',
+            }),
+            defineField({
               name: 'title',
               title: 'Title',
               type: 'string',

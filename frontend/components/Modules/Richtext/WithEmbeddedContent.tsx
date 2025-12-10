@@ -25,7 +25,7 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
           {columnContent && (
             <div
               className={cn(
-                useNarrowWidthContent && showTOC ? 'col-span-9' : 'col-span-12',
+                useNarrowWidthContent && showTOC ? 'col-span-9 md:col-span-9' : 'col-span-12',
                 `relative`
               )}
             >

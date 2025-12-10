@@ -23,7 +23,9 @@ export default function RichTextDefault({ block, pageData }: Props) {
       <div className="container grid-container">
         <div
           className={cn(
-            useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
+            useNarrowWidthContent && !showTOC
+              ? 'col-span-12 md:col-span-9'
+              : 'col-span-12 md:col-span-12',
             'relative'
           )}
         >

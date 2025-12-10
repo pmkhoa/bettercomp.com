@@ -107,9 +107,9 @@ export default function CustomPortableText({
       },
       blockquote: ({ children, value }) => {
         return (
-          <div className="bg-sand relative py-12 px-12 overflow-hidden my-8">
-            <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 overflow-hidden -left-1 rounded-md" />
-            <blockquote className="group relative text-2xl md:text-3xl">{children}</blockquote>
+          <div className="relative py-2 px-10 overflow-hidden my-8">
+            <div className="h-full bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[6px] absolute inset-0 z-30 overflow-hidden rounded-[2px]" />
+            <blockquote className="group relative h4">{children}</blockquote>
           </div>
         );
       },

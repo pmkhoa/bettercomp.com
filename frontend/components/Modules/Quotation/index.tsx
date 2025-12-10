@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Quotation, GetResourceQueryResult } from '@/sanity.types';
-import { SanityImage } from '@/components';
+import { PortableText, SanityImage } from '@/components';
 
 type QuotationProps = {
   block: Quotation;
@@ -14,8 +14,30 @@ export default function QuotationModule({ block, pageData }: QuotationProps) {
     return null;
   }
 
-  const { layout, quote, authorInfo, image, additionalInfo, textAlign } = block;
+  const { layout, quoteText, quote, authorInfo, image, additionalInfo, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
+
+  if (layout === 'left') {
+    return (
+      <section className={cn('section-quote section-module my-20 overflow-hidden')}>
+        <div className="container">
+          <div className="grid-container">
+            <div
+              className={cn(
+                useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12',
+                'relative'
+              )}
+            >
+              <div className="h-full bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[6px] absolute inset-0 z-30 rounded-md overflow-hidden rounded-[2px]" />
+              <div className={cn('flex flex-col py-2 px-10')}>
+                <PortableText value={quoteText} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={cn('section-quote section-module my-20 overflow-hidden')}>
@@ -23,7 +45,7 @@ export default function QuotationModule({ block, pageData }: QuotationProps) {
         <div className="grid-container">
           <div
             className={cn(
-              useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
+              useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12',
               'relative'
             )}
           >

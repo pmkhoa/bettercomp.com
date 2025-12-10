@@ -15,7 +15,11 @@ export default function FormContentSection({ block, pageData }: Props) {
     <section className={cn('section-module', 'richtext-default my-20')}>
       <div className="container">
         <div className={cn('grid-container items-center')}>
-          <div className={cn(useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12')}>
+          <div
+            className={cn(
+              useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12'
+            )}
+          >
             <PortableText value={description} />
             {formContentSection && (
               <div className="form-container mt-8">

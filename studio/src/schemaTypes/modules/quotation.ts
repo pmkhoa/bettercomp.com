@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { TextIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {TextIcon} from '@sanity/icons'
 
 export const quotation = defineType({
   name: 'quotation',
@@ -19,11 +19,11 @@ export const quotation = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Wide', value: 'wide' },
-          { title: 'Narrow', value: 'narrow' },
+          {value: 'left', title: 'Left Border'},
+          {value: 'top', title: 'Top Border'},
         ],
       },
-      initialValue: 'wide',
+      initialValue: 'left',
     }),
     defineField({
       name: 'textAlign',
@@ -31,16 +31,24 @@ export const quotation = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Center', value: 'center' },
-          { title: 'Left', value: 'left' },
+          {title: 'Center', value: 'center'},
+          {title: 'Left', value: 'left'},
         ],
       },
       initialValue: 'center',
+      hidden: ({parent}) => parent?.layout === 'left',
+    }),
+    defineField({
+      name: 'quoteText',
+      title: 'Quote Text',
+      type: 'blockContent',
+      hidden: ({parent}) => parent?.layout === 'top',
     }),
     defineField({
       name: 'quote',
       title: 'Quote',
       type: 'text',
+      hidden: ({parent}) => parent?.layout === 'left',
     }),
     defineField({
       name: 'quoteFontWeight',
@@ -48,24 +56,26 @@ export const quotation = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Medium', value: 'medium' },
-          { title: 'Normal', value: 'normal' },
-          { title: 'Light', value: 'light' },
+          {title: 'Medium', value: 'medium'},
+          {title: 'Normal', value: 'normal'},
+          {title: 'Light', value: 'light'},
         ],
       },
       initialValue: 'medium',
+      hidden: ({parent}) => parent?.layout === 'left',
     }),
 
     defineField({
       name: 'authorInfo',
       title: 'Author Info',
       type: 'string',
+      hidden: ({parent}) => parent?.layout === 'left',
     }),
     defineField({
       name: 'image',
       title: 'Author Photo',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
       fields: [
         defineField({
           name: 'alt',
@@ -73,23 +83,23 @@ export const quotation = defineType({
           title: 'Alternative text',
         }),
       ],
+      hidden: ({parent}) => parent?.layout === 'left',
     }),
     defineField({
       name: 'additionalInfo',
       title: 'Additional Info',
       type: 'string',
+      hidden: ({parent}) => parent?.layout === 'left',
     }),
   ],
   preview: {
     select: {
       title: 'quote',
-      sectionId: 'sectionId',
     },
-    prepare({ title, sectionId }) {
+    prepare({title}) {
       return {
-        title: title || 'Untitled Info Section',
-        subtitle: `Quote - ${sectionId?.current || ''}`,
-      };
+        title: title || 'Quotation Section',
+      }
     },
   },
-});
+})

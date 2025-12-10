@@ -75,7 +75,7 @@ export default function SectionTestimonialsModule({ block }: Props) {
                       <SanityImage image={companyIcon} className="max-h-[94px] h-auto w-auto" />
                     </div>
                     <div className="grid-container">
-                      <div className="col-span-9">
+                      <div className="col-span-12 md:col-span-9">
                         <div className={s['content-heading']}>
                           <div className="title my-4">
                             <strong>{title}</strong>

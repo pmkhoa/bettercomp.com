@@ -3,7 +3,7 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { IconCards } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
-import iconCardsBg from '@/assets/images/iconcards-bg.png';
+import iconCardsBg from '@/assets/images/bg-graphical-grid.svg';
 
 export default function IconCardsModule({ block }: { block: IconCards }) {
   if (!block.enabled) return null;
@@ -11,13 +11,11 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
 
   return (
     <section className={cn('section-module relative', 'icon-cards bg-blue py-16 md:py-24')}>
-      <div className="bg-top  w-full h-[50%] absolute top-0 left-0 z-10">
-        <Image
-          src={iconCardsBg}
-          alt="Background"
-          className="absolute inset-0 object-cover w-full h-full"
-        />
-      </div>
+      <div className="h-4 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-full max-w-[740px] left-[25%] absolute top-[-8px] z-20" />
+      <div
+        className="bg-top  w-full h-[50%] absolute top-0 left-0 z-10"
+        style={{ backgroundImage: `url('/images/bg-graphical-grid.svg')`, backgroundSize: '100%' }}
+      />
       <div className="container z-20 relative">
         <div className="flex justify-center items-center text-center mb-8 pb-8">
           <div className="description max-w-3xl text-white">
@@ -42,19 +40,20 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
                 <div
                   className={cn(
                     'content-wrapper bg-white shadow-md',
-                    layout === 'two' && 'p-8 md:p-12',
-                    layout === 'three' && 'p-8 md:p-8'
+                    layout === 'two' && 'p-10 md:p-12',
+                    layout === 'three' && 'p-8 md:p-10'
                   )}
                 >
                   {content?.image && (
                     <div className="relative mb-8">
-                      <SanityImage image={content.image} className="w-[40px] h-auto" />
+                      <SanityImage image={content.image} className="w-full max-h-[120px]" />
                     </div>
                   )}
                   <div className="inner-content mb-4">
-                    {content.title && (
-                      <p className="font-bold font-serif text-green">{content.title}</p>
+                    {content.subTitle && (
+                      <p className="font-bold font-serif text-green">{content.subTitle}</p>
                     )}
+                    {content.title && <h4 className="font-medium">{content.title}</h4>}
                   </div>
                   {content.content && (
                     <div className="mb-8">

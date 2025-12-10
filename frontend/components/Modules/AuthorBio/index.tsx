@@ -27,7 +27,11 @@ const AuthorBioModule = ({ block, pageData }: Props) => {
     <section className="section-module section-author">
       <div className="container">
         <div className={cn('grid-container relative md:my-20 ')}>
-          <div className={cn(useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12')}>
+          <div
+            className={cn(
+              useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12'
+            )}
+          >
             <div className="flex justify-start  gap-8">
               {picture?.asset?._ref && (
                 <div className="mx-auto md:mr-4 h-[100px] w-[100px] rounded-full min-w-[100px] overflow-hidden">

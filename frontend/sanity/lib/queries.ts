@@ -45,41 +45,19 @@ const resourceFields = /* groq */ `
 export const settingsQuery = defineQuery(`*[_type == "settings"][0] {
   ...,
   siteBanner[] { ..., ${markDefsWithLink} },
+  globalNavCta {..., ${linkFields}},
+  footerCTA {..., ctaButton {..., ${linkFields} }},
   globalNav[] { 
     ..., 
-    menuLink {
-      ...,
-      ${linkReference}
-    },
-    groupLinks[] {
-      ...,
-      menuLink {
-        ...,
-        ${linkReference}
-      },
-    }
+    menuLink { ..., ${linkReference} },
+    groupLinks[] { ..., menuLink { ..., ${linkReference} } }
   },
   footerNav[] { 
     ..., 
-    menuLink {
-      ...,
-      ${linkReference}
-    },
-    groupLinks[] {
-      ...,
-      menuLink {
-        ...,
-        ${linkReference}
-      },
-    }
+    menuLink { ..., ${linkReference} },
+    groupLinks[] { ..., menuLink { ..., ${linkReference} } }
   },
-  privacyLinks[] {
-    ...,
-    menuLink {
-      ...,
-      ${linkReference}
-    }
-  }
+  privacyLinks[] { ..., menuLink { ..., ${linkReference} } }
 
 }`);
 
