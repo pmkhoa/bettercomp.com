@@ -15,6 +15,7 @@ import {tag} from './documents/tag'
 
 // Objects
 import {background} from './objects/background'
+import {bgColor} from './objects/backgroundColor'
 import {blockContent} from './objects/blockContent'
 import {ctaLink} from './objects/ctaLink'
 import {form} from './objects/form'
@@ -76,6 +77,7 @@ export const schemaTypes = [
 
   // Objects
   background,
+  bgColor,
   blockContent,
   ctaLink,
   form,

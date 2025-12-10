@@ -1,5 +1,6 @@
 import cn from 'classnames';
-import { Richtext } from '@/sanity.types';
+import { Background, Richtext } from '@/sanity.types';
+import { defaultBackground } from '@/utils/constants';
 import { PortableText, SanityImage } from '@/components';
 
 type Props = {
@@ -8,13 +9,38 @@ type Props = {
 };
 
 export default function RichTextWithImage({ block, pageData }: Props) {
-  const { columnContent, image, contentMaxWidth, textAlign } = block;
+  const {
+    background = defaultBackground,
+    columnContent,
+    image,
+    contentMaxWidth,
+    textAlign,
+  } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
+  const {
+    enabled: backgroundEnabled,
+    backgroundType,
+    backgroundColor,
+    asset,
+    textColor,
+  } = background;
+
+  const bgColor = `bg-${backgroundColor}`;
+  const sectionTextColor = `text-${textColor}`;
+
   return (
-    <section className={cn('section-module section-richtext', 'richtext-image', 'my-20')}>
+    <section
+      className={cn(
+        'section-module section-richtext',
+        'richtext-image',
+        backggroundEnabled ? 'py-12 md:py-20' : 'my-12 md:my-20',
+        sectionTextColor,
+        backgroundEnabled && bgColor
+      )}
+    >
       <div className="container">
-        <div className={cn('grid-container')}>
+        <div className={cn('grid-container gap-y-10')}>
           <div
             className={cn(
               useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',

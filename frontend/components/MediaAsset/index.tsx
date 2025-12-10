@@ -6,10 +6,12 @@ import { BackgroundVideo, SanityImage } from '@/components';
 export default function Media({
   mediaAsset,
   showPopup = false,
+  priority = false,
   className,
 }: {
   mediaAsset: MediaAsset;
   showPopup?: boolean;
+  priority?: boolean;
   className?: string;
 }) {
   const mediaType = mediaAsset.mediaType;
@@ -59,6 +61,7 @@ export default function Media({
             alt={image?.alt}
             className={`w-full ${className}`}
             caption={get(image, 'caption')}
+            priority={priority}
           />
         )}
       </div>
@@ -73,6 +76,7 @@ export default function Media({
           alt={mediaAsset?.image?.alt || 'Vigor ship photo'}
           caption={get(mediaAsset, 'image.caption')}
           className={`w-full ${className}`}
+          priority={priority}
         />
       )}
     </>

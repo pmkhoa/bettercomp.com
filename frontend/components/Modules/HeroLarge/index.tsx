@@ -71,7 +71,7 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
               <div className="relative w-full">
                 <MotionFadeIn>
                   <div className="relative z-30 w-full">
-                    {heroImage && <MediaAsset mediaAsset={heroImage} />}
+                    {heroImage && <MediaAsset mediaAsset={heroImage} priority />}
                   </div>
                 </MotionFadeIn>
               </div>

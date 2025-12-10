@@ -24,8 +24,8 @@ export default function StatsModule({ block }: { block: Stats }) {
         </div>
         <div
           className={cn(
-            'flex gap-0 gap-y-8 md:gap-8 justify-center mx-auto pt-8 flex-wrap',
-            statNumber && statNumber.length > 3 && 'gap-x-0'
+            'flex gap-0 gap-y-8 justify-center mx-auto pt-8 flex-wrap',
+            statNumber && statNumber.length > 3 ? 'gap-x-0 gap-y-8' : 'md:gap-8'
           )}
         >
           {statNumber?.map((stat: StatNumber) => {

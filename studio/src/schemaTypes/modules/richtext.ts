@@ -29,6 +29,12 @@ export const richtext = defineType({
     }),
 
     defineField({
+      name: 'background',
+      title: 'Background',
+      type: 'bgColor',
+    }),
+
+    defineField({
       name: 'contentMaxWidth',
       title: 'Content Max Width',
       type: 'string',

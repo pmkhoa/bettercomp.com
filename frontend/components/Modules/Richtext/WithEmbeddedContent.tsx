@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { Richtext } from '@/sanity.types';
+import { defaultBackground } from '@/utils/constants';
 import { PortableText } from '@/components';
 
 type Props = {
@@ -8,7 +9,13 @@ type Props = {
 };
 
 export default function RichTextWithEmbedded({ block, pageData }: Props) {
-  const { columnContent, embeddedContent, contentMaxWidth, textAlign } = block;
+  const {
+    background = defaultBackground,
+    columnContent,
+    embeddedContent,
+    contentMaxWidth,
+    textAlign,
+  } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
   let maxWidth = 'w-full';
@@ -18,8 +25,27 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
     maxWidth = 'max-w-2xl';
   }
 
+  const {
+    enabled: backgroundEnabled,
+    backgroundType,
+    backgroundColor,
+    asset,
+    textColor,
+  } = background;
+
+  const bgColor = `bg-${backgroundColor}`;
+  const sectionTextColor = `text-${textColor}`;
+
   return (
-    <section className={cn('section-module section-richtext', 'rich-text-embed', 'my-20')}>
+    <section
+      className={cn(
+        'section-module section-richtext',
+        'rich-text-embed',
+        backgroundEnabled ? 'py-16 md:py-20' : 'my-16 md:my-24',
+        sectionTextColor,
+        backgroundEnabled && bgColor
+      )}
+    >
       <div className="container">
         <div className={cn('grid-container')}>
           {columnContent && (

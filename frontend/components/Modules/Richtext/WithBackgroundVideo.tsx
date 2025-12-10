@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { Richtext } from '@/sanity.types';
+import { defaultBackground } from '@/utils/constants';
 import { urlForAsset } from '@/sanity/lib/utils';
 import { PortableText, BackgroundVideo } from '@/components';
 
@@ -9,12 +10,29 @@ type Props = {
 };
 
 export default function RichTextWithBackgroundVideo({ block, pageData }: Props) {
-  const { columnContent, backgroundVideo, textAlign } = block;
+  const { background = defaultBackground, columnContent, backgroundVideo, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
+
+  const {
+    enabled: backgroundEnabled,
+    backgroundType,
+    backgroundColor,
+    asset,
+    textColor,
+  } = background;
+
+  const bgColor = `bg-${backgroundColor}`;
+  const sectionTextColor = `text-${textColor}`;
 
   return (
     <section
-      className={cn('section-module section-richtext', 'richtext-background-video', 'my-24')}
+      className={cn(
+        'section-module section-richtext',
+        'richtext-background-video',
+        backgroundEnabled ? 'py-16 md:py-20' : 'my-16 md:my-24',
+        sectionTextColor,
+        backgroundEnabled && bgColor
+      )}
     >
       <div className="container">
         <div className={cn('grid-container')}>
