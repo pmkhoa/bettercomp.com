@@ -25,13 +25,7 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
     maxWidth = 'max-w-2xl';
   }
 
-  const {
-    enabled: backgroundEnabled,
-    backgroundType,
-    backgroundColor,
-    asset,
-    textColor,
-  } = background;
+  const { enabled: backgroundEnabled, backgroundColor, textColor } = background;
 
   const bgColor = `bg-${backgroundColor}`;
   const sectionTextColor = `text-${textColor}`;

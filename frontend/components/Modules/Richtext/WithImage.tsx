@@ -18,13 +18,7 @@ export default function RichTextWithImage({ block, pageData }: Props) {
   } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
-  const {
-    enabled: backgroundEnabled,
-    backgroundType,
-    backgroundColor,
-    asset,
-    textColor,
-  } = background;
+  const { enabled: backgroundEnabled, backgroundColor, textColor } = background;
 
   const bgColor = `bg-${backgroundColor}`;
   const sectionTextColor = `text-${textColor}`;
@@ -34,7 +28,7 @@ export default function RichTextWithImage({ block, pageData }: Props) {
       className={cn(
         'section-module section-richtext',
         'richtext-image',
-        backggroundEnabled ? 'py-12 md:py-20' : 'my-12 md:my-20',
+        backgroundEnabled ? 'py-12 md:py-20' : 'my-12 md:my-20',
         sectionTextColor,
         backgroundEnabled && bgColor
       )}

@@ -185,6 +185,7 @@ export type Richtext = {
   _type: 'richtext';
   enabled?: boolean;
   richTextType?: 'default' | 'withImage' | 'withEmbedded' | 'withBackgroundVideo';
+  background?: BgColor;
   contentMaxWidth?: 'full' | 'medium' | 'narrow';
   textAlign?: 'center' | 'left';
   columnContent?: BlockContent;
@@ -899,6 +900,21 @@ export type Form = {
   formType: 'contact' | 'custom';
   formId?: string;
   campaignId?: string;
+};
+
+export type BgColor = {
+  _type: 'bgColor';
+  enabled?: boolean;
+  backgroundColor?:
+    | 'blue'
+    | 'sand'
+    | 'light-blue'
+    | 'accent-brick'
+    | 'orange'
+    | 'bright-blue'
+    | 'gold'
+    | 'teal-green';
+  textColor?: 'white' | 'blue';
 };
 
 export type Background = {
@@ -1650,6 +1666,7 @@ export type AllSanitySchemaTypes =
   | HeroResource
   | FullWidthCTA
   | Form
+  | BgColor
   | Background
   | Tag
   | Slug
@@ -6286,6 +6303,7 @@ export type AuthorQueryResult = {
         _type: 'richtext';
         enabled?: boolean;
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+        background?: BgColor;
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
         columnContent: Array<
@@ -10839,6 +10857,7 @@ export type GetHomeQueryResult = {
         _type: 'richtext';
         enabled?: boolean;
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+        background?: BgColor;
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
         columnContent: Array<
@@ -15043,6 +15062,7 @@ export type GetPageQueryResult = {
         _type: 'richtext';
         enabled?: boolean;
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+        background?: BgColor;
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
         columnContent: Array<
@@ -19301,6 +19321,7 @@ export type GetArticleQueryResult = {
         _type: 'richtext';
         enabled?: boolean;
         richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+        background?: BgColor;
         contentMaxWidth?: 'full' | 'medium' | 'narrow';
         textAlign?: 'center' | 'left';
         columnContent: Array<
@@ -23650,6 +23671,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -28083,6 +28105,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -32524,6 +32547,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -36964,6 +36988,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -41404,6 +41429,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -45795,6 +45821,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -50188,6 +50215,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -54755,6 +54783,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -59195,6 +59224,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<
@@ -63635,6 +63665,7 @@ export type GetResourceQueryResult =
             _type: 'richtext';
             enabled?: boolean;
             richTextType?: 'default' | 'withBackgroundVideo' | 'withEmbedded' | 'withImage';
+            background?: BgColor;
             contentMaxWidth?: 'full' | 'medium' | 'narrow';
             textAlign?: 'center' | 'left';
             columnContent: Array<

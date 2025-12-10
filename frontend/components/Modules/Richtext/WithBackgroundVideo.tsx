@@ -2,8 +2,8 @@ import cn from 'classnames';
 import { Richtext } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 import { urlForAsset } from '@/sanity/lib/utils';
-import { PortableText, BackgroundVideo } from '@/components';
 
+import { PortableText, BackgroundVideo } from '@/components';
 type Props = {
   block: Richtext;
   pageData: any;
@@ -13,13 +13,7 @@ export default function RichTextWithBackgroundVideo({ block, pageData }: Props) 
   const { background = defaultBackground, columnContent, backgroundVideo, textAlign } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
-  const {
-    enabled: backgroundEnabled,
-    backgroundType,
-    backgroundColor,
-    asset,
-    textColor,
-  } = background;
+  const { enabled: backgroundEnabled, backgroundColor, textColor } = background;
 
   const bgColor = `bg-${backgroundColor}`;
   const sectionTextColor = `text-${textColor}`;

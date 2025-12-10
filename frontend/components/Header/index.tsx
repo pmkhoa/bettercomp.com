@@ -21,9 +21,6 @@ export default function Header({ settings }: { settings: Settings }) {
   const { siteBanner, loginLink, helpLink, globalNav, globalNavCta } = settings;
   const { scrollY } = useScroll();
 
-  console.log('----------debugging: global nav cta----------');
-  console.log(globalNavCta);
-
   const pathname = usePathname();
   const [searchActive, setSearchActive] = useState(false);
 
