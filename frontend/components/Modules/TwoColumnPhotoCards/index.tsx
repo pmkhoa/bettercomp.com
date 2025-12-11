@@ -42,7 +42,7 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
           </div>
         </div>
 
-        <div className="grid-container gap-y-4 md:gap-12">
+        <div className="grid-container gap-6 md:gap-8">
           {listItem?.map((content) => {
             return (
               <div

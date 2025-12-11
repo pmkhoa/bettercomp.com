@@ -97,7 +97,7 @@ export default function Footer({ settings }: { settings: Settings }) {
         </div>
       </div>
       <div className="container relative mb-16 md:mt-10 md:mb-20">
-        <div className="grid-container align-items">
+        <div className="grid-container items-center">
           <div className="col-span-4">
             <div className="copyright-info text-sm">
               <small>

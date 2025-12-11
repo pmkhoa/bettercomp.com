@@ -20,7 +20,7 @@ export default function SectionHeroCTA({ block, pageData }: { block: HeroCTA; pa
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (
-    <section className={cn('hero-cta overflow-hidden relative')}>
+    <section className={cn('hero-cta overflow-hidden relative bg-blue md:bg-transparent')}>
       <div className="container z-10 relative z-20 text-white py-16 md:py-20 bg-blue px-4 md:px-20">
         <div className="grid-container">
           <div
@@ -29,7 +29,7 @@ export default function SectionHeroCTA({ block, pageData }: { block: HeroCTA; pa
               'relative'
             )}
           >
-            <div className="absolute w-full h-full inset-0">
+            <div className="md:absolute w-full md:h-full inset-0">
               {backgroundDesktop && backgroundDesktop.asset && (
                 <SanityImage
                   image={backgroundDesktop.asset}
@@ -39,7 +39,7 @@ export default function SectionHeroCTA({ block, pageData }: { block: HeroCTA; pa
               {backgroundMobile && backgroundMobile.asset && (
                 <SanityImage
                   image={backgroundMobile.asset}
-                  className="w-full h-full object-contain object-right relative md:hidden"
+                  className="w-full h-full object-contain object-right relative md:hidden mb-8"
                 />
               )}
             </div>

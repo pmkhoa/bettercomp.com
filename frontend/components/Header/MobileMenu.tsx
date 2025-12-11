@@ -4,9 +4,10 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { Settings } from '@/sanity.types';
 import Image from 'next/image';
+import { SearchIcon, HelpDeskIcon, ProfileIcon } from '@/components/Icons';
 import { useClose, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ResolvedLink } from '@/components';
+import { ButtonPrimary, ResolvedLink } from '@/components';
 import DropdownMobile from './DropdownMobile';
 import cn from 'classnames';
 
@@ -29,7 +30,7 @@ const MobileMenuContent = ({
   open: boolean;
   settings: Settings;
 }) => {
-  const { globalNav, globalNavCta } = settings;
+  const { helpLink, loginLink, globalNav, globalNavCta } = settings;
 
   // Lock/unlock body scroll when menu opens/closes
   useEffect(() => {
@@ -78,6 +79,32 @@ const MobileMenuContent = ({
                     return <DropdownMobile nav={nav} key={nav._key} closeMainMenu={close} />;
                   }
                 })}
+
+                {globalNavCta && globalNavCta.linkText && (
+                  <div className="cta-wrapper flex justify-center my-16 w-full">
+                    <ButtonPrimary>
+                      <ResolvedLink link={globalNavCta.link}>{globalNavCta.linkText}</ResolvedLink>
+                    </ButtonPrimary>
+                  </div>
+                )}
+                <div className="quick-actions flex items-center gap-8 my-16 mx-8 justify-center">
+                  {helpLink && (
+                    <div className="link-with-icon">
+                      <Link href={helpLink} className="flex items-center gap-2 text-sm">
+                        <span>Help</span>
+                        <HelpDeskIcon />
+                      </Link>
+                    </div>
+                  )}
+                  {loginLink && (
+                    <div className="link-with-icon">
+                      <Link href={loginLink} className="flex items-center gap-2 text-sm">
+                        <span>Login</span>
+                        <ProfileIcon />
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
             </DisclosurePanel>
           </motion.div>
