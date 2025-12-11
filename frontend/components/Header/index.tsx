@@ -174,7 +174,7 @@ export default function Header({ settings }: { settings: Settings }) {
 
             {/* DESKTOP NAV */}
             <div className="desktop-menu menu-wrapper flex-end items-center gap-8 hidden md:flex">
-              <div className="flex items-center my-0 gap-3 xl:gap-8 font-normal list-none mr-24">
+              <div className="flex items-center my-0 gap-3 xl:gap-8 font-normal list-none lg:mr-10 xl:mr-24">
                 <PopoverGroup
                   className={cn(
                     'hidden md:flex navlinks-desktop',

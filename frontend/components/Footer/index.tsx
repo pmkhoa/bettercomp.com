@@ -52,7 +52,10 @@ export default function Footer({ settings }: { settings: Settings }) {
             {footerNav?.map((footerLinkColumn) => {
               if (footerLinkColumn.groupLinks && footerLinkColumn.groupLinks.length) {
                 return (
-                  <div className="link-column min-w-[160px]" key={footerLinkColumn._key}>
+                  <div
+                    className="link-column w-[160px] md:min-w-[160px] md:w-auto"
+                    key={footerLinkColumn._key}
+                  >
                     <div className="menu-label text-green uppercase my-4 font-bold text-sm">
                       {footerLinkColumn.menuLabel}
                     </div>
@@ -97,7 +100,7 @@ export default function Footer({ settings }: { settings: Settings }) {
         </div>
       </div>
       <div className="container relative mb-16 md:mt-10 md:mb-20">
-        <div className="grid-container items-center">
+        <div className="grid-container items-center gap-y-4">
           <div className="col-span-4">
             <div className="copyright-info text-sm">
               <small>

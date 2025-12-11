@@ -15,6 +15,10 @@ const linkReference = /* groq */ `
 	}
 `;
 
+const allContentTypes = `
+  [page, author, "blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]
+`;
+
 const resourceTypes = `
   ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]
 `;
@@ -242,6 +246,13 @@ const pageBuilderContent = /* groq */ defineQuery(`
       readAllReviews {..., ${linkFields} } 
     },
   }
+`);
+
+export const searchQuery = defineQuery(`
+	*[_type in ${allContentTypes} && 
+		(name match $searchTerm || title match $searchTerm || description match $searchTerm || author->firstName match $searchTerm || author->lastName match $searchTerm)] {
+		...
+	}
 `);
 
 export const authorQuery = defineQuery(`

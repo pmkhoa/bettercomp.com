@@ -9,6 +9,7 @@ import { useClose, Disclosure, DisclosureButton, DisclosurePanel } from '@headle
 import { AnimatePresence, motion } from 'framer-motion';
 import { ButtonPrimary, ResolvedLink } from '@/components';
 import DropdownMobile from './DropdownMobile';
+import SearchBox from './SearchBox';
 import cn from 'classnames';
 
 type MobileMenuProps = {
@@ -59,6 +60,9 @@ const MobileMenuContent = ({
                 role="list"
                 className="flex flex-col gap-0 font-normal list-none text-blue overflow-auto"
               >
+                <div className="p-4 bg-sand   border-b-2 border-gray-200">
+                  <SearchBox />
+                </div>
                 {globalNav?.map((nav) => {
                   if (nav.menuItemType === 'default') {
                     return (
@@ -81,13 +85,13 @@ const MobileMenuContent = ({
                 })}
 
                 {globalNavCta && globalNavCta.linkText && (
-                  <div className="cta-wrapper flex justify-center my-16 w-full">
+                  <div className="cta-wrapper flex justify-center mt-8 mb-4 w-full">
                     <ButtonPrimary>
                       <ResolvedLink link={globalNavCta.link}>{globalNavCta.linkText}</ResolvedLink>
                     </ButtonPrimary>
                   </div>
                 )}
-                <div className="quick-actions flex items-center gap-8 my-16 mx-8 justify-center">
+                <div className="quick-actions flex items-center gap-8 my-8 mx-8 justify-center">
                   {helpLink && (
                     <div className="link-with-icon">
                       <Link href={helpLink} className="flex items-center gap-2 text-sm">

@@ -20,7 +20,7 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
         <div className="grid-container overflow-hidden">
           <div
             className={cn(
-              useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
+              useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12',
               'relative'
             )}
           >
@@ -42,13 +42,13 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
               )}
             </div>
             <div className="grid-container p-14 z-20 relative items-start gap-6">
-              <div className="cta-content col-span-8">
+              <div className="cta-content col-span-12 md:col-span-8">
                 <div className="inner-content text-white section-richtext">
                   {description && <PortableText value={description} />}
                 </div>
               </div>
               {ctaButton && ctaButton?.showCtaLink && ctaButton?.linkLabel && (
-                <div className="col-start-9 col-span-4 flex justify-end items-start">
+                <div className="col-span-12 md:col-start-9 md:col-span-4 flex md:justify-end items-start">
                   <ButtonPrimary className="mt-2">
                     <ResolvedLink link={ctaButton?.link}>{ctaButton?.linkLabel}</ResolvedLink>
                   </ButtonPrimary>

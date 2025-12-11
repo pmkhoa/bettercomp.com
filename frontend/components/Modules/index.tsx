@@ -10,6 +10,7 @@ export { default as Richtext } from './Richtext';
 export { default as FormContent } from './FormContent';
 export { default as HeroResource } from './HeroResource';
 export { default as HeroShort } from './HeroShort';
+export { default as SearchHero } from './SearchHero';
 export { default as HeroCTA } from './HeroCTA';
 export { default as ShortCTA } from './ShortCTA';
 export { default as FullWidthCTA } from './FullWidthCTA';
