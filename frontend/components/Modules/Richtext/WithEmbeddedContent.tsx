@@ -20,7 +20,7 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
 
   let maxWidth = 'w-full';
   if (contentMaxWidth === 'medium') {
-    maxWidth = 'max-w-3xl';
+    maxWidth = 'max-w-[80%]';
   } else if (contentMaxWidth === 'narrow') {
     maxWidth = 'max-w-2xl';
   }
@@ -45,7 +45,7 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
           {columnContent && (
             <div
               className={cn(
-                useNarrowWidthContent && showTOC ? 'col-span-9 md:col-span-9' : 'col-span-12',
+                useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12',
                 `relative`
               )}
             >
@@ -54,6 +54,7 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
                   'richtext-inner',
                   `text-${textAlign}`,
                   maxWidth,
+                  contentMaxWidth === 'medium' && textAlign === 'center' && 'narrow-paragraph',
                   textAlign === 'center' && 'mx-auto'
                 )}
               >
@@ -64,15 +65,19 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
           {embeddedContent && (
             <div
               className={cn(
-                useNarrowWidthContent ? 'col-span-9' : 'col-span-12',
+                useNarrowWidthContent
+                  ? 'col-start-1 col-span-9 md:col-start 2 md:col-span-7'
+                  : 'col-start-1 col-span-12 md:col-start-2 md:col-span-10',
                 'relative responsive-iframe-container text-center mt-8',
                 'flex flex-col w-full',
                 `justify-${textAlign === 'center' ? 'center' : 'flex-start'}`
               )}
-              dangerouslySetInnerHTML={{
-                __html: embeddedContent,
-              }}
-            />
+            >
+              <div
+                className={cn(maxWidth, 'max-auto')}
+                dangerouslySetInnerHTML={{ __html: embeddedContent }}
+              />
+            </div>
           )}
         </div>
       </div>

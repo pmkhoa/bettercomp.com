@@ -642,8 +642,8 @@ export type IconCards = {
       alt?: string;
       _type: 'image';
     };
-    subTitle?: string;
-    title?: string;
+    imageSize?: 'full' | 'small';
+    label?: string;
     content?: BlockContent;
     ctaLink?: CtaLink;
     _key: string;
@@ -6102,8 +6102,8 @@ export type AuthorQueryResult = {
             alt?: string;
             _type: 'image';
           };
-          subTitle?: string;
-          title?: string;
+          imageSize?: 'full' | 'small';
+          label?: string;
           content: Array<
             | {
                 children?: Array<{
@@ -10656,8 +10656,8 @@ export type GetHomeQueryResult = {
             alt?: string;
             _type: 'image';
           };
-          subTitle?: string;
-          title?: string;
+          imageSize?: 'full' | 'small';
+          label?: string;
           content: Array<
             | {
                 children?: Array<{
@@ -14861,8 +14861,8 @@ export type GetPageQueryResult = {
             alt?: string;
             _type: 'image';
           };
-          subTitle?: string;
-          title?: string;
+          imageSize?: 'full' | 'small';
+          label?: string;
           content: Array<
             | {
                 children?: Array<{
@@ -19120,8 +19120,8 @@ export type GetArticleQueryResult = {
             alt?: string;
             _type: 'image';
           };
-          subTitle?: string;
-          title?: string;
+          imageSize?: 'full' | 'small';
+          label?: string;
           content: Array<
             | {
                 children?: Array<{
@@ -23461,8 +23461,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -27895,8 +27895,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -32337,8 +32337,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -36778,8 +36778,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -41219,8 +41219,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -45611,8 +45611,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -50005,8 +50005,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -54573,8 +54573,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -59014,8 +59014,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{
@@ -63455,8 +63455,8 @@ export type GetResourceQueryResult =
                 alt?: string;
                 _type: 'image';
               };
-              subTitle?: string;
-              title?: string;
+              imageSize?: 'full' | 'small';
+              label?: string;
               content: Array<
                 | {
                     children?: Array<{

@@ -11,7 +11,7 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
 
   return (
     <section className={cn('section-module relative', 'icon-cards bg-blue py-16 md:py-24')}>
-      <div className="h-4 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[80%] max-w-[740px] left-[10%] md:left-[25%] absolute top-[-8px] z-20" />
+      <div className="h-4 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[60%] md:w-[50%] left-[20%] md:left-[25%] absolute top-[-8px] z-20" />
       <div
         className="bg-top  w-full h-[50%] absolute top-0 left-0 z-10"
         style={{ backgroundImage: `url('/images/bg-graphical-grid.svg')`, backgroundSize: '100%' }}
@@ -39,34 +39,48 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
               >
                 <div
                   className={cn(
-                    'content-wrapper bg-white shadow-md',
+                    'content-wrapper bg-white shadow-md h-full flex flex-col justify-start',
                     layout === 'two' && 'p-10 md:p-12',
                     layout === 'three' && 'p-8 md:p-10'
                   )}
                 >
                   {content?.image && (
-                    <div className="relative mb-8">
-                      <SanityImage image={content.image} className="w-full max-h-[120px]" />
+                    <div
+                      className={cn(
+                        'relative mb-8 flex',
+                        content.imageSize === 'small' && 'justify-start'
+                      )}
+                    >
+                      <SanityImage
+                        image={content.image}
+                        className={cn(
+                          'max-h-[120px]',
+                          content.imageSize === 'small' ? 'w-auto' : 'w-full'
+                        )}
+                      />
                     </div>
                   )}
-                  <div className="inner-content mb-4">
-                    {content.subTitle && (
-                      <p className="font-bold font-serif text-green">{content.subTitle}</p>
+                  <div className="flex flex-col justify-between h-full">
+                    <div className="content-desc">
+                      <div className="inner-content mb-4">
+                        {content.label && (
+                          <p className="font-bold font-serif text-green">{content.label}</p>
+                        )}
+                      </div>
+                      {content.content && (
+                        <div className="mb-8">
+                          <PortableText value={content.content} />
+                        </div>
+                      )}
+                    </div>
+                    {content.ctaLink && content.ctaLink.linkLabel && (
+                      <ButtonPrimary>
+                        <ResolvedLink link={content.ctaLink.link}>
+                          {content.ctaLink.linkLabel}
+                        </ResolvedLink>
+                      </ButtonPrimary>
                     )}
-                    {content.title && <h4 className="font-medium">{content.title}</h4>}
                   </div>
-                  {content.content && (
-                    <div className="mb-8">
-                      <PortableText value={content.content} />
-                    </div>
-                  )}
-                  {content.ctaLink && content.ctaLink.linkLabel && (
-                    <ButtonPrimary>
-                      <ResolvedLink link={content.ctaLink.link}>
-                        {content.ctaLink.linkLabel}
-                      </ResolvedLink>
-                    </ButtonPrimary>
-                  )}
                 </div>
               </div>
             );

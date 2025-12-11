@@ -332,6 +332,15 @@ j
   }
 }
 
+.section-richtext .richtext-inner {
+
+}
+
+.section-richtext .richtext-inner.narrow-paragraph p {
+  max-width: 900px;
+  margin: 1rem auto;
+}
+
 /* Nav Custom */
 .navlinks-desktop.text-white .show-chevron:before {
 	background-size: contain;

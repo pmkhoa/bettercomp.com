@@ -62,13 +62,20 @@ export const iconCards = defineType({
               ],
             }),
             defineField({
-              name: 'subTitle',
-              title: 'Sub Title',
+              name: 'imageSize',
+              title: 'Image Size',
               type: 'string',
+              options: {
+                list: [
+                  {title: 'Full Width', value: 'full'},
+                  {title: 'Small', value: 'small'},
+                ], // <-- predefined values
+              },
+              initialValue: 'full',
             }),
             defineField({
-              name: 'title',
-              title: 'Title',
+              name: 'label',
+              title: 'Optional Label',
               type: 'string',
             }),
             defineField({

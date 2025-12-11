@@ -10,8 +10,21 @@ type Props = {
 };
 
 export default function RichTextWithBackgroundVideo({ block, pageData }: Props) {
-  const { background = defaultBackground, columnContent, backgroundVideo, textAlign } = block;
+  const {
+    background = defaultBackground,
+    columnContent,
+    backgroundVideo,
+    contentMaxWidth,
+    textAlign,
+  } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
+
+  let maxWidth = 'w-full';
+  if (contentMaxWidth === 'medium') {
+    maxWidth = 'max-w-[80%]';
+  } else if (contentMaxWidth === 'narrow') {
+    maxWidth = 'max-w-2xl';
+  }
 
   const { enabled: backgroundEnabled, backgroundColor, textColor } = background;
 
@@ -32,16 +45,27 @@ export default function RichTextWithBackgroundVideo({ block, pageData }: Props) 
         <div className={cn('grid-container')}>
           <div
             className={cn(
-              useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
-              `text-${textAlign}`
+              useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12'
             )}
           >
-            <PortableText value={columnContent} />
+            <div
+              className={cn(
+                'richtext-inner',
+                `text-${textAlign}`,
+                maxWidth,
+                contentMaxWidth === 'medium' && textAlign === 'center' && 'narrow-paragraph',
+                textAlign === 'center' && 'mx-auto'
+              )}
+            >
+              <PortableText value={columnContent} />
+            </div>
           </div>
           {backgroundVideo && urlForAsset(backgroundVideo) && (
             <div
               className={cn(
-                useNarrowWidthContent && !showTOC ? 'col-span-9' : 'col-span-12',
+                useNarrowWidthContent
+                  ? 'col-start-1 col-span-9 md:col-start 2 md:col-span-7'
+                  : 'col-start-1 col-span-12 md:col-start-2 md:col-span-10',
                 'relative responsive-iframe-container text-center'
               )}
             >

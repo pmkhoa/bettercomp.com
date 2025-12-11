@@ -3821,14 +3821,24 @@
                   },
                   "optional": true
                 },
-                "subTitle": {
+                "imageSize": {
                   "type": "objectAttribute",
                   "value": {
-                    "type": "string"
+                    "type": "union",
+                    "of": [
+                      {
+                        "type": "string",
+                        "value": "full"
+                      },
+                      {
+                        "type": "string",
+                        "value": "small"
+                      }
+                    ]
                   },
                   "optional": true
                 },
-                "title": {
+                "label": {
                   "type": "objectAttribute",
                   "value": {
                     "type": "string"

@@ -118,7 +118,10 @@ export default function CustomPortableText({
       semibold: ({ children }) => <span className="font-semibold">{children}</span>,
       link: ({ children, value: link }) => {
         return (
-          <ResolvedLink link={link} className="text-blue hover:underline">
+          <ResolvedLink
+            link={link}
+            className="text-bright-blue hover:underline hover:text-blue transition-color duration-300"
+          >
             {children}
           </ResolvedLink>
         );
