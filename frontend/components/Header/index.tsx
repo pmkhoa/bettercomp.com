@@ -47,7 +47,7 @@ export default function Header({ settings }: { settings: Settings }) {
   // 🎯 No flash: theme decided before paint
   useLayoutEffect(() => {
     const mainNavBg = document.querySelector('.nav-background') as HTMLElement | null;
-    const bgColor = mainNavBg?.dataset.bg || 'white';
+    const bgColor = mainNavBg?.dataset.bg || 'blue';
 
     if (bgColor === 'white') {
       setNavTheme({
