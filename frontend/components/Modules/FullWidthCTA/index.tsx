@@ -41,7 +41,7 @@ export default function SectionFullWidthCTA({ block }: { block: FullWidthCTA }) 
         'hero-with-bg overflow-hidden relative',
         sectionTextColor,
         backgroundEnabled && backgroundType === 'color' && bgColor,
-        textAlign === 'center' ? 'py-24 md:py-40' : 'py-24'
+        textAlign === 'center' ? 'py-24 md:py-32' : 'py-24'
       )}
     >
       {backgroundEnabled && backgroundColor === 'blueWithGraphic' && (
@@ -76,7 +76,7 @@ export default function SectionFullWidthCTA({ block }: { block: FullWidthCTA }) 
                   'md:col-start-3 md:col-end-11 flex flex-col items-center text-center'
               )}
             >
-              <div className={'hero-description'}>
+              <div className={'hero-description with-narrow-paragraph'}>
                 <PortableText value={description} />
               </div>
               <div className="hero__cta mt-6 flex flex-wrap gap-8 items-center">

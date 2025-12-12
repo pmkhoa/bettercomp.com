@@ -46,7 +46,7 @@ export default function SectionHeroCTA({ block, pageData }: { block: HeroCTA; pa
 
             <div className="grid-container justify-between items-center gap-y-16 gap-0 md:gap-4">
               <div className={cn('col-span-12 md:col-span-7')}>
-                <div className={'hero-description'}>
+                <div className={'hero-description with-narrow-paragraph'}>
                   <PortableText value={description} />
                 </div>
                 <div className="hero__cta mt-4 flex flex-wrap gap-8 items-center">

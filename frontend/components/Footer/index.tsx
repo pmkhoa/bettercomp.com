@@ -100,15 +100,15 @@ export default function Footer({ settings }: { settings: Settings }) {
         </div>
       </div>
       <div className="container relative mb-16 md:mt-10 md:mb-20">
-        <div className="grid-container items-center gap-y-4">
-          <div className="col-span-4">
+        <div className="grid-container items-center gap-4">
+          <div className="col-span-12 md:col-span-4">
             <div className="copyright-info text-sm">
               <small>
                 Copyright © BetterComp, {new Date().getFullYear()}. All Rights Reserved.
               </small>
             </div>
           </div>
-          <div className="col-span-8 flex flex-start gap-4 items-center">
+          <div className="col-span-12 md:col-span-8 flex flex-start gap-4 items-center">
             {privacyLinks?.map((link: any) => {
               return (
                 <ResolvedLink link={link.menuLink} key={link._key} className="underline">

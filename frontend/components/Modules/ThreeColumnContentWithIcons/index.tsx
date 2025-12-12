@@ -26,7 +26,9 @@ export default function ThreeColumnContentWithIconsModule({
       className={cn(
         'section-module relative',
         'three-column-content-with-icons',
-        backgroundEnabled && backgroundType === 'color' ? 'py-12 md:py-24' : 'my-16 md:my-24',
+        backgroundEnabled && backgroundType === 'color'
+          ? 'py-12 sm:py-16 md:py-24'
+          : 'my-12 sm:my-16 md:my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white'
       )}
     >
@@ -34,7 +36,7 @@ export default function ThreeColumnContentWithIconsModule({
         <div className="absolute w-full h-full inset-0" />
       )}
       <div className="container">
-        <div className="grid-container gap-8 border-b border-green pb-8 mb-8">
+        <div className="grid-container gap-8 border-b border-green pb-6 mb-6 md:pb-8 md:mb-8">
           <div className="description col-span-12 md:col-span-8">
             {heading && <h2 className="text-2xl md:text-3xl font-medium mb-4">{heading}</h2>}
             {description && <PortableText value={description} />}
@@ -49,7 +51,7 @@ export default function ThreeColumnContentWithIconsModule({
             </div>
           )}
         </div>
-        <div className="grid-container gap-0 gap-y-10 md:gap-12">
+        <div className="grid-container gap-0 gap-y-10 sm:gap-8 lg:gap-12">
           {listItem?.map((content) => {
             return (
               <div className={'col-span-12 xs:col-span-6 md:col-span-4 gap-4'} key={content._key}>

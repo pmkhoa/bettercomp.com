@@ -37,14 +37,13 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
   const bgColor = `bg-${backgroundColor}`;
   const sectionTextColor = `text-${textColor}`;
 
-  console.log('----------debugging----------');
-  console.log(block);
-
   return (
     <section
       className={cn(
         'two-columns-feature-content relative',
-        backgroundEnabled && backgroundType === 'color' ? 'py-12 md:py-24' : 'my-12 md:my-24',
+        backgroundEnabled && backgroundType === 'color'
+          ? 'py-12 sma:py-16 md:py-24'
+          : 'my-12 sm:my-16 md:my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
         sectionTextColor
       )}
@@ -61,7 +60,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
       <div className="container">
         <div className="grid-container">
           <div className="col-span-12 col-start-1">
-            <div className="grid-container md:gap-x-12 gap-y-12 md:gap-y-16 items-center">
+            <div className="grid-container md:gap-x-12 gap-y-6 md:gap-y-16 items-center">
               <div
                 className={cn(
                   'flex flex-col',
@@ -103,7 +102,7 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
                 {heading && <h2 className="text-2xl md:text-3xl font-medium mb-4">{heading}</h2>}
                 <div className="flex-1">{description && <PortableText value={description} />}</div>
                 {ctaButton && ctaButton.linkLabel && (
-                  <ButtonPrimary className="mt-8">
+                  <ButtonPrimary className="mt-4 md:mt-8">
                     <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
                   </ButtonPrimary>
                 )}

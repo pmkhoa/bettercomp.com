@@ -4,6 +4,10 @@
 	position: relative;
 }
 
+.f-carousel__viewport {
+  overflow: visible;
+}
+
 .testimonial-carousel .f-carousel {
 	--f-carousel-spacing: 32px;
 }
@@ -13,7 +17,7 @@
 }
 
 .testimonial-carousel .f-carousel__nav {
-	@apply absolute flex items-center justify-between gap-5 absolute bottom-30 right-16;
+	@apply absolute flex items-center justify-between gap-5 -bottom-12 left-4 lg:bottom-auto lg:top-50 lg:left-auto lg:right-16;
 }
 
 .testimonial-carousel .f-carousel__nav .f-button {

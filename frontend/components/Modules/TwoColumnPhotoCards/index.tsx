@@ -53,7 +53,10 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
                 key={content._key}
               >
                 <div
-                  className={cn('content-wrapper grid-container bg-white shadow-md', 'md:gap-4')}
+                  className={cn(
+                    'content-wrapper grid-container bg-white shadow-md h-full flex flex-col',
+                    'md:gap-4'
+                  )}
                 >
                   <div className="col-span-12 md:col-span-6">
                     {content?.image && (
@@ -65,21 +68,23 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
                       </div>
                     )}
                   </div>
-                  <div className="col-span-12 md:col-span-6 p-6">
+                  <div className="col-span-12 md:col-span-6 p-6 flex flex-col h-full justify-between">
                     <div className="inner-content">
                       {content.title && <h5 className="font-medium">{content.title}</h5>}
+                      {content.content && (
+                        <div className="my-6">
+                          <PortableText value={content.content} />
+                        </div>
+                      )}
                     </div>
-                    {content.content && (
-                      <div className="my-6">
-                        <PortableText value={content.content} />
-                      </div>
-                    )}
                     {content.ctaLink && content.ctaLink?.linkLabel && (
-                      <ButtonPrimary>
-                        <ResolvedLink link={content.ctaLink?.link}>
-                          {content.ctaLink?.linkLabel}
-                        </ResolvedLink>
-                      </ButtonPrimary>
+                      <div className="w-auto">
+                        <ButtonPrimary>
+                          <ResolvedLink link={content.ctaLink?.link}>
+                            {content.ctaLink?.linkLabel}
+                          </ResolvedLink>
+                        </ButtonPrimary>
+                      </div>
                     )}
                   </div>
                 </div>

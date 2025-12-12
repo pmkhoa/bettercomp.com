@@ -157,7 +157,7 @@ export default function Header({ settings }: { settings: Settings }) {
             paddingBottom: navPadding,
           }}
         >
-          <div className="flex items-center justify-between gap-16 relative">
+          <div className="flex items-center justify-between gap-8 xl:gap-16 relative">
             {/* LOGO WITH SCALE ANIMATION */}
             <motion.div
               style={{ scale: logoScale, transformOrigin: 'left center' }}
@@ -165,7 +165,13 @@ export default function Header({ settings }: { settings: Settings }) {
               className="flex-shrink-0"
             >
               <Link href="/">
-                <Image src={navTheme.logo} alt="BetterComp Logo" width={304} height={56} />
+                <Image
+                  src={navTheme.logo}
+                  alt="BetterComp Logo"
+                  width={304}
+                  height={56}
+                  className="md:w-[220px] md:[h-auto] xl:w-[304px] xl:h-[56px]"
+                />
                 <div className="logo">
                   <span className="sr-only">BetterComp Logo</span>
                 </div>
@@ -174,7 +180,7 @@ export default function Header({ settings }: { settings: Settings }) {
 
             {/* DESKTOP NAV */}
             <div className="desktop-menu menu-wrapper flex-end items-center gap-8 hidden md:flex">
-              <div className="flex items-center my-0 gap-3 xl:gap-8 font-normal list-none lg:mr-10 xl:mr-24">
+              <div className="flex items-center my-0 gap-3 xl:gap-8 font-normal list-none lg:mr-10 xl:mr-16 2xl:mr-20">
                 <PopoverGroup
                   className={cn(
                     'hidden md:flex navlinks-desktop',

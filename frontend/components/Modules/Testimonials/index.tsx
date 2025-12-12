@@ -19,13 +19,18 @@ export default function SectionTestimonialsModule({ block }: Props) {
 
   return (
     <section className={cn('section-module testimonial-carousel', 'my-20')}>
-      <div className="container">
-        <div className={cn(s['content-wrapper'])}>
+      <div className="container  overflow-x-hidden">
+        <div
+          className={cn(
+            s['content-wrapper'],
+            testimonialList && testimonialList.length > 1 && 'pb-24 bg-sand lg:pb-0'
+          )}
+        >
           <Carousel
             options={{
               slidesPerPage: 1,
               center: false,
-              adaptiveHeight: true,
+              adaptiveHeight: false,
               showProgressbar: false,
               // @ts-ignore
               Autoplay: {
@@ -61,17 +66,24 @@ export default function SectionTestimonialsModule({ block }: Props) {
               return (
                 <div
                   className={cn(
-                    'f-carousel__slide carousel__slide-container items-start gap-8 mt-16 w-full overflow-visible pt-20'
+                    'f-carousel__slide carousel__slide-container items-start gap-8 mt-16 w-full overflow-visible pt-20',
+                    testimonialList.length <= 1 && 'bg-sand'
                   )}
                   key={d._key}
                 >
                   <div
                     className={cn(
                       s['testimonial-content'],
-                      'pt-16 pb-12 px-16 relative bg-sand mt-24'
+                      'pt-16 p-4 relative',
+                      'md:p-16  md:mt-0'
                     )}
                   >
-                    <div className="company-icon absolute -top-12 left-16 flex justify-start">
+                    <div
+                      className={cn(
+                        'company-icon absolute -top-12 right-8 flex justify-start',
+                        ' md:right-auto md:left-16'
+                      )}
+                    >
                       <SanityImage image={companyIcon} className="max-h-[94px] h-auto w-auto" />
                     </div>
                     <div className="grid-container">
@@ -96,9 +108,9 @@ export default function SectionTestimonialsModule({ block }: Props) {
                           <div className="font-bold">{reviewer}</div>
                         </div>
                       </div>
-                      <div className="review-stars my-8 col-span-3">
-                        <div className="flex justify-end">
-                          <div className="wrapper">
+                      <div className="review-stars my-2 md:my-8 col-span-12 lg:col-span-3">
+                        <div className="flex justify-start lg:justify-end">
+                          <div className="wrapper flex justify-start items-center gap-6 lg:gap-0 lg:flex lg:justify-end flex-wrap max-w-[200px] mr-0">
                             <SanityImage
                               image={totalStars}
                               className="max-h-[24px] min-w-[140px] w-auto"
@@ -107,7 +119,7 @@ export default function SectionTestimonialsModule({ block }: Props) {
                               <div className="review-stars mt-2">
                                 <ResolvedLink
                                   link={readAllReviews.link}
-                                  className={'inline-block my-4'}
+                                  className={'inline-block my-4 text-orange underline'}
                                 >
                                   {readAllReviews.linkLabel}
                                 </ResolvedLink>

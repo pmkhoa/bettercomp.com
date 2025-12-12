@@ -56,7 +56,7 @@
   margin-left: auto;
   margin-right: auto;
   max-width: var(--container-max);
-	width: 92%;
+  @apply w-[92%] lg:w-[90%] xl:w-[88%] 2xl:w-[92%]
 }
 
 @layer base {
@@ -299,7 +299,7 @@ j
 
 @layer components {
   .btn-primary {
-    @apply text-black font-bold rounded py-3 px-8 min-w-[150px];
+    @apply text-black font-bold rounded py-3 px-4 xl:px-8 min-w-[120px] xl:min-w-[150px];
     background: linear-gradient(81deg, var(--color-start) 9.79%, var(--color-end) 84.97%);
     transition: all 0.4s ease-out;
     cursor: pointer;
@@ -311,11 +311,11 @@ j
   }
 
   .btn-secondary {
-    @apply text-blue font-bold rounded py-3 px-8 min-w-[150px] border-1 border-blue;
+    @apply text-blue font-bold rounded py-3 px-4 xl:px-8 min-w-[120px] xl:min-w-[150px] border-1 border-blue;
     transition: all 0.3s ease-out;
   }
   .btn-secondary:hover {
-    @apply text-white font-bold rounded py-3 px-8 min-w-[150px] border-1 border-blue bg-blue;
+    @apply text-white font-bold border-1 border-blue bg-blue;
     transition: all 0.3s ease-out;
   }
 
@@ -337,7 +337,12 @@ j
 }
 
 .section-richtext .richtext-inner.narrow-paragraph p {
-  max-width: 900px;
+  @apply max-w-sm md:max-w-[900px];
+  margin: 1rem auto;
+}
+
+.with-narrow-paragraph p {
+  @apply max-w-md md:max-w-[900px];
   margin: 1rem auto;
 }
 

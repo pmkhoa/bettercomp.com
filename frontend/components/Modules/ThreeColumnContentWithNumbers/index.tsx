@@ -41,13 +41,13 @@ export default function ThreeColumnContentWithNumbersModule({
         <div className="absolute w-full h-full inset-0" />
       )}
       <div className="container">
-        <div className="grid-container gap-8 mb-12">
-          <div className="description col-span-8">
+        <div className="grid-container gap-8 mb-6 lg:mb-12">
+          <div className={cn('description', 'col-span-12 md:col-span-8')}>
             {heading && <h2 className="text-2xl md:text-3xl font-medium mb-4">{heading}</h2>}
             {description && <PortableText value={description} />}
           </div>
           {ctaButton && ctaButton.linkLabel && (
-            <div className="col-span-4 flex md:justify-end h-auto">
+            <div className="col-span-12 md:col-span-4 flex md:justify-end h-auto">
               <div className="button-wrapper">
                 <ButtonPrimary>
                   <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
@@ -56,7 +56,7 @@ export default function ThreeColumnContentWithNumbersModule({
             </div>
           )}
         </div>
-        <div className="grid-container gap-x-0 gap-y-10 md:gap-12">
+        <div className="grid-container gap-x-0 gap-y-10 sm:gap-8 lg:gap-12">
           {listItem?.map((content) => {
             return (
               <div

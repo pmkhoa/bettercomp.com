@@ -44,19 +44,13 @@ export default function AllResourcesModule({ block }: { block: any }) {
     );
   };
 
-  console.log('----------debugging: resources----------');
-  console.log(resources);
-
-  console.log('----------debugging----------');
-  console.log(getFilterContentTypes(allResources || []));
-
   return (
     <section className={cn('section-all-resources relative')}>
       <div className="container">
         <div
           className={cn(
-            'grid-container justify-between items-center gap-y-16 gap-0',
-            'md:gap-4 my-24'
+            'grid-container justify-between items-center gap-y-8 md:gap-y-16 gap-0',
+            'md:gap-4 my-12 md:my-24'
           )}
         >
           <div className={cn('col-span-12 md:col-span-7')}>
@@ -65,7 +59,7 @@ export default function AllResourcesModule({ block }: { block: any }) {
             </div>
           </div>
           <div className={cn('col-span-12', 'md:col-start-9 md:col-span-4')}>
-            <div className="h-full flex flex-col justify-start gap-8">
+            <div className="h-full flex flex-col justify-start gap-4 md:gap-8">
               <FilterBy
                 filterType="topic"
                 filterList={getFilterTopics(allResources || [])}
@@ -82,7 +76,7 @@ export default function AllResourcesModule({ block }: { block: any }) {
           </div>
         </div>
       </div>
-      <div className="bg-midnight-blue py-32 text-white">
+      <div className="bg-midnight-blue py-16 sm:py-12 md:py-32 text-white">
         {!resources.length && (
           <div className="container my-16">
             <div className="text-center">
@@ -92,10 +86,13 @@ export default function AllResourcesModule({ block }: { block: any }) {
         )}
 
         <div className="container">
-          <div className="grid-container gap-12">
+          <div className="grid-container gap-6 md:gap-12">
             {resources.slice(0, visibleCount).map((resource: any, index: number) => {
               return (
-                <div className="col-span-4 bg-white rounded-sm overflow-hidden" key={index}>
+                <div
+                  className="col-span-12 sm:col-span-6 md:col-span-4 bg-white rounded-sm overflow-hidden"
+                  key={index}
+                >
                   <ResourceCard resource={resource} />
                 </div>
               );

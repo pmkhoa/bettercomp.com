@@ -38,7 +38,9 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
     <section
       className={cn(
         'hero-with-bg overflow-hidden relative',
-        backgroundEnabled && backgroundType === 'color' ? 'py-10 md:py-20' : 'my-10 md:my-20',
+        backgroundEnabled && backgroundType === 'color'
+          ? 'py-10 sm:py-16 md:py-20'
+          : 'my-10 sm:my-16 md:my-20',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
         sectionTextColor
       )}

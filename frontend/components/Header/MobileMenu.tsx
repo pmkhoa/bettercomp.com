@@ -94,7 +94,7 @@ const MobileMenuContent = ({
                 <div className="quick-actions flex items-center gap-8 my-8 mx-8 justify-center">
                   {helpLink && (
                     <div className="link-with-icon">
-                      <Link href={helpLink} className="flex items-center gap-2 text-sm">
+                      <Link href={helpLink} className="flex items-center gap-2">
                         <span>Help</span>
                         <HelpDeskIcon />
                       </Link>
@@ -102,7 +102,7 @@ const MobileMenuContent = ({
                   )}
                   {loginLink && (
                     <div className="link-with-icon">
-                      <Link href={loginLink} className="flex items-center gap-2 text-sm">
+                      <Link href={loginLink} className="flex items-center gap-2">
                         <span>Login</span>
                         <ProfileIcon />
                       </Link>
@@ -135,7 +135,7 @@ const MobileMenu = ({ settings, navTheme }: MobileMenuProps) => {
             {({ open }) => (
               <>
                 <DisclosureButton
-                  className={cn('flex gap-4 items-center mr-4', open && 'is-active')}
+                  className={cn('flex gap-4 items-center mr-4 sm:mr-6', open && 'is-active')}
                   id="mobile-toggle-icon"
                 >
                   <div className="flex flex-col justify-center items-start w-[48px] h-[30px] relative z-50 bg-red p-2">
