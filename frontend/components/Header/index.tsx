@@ -11,11 +11,12 @@ import cn from 'classnames';
 import s from './style.module.css';
 import LogoBlack from '@/assets/images/LogoBlack.png';
 import LogoWhite from '@/assets/images/LogoWhite.png';
-import { SearchIcon, HelpDeskIcon, ProfileIcon } from '@/components/Icons';
+import { SearchIcon, HelpDeskIcon, ProfileIcon, CloseIcon } from '@/components/Icons';
 import { PopoverGroup } from '@headlessui/react';
 import { PortableText, ButtonPrimary, ResolvedLink } from '@/components';
 import NavDropdownSimple from './NavDropdownSimple';
 import MobileMenu from './MobileMenu';
+import SearchBox from './SearchBox';
 
 export default function Header({ settings }: { settings: Settings }) {
   const { siteBanner, loginLink, helpLink, globalNav, globalNavCta } = settings;
@@ -178,56 +179,82 @@ export default function Header({ settings }: { settings: Settings }) {
               </Link>
             </motion.div>
 
-            {/* DESKTOP NAV */}
-            <div className="desktop-menu menu-wrapper flex-end items-center gap-8 hidden md:flex">
-              <div className="flex items-center my-0 gap-3 xl:gap-8 font-normal list-none lg:mr-10 xl:mr-16 2xl:mr-20">
-                <PopoverGroup
+            {searchActive ? (
+              <div className="searchbox-wrapper flex-end items-center gap-8 hidden md:flex w-full">
+                <div
                   className={cn(
-                    'hidden md:flex navlinks-desktop',
-                    s['navlinks-desktop'],
-                    navTheme.navLinksText
+                    'flex items-center my-0 gap-3 font-normal list-none w-full justify-end',
+                    'xl:gap-8 lg:mr-4'
                   )}
                 >
-                  {globalNav.map((nav) => {
-                    if (nav.menuItemType === 'default') {
-                      return (
-                        <ResolvedLink
-                          link={nav.menuLink}
-                          className={cn(
-                            'menu-link transition duration-400 font-bold hover:text-orange',
-                            navTheme.navLinksText
-                          )}
-                          key={nav._key}
-                        >
-                          <span className="font-bold">{nav.menuLabel}</span>
-                        </ResolvedLink>
-                      );
-                    }
-
-                    if (nav.menuItemType === 'groupLinks') {
-                      return (
-                        <NavDropdownSimple
-                          nav={nav}
-                          key={nav._key}
-                          dropdownBg={navTheme.dropdownBg}
-                          dropdownText={navTheme.dropdownText}
-                        />
-                      );
-                    }
-                  })}
-                </PopoverGroup>
-              </div>
-              <button onClick={() => setSearchActive(true)} className="cursor-pointer">
-                <SearchIcon />
-              </button>
-              {globalNavCta && globalNavCta.linkText && (
-                <div className="cta-wrapper">
-                  <ButtonPrimary>
-                    <ResolvedLink link={globalNavCta.link}>{globalNavCta.linkText}</ResolvedLink>
-                  </ButtonPrimary>
+                  <SearchBox className="bg-white text-blue" />
                 </div>
-              )}
-            </div>
+                <div className="cta-wrapper">
+                  <button
+                    onClick={() => setSearchActive(false)}
+                    className="flex gap-4 cursor-pointer"
+                  >
+                    Close <CloseIcon />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="desktop-menu menu-wrapper flex-end items-center gap-8 hidden md:flex">
+                {/* DESKTOP NAV */}
+                <div
+                  className={cn(
+                    'flex items-center my-0 gap-3 font-normal list-none',
+                    'xl:gap-8  lg:mr-10 xl:mr-16 2xl:mr-20'
+                  )}
+                >
+                  <PopoverGroup
+                    className={cn(
+                      'hidden md:flex navlinks-desktop',
+                      s['navlinks-desktop'],
+                      navTheme.navLinksText
+                    )}
+                  >
+                    {globalNav.map((nav) => {
+                      if (nav.menuItemType === 'default') {
+                        return (
+                          <ResolvedLink
+                            link={nav.menuLink}
+                            className={cn(
+                              'menu-link transition duration-400 font-bold hover:text-orange',
+                              navTheme.navLinksText
+                            )}
+                            key={nav._key}
+                          >
+                            <span className="font-bold">{nav.menuLabel}</span>
+                          </ResolvedLink>
+                        );
+                      }
+
+                      if (nav.menuItemType === 'groupLinks') {
+                        return (
+                          <NavDropdownSimple
+                            nav={nav}
+                            key={nav._key}
+                            dropdownBg={navTheme.dropdownBg}
+                            dropdownText={navTheme.dropdownText}
+                          />
+                        );
+                      }
+                    })}
+                  </PopoverGroup>
+                </div>
+                <button onClick={() => setSearchActive(true)} className="cursor-pointer">
+                  <SearchIcon />
+                </button>
+                {globalNavCta && globalNavCta.linkText && (
+                  <div className="cta-wrapper">
+                    <ButtonPrimary>
+                      <ResolvedLink link={globalNavCta.link}>{globalNavCta.linkText}</ResolvedLink>
+                    </ButtonPrimary>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </motion.div>
 

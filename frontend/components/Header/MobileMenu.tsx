@@ -61,7 +61,7 @@ const MobileMenuContent = ({
                 className="flex flex-col gap-0 font-normal list-none text-blue overflow-auto"
               >
                 <div className="p-4 bg-sand   border-b-2 border-gray-200">
-                  <SearchBox />
+                  <SearchBox className="text-blue bg-white" />
                 </div>
                 {globalNav?.map((nav) => {
                   if (nav.menuItemType === 'default') {

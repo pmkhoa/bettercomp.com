@@ -31,17 +31,17 @@ export default async function Page(props: Props) {
     <div className="page-container">
       <SearchHero searchTerm={s} />
       {searchResults && searchResults.length > 0 && (
-        <div className="search-results-container my-48">
+        <div className="search-results-container my-24">
           <div className="container">
             <div className="grid-container">
               <div className="col-start-2 col-span-11">
-                <div className="flex flex-col gap-20">
+                <div className="flex flex-col gap-10">
                   {searchResults.map((result: any) => {
                     return (
-                      <div className="result" key={result._id}>
+                      <div className="result border-bright-blue border-b-1 pb-10" key={result._id}>
                         <Link href={linkHelpers(result)}>
-                          <h3 className="underline">{result?.title || result?.name}</h3>
-                          <p className="mt-8">{result?.seo?.description}</p>
+                          <h4 className="">{result?.title || result?.name}</h4>
+                          <p className="mt-2">{result?.seo?.description}</p>
                         </Link>
                       </div>
                     );
