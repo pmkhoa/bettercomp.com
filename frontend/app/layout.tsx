@@ -92,7 +92,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {settings && <Header settings={settings as any} />}
           <main className="">{children}</main>
           <Footer settings={settings as any} />
-          <span className="bg-blue bg-sand hidden" />
         </section>
         <SpeedInsights />
 

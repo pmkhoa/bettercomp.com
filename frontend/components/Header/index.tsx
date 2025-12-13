@@ -187,7 +187,10 @@ export default function Header({ settings }: { settings: Settings }) {
                     'xl:gap-8 lg:mr-4'
                   )}
                 >
-                  <SearchBox className="bg-white text-blue" />
+                  <SearchBox
+                    className="bg-white text-blue"
+                    onSearchSubmit={() => setSearchActive(false)}
+                  />
                 </div>
                 <div className="cta-wrapper">
                   <button
