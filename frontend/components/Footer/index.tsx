@@ -111,7 +111,7 @@ export default function Footer({ settings }: { settings: Settings }) {
           <div className="col-span-12 md:col-span-8 flex flex-start gap-4 items-center">
             {privacyLinks?.map((link: any) => {
               return (
-                <ResolvedLink link={link.menuLink} key={link._key} className="underline">
+                <ResolvedLink link={link.menuLink} key={link._key} className="hover:underline">
                   <small>{link.menuLabel}</small>
                 </ResolvedLink>
               );

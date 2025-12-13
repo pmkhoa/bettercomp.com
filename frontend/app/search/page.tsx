@@ -27,9 +27,6 @@ export default async function Page(props: Props) {
     sanityFetch({ query: searchQuery, params: { searchTerm: s } }),
   ]);
 
-  console.log('----------debugging: searchterm----------');
-  console.log(s);
-
   return (
     <div className="page-container">
       <SearchHero searchTerm={s} />
@@ -37,13 +34,13 @@ export default async function Page(props: Props) {
         <div className="search-results-container my-16 md:my-24">
           <div className="container">
             <div className="grid-container">
-              <div className="md:col-start-2 col-span-12 md:col-span-11">
+              <div className="md:col-start-2 col-span-12 md:col-span-10">
                 <div className="flex flex-col gap-10">
                   {searchResults.map((result: any) => {
                     return (
                       <div className="result border-bright-blue border-b-1 pb-10" key={result._id}>
                         <Link href={linkHelpers(result)}>
-                          <h4 className="">{result?.title || result?.name}</h4>
+                          <h4 className="hover:underline">{result?.title || result?.name}</h4>
                           <p className="mt-2">{result?.seo?.description}</p>
                         </Link>
                       </div>
