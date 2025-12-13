@@ -1,8 +1,9 @@
-import { Richtext, GetResourceQueryResult } from '@/sanity.types';
+import { GetResourceQueryResult, Richtext } from '@/sanity.types';
+
 import DefaultRichText from './Default';
-import WithImage from './WithImage';
-import WithEmbeddedContent from './WithEmbeddedContent';
 import WithBackgroundVideo from './WithBackgroundVideo';
+import WithEmbeddedContent from './WithEmbeddedContent';
+import WithImage from './WithImage';
 
 type RichTextProps = {
   block: Richtext;

@@ -1,14 +1,15 @@
 import cn from 'classnames';
+
 import {
   ButtonPrimary,
-  MotionFadeIn,
-  SanityImage,
   MediaAsset,
-  ResolvedLink,
+  MotionFadeIn,
   PortableText,
+  ResolvedLink,
+  SanityImage,
 } from '@/components';
 import { ClockIcon } from '@/components/Icons';
-import { Background, HeroResource } from '@/sanity.types';
+import { HeroResource } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 
 export default function HeroResourceModule({

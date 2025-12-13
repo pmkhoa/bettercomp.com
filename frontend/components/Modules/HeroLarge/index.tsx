@@ -1,13 +1,14 @@
 import cn from 'classnames';
+
 import {
   ButtonPrimary,
-  MotionFadeIn,
   MediaAsset,
-  ResolvedLink,
+  MotionFadeIn,
   PortableText,
+  ResolvedLink,
   SanityImage,
 } from '@/components';
-import { Background, HeroLarge } from '@/sanity.types';
+import { HeroLarge } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 
 export default function SectionHeroLarge({ block }: { block: HeroLarge }) {

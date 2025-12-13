@@ -2,14 +2,13 @@ import './globals.css';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Zilla_Slab } from 'next/font/google';
+import localFont from 'next/font/local';
 import { draftMode } from 'next/headers';
+import Script from 'next/script';
 import { toPlainText } from 'next-sanity';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import { Toaster } from 'sonner';
-import localFont from 'next/font/local';
-import { Zilla_Slab } from 'next/font/google';
-import Script from 'next/script';
 
 import DraftModeToast from '@/components/DraftModeToast';
 import Footer from '@/components/Footer';
@@ -18,6 +17,7 @@ import * as demo from '@/sanity/lib/demo';
 import { sanityFetch, SanityLive } from '@/sanity/lib/live';
 import { settingsQuery } from '@/sanity/lib/queries';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
+
 import { handleError } from './client-utils';
 
 /**

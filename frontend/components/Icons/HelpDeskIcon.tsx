@@ -1,12 +1,6 @@
 const HelpDeskIcon = ({ color = '#FFA700' }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="21"
-      height="15"
-      viewBox="0 0 21 15"
-      fill="none"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="15" viewBox="0 0 21 15" fill="none">
       <path
         d="M14 3.33333C13.5168 3.33333 13.125 3.70643 13.125 4.16667C13.125 4.6269 13.5168 5 14 5H16.625C17.1082 5 17.5 4.6269 17.5 4.16667C17.5 3.70643 17.1082 3.33333 16.625 3.33333H14Z"
         fill={color}

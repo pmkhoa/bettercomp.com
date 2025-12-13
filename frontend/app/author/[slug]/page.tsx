@@ -1,13 +1,12 @@
 import cn from 'classnames';
-import type { Metadata } from 'next';
-import { ResourceCard, SanityImage, PortableText, BlockRenderer } from '@/components';
-import { resolveOpenGraphImage } from '@/sanity/lib/utils';
-import PageBuilderPage from '@/components/PageBuilder';
-import { GetPageQueryResult, Page as PageType } from '@/sanity.types';
 import { get } from 'lodash';
+import type { Metadata } from 'next';
 
+import { PortableText, ResourceCard, SanityImage } from '@/components';
+import PageBuilderPage from '@/components/PageBuilder';
 import { sanityFetch } from '@/sanity/lib/live';
 import { authorQuery } from '@/sanity/lib/queries';
+import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;

@@ -1,13 +1,14 @@
 'use client';
-import type { PropsWithChildren } from 'react';
-import { useRef, useEffect } from 'react';
-import { Carousel } from '@fancyapps/ui';
-import { Thumbs } from '@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js';
-import { Autoplay } from '@fancyapps/ui/dist/carousel/carousel.autoplay.esm.js';
-import type { OptionsType } from '@fancyapps/ui/types/Carousel/options';
 import '@fancyapps/ui/dist/carousel/carousel.thumbs.css';
 import '@fancyapps/ui/dist/carousel/carousel.autoplay.css';
 import '@fancyapps/ui/dist/carousel/carousel.css';
+
+import { Carousel } from '@fancyapps/ui';
+import { Autoplay } from '@fancyapps/ui/dist/carousel/carousel.autoplay.esm.js';
+import { Thumbs } from '@fancyapps/ui/dist/carousel/carousel.thumbs.esm.js';
+import type { OptionsType } from '@fancyapps/ui/types/Carousel/options';
+import type { PropsWithChildren } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface Props {
   options?: Partial<OptionsType>;
@@ -32,13 +33,10 @@ const defaults: Partial<OptionsType> = {
 				<path d="M30.9812 24.4429L33.2344 26.696L24.7074 35.2214L33.2344 43.7469L30.9812 46L20.2042 35.2214L30.9812 24.4429Z" fill="#FB8722"/>
 			</svg>`,
   },
-  // @ts-ignore
   Autoplay: {
-    // @ts-ignore
+    // @ts-expect-error: expect error
     isEnabled: false,
-    // @ts-ignore
     pauseOnHover: false,
-    // @ts-ignore
     showProgressbar: false,
   },
   Thumbs: { type: 'classic' },
@@ -90,7 +88,6 @@ function CarouselWrapper(props: PropsWithChildren<Props>) {
   return (
     <div className="carousel-container">
       <div className="f-carousel" ref={containerRef}>
-        {/*@ts-ignore: ignore this*/}
         {props.children}
       </div>
 

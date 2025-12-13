@@ -1,7 +1,9 @@
-import cn from 'classnames';
-import { ResolvedLink, SanityImage, PortableText } from '@/components';
-import { Logos } from '@/sanity.types';
 import './marquee.scss';
+
+import cn from 'classnames';
+
+import { SanityImage } from '@/components';
+import { Logos } from '@/sanity.types';
 
 type Props = {
   block: Logos;

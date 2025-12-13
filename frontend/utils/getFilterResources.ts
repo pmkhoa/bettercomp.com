@@ -1,14 +1,4 @@
-const excludeTopicList = [
-  ' ',
-  '',
-  'ebooks',
-  'EBooks',
-  'eBooks',
-  'whitepaper',
-  'Insight',
-  'Whitepaper',
-  'Master DAta Management',
-];
+const excludeTopicList = [' ', '', 'whitepaper', 'Insight', 'Whitepaper'];
 
 const excludeTypeList = [' '];
 
@@ -19,10 +9,7 @@ export const getFilterTopics = (resources: []) => {
         .flatMap((doc: any) => doc.tags)
         .map((tag: any) => (typeof tag?.name === 'string' ? tag?.name.trim() : null)) // Trim spaces and convert non-strings to null
         .filter((tag: any) => tag && excludeTopicList.indexOf(tag) < 0)
-        //@ts-ignore: ignore
-        .sort((a: string, b: string) =>
-          a?.localeCompare(b, undefined, { sensitivity: 'base' }),
-        ),
+        .sort((a: string, b: string) => a?.localeCompare(b, undefined, { sensitivity: 'base' }))
     ),
   ] as string[];
   topics.unshift('alltopics');
@@ -50,14 +37,10 @@ export const getFilterContentTypes = (filterTypes: []) => {
     ...new Set(
       filterTypes
         .flatMap((doc: any) => doc._type)
-        .map((contentType: any) =>
-          typeof contentType === 'string' ? contentType.trim() : null,
-        ) // Trim spaces and convert non-strings to null
+        .map((contentType: any) => (typeof contentType === 'string' ? contentType.trim() : null)) // Trim spaces and convert non-strings to null
         .filter((contentType: any) => contentType && excludeTypeList.indexOf(contentType) < 0)
-        //@ts-ignore: ignore
-        .sort((a: string, b: string) =>
-          a?.localeCompare(b, undefined, { sensitivity: 'base' }),
-        ),
+        //@ts-expect-error: expecting
+        .sort((a: string, b: string) => a?.localeCompare(b, undefined, { sensitivity: 'base' }))
     ),
   ] as string[];
   contentTypes.unshift('alltypes');
@@ -72,10 +55,8 @@ export const getFilterTags = (resources: []) => {
         .flatMap((doc: any) => doc.tags)
         .map((tag: any) => (typeof tag === 'string' ? tag.trim() : null)) // Trim spaces and convert non-strings to null
         .filter((tag: any) => tag && excludeTopicList.indexOf(tag) < 0)
-        //@ts-ignore: ignore
-        .sort((a: string, b: string) =>
-          a?.localeCompare(b, undefined, { sensitivity: 'base' }),
-        ),
+        //@ts-expect-error: expecting
+        .sort((a: string, b: string) => a?.localeCompare(b, undefined, { sensitivity: 'base' }))
     ),
   ] as string[];
   topics.unshift('alltags');

@@ -1,7 +1,7 @@
 'use client';
-import { useRef, useEffect } from 'react';
-import { useInView } from 'motion/react';
 import gsap from 'gsap';
+import { useInView } from 'motion/react';
+import { useEffect, useRef } from 'react';
 
 type Props = {
   end: number;
@@ -24,7 +24,7 @@ export default function AnimateNumber({ increment, start, end, asType }: Props) 
         ease: 'power1',
         increment: 1,
       },
-      // @ts-ignore: ignore this
+      // @ts-expect-error: ignore this
       effect: (targets, config) => {
         const tl = gsap.timeline();
         const num = targets[0].innerText.replace(/\./g, '');
@@ -46,7 +46,7 @@ export default function AnimateNumber({ increment, start, end, asType }: Props) 
             },
             ease: config.ease,
           },
-          0,
+          0
         );
 
         return tl;

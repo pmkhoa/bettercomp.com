@@ -1,10 +1,11 @@
-import Link from 'next/link';
 import { Popover, PopoverPanel, Transition } from '@headlessui/react';
-import PopoverButtonHoverWrapper from './PopoverButtonHoverWrapper';
-import { ResolvedLink } from '@/components';
-import { get } from 'lodash';
-import s from './style.module.css';
 import cn from 'classnames';
+import { get } from 'lodash';
+
+import { ResolvedLink } from '@/components';
+
+import PopoverButtonHoverWrapper from './PopoverButtonHoverWrapper';
+import s from './style.module.css';
 
 const NavDropdownSimple = ({
   dropdownText,

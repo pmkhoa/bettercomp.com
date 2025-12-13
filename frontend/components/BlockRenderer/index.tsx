@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { GetPageQueryResult } from '@/sanity.types';
-import { dataAttr } from '@/sanity/lib/utils';
 import {
   AccordionCenter,
   AccordionLeftPanel,
@@ -12,22 +10,24 @@ import {
   FormContent,
   FullWidthCTA,
   HeroCTA,
-  IconCards,
   HeroLarge,
   HeroResource,
   HeroShort,
+  IconCards,
   Logos,
   Quotation,
   Richtext,
   ShortCTA,
+  SideCalloutWithImages,
   Stats,
   Testimonials,
   ThreeColumnContentWithIcons,
   ThreeColumnContentWithNumbers,
-  SideCalloutWithImages,
   TwoColumnPhotoCards,
   TwoColumnsContent,
 } from '@/components/Modules';
+import { GetPageQueryResult } from '@/sanity.types';
+import { dataAttr } from '@/sanity/lib/utils';
 
 type BlocksType = {
   [key: string]: React.FC<any>;

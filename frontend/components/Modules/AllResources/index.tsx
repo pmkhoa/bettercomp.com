@@ -1,25 +1,12 @@
 'use client';
 
-import {
-  DateComponent,
-  MotionFadeIn,
-  FilterBy,
-  ButtonPrimary,
-  PortableText,
-  ResolvedLink,
-  MediaAsset,
-  ResourceCard,
-  SanityImage,
-} from '@/components';
-import Link from 'next/link';
-import { CalendarIcon, ClockIcon } from '@/components/Icons';
-import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { getFilterContentTypes, getFilterTopics } from '@/utils/getFilterResources';
-import { filter } from 'lodash';
 import cn from 'classnames';
 import gsap from 'gsap';
-import { linkHelpers } from '@/sanity/lib/utils';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+
+import { FilterBy, PortableText, ResourceCard } from '@/components';
+import { getFilterContentTypes, getFilterTopics } from '@/utils/getFilterResources';
 
 const LIMIT = 12;
 

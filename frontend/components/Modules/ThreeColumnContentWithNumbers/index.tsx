@@ -1,5 +1,6 @@
-import { SanityImage, ButtonPrimary, PortableText, MediaAsset, ResolvedLink } from '@/components';
 import cn from 'classnames';
+
+import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { ThreeColumnContentWithNumbers } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 

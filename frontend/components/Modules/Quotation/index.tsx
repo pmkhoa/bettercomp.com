@@ -1,6 +1,7 @@
 import cn from 'classnames';
-import { Quotation, GetResourceQueryResult } from '@/sanity.types';
+
 import { PortableText, SanityImage } from '@/components';
+import { Quotation } from '@/sanity.types';
 
 type QuotationProps = {
   block: Quotation;
@@ -14,7 +15,7 @@ export default function QuotationModule({ block, pageData }: QuotationProps) {
     return null;
   }
 
-  const { layout, quoteText, quote, authorInfo, image, additionalInfo, textAlign } = block;
+  const { layout, quoteText, quote, authorInfo, image, additionalInfo } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
   if (layout === 'left') {

@@ -1,7 +1,7 @@
-import { SanityImage, ButtonPrimary, PortableText, MediaAsset, ResolvedLink } from '@/components';
 import cn from 'classnames';
+
+import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { TwoColumnPhotoCards } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
 import { getImageDimension } from '@/sanity/lib/utils';
 
 export function getTallestAspectRatio(images: any): number {

@@ -1,8 +1,11 @@
-import cn from 'classnames';
-import { PortableText, Carousel, SanityImage, ResolvedLink } from '@/components';
-import { Testimonials } from '@/sanity.types';
-import s from './style.module.css';
 import './carousel.css';
+
+import cn from 'classnames';
+
+import { Carousel, PortableText, ResolvedLink, SanityImage } from '@/components';
+import { Testimonials } from '@/sanity.types';
+
+import s from './style.module.css';
 
 type Props = {
   block: Testimonials;
@@ -32,11 +35,9 @@ export default function SectionTestimonialsModule({ block }: Props) {
               center: false,
               adaptiveHeight: false,
               showProgressbar: false,
-              // @ts-ignore
               Autoplay: {
-                // @ts-ignore
+                // @ts-expect-error: temp fix for type
                 isEnabled: true,
-                // @ts-ignore
                 showProgressbar: false,
               },
               Dots: false,

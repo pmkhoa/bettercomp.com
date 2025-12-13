@@ -1,7 +1,8 @@
 'use client';
-import { useRef } from 'react';
-import { imageVariants } from '@/utils/motion-transition';
 import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+
+import { imageVariants } from '@/utils/motion-transition';
 
 const MotionFadeInOnScroll = ({
   children,

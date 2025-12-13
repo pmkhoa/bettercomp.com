@@ -1,5 +1,6 @@
-import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import cn from 'classnames';
+
+import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { SideCalloutWithImages } from '@/sanity.types';
 
 export default function SideCalloutWithImagesModule({ block }: { block: SideCalloutWithImages }) {

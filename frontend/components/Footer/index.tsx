@@ -1,6 +1,7 @@
-import { Settings } from '@/sanity.types';
 import Link from 'next/link';
+
 import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
+import { Settings } from '@/sanity.types';
 
 export default function Footer({ settings }: { settings: Settings }) {
   const { footerCTA, footerNav, socialLink, privacyLinks } = settings;

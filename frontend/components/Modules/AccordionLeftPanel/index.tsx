@@ -1,5 +1,6 @@
-import { ButtonPrimary, AccordionText, PortableText, ResolvedLink } from '@/components';
 import cn from 'classnames';
+
+import { AccordionText, ButtonPrimary, PortableText, ResolvedLink } from '@/components';
 import { AccordionLeftPanel } from '@/sanity.types';
 
 export default function SectionAccordionLeftPanel({ block }: { block: AccordionLeftPanel }) {

@@ -1,10 +1,8 @@
+import { buildFileUrl, getFileAsset, getImageDimensions } from '@sanity/asset-utils';
 import createImageUrlBuilder from '@sanity/image-url';
-import { Link } from '@/sanity.types';
-import { get } from 'lodash';
-import { dataset, projectId, studioUrl } from '@/sanity/lib/api';
-import { getFileAsset, buildFileUrl } from '@sanity/asset-utils';
 import { createDataAttribute, CreateDataAttributeProps } from 'next-sanity';
-import { getImageDimensions } from '@sanity/asset-utils';
+
+import { dataset, projectId, studioUrl } from '@/sanity/lib/api';
 
 const imageBuilder = createImageUrlBuilder({
   projectId: projectId || '',
@@ -23,7 +21,7 @@ export const urlForImage = (source: any) => {
   // get the image's og dimensions
   const { width, height } = getImageDimensions(imageRef);
 
-  if (Boolean(crop)) {
+  if (crop) {
     // compute the cropped image's area
     const croppedWidth = Math.floor(width * (1 - (crop.right + crop.left)));
 
@@ -47,7 +45,6 @@ export const getImageDimension = (source: any) => {
   }
 
   const imageRef = source?.asset?._ref;
-  const crop = source.crop;
 
   // get the image's og dimensions
   const { width, height } = getImageDimensions(imageRef);
@@ -84,9 +81,7 @@ export function linkResolver(link: any) {
     case 'href':
       return link.href || null;
 
-    // @ts-ignore
     case 'file':
-      // @ts-ignore
       return link.file || null;
 
     // Internal CMS Page (Sanity document with slug)

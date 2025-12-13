@@ -1,23 +1,24 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import { useEffect, useState, useLayoutEffect } from 'react';
-import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
-import { Settings } from '@/sanity.types';
+import { PopoverGroup } from '@headlessui/react';
+import cn from 'classnames';
 import { delay } from 'lodash';
+import { motion, useScroll, useTransform } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import cn from 'classnames';
-import s from './style.module.css';
+import { usePathname } from 'next/navigation';
+import { useLayoutEffect, useState } from 'react';
+
 import LogoBlack from '@/assets/images/LogoBlack.png';
 import LogoWhite from '@/assets/images/LogoWhite.png';
-import { SearchIcon, HelpDeskIcon, ProfileIcon, CloseIcon } from '@/components/Icons';
-import { PopoverGroup } from '@headlessui/react';
-import { PortableText, ButtonPrimary, ResolvedLink } from '@/components';
-import NavDropdownSimple from './NavDropdownSimple';
+import { ButtonPrimary, PortableText, ResolvedLink } from '@/components';
+import { CloseIcon, HelpDeskIcon, ProfileIcon, SearchIcon } from '@/components/Icons';
+import { Settings } from '@/sanity.types';
+
 import MobileMenu from './MobileMenu';
+import NavDropdownSimple from './NavDropdownSimple';
 import SearchBox from './SearchBox';
+import s from './style.module.css';
 
 export default function Header({ settings }: { settings: Settings }) {
   const { siteBanner, loginLink, helpLink, globalNav, globalNavCta } = settings;
@@ -37,8 +38,6 @@ export default function Header({ settings }: { settings: Settings }) {
     mobileMenu: string;
     logo: any;
   } | null>(null);
-
-  if (!settings || !globalNav) return null;
 
   // 🎯 Smooth shrinking header animation using Framer Motion
   const headerHeight = useTransform(scrollY, [0, 300], ['172px', '124px']);
@@ -77,6 +76,7 @@ export default function Header({ settings }: { settings: Settings }) {
     }
   }, [pathname]);
 
+  if (!settings || !globalNav) return null;
   if (!navTheme) return null; // Prevent render until theme resolved
 
   return (

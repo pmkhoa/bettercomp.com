@@ -1,4 +1,3 @@
-import React from 'react';
 import cn from 'classnames';
 /**
  * This component uses Portable Text to render a post body.
@@ -9,11 +8,11 @@ import cn from 'classnames';
  * https://portabletext.org/
  *
  */
-
 import { PortableText, type PortableTextComponents } from 'next-sanity';
-import { SanityImage } from '@/components/SanityImage';
+import React from 'react';
+
 import ResolvedLink from '@/components/ResolvedLink';
-import { urlForImage } from '@/sanity/lib/utils';
+import { SanityImage } from '@/components/SanityImage';
 
 export default function CustomPortableText({
   className,
@@ -102,10 +101,10 @@ export default function CustomPortableText({
           </h6>
         );
       },
-      small: ({ children, value }) => {
+      small: ({ children }) => {
         return <small className="group relative">{children}</small>;
       },
-      blockquote: ({ children, value }) => {
+      blockquote: ({ children }) => {
         return (
           <div className="relative py-2 px-10 overflow-hidden my-8">
             <div className="h-full bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[6px] absolute inset-0 z-30 overflow-hidden rounded-[2px]" />

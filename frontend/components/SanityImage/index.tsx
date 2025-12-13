@@ -1,7 +1,8 @@
 'use client';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import { urlForImage } from '@/sanity/lib/utils';
 import Image from 'next/image';
+
+import { urlForImage } from '@/sanity/lib/utils';
 
 interface Props {
   image: SanityImageSource;

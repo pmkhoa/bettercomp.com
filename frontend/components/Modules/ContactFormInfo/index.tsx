@@ -1,7 +1,8 @@
 import cn from 'classnames';
 import Link from 'next/link';
+
+import { HubspotForm, PortableText, SanityImage } from '@/components';
 import { ContactForm } from '@/sanity.types';
-import { PortableText, HubspotForm, SanityImage } from '@/components';
 
 type Props = {
   block: ContactForm;

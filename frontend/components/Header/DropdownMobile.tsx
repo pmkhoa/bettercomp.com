@@ -1,9 +1,11 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown } from '@/components/Icons';
-import { ResolvedLink } from '@/components';
-import { kebabCase } from 'lodash';
 import cn from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
+import { kebabCase } from 'lodash';
+
+import { ResolvedLink } from '@/components';
+import { ChevronDown } from '@/components/Icons';
+
 import s from './style.module.css';
 
 const DropdownMobile = ({ nav, closeMainMenu = () => {} }: { nav: any; closeMainMenu: any }) => {

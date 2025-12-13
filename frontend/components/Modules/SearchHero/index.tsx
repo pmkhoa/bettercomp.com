@@ -1,7 +1,6 @@
 import cn from 'classnames';
+
 import SearchBox from '@/components/Header/SearchBox';
-import { MotionFadeIn } from '@/components';
-import BgGraphicalGrid from '@/assets/images/bg-graphical-grid.svg';
 
 type Props = {
   searchTerm?: string;
@@ -12,10 +11,9 @@ export default function SearchHero({ searchTerm }: Props) {
     <section className={cn('hero-short mb-16 md:mb-32 relative flex flex-col')}>
       <div className={cn('bg-blue text-white', 'order-1')}>
         <div
-          className="absolute w-full h-[44%] left-0 bottom-0"
+          className="absolute w-full h-[44%] left-0 bottom-0 bg-cover bg-repeat bg-center"
           style={{
             backgroundImage: `url('/images/bg-graphical-grid.svg')`,
-            backgroundSize: 'auto',
           }}
         />
         <div className="container z-10 relative z-20">

@@ -1,16 +1,8 @@
 import cn from 'classnames';
-import Image from 'next/image';
-import {
-  ButtonPrimary,
-  MotionFadeIn,
-  MediaAsset,
-  ResolvedLink,
-  PortableText,
-  SanityImage,
-} from '@/components';
-import { Background, FullWidthCTA } from '@/sanity.types';
+
+import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
+import { FullWidthCTA } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
-import BgGraphicalGrid from '@/assets/images/bg-graphical-grid.svg';
 
 export default function SectionFullWidthCTA({
   block,
@@ -25,7 +17,7 @@ export default function SectionFullWidthCTA({
     return null;
   }
 
-  const { showTOC, useNarrowWidthContent } = pageData;
+  const { useNarrowWidthContent } = pageData;
 
   const {
     enabled: backgroundEnabled,

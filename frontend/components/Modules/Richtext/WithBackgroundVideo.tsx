@@ -1,9 +1,9 @@
 import cn from 'classnames';
-import { Richtext } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
-import { urlForAsset } from '@/sanity/lib/utils';
 
-import { PortableText, BackgroundVideo } from '@/components';
+import { BackgroundVideo, PortableText } from '@/components';
+import { Richtext } from '@/sanity.types';
+import { urlForAsset } from '@/sanity/lib/utils';
+import { defaultBackground } from '@/utils/constants';
 type Props = {
   block: Richtext;
   pageData: any;

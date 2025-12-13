@@ -1,9 +1,11 @@
 'use client';
-import { get, kebabCase } from 'lodash';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-import { AnimatePresence, motion } from 'framer-motion';
 import cn from 'classnames';
-import { ResolvedLink, PortableText } from '@/components';
+import { AnimatePresence, motion } from 'framer-motion';
+import { get, kebabCase } from 'lodash';
+
+import { PortableText, ResolvedLink } from '@/components';
+
 import s from './style.module.css';
 
 /*
@@ -22,7 +24,6 @@ const AccordionTextModule = ({ accordionList = [] }: AccordionProps) => {
     const buttons = document.querySelectorAll('button[data-headlessui-state="open"]');
     buttons.forEach((button) => {
       if (button?.id !== _id) {
-        //@ts-ignore: Unreachable code error
         button?.click();
       }
     });

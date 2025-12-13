@@ -1,12 +1,6 @@
 const TwitterIcon = ({ color = '#0092FF' }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="25"
-      height="24"
-      viewBox="0 0 25 24"
-      fill="none"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
       <mask
         id="mask0_1815_1973"
         style={{ maskType: 'luminance' }}

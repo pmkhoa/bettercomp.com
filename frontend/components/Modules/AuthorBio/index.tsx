@@ -1,7 +1,8 @@
-import Link from 'next/link';
-import { AuthorBio, GetResourceQueryResult } from '@/sanity.types';
-import { PortableText, SanityImage } from '@/components';
 import cn from 'classnames';
+import Link from 'next/link';
+
+import { PortableText, SanityImage } from '@/components';
+import { AuthorBio } from '@/sanity.types';
 
 type Props = {
   block: AuthorBio;
@@ -20,7 +21,7 @@ const AuthorBioModule = ({ block, pageData }: Props) => {
     return <div />;
   }
 
-  // @ts-ignore: ignore
+  // @ts-expect-error: temp fix type: ignore
   const { authorBio, firstName, lastName, picture, slug, jobTitle } = teamMember;
 
   return (

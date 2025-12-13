@@ -1,7 +1,8 @@
 import cn from 'classnames';
-import { Background, Richtext } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
+
 import PortableText from '@/components/PortableText';
+import { Richtext } from '@/sanity.types';
+import { defaultBackground } from '@/utils/constants';
 
 type Props = {
   block: Richtext;

@@ -1,10 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { SearchIcon } from '@/components/Icons';
 import { Button, Field, Input } from '@headlessui/react';
 import cn from 'classnames';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { SearchIcon } from '@/components/Icons';
 
 type Props = {
   onSearchSubmit?: () => void;
@@ -18,6 +19,7 @@ export default function SearchBox({ onSearchSubmit, searchTerm = '', className =
 
   // ✅ Sync input when searchTerm changes (URL / parent update)
   useEffect(() => {
+    // @ts-expect-error react-hooks/set-state-in-effect
     setValue(searchTerm || '');
   }, [searchTerm]);
 

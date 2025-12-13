@@ -1,14 +1,7 @@
 import cn from 'classnames';
-import {
-  SanityImage,
-  ButtonPrimary,
-  MotionFadeIn,
-  MediaAsset,
-  ResolvedLink,
-  PortableText,
-} from '@/components';
-import { Background, HeroShort } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
+
+import { ButtonPrimary, ResolvedLink, SanityImage } from '@/components';
+import { HeroShort } from '@/sanity.types';
 
 export default function SectionHeroLarge({ block }: { block: HeroShort }) {
   const { enabled, heroImage, heroImageMobile, heading, ctaButton } = block;

@@ -1,12 +1,13 @@
-import {
-  MotionFadeIn,
-  SanityImage,
-  PortableText,
-  MediaAsset,
-  ButtonPrimary,
-  ResolvedLink,
-} from '@/components';
 import cn from 'classnames';
+
+import {
+  ButtonPrimary,
+  MediaAsset,
+  MotionFadeIn,
+  PortableText,
+  ResolvedLink,
+  SanityImage,
+} from '@/components';
 import { TwoColumnsContent } from '@/sanity.types';
 import { defaultBackground } from '@/utils/constants';
 

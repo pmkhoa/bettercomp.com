@@ -1,13 +1,12 @@
+import { get } from 'lodash';
 import type { Metadata } from 'next';
 
+import { NotFound } from '@/components';
 import PageBuilderPage from '@/components/PageBuilder';
 import { sanityFetch } from '@/sanity/lib/live';
 import { getResourceQuery, resourceSlugs } from '@/sanity/lib/queries';
-import { GetPageQueryResult } from '@/sanity.types';
-import { NotFound } from '@/components';
-import { get } from 'lodash';
-import { defaultResourcesType } from '@/utils/constants';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
+import { defaultResourcesType } from '@/utils/constants';
 
 type Props = {
   params: Promise<{ type: string; slug: string }>;

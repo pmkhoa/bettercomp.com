@@ -1,9 +1,7 @@
-import Link from 'next/link';
-import { ShortCTA } from '@/sanity.types';
-import { ButtonPrimary, ResolvedLink, PortableText } from '@/components';
-import Image from 'next/image';
 import cn from 'classnames';
-import ShortCTABg from '@/assets/images/short-cta-bg.jpg';
+
+import { ButtonPrimary, PortableText, ResolvedLink } from '@/components';
+import { ShortCTA } from '@/sanity.types';
 
 const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any }) => {
   const { enabled, description, ctaButton } = block;
@@ -30,17 +28,15 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
                 'w-[70%] absolute inset-0 z-30 rounded-md -left-1 h-2 '
               )}
             />
-            {ShortCTABg && (
-              <div
-                className="absolute w-[cal(100% + 40px)] h-full inset-0"
-                style={{
-                  backgroundImage: `url('/images/bg-graphical-grid.svg')`,
-                  backgroundSize: 'auto',
-                  backgroundRepeat: 'repeat',
-                  backgroundPosition: 'center center',
-                }}
-              ></div>
-            )}
+            <div
+              className="absolute w-[cal(100% + 40px)] h-full inset-0"
+              style={{
+                backgroundImage: `url('/images/bg-graphical-grid.svg')`,
+                backgroundSize: 'auto',
+                backgroundRepeat: 'repeat',
+                backgroundPosition: 'center center',
+              }}
+            />
             <div className="grid-container p-14 z-20 relative items-start gap-6">
               <div className="cta-content col-span-12 md:col-span-8">
                 <div className="inner-content text-white section-richtext">

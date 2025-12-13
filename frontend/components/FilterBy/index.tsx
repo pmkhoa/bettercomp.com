@@ -1,8 +1,4 @@
 'use client';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useCallback, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { CONTENT_TYPES } from '@/utils/constants';
 import {
   Field,
   Label,
@@ -12,7 +8,12 @@ import {
   ListboxOptions,
 } from '@headlessui/react';
 import cn from 'classnames';
-import { uniq, map, find, toLower } from 'lodash';
+import { AnimatePresence, motion } from 'framer-motion';
+import { find, map, toLower, uniq } from 'lodash';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+
+import { CONTENT_TYPES } from '@/utils/constants';
 
 type Props = {
   filterList: string[];
@@ -36,7 +37,7 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
       params.set(name, value);
       return params.toString();
     },
-    [searchParams],
+    [searchParams]
   );
 
   useEffect(() => {
@@ -58,7 +59,7 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
             <ListboxButton
               className={cn(
                 'relative flex p-4 text-left border border-black w-full justify-between capitalize z-10',
-                'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25',
+                'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
               )}
             >
               {find(CONTENT_TYPES, ['value', selectedType])?.title || selectedType}
@@ -92,9 +93,7 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
                   anchor="bottom"
                   className={cn(
                     'w-[var(--button-width)] rounded-md border border-gray [--anchor-gap:var(--spacing-2)] focus:outline-none origin-top mt-2 z-50 bg-white',
-                    uniqFilterList.length <= 6
-                      ? `h-[${56 * uniqFilterList.length}px]`
-                      : `h-[370px]`,
+                    uniqFilterList.length <= 6 ? `h-[${56 * uniqFilterList.length}px]` : `h-[370px]`
                   )}
                 >
                   {uniqFilterList.map((filterListItem, index) => (
@@ -107,7 +106,7 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
                       onClick={() => {
                         router.push(
                           pathname + '?' + createQueryString(filterType, filterListItem),
-                          { scroll: false },
+                          { scroll: false }
                         );
                       }}
                     >

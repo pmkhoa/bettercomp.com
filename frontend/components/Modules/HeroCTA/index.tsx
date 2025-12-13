@@ -1,14 +1,7 @@
 import cn from 'classnames';
-import {
-  ButtonPrimary,
-  MotionFadeIn,
-  MediaAsset,
-  ResolvedLink,
-  PortableText,
-  SanityImage,
-} from '@/components';
-import { Background, HeroCTA } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
+
+import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
+import { HeroCTA } from '@/sanity.types';
 
 export default function SectionHeroCTA({ block, pageData }: { block: HeroCTA; pageData: any }) {
   const { enabled, description, ctaButton, backgroundDesktop, backgroundMobile } = block;

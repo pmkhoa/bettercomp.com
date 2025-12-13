@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
 import { PopoverButton } from '@headlessui/react';
 import cn from 'classnames';
+import { useEffect, useRef } from 'react';
+
 import s from './style.module.css';
 
 const PopoverButtonHoverWrapper = ({
@@ -20,11 +21,11 @@ const PopoverButtonHoverWrapper = ({
 
     const observer = new MutationObserver((mutations) => {
       const hovered = mutations.find(({ attributeName }) => attributeName === 'data-hover');
-      // @ts-ignore: temporary disable typecheck for now
+      // @ts-expect-error: no need to check
       const active = current.hasAttribute('data-active');
 
       if (hovered && !active) {
-        // @ts-ignore: temporary disable typecheck for now
+        // @ts-expect-error: temporary disable typecheck for now
         current.click();
       }
     });
@@ -43,7 +44,7 @@ const PopoverButtonHoverWrapper = ({
         showChevron && s['show-chevron'],
         showChevron && 'show-chevron',
         'cursor-pointer font-bold',
-        'popover-btn',
+        'popover-btn'
       )}
       ref={popoverButtonRef}
     >

@@ -1,22 +1,24 @@
 'use client';
+import './style.css';
+
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import * as tocbot from 'tocbot';
-import { LinkIcon, TwitterIcon, FacebookIcon, LinkedinIcon } from '@/components/Icons';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import {
   EmailShareButton,
   FacebookShareButton,
-  TwitterShareButton,
   LinkedinShareButton,
+  TwitterShareButton,
 } from 'react-share';
-import './style.css';
+import * as tocbot from 'tocbot';
+
+import { FacebookIcon, LinkedinIcon, LinkIcon, TwitterIcon } from '@/components/Icons';
 
 const TOC = () => {
   const pathname = usePathname();
   const [currentUrl, setCurrentUrl] = useState('');
 
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
+  useLayoutEffect(() => {
+    setCurrentUrl(`${window.location.origin}${pathname}`);
   }, [pathname]);
 
   useEffect(() => {
@@ -24,10 +26,10 @@ const TOC = () => {
 
     const initToc = () => {
       try {
-        // @ts-ignore: ignore type
+        // @ts-expect-error: ignore type
         tocbot.destroy();
 
-        // @ts-ignore: ignore type
+        // @ts-expect-error: ignore type
         tocbot.init({
           tocSelector: '.toc-container',
           contentSelector: '.inner-content',
@@ -45,7 +47,6 @@ const TOC = () => {
 
     /** 1️⃣ Initialize immediately */
 
-    // @ts-ignore: ignore type
     initToc();
 
     /** 2️⃣ Observe inner-content for ANY change (e.g., lazy-loaded images shifting layout) */
@@ -78,7 +79,7 @@ const TOC = () => {
 
     /** Cleanup on unmount or route change */
     return () => {
-      // @ts-ignore: ignore type
+      // @ts-expect-error: ignore type
       tocbot.destroy();
       observer?.disconnect();
     };

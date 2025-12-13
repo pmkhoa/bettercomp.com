@@ -1,11 +1,11 @@
+import { get, isEmpty } from 'lodash';
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
-import type { Metadata } from 'next';
+import { NotFound } from '@/components';
 import PageBuilderPage from '@/components/PageBuilder';
 import { sanityFetch } from '@/sanity/lib/live';
 import { getPageQuery, pagesSlugs } from '@/sanity/lib/queries';
-import { NotFound } from '@/components';
-import { isEmpty, get } from 'lodash';
 
 const RESOURCE_TYPES = ['blog', 'ebook', 'guide', 'webinar', 'tool', 'template'];
 

@@ -1,7 +1,7 @@
 import { Image } from 'next-sanity/image';
 
-import { urlForImage } from '@/sanity/lib/utils';
 import DateComponent from '@/components/Date';
+import { urlForImage } from '@/sanity/lib/utils';
 
 type Props = {
   person: {

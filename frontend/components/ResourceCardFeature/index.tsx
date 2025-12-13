@@ -1,9 +1,11 @@
-import { DateComponent, MotionFadeIn, SanityImage } from '@/components';
-import Link from 'next/link';
-import { CalendarIcon, ClockIcon } from '@/components/Icons';
 import cn from 'classnames';
-import s from './style.module.css';
+import Link from 'next/link';
+
+import { DateComponent, MotionFadeIn, SanityImage } from '@/components';
+import { CalendarIcon, ClockIcon } from '@/components/Icons';
 import { linkHelpers } from '@/sanity/lib/utils';
+
+import s from './style.module.css';
 
 const ResourceCardFeature = ({ resource }: { resource: any }) => {
   return (

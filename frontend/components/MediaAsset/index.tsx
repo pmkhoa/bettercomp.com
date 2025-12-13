@@ -1,7 +1,8 @@
-import { MediaAsset } from '@/sanity.types';
 import { get } from 'lodash';
-import { urlForImage, urlForAsset } from '@/sanity/lib/utils';
+
 import { BackgroundVideo, SanityImage } from '@/components';
+import { MediaAsset } from '@/sanity.types';
+import { urlForAsset, urlForImage } from '@/sanity/lib/utils';
 
 export default function Media({
   mediaAsset,

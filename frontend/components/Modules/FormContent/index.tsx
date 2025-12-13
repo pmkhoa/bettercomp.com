@@ -1,6 +1,7 @@
 import cn from 'classnames';
-import { FormContent, GetResourceQueryResult } from '@/sanity.types';
-import { PortableText, HubspotForm } from '@/components';
+
+import { HubspotForm, PortableText } from '@/components';
+import { FormContent } from '@/sanity.types';
 
 type Props = {
   block: FormContent;
@@ -8,7 +9,7 @@ type Props = {
 };
 
 export default function FormContentSection({ block, pageData }: Props) {
-  const { enabled, formContentSection, description } = block;
+  const { formContentSection, description } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
   return (

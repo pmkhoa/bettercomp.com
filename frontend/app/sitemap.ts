@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
+import { headers } from 'next/headers';
+
 import { sanityFetch } from '@/sanity/lib/live';
 import { sitemapData } from '@/sanity/lib/queries';
-import { headers } from 'next/headers';
 
 /**
  * This file creates a sitemap (sitemap.xml) for the application. Learn more about sitemaps in Next.js here: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
@@ -14,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
   const headersList = await headers();
   const sitemap: MetadataRoute.Sitemap = [];
-  const domain: String = headersList.get('host') as string;
+  const domain: string = headersList.get('host') as string;
   sitemap.push({
     url: domain as string,
     lastModified: new Date(),

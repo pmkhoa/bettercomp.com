@@ -1,17 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
-import Link from 'next/link';
-import { Settings } from '@/sanity.types';
+import { Disclosure, DisclosureButton, DisclosurePanel, useClose } from '@headlessui/react';
+import cn from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 import { delay } from 'lodash';
 import Image from 'next/image';
-import { SearchIcon, HelpDeskIcon, ProfileIcon } from '@/components/Icons';
-import { useClose, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
+import { useEffect } from 'react';
+
 import { ButtonPrimary, ResolvedLink } from '@/components';
+import { HelpDeskIcon, ProfileIcon } from '@/components/Icons';
+import { Settings } from '@/sanity.types';
+
 import DropdownMobile from './DropdownMobile';
 import SearchBox from './SearchBox';
-import cn from 'classnames';
 
 type MobileMenuProps = {
   settings: Settings;

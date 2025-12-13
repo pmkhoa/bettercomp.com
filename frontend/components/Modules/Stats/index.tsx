@@ -1,14 +1,8 @@
 import cn from 'classnames';
-import { AnimateNumber, ResolvedLink, ButtonPrimary } from '@/components';
-import { Stats, StatNumber } from '@/sanity.types';
 import { get } from 'lodash';
 
-type Props = {
-  heading?: string;
-  ctaText?: string;
-  ctaLink?: any;
-  statNumber: any;
-};
+import { AnimateNumber, ButtonPrimary, ResolvedLink } from '@/components';
+import { StatNumber, Stats } from '@/sanity.types';
 
 export default function StatsModule({ block }: { block: Stats }) {
   if (!block.enabled) return null;

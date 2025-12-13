@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+
+import { SearchHero } from '@/components/Modules';
 import { sanityFetch } from '@/sanity/lib/live';
 import { searchQuery } from '@/sanity/lib/queries';
-import { SearchHero } from '@/components/Modules';
 import { linkHelpers } from '@/sanity/lib/utils';
 
 type Props = {

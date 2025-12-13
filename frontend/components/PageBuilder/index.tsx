@@ -3,13 +3,11 @@
 import { get } from 'lodash';
 import { SanityDocument } from 'next-sanity';
 import { useOptimistic } from 'next-sanity/hooks';
-import Link from 'next/link';
 
-import BlockRenderer from '@/components/BlockRenderer';
 import { TOC } from '@/components';
-import { GetPageQueryResult, GetResourceQueryResult } from '@/sanity.types';
+import BlockRenderer from '@/components/BlockRenderer';
+import { GetPageQueryResult } from '@/sanity.types';
 import { dataAttr } from '@/sanity/lib/utils';
-import { studioUrl } from '@/sanity/lib/api';
 
 type PageBuilderPageProps = {
   page: GetPageQueryResult;

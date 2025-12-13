@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
 import { kebabCase } from 'lodash';
+import { useEffect } from 'react';
 
 function HubspotForm({
   uniqTarget,
@@ -24,7 +24,7 @@ function HubspotForm({
   useEffect(() => {
     const timer = window.setTimeout(() => {
       if (window.hbspt) {
-        //@ts-ignore: hbspt form
+        //@ts-expect-error: hbspt form
         const hubspotOptions = {
           region: 'na1',
           portalId: '21848769',

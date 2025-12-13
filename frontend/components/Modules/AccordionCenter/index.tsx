@@ -1,5 +1,6 @@
-import { ButtonPrimary, AccordionText, PortableText, ResolvedLink } from '@/components';
 import cn from 'classnames';
+
+import { AccordionText, ButtonPrimary, PortableText, ResolvedLink } from '@/components';
 import { AccordionCenter } from '@/sanity.types';
 
 export default function SectionAccordionCenter({ block }: { block: AccordionCenter }) {

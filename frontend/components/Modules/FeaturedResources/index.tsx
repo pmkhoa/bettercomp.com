@@ -1,23 +1,14 @@
 import cn from 'classnames';
+
 import {
   ButtonPrimary,
-  MotionFadeIn,
-  SanityImage,
-  MediaAsset,
-  ResolvedLink,
   PortableText,
+  ResolvedLink,
   ResourceCard,
   ResourceCardFeature,
 } from '@/components';
-import { defaultBackground } from '@/utils/constants';
 
-export default function FeaturedResourcesModule({
-  block,
-  pageData,
-}: {
-  block: any;
-  pageData: any;
-}) {
+export default function FeaturedResourcesModule({ block }: { block: any }) {
   const {
     latestResources = [],
     enabled,

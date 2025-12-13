@@ -1,9 +1,7 @@
-import { SanityImage, ButtonPrimary, PortableText, MediaAsset, ResolvedLink } from '@/components';
 import cn from 'classnames';
-import Image from 'next/image';
+
+import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { IconCards } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
-import iconCardsBg from '@/assets/images/bg-graphical-grid.svg';
 
 export default function IconCardsModule({ block }: { block: IconCards }) {
   if (!block.enabled) return null;

@@ -1,10 +1,10 @@
 'use client';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
-import { motion } from 'motion/react';
+import { Fancybox } from '@fancyapps/ui';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/all';
-import { Fancybox } from '@fancyapps/ui';
+import { motion } from 'motion/react';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 gsap.registerPlugin(ScrollToPlugin);
 
