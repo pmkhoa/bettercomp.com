@@ -9,7 +9,7 @@ import {
   SanityImage,
 } from '@/components';
 import { HeroLarge } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
+import { BG_COLOR_MAP, defaultBackground, TEXT_COLOR_MAP } from '@/utils/constants';
 
 export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
   const {
@@ -32,8 +32,8 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
     textColor,
   } = sectionBackground;
 
-  const bgColor = `bg-${backgroundColor}`;
-  const sectionTextColor = `text-${textColor}`;
+  const bgColorClass = backgroundColor ? BG_COLOR_MAP[backgroundColor] : 'bg-blue';
+  const textColorClass = textColor ? TEXT_COLOR_MAP[textColor] : 'text-white';
 
   return (
     <section
@@ -42,8 +42,8 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
         backgroundEnabled && backgroundType === 'color'
           ? 'py-10 sm:py-16 md:py-20'
           : 'my-10 sm:my-16 md:my-20',
-        backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white',
-        sectionTextColor
+        backgroundEnabled && backgroundType === 'color' ? bgColorClass : 'bg-white',
+        textColorClass
       )}
     >
       {backgroundEnabled && backgroundType === 'image' && (

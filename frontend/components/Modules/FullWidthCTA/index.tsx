@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { FullWidthCTA } from '@/sanity.types';
-import { defaultBackground } from '@/utils/constants';
+import { BG_COLOR_MAP, defaultBackground, TEXT_COLOR_MAP } from '@/utils/constants';
 
 export default function SectionFullWidthCTA({
   block,
@@ -22,18 +22,15 @@ export default function SectionFullWidthCTA({
   const {
     enabled: backgroundEnabled,
     backgroundType,
-    backgroundColor,
+    backgroundColor = 'bg-blue',
     asset,
-    textColor,
+    textColor = 'text-white',
   } = background;
 
-  let bgColor = `bg-blue`;
-  if (backgroundColor === 'blueWithGraphic') {
-    bgColor = `bg-blue`;
-  } else {
-    bgColor = `bg-${backgroundColor}`;
-  }
-  const sectionTextColor = `text-${textColor}`;
+  const bgColor =
+    backgroundColor === 'blueWithGraphic' ? 'bg-blue' : BG_COLOR_MAP[backgroundColor] || 'bg-blue';
+
+  const sectionTextColor = TEXT_COLOR_MAP[textColor] || 'text-white';
 
   return (
     <section className={cn('full-width-cta overflow-hidden relative', sectionTextColor)}>
@@ -62,11 +59,12 @@ export default function SectionFullWidthCTA({
                 />
               </div>
             )}
+
             <div
               className={cn(
                 'grid-container justify-between items-center gap-y-16 gap-0 md:gap-4',
                 textAlign === 'center' ? 'py-24 md:py-32' : 'py-24',
-                backgroundEnabled && backgroundType === 'color' && bgColor
+                bgColor
               )}
             >
               <div
