@@ -19,7 +19,6 @@ export default function SearchBox({ onSearchSubmit, searchTerm = '', className =
 
   // ✅ Sync input when searchTerm changes (URL / parent update)
   useEffect(() => {
-    // @ts-expect-error react-hooks/set-state-in-effect
     setValue(searchTerm || '');
   }, [searchTerm]);
 

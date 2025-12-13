@@ -24,6 +24,7 @@ const AccordionTextModule = ({ accordionList = [] }: AccordionProps) => {
     const buttons = document.querySelectorAll('button[data-headlessui-state="open"]');
     buttons.forEach((button) => {
       if (button?.id !== _id) {
+        // @ts-expect-error: disable this
         button?.click();
       }
     });

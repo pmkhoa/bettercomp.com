@@ -24,7 +24,6 @@ function HubspotForm({
   useEffect(() => {
     const timer = window.setTimeout(() => {
       if (window.hbspt) {
-        //@ts-expect-error: hbspt form
         const hubspotOptions = {
           region: 'na1',
           portalId: '21848769',
@@ -46,13 +45,11 @@ function HubspotForm({
   }, [campaignId, formByType, formType, uniqTarget]);
 
   return (
-    <>
-      <div
-        id={`hbspt-form-${uniqTarget}-${kebabCase(formType)}`}
-        className="hbspt-form"
-        data-hs-forms-root="true"
-      />
-    </>
+    <div
+      id={`hbspt-form-${uniqTarget}-${kebabCase(formType)}`}
+      className="hbspt-form"
+      data-hs-forms-root="true"
+    />
   );
 }
 
