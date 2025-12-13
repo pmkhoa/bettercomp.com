@@ -109,7 +109,7 @@ export default function SectionTestimonialsModule({ block }: Props) {
                           <div className="font-bold">{reviewer}</div>
                         </div>
                       </div>
-                      <div className="review-stars my-2 md:my-8 col-span-12 lg:col-span-3">
+                      <div className="review-stars my-4 md:my-8 col-span-12 lg:col-span-3">
                         <div className="flex justify-start lg:justify-end">
                           <div className="wrapper flex justify-start items-center gap-6 lg:gap-0 lg:flex lg:justify-end flex-wrap max-w-[200px] mr-0">
                             <SanityImage
@@ -117,10 +117,10 @@ export default function SectionTestimonialsModule({ block }: Props) {
                               className="max-h-[24px] min-w-[140px] w-auto"
                             />
                             {readAllReviews && readAllReviews.link && (
-                              <div className="review-stars mt-2">
+                              <div className="review-stars mt-0">
                                 <ResolvedLink
                                   link={readAllReviews.link}
-                                  className={'inline-block my-4 text-orange underline'}
+                                  className={'inline-block my-2 text-orange underline'}
                                 >
                                   {readAllReviews.linkLabel}
                                 </ResolvedLink>

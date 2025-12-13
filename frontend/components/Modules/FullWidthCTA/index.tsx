@@ -34,7 +34,7 @@ export default function SectionFullWidthCTA({
 
   return (
     <section className={cn('full-width-cta overflow-hidden relative', sectionTextColor)}>
-      <div className={cn('z-10 relative z-20', useNarrowWidthContent && 'container')}>
+      <div className={cn('z-10 relative z-20', useNarrowWidthContent && `container ${bgColor}`)}>
         <div className="grid-container overflow-hidden">
           <div className={cn('col-span-12', 'relative')}>
             {backgroundEnabled && backgroundColor === 'blueWithGraphic' && (
@@ -62,9 +62,8 @@ export default function SectionFullWidthCTA({
 
             <div
               className={cn(
-                'grid-container justify-between items-center gap-y-16 gap-0 md:gap-4',
-                textAlign === 'center' ? 'py-24 md:py-32' : 'py-24',
-                bgColor
+                'grid-container justify-between items-center gap-y-16 gap-0 md:gap-4 relative z-10',
+                textAlign === 'center' ? 'py-24 md:py-32' : 'py-24'
               )}
             >
               <div

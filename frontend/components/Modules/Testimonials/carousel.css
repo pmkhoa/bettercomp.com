@@ -1,10 +1,10 @@
 @reference 'tailwindcss';
 
-.carousel-container {
+.testimonial-carousel .carousel-container {
 	position: relative;
 }
 
-.f-carousel__viewport {
+.testimonial-carousel .f-carousel__viewport {
   overflow: visible;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .testimonial-carousel .f-carousel__nav {
-	@apply absolute flex items-center justify-between gap-5 -bottom-12 left-4 lg:bottom-auto lg:top-50 lg:left-auto lg:right-16;
+	@apply absolute flex items-center justify-between gap-5 -bottom-12 left-2 lg:bottom-auto lg:top-64 lg:left-auto lg:right-[48px] w-[160px];
 }
 
 .testimonial-carousel .f-carousel__nav .f-button {
