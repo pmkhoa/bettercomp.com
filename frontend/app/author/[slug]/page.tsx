@@ -78,6 +78,15 @@ export default async function Page(props: Props) {
   return (
     <>
       <section className={cn('hero-short relative flex flex-col text-white bg-blue py-24')}>
+        <div
+          className="absolute w-full h-[40%] left-0 bottom-0"
+          style={{
+            backgroundImage: `url('/images/bg-graphical-grid.svg')`,
+            backgroundSize: 'auto',
+            backgroundRepeat: 'repeat',
+            backgroundPosition: 'center center',
+          }}
+        />
         <div className="container">
           <div className={cn('grid-container relative px-8 text-white gap-12')}>
             <div className="content-photo col-start-2 col-end-5">

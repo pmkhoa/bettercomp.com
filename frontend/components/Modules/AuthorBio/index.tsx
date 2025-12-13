@@ -24,7 +24,7 @@ const AuthorBioModule = ({ block, pageData }: Props) => {
   const { authorBio, firstName, lastName, picture, slug, jobTitle } = teamMember;
 
   return (
-    <section className="section-module section-author">
+    <section className="section-module section-author relative">
       <div className="container">
         <div className={cn('grid-container relative md:my-20 ')}>
           <div

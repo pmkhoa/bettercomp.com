@@ -30,17 +30,17 @@ const ShortCTAModule = ({ block, pageData }: { block: ShortCTA; pageData: any })
                 'w-[70%] absolute inset-0 z-30 rounded-md -left-1 h-2 '
               )}
             />
-            <div className="absolute w-full h-full inset-0">
-              {ShortCTABg && (
-                <Image
-                  src={ShortCTABg}
-                  alt="background"
-                  width={1000}
-                  height={1000}
-                  className="w-full h-full object-cover relative"
-                />
-              )}
-            </div>
+            {ShortCTABg && (
+              <div
+                className="absolute w-[cal(100% + 40px)] h-full inset-0"
+                style={{
+                  backgroundImage: `url('/images/bg-graphical-grid.svg')`,
+                  backgroundSize: 'auto',
+                  backgroundRepeat: 'repeat',
+                  backgroundPosition: 'center center',
+                }}
+              ></div>
+            )}
             <div className="grid-container p-14 z-20 relative items-start gap-6">
               <div className="cta-content col-span-12 md:col-span-8">
                 <div className="inner-content text-white section-richtext">

@@ -55,6 +55,7 @@ export default function SectionFullWidthCTA({
                   backgroundImage: `url('/images/bg-graphical-grid.svg')`,
                   backgroundSize: 'auto',
                   backgroundRepeat: 'repeat',
+                  backgroundPosition: 'center center',
                 }}
               />
             )}
