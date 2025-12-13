@@ -5,6 +5,7 @@ import { useEffect, useState, useLayoutEffect } from 'react';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 import { Settings } from '@/sanity.types';
+import { delay } from 'lodash';
 import Image from 'next/image';
 import Link from 'next/link';
 import cn from 'classnames';
@@ -189,7 +190,11 @@ export default function Header({ settings }: { settings: Settings }) {
                 >
                   <SearchBox
                     className="bg-white text-blue"
-                    onSearchSubmit={() => setSearchActive(false)}
+                    onSearchSubmit={() => {
+                      delay(() => {
+                        setSearchActive(false);
+                      }, 600);
+                    }}
                   />
                 </div>
                 <div className="cta-wrapper">

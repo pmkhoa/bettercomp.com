@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { Settings } from '@/sanity.types';
+import { delay } from 'lodash';
 import Image from 'next/image';
 import { SearchIcon, HelpDeskIcon, ProfileIcon } from '@/components/Icons';
 import { useClose, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
@@ -61,7 +62,12 @@ const MobileMenuContent = ({
                 className="flex flex-col gap-0 font-normal list-none text-blue overflow-auto"
               >
                 <div className="p-4 bg-sand   border-b-2 border-gray-200">
-                  <SearchBox className="text-blue bg-white" onSearchSubmit={() => close()} />
+                  <SearchBox
+                    className="text-blue bg-white"
+                    onSearchSubmit={() => {
+                      delay(close, 600);
+                    }}
+                  />
                 </div>
                 {globalNav?.map((nav) => {
                   if (nav.menuItemType === 'default') {
