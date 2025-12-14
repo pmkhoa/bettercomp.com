@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { TwoColumnPhotoCards } from '@/sanity.types';
-import { getImageDimension } from '@/sanity/lib/utils';
+import { getImageDimension, sanitizeToken } from '@/sanity/lib/utils';
 
 export function getTallestAspectRatio(images: any): number {
   if (!images?.length) return 0;
@@ -19,7 +19,7 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
   if (!block.enabled) return null;
   const { sectionBackground, heading, description, ctaButton, listItem = [] } = block;
 
-  const bgColor = `bg-${sectionBackground}`;
+  const bgColor = `bg-${sanitizeToken(sectionBackground)}`;
 
   const tallestRatio = getTallestAspectRatio(listItem.map((content) => content.image));
 
@@ -27,8 +27,8 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
     <section
       className={cn(
         'section-module relative',
-        'three-column-content',
-        sectionBackground === 'sand' ? 'py-12 md:py-24' : 'my-12 md:my-24',
+        'two-column-photos',
+        sanitizeToken(sectionBackground) === 'sand' ? 'py-12 md:py-24' : 'my-12 md:my-24',
         bgColor
       )}
     >
@@ -54,11 +54,11 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
               >
                 <div
                   className={cn(
-                    'content-wrapper grid-container bg-white shadow-md h-full flex flex-col',
+                    'content-wrapper grid-container bg-white shadow-md h-full flex flex-col xl:grid',
                     'md:gap-4'
                   )}
                 >
-                  <div className="col-span-12 md:col-span-6">
+                  <div className="col-span-12 xl:col-span-6">
                     {content?.image && (
                       <div className="relative" style={{ aspectRatio: 1 / tallestRatio }}>
                         <SanityImage
@@ -68,7 +68,7 @@ export default function TwoColumnPhotoCardsModule({ block }: { block: TwoColumnP
                       </div>
                     )}
                   </div>
-                  <div className="col-span-12 md:col-span-6 p-6 flex flex-col h-full justify-between">
+                  <div className="col-span-12 xl:col-span-6 p-6 flex flex-col h-full justify-between xl:justify-start">
                     <div className="inner-content">
                       {content.title && <h5 className="font-medium">{content.title}</h5>}
                       {content.content && (

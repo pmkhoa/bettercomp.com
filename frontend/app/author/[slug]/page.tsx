@@ -91,7 +91,7 @@ export default async function Page(props: Props) {
             <div className="content-photo col-start-2 col-end-5">
               <div className="flex justify-center">
                 {picture?.asset?._ref && (
-                  <div className="mr-4 overflow-hidden relative">
+                  <div className="mr-4 overflow-hidden relative min-w-[240px]">
                     <SanityImage
                       alt={picture?.alt || ''}
                       image={picture}
@@ -123,7 +123,7 @@ export default async function Page(props: Props) {
             <div className="heading mb-12 text-center">
               <h4>{`Read more from ${firstName}`} </h4>
             </div>
-            <div className="grid-container">
+            <div className="grid-container gap-6 md:gap-12">
               {resources.map((data: any) => {
                 return (
                   <div className="col-span-12 sm:col-span-6 md:col-span-4" key={data._id}>

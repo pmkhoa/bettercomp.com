@@ -25,6 +25,18 @@ const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 // URL for preview functionality, defaults to localhost:3000 if not set
 const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
 
+const ROUTE_MAP: Record<string, string> = {
+	page: '/',
+	blog: '/blog',
+	article: '/blog', // alias (URL masking)
+	ebook: '/ebook',
+	guide: '/guide',
+	tool: '/tool',
+	caseStudy: '/case-study',
+	template: '/template',
+	news: '/news',
+}
+
 // Define the home location for the presentation tool
 const homeLocation = {
   title: 'Home',
@@ -33,18 +45,51 @@ const homeLocation = {
 
 // resolveHref() is a convenience function that resolves the URL
 // path for different document types and used in the presentation tool.
-function resolveHref(documentType?: string, slug?: string): string | undefined {
-  switch (documentType) {
-    case 'blog':
-      return slug ? `/blog/${slug}` : undefined
-    case 'ebook':
-      return slug ? `/ebook/${slug}` : undefined
-    case 'page':
-      return slug ? `/${slug}` : undefined
-    default:
-      console.warn('Invalid document type:', documentType)
-      return undefined
-  }
+
+function resolveHref(
+	documentType?: string,
+	slug?: string
+): string | undefined {
+	if (!documentType) return undefined
+
+	const base = ROUTE_MAP[documentType]
+
+	if (!base) {
+		console.warn('[Presentation] Unknown document type:', documentType)
+		return undefined
+	}
+
+	// Home / singleton pages
+	if (documentType === 'page') {
+		return slug ? `/${slug}` : '/'
+	}
+
+	return slug ? `${base}/${slug}` : base
+}
+
+function createLocationResolver() {
+  return defineLocations({
+    select: {
+      title: 'title',
+      name: 'name',
+      slug: 'slug.current',
+      _type: '_type',
+    },
+    resolve: (doc) => {
+      const href = resolveHref(doc?._type, doc?.slug)
+
+      return {
+        locations: href
+        ? [
+          {
+            title: doc?.title || doc?.name || 'Untitled',
+            href,
+          },
+        ]
+        : [],
+      }
+    },
+  })
 }
 
 // Main Sanity configuration
@@ -71,6 +116,7 @@ export default defineConfig({
       allowOrigins: ['http://localhost:*', 'https://bettercomp-com-frontend.vercel.app', 'https://bettercomp.com'],
       resolve: {
         // The Main Document Resolver API provides a method of resolving a main document from a given route or route pattern. https://www.sanity.io/docs/presentation-resolver-api#57720a5678d9
+
         mainDocuments: defineDocuments([
           {
             route: '/',
@@ -78,48 +124,55 @@ export default defineConfig({
           },
           {
             route: '/:slug',
-            filter: `_type == "page" && slug.current == $slug || _id == $slug`,
+            filter: `_type == "page" && slug.current == $slug`,
+          },
+          {
+            route: '/blog/:slug',
+            filter: `_type in ["blog", "article"] && slug.current == $slug`,
+          },
+          {
+            route: '/ebook/:slug',
+            filter: `_type == "ebook" && slug.current == $slug`,
+          },
+          {
+            route: '/tool/:slug',
+            filter: `_type == "tool" && slug.current == $slug`,
+          },
+          {
+            route: '/guide/:slug',
+            filter: `_type == "guide" && slug.current == $slug`,
+          },
+          {
+            route: '/case-study/:slug',
+            filter: `_type == "caseStudy" && slug.current == $slug`,
+          },
+          {
+            route: '/template/:slug',
+            filter: `_type == "template" && slug.current == $slug`,
+          },
+          {
+            route: '/news/:slug',
+            filter: `_type == "news" && slug.current == $slug`,
           },
         ]),
         // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
+
         locations: {
           settings: defineLocations({
             locations: [homeLocation],
             message: 'This document is used on all pages',
             tone: 'positive',
           }),
-          page: defineLocations({
-            select: {
-              name: 'name',
-              slug: 'slug.current',
-            },
-            resolve: (doc) => ({
-              locations: [
-                {
-                  title: doc?.name || 'Untitled',
-                  href: resolveHref('page', doc?.slug)!,
-                },
-              ],
-            }),
-          }),
-          post: defineLocations({
-            select: {
-              title: 'title',
-              slug: 'slug.current',
-            },
-            resolve: (doc) => ({
-              locations: [
-                {
-                  title: doc?.title || 'Untitled',
-                  href: resolveHref('post', doc?.slug)!,
-                },
-                {
-                  title: 'Home',
-                  href: '/',
-                } satisfies DocumentLocation,
-              ].filter(Boolean) as DocumentLocation[],
-            }),
-          }),
+
+          // Generic resolver for all routed content
+          page: createLocationResolver(),
+          blog: createLocationResolver(),
+          article: createLocationResolver(),
+          ebook: createLocationResolver(),
+          tool: createLocationResolver(),
+          caseStudy: createLocationResolver(),
+          template: createLocationResolver(),
+          news: createLocationResolver(),
         },
       },
     }),
@@ -139,11 +192,12 @@ export default defineConfig({
       return context.schemaType === 'news' ||
         context.schemaType === 'blog' ||
         context.schemaType === 'ebook' ||
+        context.schemaType === 'guide' ||
         context.schemaType === 'article' ||
         context.schemaType === 'tool' ||
         context.schemaType === 'caseStudy' ||
         context.schemaType === 'template' ||
-        context.schemaType === 'page' // Apply only to "news"
+        context.schemaType === 'page'
         ? [...prev, PreviewAction]
         : prev
     },

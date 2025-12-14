@@ -24,6 +24,7 @@ export default function SectionFullWidthCTA({
     enabled: backgroundEnabled,
     backgroundType,
     backgroundColor,
+    showBorderTop,
     asset,
     textColor,
   } = background;
@@ -32,7 +33,7 @@ export default function SectionFullWidthCTA({
   const sectionTextColor = `text-${sanitizeToken(textColor)}`;
 
   return (
-    <section className={cn('full-width-cta overflow-hidden relative', sectionTextColor)}>
+    <section className={cn('full-width-cta overflow-visible relative', sectionTextColor)}>
       <div
         className={cn(
           'z-10 relative z-20',
@@ -40,11 +41,14 @@ export default function SectionFullWidthCTA({
           sanitizeToken(backgroundColor) === 'blueWithGraphic' ? 'bg-blue' : bgColor
         )}
       >
+        {showBorderTop && (
+          <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-full absolute inset-0 z-10 w-[60%] md:w-[50%] overflow-hidden left-[20%] md:left-[25%] -top-1" />
+        )}
         <div className="grid-container overflow-hidden">
           <div className={cn('col-span-12', 'relative')}>
             {backgroundEnabled && sanitizeToken(backgroundColor) === 'blueWithGraphic' && (
               <div
-                className="absolute w-full h-[31%] left-0 bottom-0"
+                className="absolute w-full h-[32%] left-0 bottom-0 bg-center bg-repeat"
                 style={{
                   backgroundImage: `url('/images/bg-graphical-grid.svg')`,
                   backgroundSize: 'auto',
