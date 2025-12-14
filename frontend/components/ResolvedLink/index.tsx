@@ -25,5 +25,6 @@ export default function ResolvedLink({ link, children, className }: ResolvedLink
       </Link>
     );
   }
+
   return <>{children}</>;
 }
