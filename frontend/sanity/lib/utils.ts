@@ -9,6 +9,15 @@ const imageBuilder = createImageUrlBuilder({
   dataset: dataset || '',
 });
 
+export function sanitizeToken(value?: string) {
+  if (!value) return '';
+
+  return value
+    .replace(/[\u200B-\u200D\uFEFF]/g, '') // zero-width chars
+    .replace(/\s+/g, '') // stray spaces
+    .trim();
+}
+
 export const urlForImage = (source: any) => {
   // Ensure that source image contains a valid reference
   if (!source?.asset?._ref) {

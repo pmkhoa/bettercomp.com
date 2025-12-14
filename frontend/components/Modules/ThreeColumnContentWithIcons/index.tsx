@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { ThreeColumnContentWithIcons } from '@/sanity.types';
+import { sanitizeToken } from '@/sanity/lib/utils';
 import { defaultBackground } from '@/utils/constants';
 
 export default function ThreeColumnContentWithIconsModule({
@@ -20,7 +21,7 @@ export default function ThreeColumnContentWithIconsModule({
 
   const { enabled: backgroundEnabled, backgroundType, backgroundColor } = sectionBackground;
 
-  const bgColor = `bg-${backgroundColor}`;
+  const bgColor = `bg-${sanitizeToken(backgroundColor)}`;
 
   return (
     <section

@@ -10,6 +10,7 @@ import {
 } from '@/components';
 import { ClockIcon } from '@/components/Icons';
 import { HeroResource } from '@/sanity.types';
+import { sanitizeToken } from '@/sanity/lib/utils';
 import { defaultBackground } from '@/utils/constants';
 
 export default function HeroResourceModule({
@@ -40,8 +41,8 @@ export default function HeroResourceModule({
     textColor,
   } = sectionBackground;
 
-  const bgColor = `bg-${backgroundColor}`;
-  const sectionTextColor = `text-${textColor}`;
+  const bgColor = `bg-${sanitizeToken(backgroundColor)}`;
+  const sectionTextColor = `text-${sanitizeToken(textColor)}`;
 
   if (useDefaultValue && pageData) {
     const { estimatedReadingTime, coverImage, title } = pageData;

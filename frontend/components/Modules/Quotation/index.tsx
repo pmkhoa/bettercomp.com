@@ -26,7 +26,7 @@ export default function QuotationModule({ block, pageData }: QuotationProps) {
             <div
               className={cn(
                 useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12',
-                'relative'
+                'relative overflow-hidden'
               )}
             >
               <div className="h-full bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[6px] absolute inset-0 z-30 rounded-md overflow-hidden rounded-[2px]" />
@@ -47,7 +47,7 @@ export default function QuotationModule({ block, pageData }: QuotationProps) {
           <div
             className={cn(
               useNarrowWidthContent && !showTOC ? 'col-span-12 md:col-span-9' : 'col-span-12',
-              'relative'
+              'relative overflow-hidden'
             )}
           >
             <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-[70%] absolute inset-0 z-30 rounded-md overflow-hidden -left-1" />

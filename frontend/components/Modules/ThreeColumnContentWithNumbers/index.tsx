@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { ThreeColumnContentWithNumbers } from '@/sanity.types';
+import { sanitizeToken } from '@/sanity/lib/utils';
 import { defaultBackground } from '@/utils/constants';
 
 export default function ThreeColumnContentWithNumbersModule({
@@ -25,8 +26,8 @@ export default function ThreeColumnContentWithNumbersModule({
     textColor = 'blue',
   } = sectionBackground;
 
-  const bgColor = `bg-${backgroundColor}`;
-  const sectionTextColor = `text-${textColor}`;
+  const bgColor = `bg-${sanitizeToken(backgroundColor)}`;
+  const sectionTextColor = `text-${sanitizeToken(textColor)}`;
 
   return (
     <section

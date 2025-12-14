@@ -7,7 +7,7 @@ import { useOptimistic } from 'next-sanity/hooks';
 import { TOC } from '@/components';
 import BlockRenderer from '@/components/BlockRenderer';
 import { GetPageQueryResult } from '@/sanity.types';
-import { dataAttr } from '@/sanity/lib/utils';
+import { dataAttr, sanitizeToken } from '@/sanity/lib/utils';
 
 type PageBuilderPageProps = {
   page: GetPageQueryResult;
@@ -32,10 +32,11 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: GetPage
   if (!page) {
     return null;
   }
+  const navBackground = sanitizeToken(page.mainNavBackground) || 'white';
 
   return (
     <>
-      <span className="nav-background" data-bg={get(page, 'mainNavBackground', 'white')} />
+      <span className="nav-background" data-bg={navBackground} />
       <div
         data-sanity={dataAttr({
           id: page._id,
@@ -117,9 +118,10 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
   }
 
   if (pageBuilderSections && pageBuilderSections.length > 0 && get(page, 'showTOC')) {
+    const navBackground = sanitizeToken(page.mainNavBackground) || 'white';
     return (
       <>
-        <span className="nav-background" data-bg={get(page, 'mainNavBackground', 'white')} />
+        <span className="nav-background" data-bg={navBackground} />
         <div className="with-toc">
           {pageBuilderSections.map((block: any, index: number) => {
             if (block._type === 'heroResource') {

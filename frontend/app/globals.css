@@ -52,6 +52,8 @@
   --check-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M8.4024 13.9215L4.54545 10.0646L5.8311 8.77894L8.4024 11.3502L13.545 6.20764L14.8306 7.49329L8.4024 13.9215Z' fill='%230092FF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10ZM10 18.1818C5.48131 18.1818 1.81818 14.5187 1.81818 10C1.81818 5.48131 5.48131 1.81818 10 1.81818C14.5187 1.81818 18.1818 5.48131 18.1818 10C18.1818 14.5187 14.5187 18.1818 10 18.1818Z' fill='%230092FF'/%3E%3C/svg%3E");
 }
 
+@source inline("bg-blue bg-white bg-sand bg-orange bg-gold bg-teal-green bg-light-blue bg-accent-brick");
+
 @utility container {
   margin-left: auto;
   margin-right: auto;
@@ -332,9 +334,7 @@ j
   }
 }
 
-.section-richtext .richtext-inner {
-
-}
+.section-richtext .richtext-inner {}
 
 .section-richtext .richtext-inner.narrow-paragraph p {
   @apply max-w-sm md:max-w-[900px];

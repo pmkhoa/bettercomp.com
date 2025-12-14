@@ -9,6 +9,7 @@ import {
   SanityImage,
 } from '@/components';
 import { TwoColumnsContent } from '@/sanity.types';
+import { sanitizeToken } from '@/sanity/lib/utils';
 import { defaultBackground } from '@/utils/constants';
 
 export default function TwoColumnsContentModule({ block }: { block: TwoColumnsContent }) {
@@ -35,8 +36,8 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
     showBorderTop,
   } = sectionBackground;
 
-  const bgColor = `bg-${backgroundColor}`;
-  const sectionTextColor = `text-${textColor}`;
+  const bgColor = `bg-${sanitizeToken(backgroundColor)}`;
+  const sectionTextColor = `text-${sanitizeToken(textColor)}`;
 
   return (
     <section
@@ -65,10 +66,10 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
               <div
                 className={cn(
                   'flex flex-col',
-                  assetPosition === 'left' ? 'order-1' : 'order-3',
-                  columnLayout === '1/1' && 'col-span-12 md:col-span-6',
-                  columnLayout === '1/3' && 'col-span-12 md:col-span-4',
-                  columnLayout === '2/3' && 'col-span-12 md:col-span-8'
+                  sanitizeToken(assetPosition) === 'left' ? 'order-1' : 'order-3',
+                  sanitizeToken(columnLayout) === '1/1' && 'col-span-12 md:col-span-6',
+                  sanitizeToken(columnLayout) === '1/3' && 'col-span-12 md:col-span-4',
+                  sanitizeToken(columnLayout) === '2/3' && 'col-span-12 md:col-span-8'
                 )}
               >
                 {asset && (
@@ -94,9 +95,9 @@ export default function TwoColumnsContentModule({ block }: { block: TwoColumnsCo
               <div
                 className={cn(
                   'col-span-12 justify-start order-2',
-                  columnLayout === '1/1' && 'col-span-12 md:col-span-6',
-                  columnLayout === '1/3' && 'col-span-12 md:col-span-8',
-                  columnLayout === '2/3' && 'col-span-12 md:col-span-4'
+                  sanitizeToken(columnLayout) === '1/1' && 'col-span-12 md:col-span-6',
+                  sanitizeToken(columnLayout) === '1/3' && 'col-span-12 md:col-span-8',
+                  sanitizeToken(columnLayout) === '2/3' && 'col-span-12 md:col-span-4'
                 )}
               >
                 {subHeading && <h6 className="font-semibold mb-4 text-green">{subHeading}</h6>}

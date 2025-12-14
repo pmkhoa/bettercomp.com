@@ -65,8 +65,10 @@ export default defineConfig({
         origin: SANITY_STUDIO_PREVIEW_URL,
         previewMode: {
           enable: '/api/draft-mode/enable',
+          disable: '/api/draft-mode/disable',
         },
       },
+      allowOrigins: ['http://localhost:*', 'https://bettercomp-com-frontend.vercel.app', 'https://bettercomp.com'],
       resolve: {
         // The Main Document Resolver API provides a method of resolving a main document from a given route or route pattern. https://www.sanity.io/docs/presentation-resolver-api#57720a5678d9
         mainDocuments: defineDocuments([

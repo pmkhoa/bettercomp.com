@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import { PortableText } from '@/components';
 import { Richtext } from '@/sanity.types';
+import { sanitizeToken } from '@/sanity/lib/utils';
 import { defaultBackground } from '@/utils/constants';
 
 type Props = {
@@ -28,8 +29,8 @@ export default function RichTextWithEmbedded({ block, pageData }: Props) {
 
   const { enabled: backgroundEnabled, backgroundColor, textColor } = background;
 
-  const bgColor = `bg-${backgroundColor}`;
-  const sectionTextColor = `text-${textColor}`;
+  const bgColor = `bg-${sanitizeToken(backgroundColor)}`;
+  const sectionTextColor = `text-${sanitizeToken(textColor)}`;
 
   return (
     <section

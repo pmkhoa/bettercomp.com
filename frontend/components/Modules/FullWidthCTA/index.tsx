@@ -2,7 +2,8 @@ import cn from 'classnames';
 
 import { ButtonPrimary, PortableText, ResolvedLink, SanityImage } from '@/components';
 import { FullWidthCTA } from '@/sanity.types';
-import { BG_COLOR_MAP, defaultBackground, TEXT_COLOR_MAP } from '@/utils/constants';
+import { sanitizeToken } from '@/sanity/lib/utils';
+import { defaultBackground } from '@/utils/constants';
 
 export default function SectionFullWidthCTA({
   block,
@@ -22,22 +23,26 @@ export default function SectionFullWidthCTA({
   const {
     enabled: backgroundEnabled,
     backgroundType,
-    backgroundColor = 'bg-blue',
+    backgroundColor,
     asset,
-    textColor = 'text-white',
+    textColor,
   } = background;
 
-  const bgColor =
-    backgroundColor === 'blueWithGraphic' ? 'bg-blue' : BG_COLOR_MAP[backgroundColor] || 'bg-blue';
-
-  const sectionTextColor = TEXT_COLOR_MAP[textColor] || 'text-white';
+  const bgColor = `bg-${sanitizeToken(backgroundColor)}`;
+  const sectionTextColor = `text-${sanitizeToken(textColor)}`;
 
   return (
     <section className={cn('full-width-cta overflow-hidden relative', sectionTextColor)}>
-      <div className={cn('z-10 relative z-20', useNarrowWidthContent && `container ${bgColor}`)}>
+      <div
+        className={cn(
+          'z-10 relative z-20',
+          useNarrowWidthContent && `container`,
+          sanitizeToken(backgroundColor) === 'blueWithGraphic' ? 'bg-blue' : bgColor
+        )}
+      >
         <div className="grid-container overflow-hidden">
           <div className={cn('col-span-12', 'relative')}>
-            {backgroundEnabled && backgroundColor === 'blueWithGraphic' && (
+            {backgroundEnabled && sanitizeToken(backgroundColor) === 'blueWithGraphic' && (
               <div
                 className="absolute w-full h-[31%] left-0 bottom-0"
                 style={{
@@ -63,15 +68,15 @@ export default function SectionFullWidthCTA({
             <div
               className={cn(
                 'grid-container justify-between items-center gap-y-16 gap-0 md:gap-4 relative z-10',
-                textAlign === 'center' ? 'py-24 md:py-32' : 'py-24'
+                sanitizeToken(textAlign) === 'center' ? 'py-24 md:py-32' : 'py-24'
               )}
             >
               <div
                 className={cn(
                   'col-span-12',
-                  textAlign === 'left' && 'md:col-span-5',
-                  textAlign === 'right' && 'md:col-start-8 md:col-end-13',
-                  textAlign === 'center' &&
+                  sanitizeToken(textAlign) === 'left' && 'md:col-span-5',
+                  sanitizeToken(textAlign) === 'right' && 'md:col-start-8 md:col-end-13',
+                  sanitizeToken(textAlign) === 'center' &&
                     'md:col-start-3 md:col-end-11 flex flex-col items-center text-center'
                 )}
               >
