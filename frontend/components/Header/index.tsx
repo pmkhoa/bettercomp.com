@@ -190,6 +190,7 @@ export default function Header({ settings }: { settings: Settings }) {
                 >
                   <SearchBox
                     className="bg-white text-blue"
+                    iconColor={navTheme.headerBg === 'bg-white' ? '#002952' : '#FFA700'}
                     onSearchSubmit={() => {
                       delay(() => {
                         setSearchActive(false);
@@ -200,9 +201,13 @@ export default function Header({ settings }: { settings: Settings }) {
                 <div className="cta-wrapper">
                   <button
                     onClick={() => setSearchActive(false)}
-                    className="flex gap-4 cursor-pointer"
+                    className={cn(
+                      'flex gap-4 cursor-pointer',
+                      navTheme.headerBg === 'bg-white' ? 'text-blue' : 'text-white'
+                    )}
                   >
-                    Close <CloseIcon />
+                    Close{' '}
+                    <CloseIcon color={navTheme.headerBg === 'bg-white' ? '#002952' : '#FFA700'} />
                   </button>
                 </div>
               </div>
@@ -252,7 +257,7 @@ export default function Header({ settings }: { settings: Settings }) {
                   </PopoverGroup>
                 </div>
                 <button onClick={() => setSearchActive(true)} className="cursor-pointer">
-                  <SearchIcon />
+                  <SearchIcon color={navTheme.headerBg === 'bg-white' ? '#002952' : '#FFA700'} />
                 </button>
                 {globalNavCta && globalNavCta.linkText && (
                   <div className="cta-wrapper">
