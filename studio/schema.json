@@ -3900,11 +3900,62 @@
           },
           "optional": true
         },
+        "backgroundColor": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "white"
+              },
+              {
+                "type": "string",
+                "value": "sand"
+              }
+            ]
+          },
+          "optional": true
+        },
         "description": {
           "type": "objectAttribute",
           "value": {
             "type": "inline",
             "name": "blockContent"
+          },
+          "optional": true
+        },
+        "contentMaxWidth": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "full"
+              },
+              {
+                "type": "string",
+                "value": "medium"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "textAlign": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "center"
+              },
+              {
+                "type": "string",
+                "value": "left"
+              }
+            ]
           },
           "optional": true
         },
@@ -6242,35 +6293,17 @@
         },
         "optional": true
       },
-      "footerCTA": {
+      "googleAnalyticsID": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "preFooterCTA"
+          "type": "string"
         },
         "optional": true
       },
-      "globalNavCta": {
+      "googleTagManager": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "linkText": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "link": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "link"
-              },
-              "optional": true
-            }
-          }
+          "type": "string"
         },
         "optional": true
       },
@@ -6315,6 +6348,38 @@
               "name": "menuItem"
             }
           }
+        },
+        "optional": true
+      },
+      "globalNavCta": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "linkText": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "link": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "link"
+              },
+              "optional": true
+            }
+          }
+        },
+        "optional": true
+      },
+      "footerCTA": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "preFooterCTA"
         },
         "optional": true
       },

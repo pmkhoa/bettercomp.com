@@ -3,6 +3,7 @@ import './globals.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Zilla_Slab } from 'next/font/google';
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 import localFont from 'next/font/local';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';
@@ -77,6 +78,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
       <link rel="dns-prefetch" href="//mkcq8qmf.api.sanity.io" />
       <body>
+        {settings?.googleAnalyticsID && <GoogleAnalytics gaId={settings.googleAnalyticsID} />}
+        {settings?.googleTagManager && <GoogleTagManager gtmId={settings.googleTagManager} />}
         <section className="min-h-screen">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />

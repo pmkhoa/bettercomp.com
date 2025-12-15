@@ -14,6 +14,7 @@
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
     "@headlessui/react": "^2.2.9",
+    "@next/third-parties": "^16.0.10",
     "@sanity/client": "^7.13.0",
     "@sanity/image-url": "^1.2.0",
     "@sanity/uuid": "^3.0.2",
@@ -27,7 +28,7 @@
     "gsap": "^3.13.0",
     "lodash": "^4.17.21",
     "motion": "^12.23.24",
-    "next": "^16.0.7",
+    "next": "^16.0.10",
     "next-sanity": "^11.6.9",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
@@ -41,18 +42,18 @@
     "tocbot": "^4.36.4"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^15.3.3",
     "@types/lodash": "^4.17.21",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.48.0",
     "@typescript-eslint/parser": "^8.48.0",
-	  "@next/eslint-plugin-next": "^15.3.3",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-	  "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-next": "^0.0.0",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
@@ -62,6 +63,6 @@
     "eslint-plugin-unused-imports": "^4.3.0",
     "sass": "^1.94.2",
     "typescript": "5.9.3",
-	  "typescript-eslint": "^8.34.0"
+    "typescript-eslint": "^8.34.0"
   }
 }

@@ -653,7 +653,10 @@ export type IconCards = {
 export type FormContent = {
   _type: 'formContent';
   enabled?: boolean;
+  backgroundColor?: 'white' | 'sand';
   description?: BlockContent;
+  contentMaxWidth?: 'full' | 'medium';
+  textAlign?: 'center' | 'left';
   formContentSection?: Form;
 };
 
@@ -1055,11 +1058,8 @@ export type Settings = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  footerCTA?: PreFooterCTA;
-  globalNavCta?: {
-    linkText?: string;
-    link?: Link;
-  };
+  googleAnalyticsID?: string;
+  googleTagManager?: string;
   siteBanner?: BlockContent;
   loginLink?: string;
   helpLink?: string;
@@ -1068,6 +1068,11 @@ export type Settings = {
       _key: string;
     } & MenuItem
   >;
+  globalNavCta?: {
+    linkText?: string;
+    link?: Link;
+  };
+  footerCTA?: PreFooterCTA;
   footerNav?: Array<
     {
       _key: string;
@@ -1726,87 +1731,8 @@ export type SettingsQueryResult = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  footerCTA: {
-    _type: 'preFooterCTA';
-    enabled?: boolean;
-    subheading?: string;
-    content?: BlockContent;
-    ctaButton: {
-      _type: 'ctaLink';
-      showCtaLink?: boolean;
-      linkLabel?: string;
-      link: {
-        _type: 'link';
-        linkType?:
-          | 'author'
-          | 'blog'
-          | 'ebook'
-          | 'file'
-          | 'guide'
-          | 'href'
-          | 'page'
-          | 'template'
-          | 'tool'
-          | 'webinar';
-        href?: string;
-        page: string | null;
-        blog: string | null;
-        ebook: string | null;
-        guide: string | null;
-        tool: string | null;
-        template: string | null;
-        webinar: string | null;
-        author: string | null;
-        openInNewTab?: boolean;
-        article: null;
-        file: null;
-      } | null;
-    } | null;
-    awardDescription?: BlockContent;
-    awardLogos?: Array<{
-      asset?: {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: 'image';
-      _key: string;
-    }>;
-  } | null;
-  globalNavCta: {
-    linkText?: string;
-    link: {
-      _type: 'link';
-      linkType?:
-        | 'author'
-        | 'blog'
-        | 'ebook'
-        | 'file'
-        | 'guide'
-        | 'href'
-        | 'page'
-        | 'template'
-        | 'tool'
-        | 'webinar';
-      href?: string;
-      page: string | null;
-      blog: string | null;
-      ebook: string | null;
-      guide: string | null;
-      tool: string | null;
-      template: string | null;
-      webinar: string | null;
-      author: string | null;
-      openInNewTab?: boolean;
-      article: null;
-      file: null;
-    } | null;
-  } | null;
+  googleAnalyticsID?: string;
+  googleTagManager?: string;
   siteBanner: Array<
     | {
         children?: Array<{
@@ -1961,6 +1887,87 @@ export type SettingsQueryResult = {
       _key: string;
     }> | null;
   }> | null;
+  globalNavCta: {
+    linkText?: string;
+    link: {
+      _type: 'link';
+      linkType?:
+        | 'author'
+        | 'blog'
+        | 'ebook'
+        | 'file'
+        | 'guide'
+        | 'href'
+        | 'page'
+        | 'template'
+        | 'tool'
+        | 'webinar';
+      href?: string;
+      page: string | null;
+      blog: string | null;
+      ebook: string | null;
+      guide: string | null;
+      tool: string | null;
+      template: string | null;
+      webinar: string | null;
+      author: string | null;
+      openInNewTab?: boolean;
+      article: null;
+      file: null;
+    } | null;
+  } | null;
+  footerCTA: {
+    _type: 'preFooterCTA';
+    enabled?: boolean;
+    subheading?: string;
+    content?: BlockContent;
+    ctaButton: {
+      _type: 'ctaLink';
+      showCtaLink?: boolean;
+      linkLabel?: string;
+      link: {
+        _type: 'link';
+        linkType?:
+          | 'author'
+          | 'blog'
+          | 'ebook'
+          | 'file'
+          | 'guide'
+          | 'href'
+          | 'page'
+          | 'template'
+          | 'tool'
+          | 'webinar';
+        href?: string;
+        page: string | null;
+        blog: string | null;
+        ebook: string | null;
+        guide: string | null;
+        tool: string | null;
+        template: string | null;
+        webinar: string | null;
+        author: string | null;
+        openInNewTab?: boolean;
+        article: null;
+        file: null;
+      } | null;
+    } | null;
+    awardDescription?: BlockContent;
+    awardLogos?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+      _key: string;
+    }>;
+  } | null;
   footerNav: Array<{
     _key: string;
     _type: 'menuItem';
@@ -2891,11 +2898,8 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
         crop?: SanityImageCrop;
         _type: 'image';
       };
-      footerCTA?: PreFooterCTA;
-      globalNavCta?: {
-        linkText?: string;
-        link?: Link;
-      };
+      googleAnalyticsID?: string;
+      googleTagManager?: string;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -2904,6 +2908,11 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
           _key: string;
         } & MenuItem
       >;
+      globalNavCta?: {
+        linkText?: string;
+        link?: Link;
+      };
+      footerCTA?: PreFooterCTA;
       footerNav?: Array<
         {
           _key: string;
@@ -3376,11 +3385,8 @@ export type AllResourcesSearchQueryResult = Array<
         crop?: SanityImageCrop;
         _type: 'image';
       };
-      footerCTA?: PreFooterCTA;
-      globalNavCta?: {
-        linkText?: string;
-        link?: Link;
-      };
+      googleAnalyticsID?: string;
+      googleTagManager?: string;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -3389,6 +3395,11 @@ export type AllResourcesSearchQueryResult = Array<
           _key: string;
         } & MenuItem
       >;
+      globalNavCta?: {
+        linkText?: string;
+        link?: Link;
+      };
+      footerCTA?: PreFooterCTA;
       footerNav?: Array<
         {
           _key: string;
@@ -5669,6 +5680,7 @@ export type AuthorQueryResult = {
         _key: string;
         _type: 'formContent';
         enabled?: boolean;
+        backgroundColor?: 'sand' | 'white';
         description: Array<
           | {
               children?: Array<{
@@ -5759,6 +5771,8 @@ export type AuthorQueryResult = {
               markDefs: null;
             }
         > | null;
+        contentMaxWidth?: 'full' | 'medium';
+        textAlign?: 'center' | 'left';
         formContentSection?: Form;
       }
     | {
@@ -10342,6 +10356,7 @@ export type GetHomeQueryResult = {
         _key: string;
         _type: 'formContent';
         enabled?: boolean;
+        backgroundColor?: 'sand' | 'white';
         description: Array<
           | {
               children?: Array<{
@@ -10432,6 +10447,8 @@ export type GetHomeQueryResult = {
               markDefs: null;
             }
         > | null;
+        contentMaxWidth?: 'full' | 'medium';
+        textAlign?: 'center' | 'left';
         formContentSection?: Form;
       }
     | {
@@ -14666,6 +14683,7 @@ export type GetPageQueryResult = {
         _key: string;
         _type: 'formContent';
         enabled?: boolean;
+        backgroundColor?: 'sand' | 'white';
         description: Array<
           | {
               children?: Array<{
@@ -14756,6 +14774,8 @@ export type GetPageQueryResult = {
               markDefs: null;
             }
         > | null;
+        contentMaxWidth?: 'full' | 'medium';
+        textAlign?: 'center' | 'left';
         formContentSection?: Form;
       }
     | {
@@ -19044,6 +19064,7 @@ export type GetArticleQueryResult = {
         _key: string;
         _type: 'formContent';
         enabled?: boolean;
+        backgroundColor?: 'sand' | 'white';
         description: Array<
           | {
               children?: Array<{
@@ -19134,6 +19155,8 @@ export type GetArticleQueryResult = {
               markDefs: null;
             }
         > | null;
+        contentMaxWidth?: 'full' | 'medium';
+        textAlign?: 'center' | 'left';
         formContentSection?: Form;
       }
     | {
@@ -23459,6 +23482,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -23558,6 +23582,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -28021,6 +28047,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -28120,6 +28147,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -32591,6 +32620,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -32690,6 +32720,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -37160,6 +37192,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -37259,6 +37292,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -41729,6 +41764,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -41828,6 +41864,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -46249,6 +46287,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -46348,6 +46387,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -50771,6 +50812,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -50870,6 +50912,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -53488,11 +53532,8 @@ export type GetResourceQueryResult =
         crop?: SanityImageCrop;
         _type: 'image';
       };
-      footerCTA?: PreFooterCTA;
-      globalNavCta?: {
-        linkText?: string;
-        link?: Link;
-      };
+      googleAnalyticsID?: string;
+      googleTagManager?: string;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -53501,6 +53542,11 @@ export type GetResourceQueryResult =
           _key: string;
         } & MenuItem
       >;
+      globalNavCta?: {
+        linkText?: string;
+        link?: Link;
+      };
+      footerCTA?: PreFooterCTA;
       footerNav?: Array<
         {
           _key: string;
@@ -55467,6 +55513,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -55566,6 +55613,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -60036,6 +60085,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -60135,6 +60185,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -64605,6 +64657,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'formContent';
             enabled?: boolean;
+            backgroundColor?: 'sand' | 'white';
             description: Array<
               | {
                   children?: Array<{
@@ -64704,6 +64757,8 @@ export type GetResourceQueryResult =
                   markDefs: null;
                 }
             > | null;
+            contentMaxWidth?: 'full' | 'medium';
+            textAlign?: 'center' | 'left';
             formContentSection?: Form;
           }
         | {
@@ -67659,11 +67714,8 @@ export type GetResourcesByTypeQueryResult = Array<
         crop?: SanityImageCrop;
         _type: 'image';
       };
-      footerCTA?: PreFooterCTA;
-      globalNavCta?: {
-        linkText?: string;
-        link?: Link;
-      };
+      googleAnalyticsID?: string;
+      googleTagManager?: string;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -67672,6 +67724,11 @@ export type GetResourcesByTypeQueryResult = Array<
           _key: string;
         } & MenuItem
       >;
+      globalNavCta?: {
+        linkText?: string;
+        link?: Link;
+      };
+      footerCTA?: PreFooterCTA;
       footerNav?: Array<
         {
           _key: string;

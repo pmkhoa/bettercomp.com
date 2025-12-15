@@ -13,6 +13,24 @@ export const settings = defineType({
   title: 'Settings',
   type: 'document',
   icon: CogIcon,
+  fieldsets: [
+    {
+      name: 'header',
+      title: 'Header',
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
+    },
+    {
+      name: 'footer',
+      title: 'Footer',
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
+    },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -39,12 +57,43 @@ export const settings = defineType({
       },
     }),
     defineField({
-      name: 'footerCTA',
-      description: 'Pre-Footer CTA',
-      title: 'Pre Footer CTA',
-      type: 'preFooterCTA',
+      name: 'googleAnalyticsID',
+      title: 'Google Analytics ID',
+      type: 'string',
+    }),
+    defineField({
+      name: 'googleTagManager',
+      title: 'Google Tag Manager',
+      type: 'string',
     }),
 
+    defineField({
+      name: 'siteBanner',
+      description: 'Top Site Banner',
+      title: 'Site Banner',
+      type: 'blockContent',
+      fieldset: 'header',
+    }),
+    defineField({
+      name: 'loginLink',
+      title: 'Login Link',
+      type: 'string',
+      fieldset: 'header',
+    }),
+    defineField({
+      name: 'helpLink',
+      title: 'Help Link',
+      type: 'string',
+      fieldset: 'header',
+    }),
+    defineField({
+      name: 'globalNav',
+      description: 'Entering Global Navigation',
+      title: 'Global Navigation',
+      type: 'array',
+      of: [{ type: 'menuItem' }],
+      fieldset: 'header',
+    }),
     defineField({
       name: 'globalNavCta',
       title: 'Global Navigation CTA',
@@ -61,39 +110,28 @@ export const settings = defineType({
           type: 'link',
         }),
       ],
+      fieldset: 'header',
     }),
+
     defineField({
-      name: 'siteBanner',
-      description: 'Top Site Banner',
-      title: 'Site Banner',
-      type: 'blockContent',
+      name: 'footerCTA',
+      fieldset: 'footer',
+      description: 'Pre-Footer CTA',
+      title: 'Pre Footer CTA',
+      type: 'preFooterCTA',
     }),
-    defineField({
-      name: 'loginLink',
-      title: 'Login Link',
-      type: 'string',
-    }),
-    defineField({
-      name: 'helpLink',
-      title: 'Help Link',
-      type: 'string',
-    }),
-    defineField({
-      name: 'globalNav',
-      description: 'Entering Global Navigation',
-      title: 'Global Navigation',
-      type: 'array',
-      of: [{ type: 'menuItem' }],
-    }),
+
     defineField({
       name: 'footerNav',
       description: 'Entering Footer Navigation',
+      fieldset: 'footer',
       title: 'Footer Navigation',
       type: 'array',
       of: [{ type: 'menuItem' }],
       validation: (Rule) => Rule.max(5),
     }),
     defineField({
+      fieldset: 'footer',
       name: 'socialLink',
       title: 'Social Link',
       type: 'array',
@@ -124,6 +162,7 @@ export const settings = defineType({
       ],
     }),
     defineField({
+      fieldset: 'footer',
       name: 'privacyLinks',
       description: 'Entering Extra Links',
       title: 'Privacy Links',
