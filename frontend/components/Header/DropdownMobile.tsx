@@ -51,7 +51,7 @@ const DropdownMobile = ({ nav, closeMainMenu = () => {} }: { nav: any; closeMain
                                 return (
                                   <ResolvedLink
                                     link={subNavLink.menuLink}
-                                    className="border-b-1 border-white/10 menu-link hover:bg-green py-4 px-8 transition duration-400 text-left font-medium"
+                                    className="border-b-1 border-white/10 menu-link hover:bg-green py-5 px-6 transition duration-400 text-left font-medium"
                                     key={subNavLink._key}
                                   >
                                     <span onClick={() => closeMainMenu()}>

@@ -177,7 +177,7 @@
   }
 
   ol {
-    @apply list-decimal ml-4;
+    @apply list-decimal ml-5;
   }
 
   .font-serif {

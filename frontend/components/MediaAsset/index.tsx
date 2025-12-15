@@ -74,7 +74,7 @@ export default function Media({
       {mediaAsset?.image?.asset && (
         <SanityImage
           image={mediaAsset?.image}
-          alt={mediaAsset?.image?.alt || 'Vigor ship photo'}
+          alt={mediaAsset?.image?.alt || 'Bettercomp - photo'}
           caption={get(mediaAsset, 'image.caption')}
           className={`w-full ${className}`}
           priority={priority}

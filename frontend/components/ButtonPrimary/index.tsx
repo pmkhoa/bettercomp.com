@@ -17,7 +17,7 @@ export default function ButtonPrimary({
     <button
       type={type}
       onClick={onClick}
-      className={`relative button-link overflow-hidden text-black font-bold rounded min-w-[120px] xl:min-w-[150px] group ${className}`}
+      className={`relative button-link overflow-hidden text-black font-bold rounded min-w-[150px] md:min-w-[120px] xl:min-w-[150px] group ${className}`}
     >
       <span className="absolute inset-0 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] transition-opacity duration-700 ease-out group-hover:opacity-0" />
       <span className="absolute inset-0 bg-[var(--color-gold)] opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100" />

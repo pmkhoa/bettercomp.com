@@ -71,7 +71,7 @@ export default function SectionFullWidthCTA({
 
             <div
               className={cn(
-                'grid-container justify-between items-center gap-y-16 gap-0 md:gap-4 relative z-10',
+                'grid-container justify-between items-center gap-y-16 gap-0 md:gap-4 relative z-10 container',
                 sanitizeToken(textAlign) === 'center' ? 'py-24 md:py-32' : 'py-24'
               )}
             >

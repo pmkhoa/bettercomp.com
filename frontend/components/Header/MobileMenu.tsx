@@ -93,8 +93,8 @@ const MobileMenuContent = ({
                 })}
 
                 {globalNavCta && globalNavCta.linkText && (
-                  <div className="cta-wrapper flex justify-center mt-8 mb-4 w-full">
-                    <ButtonPrimary>
+                  <div className="mobile-cta-wrapper flex justify-center mt-8 mb-4 w-full">
+                    <ButtonPrimary className="w-[180px]">
                       <ResolvedLink link={globalNavCta.link}>{globalNavCta.linkText}</ResolvedLink>
                     </ButtonPrimary>
                   </div>

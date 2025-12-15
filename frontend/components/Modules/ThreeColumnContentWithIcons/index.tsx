@@ -29,8 +29,8 @@ export default function ThreeColumnContentWithIconsModule({
         'section-module relative',
         'three-column-content-with-icons',
         backgroundEnabled && backgroundType === 'color'
-          ? 'py-12 sm:py-16 md:py-24'
-          : 'my-12 sm:my-16 md:my-24',
+          ? 'py-16 sm:py-16 md:py-24'
+          : 'my-16 sm:my-16 md:my-24',
         backgroundEnabled && backgroundType === 'color' ? bgColor : 'bg-white'
       )}
     >
