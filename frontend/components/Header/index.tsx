@@ -212,7 +212,7 @@ export default function Header({ settings }: { settings: Settings }) {
                 <div
                   className={cn(
                     'flex items-center my-0 gap-3 font-normal list-none',
-                    'xl:gap-8  lg:mr-10 xl:mr-16 2xl:mr-20'
+                    'xl:gap-8 lg:mr-10 xl:mr-16 2xl:mr-20'
                   )}
                 >
                   <PopoverGroup

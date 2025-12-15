@@ -100,8 +100,8 @@ export const iconCards = defineType({
     },
     prepare({title}) {
       return {
-        title: title,
-        subtitle: `Two Column Icon Cards`,
+        title: `Two Column Icon Cards`,
+        subtitle: title,
       }
     },
   },

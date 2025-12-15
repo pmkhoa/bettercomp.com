@@ -24,7 +24,7 @@
 .navlinks-desktop {
 	gap: 20px;
 	align-items: center;
-	@apply md:gap-[28px] lg:gap-[30px] xl:gap-[60px];
+	@apply md:gap-[28px] lg:gap-[40px] xl:gap-[40px] 2xl:gap-[60px];
 }
 
 .navlinks-desktop.text-white {
@@ -40,7 +40,7 @@
 }
 
 .popover-panel-simple {
-	@apply absolute top-0 z-10 mt-[64px] min-w-[200px] overflow-hidden rounded;
+	@apply absolute top-0 z-10 mt-[64px] min-w-[180px] w-fit overflow-hidden rounded;
 }
 
 .popover-panel-center {

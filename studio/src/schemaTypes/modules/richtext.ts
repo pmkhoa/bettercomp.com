@@ -43,10 +43,11 @@ export const richtext = defineType({
           { title: 'Full Width', value: 'full' },
           { title: 'Medium', value: 'medium' },
           { title: 'Narrow', value: 'narrow' },
-        ], // <-- predefined values
+        ],
       },
       initialValue: 'full',
     }),
+
     defineField({
       name: 'textAlign',
       title: 'Text Align',
@@ -55,7 +56,7 @@ export const richtext = defineType({
         list: [
           { title: 'Center', value: 'center' },
           { title: 'Left', value: 'left' },
-        ], // <-- predefined values
+        ],
       },
       initialValue: 'left',
     }),

@@ -88,13 +88,13 @@ const NavDropdownSimple = ({
                 onMouseEnter={clearTimers} // ← prevents gap close
                 onMouseLeave={scheduleClose} // ← delayed close
               >
-                <div className="flex flex-col">
+                <div className="flex flex-col min-w-fit">
                   {groupLinks.map((subNavLink: any) => (
-                    <button onClick={() => close()} className="block w-full">
+                    <button onClick={() => close()} className="block w-full min-w-fit">
                       <ResolvedLink
                         key={subNavLink._key}
                         link={subNavLink.menuLink}
-                        className="border-b border-white/10 menu-link hover:bg-green py-4 px-4 transition duration-200 text-sm font-medium block text-left"
+                        className="border-b border-white/10 menu-link hover:bg-green py-4 px-4 transition duration-200 text-sm font-medium block text-left min-w-[max-content]"
                       >
                         {subNavLink.menuLabel}
                       </ResolvedLink>

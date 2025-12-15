@@ -52,7 +52,7 @@ export const background = defineType({
         ],
         layout: 'dropdown',
       },
-      initialValue: 'blue', // optional default
+      initialValue: 'blue',
       hidden: ({parent}) => parent?.backgroundType !== 'color' || !parent?.enabled,
     }),
     defineField({

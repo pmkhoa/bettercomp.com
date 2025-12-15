@@ -73,7 +73,7 @@ export default function IconCardsModule({ block }: { block: IconCards }) {
                     </div>
                     {content.ctaLink && content.ctaLink.linkLabel && (
                       <ButtonPrimary>
-                        <ResolvedLink link={content.ctaLink.link}>
+                        <ResolvedLink link={content.ctaLink.link} className="block">
                           {content.ctaLink.linkLabel}
                         </ResolvedLink>
                       </ButtonPrimary>
