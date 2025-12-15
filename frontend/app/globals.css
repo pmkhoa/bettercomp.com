@@ -334,6 +334,14 @@ j
   }
 }
 
+.button-link a {
+  display: block;
+  padding: 12px 16px;
+  @media (min-width: 1400px) {
+    padding: 12px 32px;
+  }
+}
+
 .section-richtext .richtext-inner {}
 
 .section-richtext .richtext-inner.narrow-paragraph p {

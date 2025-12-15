@@ -15,10 +15,6 @@ type Props = {
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Search',
-    description: 'Search',
-    openGraph: {
-      title: 'Search Title',
-    },
   } satisfies Metadata;
 }
 

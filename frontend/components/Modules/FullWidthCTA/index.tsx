@@ -42,7 +42,7 @@ export default function SectionFullWidthCTA({
         )}
       >
         {showBorderTop && (
-          <div className="h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-full absolute inset-0 z-10 w-[60%] md:w-[50%] overflow-hidden left-[20%] md:left-[25%] -top-1" />
+          <div className="hidden h-2 bg-[linear-gradient(81deg,var(--color-orange)_9.79%,var(--color-gold)_84.97%)] w-full absolute inset-0 z-10 w-[60%] md:w-[50%] overflow-hidden left-[20%] md:left-[25%] -top-1" />
         )}
         <div className="grid-container overflow-hidden">
           <div className={cn('col-span-12', 'relative')}>

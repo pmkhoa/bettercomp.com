@@ -18,18 +18,28 @@ export async function generateMetadata(): Promise<Metadata> {
     stega: false,
   });
 
-  return {
+  let metaObject = {
     title: get(page, 'seo.title'),
-    description: get(page, 'seo.description'),
-    openGraph: {
-      title: get(page, 'seo.title'),
-      images: [
-        {
-          url: resolveOpenGraphImage(get(page, 'seo.ogImage'))?.url || '',
-        },
-      ],
-    },
-  } satisfies Metadata;
+  } as any;
+
+  if (get(page, 'seo.description')) {
+    metaObject = {
+      ...metaObject,
+      description: get(page, 'seo.description'),
+    };
+  }
+  const ogImage = resolveOpenGraphImage(get(page, 'seo.ogImage'));
+
+  if (ogImage) {
+    metaObject = {
+      ...metaObject,
+      openGraph: {
+        images: ogImage ? [ogImage] : [],
+      },
+    };
+  }
+
+  return metaObject satisfies Metadata;
 }
 
 export default async function Page() {

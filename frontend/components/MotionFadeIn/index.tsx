@@ -6,7 +6,7 @@ import { imageVariants } from '@/utils/motion-transition';
 
 const MotionFadeInOnScroll = ({
   children,
-  className,
+  className = '',
 }: {
   children: React.ReactNode;
   className?: string;

@@ -57,19 +57,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Not Found' };
   }
 
-  return {
+  let metaObject = {
     title: get(page, 'seo.title') || get(page, 'title') || 'Not Found',
-    description: get(page, 'seo.description') || get(page, 'excerpt'),
-    openGraph: {
-      title: get(page, 'seo.title') || get(page, 'title') || 'Not Found',
-      images: [
-        {
-          url:
-            resolveOpenGraphImage(get(page, 'seo.ogImage') || get(page, 'coverImage'))?.url || '',
-        },
-      ],
-    },
-  };
+  } as any;
+
+  if (get(page, 'seo.description')) {
+    metaObject = {
+      ...metaObject,
+      description: get(page, 'seo.description'),
+    };
+  }
+  const ogImage = resolveOpenGraphImage(get(page, 'seo.ogImage'));
+
+  if (ogImage) {
+    metaObject = {
+      ...metaObject,
+      openGraph: {
+        images: ogImage ? [ogImage] : [],
+      },
+    };
+  }
+
+  return metaObject;
 }
 
 /* -------------------------------------------------------

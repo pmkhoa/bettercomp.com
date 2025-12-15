@@ -92,6 +92,7 @@ export default function Footer({ settings }: { settings: Settings }) {
                       image={link.socialIcon}
                       className="absolute w-full h-full object-contain inset-0"
                     />
+                    <span className="sr-only">{link.name}</span>
                   </Link>
                 );
               }

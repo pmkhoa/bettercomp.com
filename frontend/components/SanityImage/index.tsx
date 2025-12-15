@@ -21,6 +21,7 @@ export const SanityImage = (props: Props) => {
         alt={alt || ''}
         sizes="(max-width: 768px) 100vw, 1600px"
         priority={priority}
+        fetchPriority={priority ? 'high' : 'auto'}
         className={className}
         src={urlForImage(image)?.url() || ''}
         width={1000}

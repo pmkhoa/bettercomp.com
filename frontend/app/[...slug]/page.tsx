@@ -6,6 +6,7 @@ import { NotFound } from '@/components';
 import PageBuilderPage from '@/components/PageBuilder';
 import { sanityFetch } from '@/sanity/lib/live';
 import { getPageQuery, pagesSlugs } from '@/sanity/lib/queries';
+import { resolveOpenGraphImage } from '@/sanity/lib/utils';
 
 const RESOURCE_TYPES = ['blog', 'ebook', 'guide', 'webinar', 'tool', 'template'];
 
@@ -53,14 +54,28 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       stega: false,
     });
 
-    return {
+    let metaObject = {
       title: get(page, 'seo.title') || page?.name || 'Not Found',
-      description: get(page, 'seo.description') || '',
-      openGraph: {
-        title: get(page, 'seo.title') || page?.name || 'Not Found',
-        description: get(page, 'seo.description') || '',
-      },
-    };
+    } as any;
+
+    if (get(page, 'seo.description')) {
+      metaObject = {
+        ...metaObject,
+        description: get(page, 'seo.description'),
+      };
+    }
+    const ogImage = resolveOpenGraphImage(get(page, 'seo.ogImage'));
+
+    if (ogImage) {
+      metaObject = {
+        ...metaObject,
+        openGraph: {
+          images: ogImage ? [ogImage] : [],
+        },
+      };
+    }
+
+    return metaObject;
   } catch (err) {
     console.error('Metadata error:', err);
 
