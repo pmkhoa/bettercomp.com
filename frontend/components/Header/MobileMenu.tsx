@@ -66,9 +66,7 @@ const MobileMenuContent = ({
                 <div className="p-4 bg-sand   border-b-2 border-gray-200">
                   <SearchBox
                     className="text-blue bg-white"
-                    onSearchSubmit={() => {
-                      delay(close, 600);
-                    }}
+                    onSearchSubmit={() => delay(close, 600)}
                   />
                 </div>
                 {globalNav?.map((nav) => {

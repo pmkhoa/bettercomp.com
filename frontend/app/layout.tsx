@@ -1,9 +1,9 @@
 import './globals.css';
 
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Zilla_Slab } from 'next/font/google';
-import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 import localFont from 'next/font/local';
 import { draftMode } from 'next/headers';
 import Script from 'next/script';

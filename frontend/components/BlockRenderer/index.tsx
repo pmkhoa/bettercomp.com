@@ -1,4 +1,4 @@
-import React from 'react';
+import { createElement } from 'react';
 
 import {
   AccordionCenter,
@@ -88,7 +88,7 @@ export default function BlockRenderer({ block, index, pageId, pageType, pageData
           path: `pageBuilder[_key=="${block._key}"]`,
         }).toString()}
       >
-        {React.createElement(Blocks[block._type], {
+        {createElement(Blocks[block._type], {
           key: block._key,
           block,
           index,
@@ -98,7 +98,7 @@ export default function BlockRenderer({ block, index, pageId, pageType, pageData
     );
   }
   // Block doesn't exist yet
-  return React.createElement(
+  return createElement(
     () => (
       <div className="w-full bg-gray-100 text-center text-gray-500 p-20 rounded">
         A &ldquo;{block._type}&rdquo; block hasn&apos;t been created

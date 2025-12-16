@@ -39,7 +39,7 @@ export default function SearchBox({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-[600px]">
+    <form onSubmit={handleSubmit} className="w-full md:max-w-[600px]">
       <Field className="relative">
         <Input
           name="terms"
