@@ -1,7 +1,14 @@
 import React, { useEffect } from 'react';
 
-const useClickOutside = (ref: React.RefObject<HTMLElement>, onClickOutside: () => void): void => {
+const useClickOutside = (
+  ref: React.RefObject<HTMLElement | null>,
+  onClickOutside: () => void
+): void => {
   useEffect(() => {
+    if (!ref) {
+      return;
+    }
+
     const listener = (event: MouseEvent | TouchEvent): void => {
       // Remove preventDefault and stopPropagation for passive event listeners
       if (!ref.current || ref.current.contains(event.target as Node)) {
