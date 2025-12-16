@@ -58,7 +58,7 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
           <>
             <ListboxButton
               className={cn(
-                'relative flex p-4 text-left border border-black w-full justify-between capitalize z-10',
+                'relative flex p-4 text-left border border-gray-300 rounded-sm  w-full justify-between capitalize z-10 bg-sand font-bold',
                 'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
               )}
             >
@@ -68,15 +68,16 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
                 aria-hidden="true"
               >
                 <svg
-                  width="10"
-                  height="8"
-                  viewBox="0 0 10 8"
-                  fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="9"
+                  viewBox="0 0 14 9"
+                  fill="none"
                 >
                   <path
-                    d="M5.86603 7.5C5.48113 8.16667 4.51887 8.16667 4.13397 7.5L0.669874 1.5C0.284974 0.833334 0.766099 0 1.5359 0L8.4641 0C9.2339 0 9.71503 0.833333 9.33013 1.5L5.86603 7.5Z"
-                    fill="#3A495E"
+                    d="M0.740234 0.827148C0.407774 1.19275 0.418057 1.74976 0.786133 2.10352L0.793945 2.11133L0.801758 2.11816L6.76172 7.375L7.09766 7.6709L7.42871 7.37012L13.2041 2.11328L13.2139 2.10352C13.6062 1.72642 13.5913 1.1178 13.1895 0.756836C12.8156 0.422048 12.2335 0.413835 11.8496 0.734375L11.8301 0.751953L7.08594 5.15625L2.16406 0.746094L2.15039 0.734375C1.76636 0.414468 1.18464 0.42169 0.810547 0.756836L0.740234 0.827148Z"
+                    fill="#002952"
+                    stroke="#002952"
                   />
                 </svg>
               </span>
@@ -93,7 +94,7 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
                   anchor="bottom"
                   className={cn(
                     'w-[var(--button-width)] rounded-md border border-gray [--anchor-gap:var(--spacing-2)] focus:outline-none origin-top mt-2 z-50 bg-white',
-                    uniqFilterList.length <= 6 ? `h-[${56 * uniqFilterList.length}px]` : `h-[370px]`
+                    uniqFilterList.length <= 6 ? `h-[${56 * uniqFilterList.length}px]` : `h-[270px]`
                   )}
                 >
                   {uniqFilterList.map((filterListItem, index) => (
@@ -102,7 +103,7 @@ function FilterBy({ filterList, preFilterParam, filterLabel, filterType }: Props
                       value={
                         find(CONTENT_TYPES, ['value', filterListItem])?.title || filterListItem
                       }
-                      className="data-[focus]:bg-blue-100 cursor-pointer py-4 px-4 hover:bg-tan capitalize"
+                      className="data-[focus]:bg-sand cursor-pointer py-4 px-4 hover:bg-san capitalize"
                       onClick={() => {
                         router.push(
                           pathname + '?' + createQueryString(filterType, filterListItem),
