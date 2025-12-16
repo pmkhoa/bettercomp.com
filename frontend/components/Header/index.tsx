@@ -7,12 +7,13 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import LogoBlack from '@/assets/images/LogoBlack.png';
 import LogoWhite from '@/assets/images/LogoWhite.png';
 import { ButtonPrimary, PortableText, ResolvedLink } from '@/components';
 import { CloseIcon, HelpDeskIcon, ProfileIcon, SearchIcon } from '@/components/Icons';
+import useClickOutside from '@/utils/useClickOutside';
 import { Settings } from '@/sanity.types';
 
 import MobileMenu from './MobileMenu';
@@ -75,6 +76,12 @@ export default function Header({ settings }: { settings: Settings }) {
       });
     }
   }, [pathname]);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const hideSearchBox = () => {
+    setSearchActive(false);
+  };
+  useClickOutside(ref, hideSearchBox);
 
   if (!settings || !globalNav) return null;
   if (!navTheme) return null; // Prevent render until theme resolved
@@ -181,7 +188,10 @@ export default function Header({ settings }: { settings: Settings }) {
             </motion.div>
 
             {searchActive ? (
-              <div className="searchbox-wrapper flex-end items-center gap-8 hidden md:flex w-full">
+              <div
+                className="searchbox-wrapper flex-end items-center gap-8 hidden md:flex w-full"
+                ref={ref}
+              >
                 <div
                   className={cn(
                     'flex items-center my-0 gap-3 font-normal list-none w-full justify-end',
