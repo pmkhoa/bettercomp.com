@@ -41,14 +41,14 @@ const ResourceCard = ({ resource }: { resource: any }) => {
         <div className="flex justify-between items-center pb-6 px-8">
           <div className="publish-date flex gap-2 items-center">
             <CalendarIcon />
-            <div className="text-gray-500 text-sm">
+            <div className="text-gray-600 text-sm">
               <DateComponent dateString={resource.date} />
             </div>
           </div>
           {resource.estimatedReadingTime && (
             <div className="estimate-reading flex gap-2  items-center">
               <ClockIcon />
-              <div className="text-gray-500 text-sm">{resource.estimatedReadingTime} min read</div>
+              <div className="text-gray-600 text-sm">{resource.estimatedReadingTime} min read</div>
             </div>
           )}
         </div>
