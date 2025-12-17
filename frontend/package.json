@@ -6,7 +6,7 @@
     "build": "next build",
     "predev": "npm run typegen",
     "dev": "next dev --turbopack",
-    "lint": "eslint .",
+    "lint": "npx eslint . --max-warnings=0",
     "start": "next start",
     "type-check": "tsc --noEmit",
     "typegen": "sanity typegen generate"

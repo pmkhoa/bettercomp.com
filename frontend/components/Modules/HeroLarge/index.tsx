@@ -16,6 +16,7 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
   const {
     sectionBackground = defaultBackground,
     enabled,
+    highlightCustomerPhotos,
     description,
     heroImage,
     ctaButton,
@@ -35,10 +36,6 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
 
   const bgColor = `bg-${sanitizeToken(backgroundColor)}`;
   const sectionTextColor = `text-${sanitizeToken(textColor)}`;
-
-  if (!backgroundColor) {
-    return null;
-  }
 
   return (
     <section
@@ -67,13 +64,24 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
               <div className={'hero-description'}>
                 <PortableText value={description} />
               </div>
-              <div className="hero__cta mt-6 md:mt-12 flex flex-wrap gap-8 items-center">
+              <div className="hero__cta mt-6 md:mt-10 flex flex-wrap gap-8 items-center">
                 {ctaButton && ctaButton.linkLabel && (
                   <ButtonPrimary className="mt-0">
                     <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
                   </ButtonPrimary>
                 )}
               </div>
+              {highlightCustomerPhotos && (
+                <div className="highlight-customer-photos flex gap-4 mt-10 mb-8 items-center justify-left">
+                  <div className="w-20 h-8">
+                    <SanityImage
+                      image={highlightCustomerPhotos}
+                      alt={highlightCustomerPhotos.alt}
+                    />
+                  </div>
+                  <small>{highlightCustomerPhotos.alt}</small>
+                </div>
+              )}
             </div>
             <div className={cn('h-full flex items-center justify-end col-span-12 md:col-span-7')}>
               <div className="relative w-full">

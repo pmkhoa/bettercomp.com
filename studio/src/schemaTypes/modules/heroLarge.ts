@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { UlistIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {UlistIcon} from '@sanity/icons'
 
 export const heroLarge = defineType({
   name: 'heroLarge',
@@ -33,12 +33,24 @@ export const heroLarge = defineType({
       title: 'CTA Button',
       type: 'ctaLink',
     }),
+    defineField({
+      name: 'highlightCustomerPhotos',
+      title: 'Highlight Customer Photos',
+      type: 'image',
+      fields: [
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+        }),
+      ],
+    }),
   ],
   preview: {
     prepare() {
       return {
         title: 'Hero Large',
-      };
+      }
     },
   },
-});
+})

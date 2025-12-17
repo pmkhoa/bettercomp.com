@@ -596,6 +596,19 @@ export type HeroLarge = {
   heroImage?: MediaAsset;
   sectionBackground?: Background;
   ctaButton?: CtaLink;
+  highlightCustomerPhotos?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  };
 };
 
 export type FeaturedResources = {
@@ -6039,6 +6052,19 @@ export type AuthorQueryResult = {
             file: null;
           } | null;
         } | null;
+        highlightCustomerPhotos?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: 'image';
+        };
       }
     | {
         _key: string;
@@ -10715,6 +10741,19 @@ export type GetHomeQueryResult = {
             file: null;
           } | null;
         } | null;
+        highlightCustomerPhotos?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: 'image';
+        };
       }
     | {
         _key: string;
@@ -15042,6 +15081,19 @@ export type GetPageQueryResult = {
             file: null;
           } | null;
         } | null;
+        highlightCustomerPhotos?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: 'image';
+        };
       }
     | {
         _key: string;
@@ -19423,6 +19475,19 @@ export type GetArticleQueryResult = {
             file: null;
           } | null;
         } | null;
+        highlightCustomerPhotos?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: 'image';
+        };
       }
     | {
         _key: string;
@@ -23868,6 +23933,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -28433,6 +28511,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -33006,6 +33097,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -37578,6 +37682,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -42150,6 +42267,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -46673,6 +46803,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -51198,6 +51341,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -55899,6 +56055,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -60471,6 +60640,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
@@ -65043,6 +65225,19 @@ export type GetResourceQueryResult =
                 file: null;
               } | null;
             } | null;
+            highlightCustomerPhotos?: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            };
           }
         | {
             _key: string;
