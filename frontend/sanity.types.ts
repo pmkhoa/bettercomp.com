@@ -438,8 +438,13 @@ export type BlockContent = Array<
       listItem?: 'bullet' | 'number' | 'checkmarks';
       markDefs?: Array<
         | {
-            color?: '#002952' | '#F24E1A' | '#FFA700' | '#ffffff' | '#2CB592';
+            color?: '#002952' | '#2CB592' | '#F24E1A' | '#FFA700' | '#ffffff';
             _type: 'textColor';
+            _key: string;
+          }
+        | {
+            family?: 'sans' | 'serif';
+            _type: 'fontFamily';
             _key: string;
           }
         | {
@@ -592,6 +597,7 @@ export type HeroShort = {
 export type HeroLarge = {
   _type: 'heroLarge';
   enabled?: boolean;
+  subHeading?: string;
   description?: BlockContent;
   heroImage?: MediaAsset;
   sectionBackground?: Background;
@@ -623,13 +629,37 @@ export type FeaturedResources = {
         _ref: string;
         _type: 'reference';
         _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'page';
+        [internalGroqTypeReferenceTo]?: 'blog';
       }
     | {
         _ref: string;
         _type: 'reference';
         _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'article';
+        [internalGroqTypeReferenceTo]?: 'ebook';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'guide';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'webinar';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'template';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'tool';
       }
   >;
 };
@@ -1757,6 +1787,11 @@ export type SettingsQueryResult = {
         style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
         listItem?: 'bullet' | 'checkmarks' | 'number';
         markDefs: Array<
+          | {
+              family?: 'sans' | 'serif';
+              _type: 'fontFamily';
+              _key: string;
+            }
           | {
               linkType?:
                 | 'author'
@@ -3884,6 +3919,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -4006,6 +4046,11 @@ export type AuthorQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -4138,6 +4183,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -4260,6 +4310,11 @@ export type AuthorQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -5344,21 +5399,277 @@ export type AuthorQueryResult = {
               title: string;
               _createdAt: string;
               _id: string;
-              _type: 'article';
+              _type: 'blog';
               _updatedAt: string;
             }
           | {
-              author: null;
-              coverImage: null;
-              date: null;
-              estimatedReadingTime: null;
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
               slug: Slug;
               seo: Seo | null;
-              tags: null;
-              title: null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
               _createdAt: string;
               _id: string;
-              _type: 'page';
+              _type: 'ebook';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'guide';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'template';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'tool';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'webinar';
               _updatedAt: string;
             }
         > | null;
@@ -5706,6 +6017,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -5804,6 +6120,11 @@ export type AuthorQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -5929,6 +6250,7 @@ export type AuthorQueryResult = {
         _key: string;
         _type: 'heroLarge';
         enabled?: boolean;
+        subHeading?: string;
         description: Array<
           | {
               children?: Array<{
@@ -5940,6 +6262,11 @@ export type AuthorQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -6083,6 +6410,11 @@ export type AuthorQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -6274,6 +6606,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -6411,6 +6748,11 @@ export type AuthorQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -6614,6 +6956,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -6734,6 +7081,11 @@ export type AuthorQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -6862,6 +7214,11 @@ export type AuthorQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -6999,6 +7356,11 @@ export type AuthorQueryResult = {
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
+                  | {
                       linkType?:
                         | 'author'
                         | 'blog'
@@ -7090,6 +7452,11 @@ export type AuthorQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -7282,6 +7649,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -7417,6 +7789,11 @@ export type AuthorQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -7518,6 +7895,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -7653,6 +8035,11 @@ export type AuthorQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -7784,6 +8171,11 @@ export type AuthorQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -7919,6 +8311,11 @@ export type AuthorQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -8051,6 +8448,11 @@ export type AuthorQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -8573,6 +8975,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -8695,6 +9102,11 @@ export type GetHomeQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -8827,6 +9239,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -8949,6 +9366,11 @@ export type GetHomeQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -10033,21 +10455,277 @@ export type GetHomeQueryResult = {
               title: string;
               _createdAt: string;
               _id: string;
-              _type: 'article';
+              _type: 'blog';
               _updatedAt: string;
             }
           | {
-              author: null;
-              coverImage: null;
-              date: null;
-              estimatedReadingTime: null;
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
               slug: Slug;
               seo: Seo | null;
-              tags: null;
-              title: null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
               _createdAt: string;
               _id: string;
-              _type: 'page';
+              _type: 'ebook';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'guide';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'template';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'tool';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'webinar';
               _updatedAt: string;
             }
         > | null;
@@ -10395,6 +11073,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -10493,6 +11176,11 @@ export type GetHomeQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -10618,6 +11306,7 @@ export type GetHomeQueryResult = {
         _key: string;
         _type: 'heroLarge';
         enabled?: boolean;
+        subHeading?: string;
         description: Array<
           | {
               children?: Array<{
@@ -10629,6 +11318,11 @@ export type GetHomeQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -10772,6 +11466,11 @@ export type GetHomeQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -10963,6 +11662,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -11100,6 +11804,11 @@ export type GetHomeQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -11303,6 +12012,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -11423,6 +12137,11 @@ export type GetHomeQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -11551,6 +12270,11 @@ export type GetHomeQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -11688,6 +12412,11 @@ export type GetHomeQueryResult = {
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
+                  | {
                       linkType?:
                         | 'author'
                         | 'blog'
@@ -11779,6 +12508,11 @@ export type GetHomeQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -11971,6 +12705,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -12106,6 +12845,11 @@ export type GetHomeQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -12207,6 +12951,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -12342,6 +13091,11 @@ export type GetHomeQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -12473,6 +13227,11 @@ export type GetHomeQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -12608,6 +13367,11 @@ export type GetHomeQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -12740,6 +13504,11 @@ export type GetHomeQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -12913,6 +13682,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -13035,6 +13809,11 @@ export type GetPageQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -13167,6 +13946,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -13289,6 +14073,11 @@ export type GetPageQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -14373,21 +15162,277 @@ export type GetPageQueryResult = {
               title: string;
               _createdAt: string;
               _id: string;
-              _type: 'article';
+              _type: 'blog';
               _updatedAt: string;
             }
           | {
-              author: null;
-              coverImage: null;
-              date: null;
-              estimatedReadingTime: null;
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
               slug: Slug;
               seo: Seo | null;
-              tags: null;
-              title: null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
               _createdAt: string;
               _id: string;
-              _type: 'page';
+              _type: 'ebook';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'guide';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'template';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'tool';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'webinar';
               _updatedAt: string;
             }
         > | null;
@@ -14735,6 +15780,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -14833,6 +15883,11 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -14958,6 +16013,7 @@ export type GetPageQueryResult = {
         _key: string;
         _type: 'heroLarge';
         enabled?: boolean;
+        subHeading?: string;
         description: Array<
           | {
               children?: Array<{
@@ -14969,6 +16025,11 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -15112,6 +16173,11 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -15303,6 +16369,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -15440,6 +16511,11 @@ export type GetPageQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -15643,6 +16719,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -15763,6 +16844,11 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -15891,6 +16977,11 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -16028,6 +17119,11 @@ export type GetPageQueryResult = {
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
+                  | {
                       linkType?:
                         | 'author'
                         | 'blog'
@@ -16119,6 +17215,11 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -16311,6 +17412,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -16446,6 +17552,11 @@ export type GetPageQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -16547,6 +17658,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -16682,6 +17798,11 @@ export type GetPageQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -16813,6 +17934,11 @@ export type GetPageQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -16948,6 +18074,11 @@ export type GetPageQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -17080,6 +18211,11 @@ export type GetPageQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -17307,6 +18443,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -17429,6 +18570,11 @@ export type GetArticleQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -17561,6 +18707,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -17683,6 +18834,11 @@ export type GetArticleQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -18767,21 +19923,277 @@ export type GetArticleQueryResult = {
               title: string;
               _createdAt: string;
               _id: string;
-              _type: 'article';
+              _type: 'blog';
               _updatedAt: string;
             }
           | {
-              author: null;
-              coverImage: null;
-              date: null;
-              estimatedReadingTime: null;
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
               slug: Slug;
               seo: Seo | null;
-              tags: null;
-              title: null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
               _createdAt: string;
               _id: string;
-              _type: 'page';
+              _type: 'ebook';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'guide';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'template';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'tool';
+              _updatedAt: string;
+            }
+          | {
+              author: {
+                authorBio: BlockContent | null;
+                firstName: string;
+                lastName: string;
+                slug: Slug;
+                picture: {
+                  asset?: {
+                    _ref: string;
+                    _type: 'reference';
+                    _weak?: boolean;
+                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                  };
+                  media?: unknown;
+                  hotspot?: SanityImageHotspot;
+                  crop?: SanityImageCrop;
+                  alt?: string;
+                  _type: 'image';
+                };
+                _type: 'author';
+                _id: string;
+              } | null;
+              coverImage: {
+                asset?: {
+                  _ref: string;
+                  _type: 'reference';
+                  _weak?: boolean;
+                  [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                };
+                media?: unknown;
+                hotspot?: SanityImageHotspot;
+                crop?: SanityImageCrop;
+                alt?: string;
+                _type: 'image';
+              };
+              date: string | null;
+              estimatedReadingTime: string | null;
+              slug: Slug;
+              seo: Seo | null;
+              tags: Array<{
+                _id: string;
+                _type: 'tag';
+                _createdAt: string;
+                _updatedAt: string;
+                _rev: string;
+                name: string;
+                slug: Slug;
+              }> | null;
+              title: string;
+              _createdAt: string;
+              _id: string;
+              _type: 'webinar';
               _updatedAt: string;
             }
         > | null;
@@ -19129,6 +20541,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -19227,6 +20644,11 @@ export type GetArticleQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -19352,6 +20774,7 @@ export type GetArticleQueryResult = {
         _key: string;
         _type: 'heroLarge';
         enabled?: boolean;
+        subHeading?: string;
         description: Array<
           | {
               children?: Array<{
@@ -19363,6 +20786,11 @@ export type GetArticleQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -19506,6 +20934,11 @@ export type GetArticleQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -19697,6 +21130,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -19834,6 +21272,11 @@ export type GetArticleQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -20037,6 +21480,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -20157,6 +21605,11 @@ export type GetArticleQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -20285,6 +21738,11 @@ export type GetArticleQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -20422,6 +21880,11 @@ export type GetArticleQueryResult = {
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
                   | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
+                  | {
                       linkType?:
                         | 'author'
                         | 'blog'
@@ -20513,6 +21976,11 @@ export type GetArticleQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -20705,6 +22173,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -20840,6 +22313,11 @@ export type GetArticleQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -20941,6 +22419,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -21076,6 +22559,11 @@ export type GetArticleQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -21207,6 +22695,11 @@ export type GetArticleQueryResult = {
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
                 | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
+                | {
                     linkType?:
                       | 'author'
                       | 'blog'
@@ -21342,6 +22835,11 @@ export type GetArticleQueryResult = {
                 style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
                 listItem?: 'bullet' | 'checkmarks' | 'number';
                 markDefs: Array<
+                  | {
+                      family?: 'sans' | 'serif';
+                      _type: 'fontFamily';
+                      _key: string;
+                    }
                   | {
                       linkType?:
                         | 'author'
@@ -21474,6 +22972,11 @@ export type GetArticleQueryResult = {
               style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal' | 'small';
               listItem?: 'bullet' | 'checkmarks' | 'number';
               markDefs: Array<
+                | {
+                    family?: 'sans' | 'serif';
+                    _type: 'fontFamily';
+                    _key: string;
+                  }
                 | {
                     linkType?:
                       | 'author'
@@ -21711,6 +23214,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -21842,6 +23350,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -21983,6 +23496,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -22114,6 +23632,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -23198,21 +24721,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -23569,6 +25348,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -23676,6 +25460,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -23801,6 +25590,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -23821,6 +25611,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -23973,6 +25768,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -24173,6 +25973,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -24319,6 +26124,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -24531,6 +26341,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -24660,6 +26475,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -24797,6 +26617,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -24943,6 +26768,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -25043,6 +26873,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -25244,6 +27079,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -25388,6 +27228,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -25498,6 +27343,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -25642,6 +27492,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -25782,6 +27637,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -25926,6 +27786,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -26067,6 +27932,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -26289,6 +28159,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -26420,6 +28295,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -26561,6 +28441,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -26692,6 +28577,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -27776,21 +29666,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -28147,6 +30293,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -28254,6 +30405,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -28379,6 +30535,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -28399,6 +30556,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -28551,6 +30713,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -28751,6 +30918,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -28897,6 +31069,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -29109,6 +31286,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -29238,6 +31420,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -29375,6 +31562,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -29521,6 +31713,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -29621,6 +31818,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -29822,6 +32024,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -29966,6 +32173,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -30076,6 +32288,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -30220,6 +32437,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -30360,6 +32582,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -30504,6 +32731,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -30645,6 +32877,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -30875,6 +33112,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -31006,6 +33248,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -31147,6 +33394,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -31278,6 +33530,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -32362,21 +34619,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -32733,6 +35246,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -32840,6 +35358,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -32965,6 +35488,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -32985,6 +35509,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -33137,6 +35666,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -33337,6 +35871,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -33483,6 +36022,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -33695,6 +36239,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -33824,6 +36373,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -33961,6 +36515,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -34107,6 +36666,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -34207,6 +36771,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -34408,6 +36977,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -34552,6 +37126,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -34662,6 +37241,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -34806,6 +37390,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -34946,6 +37535,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -35090,6 +37684,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -35231,6 +37830,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -35460,6 +38064,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -35591,6 +38200,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -35732,6 +38346,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -35863,6 +38482,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -36947,21 +39571,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -37318,6 +40198,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -37425,6 +40310,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -37550,6 +40440,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -37570,6 +40461,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -37722,6 +40618,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -37922,6 +40823,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -38068,6 +40974,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -38280,6 +41191,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -38409,6 +41325,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -38546,6 +41467,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -38692,6 +41618,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -38792,6 +41723,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -38993,6 +41929,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -39137,6 +42078,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -39247,6 +42193,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -39391,6 +42342,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -39531,6 +42487,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -39675,6 +42636,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -39816,6 +42782,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -40045,6 +43016,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -40176,6 +43152,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -40317,6 +43298,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -40448,6 +43434,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -41532,21 +44523,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -41903,6 +45150,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -42010,6 +45262,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -42135,6 +45392,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -42155,6 +45413,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -42307,6 +45570,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -42507,6 +45775,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -42653,6 +45926,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -42865,6 +46143,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -42994,6 +46277,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -43131,6 +46419,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -43277,6 +46570,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -43377,6 +46675,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -43578,6 +46881,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -43722,6 +47030,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -43832,6 +47145,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -43976,6 +47294,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -44116,6 +47439,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -44260,6 +47588,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -44401,6 +47734,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -44581,6 +47919,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -44712,6 +48055,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -44853,6 +48201,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -44984,6 +48337,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -46068,21 +49426,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -46439,6 +50053,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -46546,6 +50165,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -46671,6 +50295,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -46691,6 +50316,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -46843,6 +50473,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -47043,6 +50678,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -47189,6 +50829,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -47401,6 +51046,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -47530,6 +51180,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -47667,6 +51322,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -47813,6 +51473,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -47913,6 +51578,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -48114,6 +51784,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -48258,6 +51933,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -48368,6 +52048,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -48512,6 +52197,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -48652,6 +52342,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -48796,6 +52491,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -48937,6 +52637,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -49119,6 +52824,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -49250,6 +52960,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -49391,6 +53106,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -49522,6 +53242,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -50606,21 +54331,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -50977,6 +54958,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -51084,6 +55070,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -51209,6 +55200,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -51229,6 +55221,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -51381,6 +55378,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -51581,6 +55583,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -51727,6 +55734,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -51939,6 +55951,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -52068,6 +56085,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -52205,6 +56227,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -52351,6 +56378,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -52451,6 +56483,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -52652,6 +56689,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -52796,6 +56838,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -52906,6 +56953,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -53050,6 +57102,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -53190,6 +57247,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -53334,6 +57396,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -53475,6 +57542,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -53833,6 +57905,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -53964,6 +58041,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -54105,6 +58187,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -54236,6 +58323,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -55320,21 +59412,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -55691,6 +60039,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -55798,6 +60151,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -55923,6 +60281,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -55943,6 +60302,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -56095,6 +60459,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -56295,6 +60664,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -56441,6 +60815,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -56653,6 +61032,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -56782,6 +61166,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -56919,6 +61308,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -57065,6 +61459,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -57165,6 +61564,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -57366,6 +61770,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -57510,6 +61919,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -57620,6 +62034,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -57764,6 +62183,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -57904,6 +62328,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -58048,6 +62477,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -58189,6 +62623,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -58418,6 +62857,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -58549,6 +62993,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -58690,6 +63139,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -58821,6 +63275,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -59905,21 +64364,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -60276,6 +64991,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -60383,6 +65103,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -60508,6 +65233,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -60528,6 +65254,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -60680,6 +65411,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -60880,6 +65616,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -61026,6 +65767,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -61238,6 +65984,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -61367,6 +66118,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -61504,6 +66260,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -61650,6 +66411,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -61750,6 +66516,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -61951,6 +66722,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -62095,6 +66871,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -62205,6 +66986,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -62349,6 +67135,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -62489,6 +67280,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -62633,6 +67429,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -62774,6 +67575,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -63003,6 +67809,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -63134,6 +67945,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -63275,6 +68091,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -63406,6 +68227,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -64490,21 +69316,277 @@ export type GetResourceQueryResult =
                   title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'article';
+                  _type: 'blog';
                   _updatedAt: string;
                 }
               | {
-                  author: null;
-                  coverImage: null;
-                  date: null;
-                  estimatedReadingTime: null;
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
                   slug: Slug;
                   seo: Seo | null;
-                  tags: null;
-                  title: null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
                   _createdAt: string;
                   _id: string;
-                  _type: 'page';
+                  _type: 'ebook';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'guide';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'template';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'tool';
+                  _updatedAt: string;
+                }
+              | {
+                  author: {
+                    authorBio: BlockContent | null;
+                    firstName: string;
+                    lastName: string;
+                    slug: Slug;
+                    picture: {
+                      asset?: {
+                        _ref: string;
+                        _type: 'reference';
+                        _weak?: boolean;
+                        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                      };
+                      media?: unknown;
+                      hotspot?: SanityImageHotspot;
+                      crop?: SanityImageCrop;
+                      alt?: string;
+                      _type: 'image';
+                    };
+                    _type: 'author';
+                    _id: string;
+                  } | null;
+                  coverImage: {
+                    asset?: {
+                      _ref: string;
+                      _type: 'reference';
+                      _weak?: boolean;
+                      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+                    };
+                    media?: unknown;
+                    hotspot?: SanityImageHotspot;
+                    crop?: SanityImageCrop;
+                    alt?: string;
+                    _type: 'image';
+                  };
+                  date: string | null;
+                  estimatedReadingTime: string | null;
+                  slug: Slug;
+                  seo: Seo | null;
+                  tags: Array<{
+                    _id: string;
+                    _type: 'tag';
+                    _createdAt: string;
+                    _updatedAt: string;
+                    _rev: string;
+                    name: string;
+                    slug: Slug;
+                  }> | null;
+                  title: string;
+                  _createdAt: string;
+                  _id: string;
+                  _type: 'webinar';
                   _updatedAt: string;
                 }
             > | null;
@@ -64861,6 +69943,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -64968,6 +70055,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -65093,6 +70185,7 @@ export type GetResourceQueryResult =
             _key: string;
             _type: 'heroLarge';
             enabled?: boolean;
+            subHeading?: string;
             description: Array<
               | {
                   children?: Array<{
@@ -65113,6 +70206,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -65265,6 +70363,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -65465,6 +70568,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -65611,6 +70719,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -65823,6 +70936,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -65952,6 +71070,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -66089,6 +71212,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -66235,6 +71363,11 @@ export type GetResourceQueryResult =
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
                       | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
+                      | {
                           linkType?:
                             | 'author'
                             | 'blog'
@@ -66335,6 +71468,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'
@@ -66536,6 +71674,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -66680,6 +71823,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -66790,6 +71938,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -66934,6 +72087,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -67074,6 +72232,11 @@ export type GetResourceQueryResult =
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
                     | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
+                    | {
                         linkType?:
                           | 'author'
                           | 'blog'
@@ -67218,6 +72381,11 @@ export type GetResourceQueryResult =
                       | 'small';
                     listItem?: 'bullet' | 'checkmarks' | 'number';
                     markDefs: Array<
+                      | {
+                          family?: 'sans' | 'serif';
+                          _type: 'fontFamily';
+                          _key: string;
+                        }
                       | {
                           linkType?:
                             | 'author'
@@ -67359,6 +72527,11 @@ export type GetResourceQueryResult =
                     | 'small';
                   listItem?: 'bullet' | 'checkmarks' | 'number';
                   markDefs: Array<
+                    | {
+                        family?: 'sans' | 'serif';
+                        _type: 'fontFamily';
+                        _key: string;
+                      }
                     | {
                         linkType?:
                           | 'author'

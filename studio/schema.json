@@ -2674,6 +2674,10 @@
                                 },
                                 {
                                   "type": "string",
+                                  "value": "#2CB592"
+                                },
+                                {
+                                  "type": "string",
                                   "value": "#F24E1A"
                                 },
                                 {
@@ -2683,10 +2687,6 @@
                                 {
                                   "type": "string",
                                   "value": "#ffffff"
-                                },
-                                {
-                                  "type": "string",
-                                  "value": "#2CB592"
                                 }
                               ]
                             },
@@ -2697,6 +2697,46 @@
                             "value": {
                               "type": "string",
                               "value": "textColor"
+                            }
+                          }
+                        },
+                        "rest": {
+                          "type": "object",
+                          "attributes": {
+                            "_key": {
+                              "type": "objectAttribute",
+                              "value": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "attributes": {
+                          "family": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "union",
+                              "of": [
+                                {
+                                  "type": "string",
+                                  "value": "sans"
+                                },
+                                {
+                                  "type": "string",
+                                  "value": "serif"
+                                }
+                              ]
+                            },
+                            "optional": true
+                          },
+                          "_type": {
+                            "type": "objectAttribute",
+                            "value": {
+                              "type": "string",
+                              "value": "fontFamily"
                             }
                           }
                         },
@@ -3516,6 +3556,13 @@
           },
           "optional": true
         },
+        "subHeading": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
         "description": {
           "type": "objectAttribute",
           "value": {
@@ -3718,7 +3765,7 @@
                       "optional": true
                     }
                   },
-                  "dereferencesTo": "page"
+                  "dereferencesTo": "blog"
                 },
                 {
                   "type": "object",
@@ -3744,7 +3791,111 @@
                       "optional": true
                     }
                   },
-                  "dereferencesTo": "article"
+                  "dereferencesTo": "ebook"
+                },
+                {
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "guide"
+                },
+                {
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "webinar"
+                },
+                {
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "template"
+                },
+                {
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "tool"
                 }
               ]
             }
