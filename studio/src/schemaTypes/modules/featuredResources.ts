@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity';
-import { TextIcon } from '@sanity/icons';
+import {defineField, defineType} from 'sanity'
+import {TextIcon} from '@sanity/icons'
 
 export const featuredResources = defineType({
   name: 'featuredResources',
@@ -34,8 +34,8 @@ export const featuredResources = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Most Recents', value: 'mostRecents' },
-          { title: 'Custom', value: 'custom' },
+          {title: 'Most Recents', value: 'mostRecents'},
+          {title: 'Custom', value: 'custom'},
         ],
       },
       initialValue: 'mostRecents',
@@ -47,17 +47,24 @@ export const featuredResources = defineType({
       of: [
         {
           type: 'reference',
-          to: [{ type: 'page' }, { type: 'article' }],
+          to: [
+            {type: 'blog'},
+            {type: 'ebook'},
+            {type: 'guide'},
+            {type: 'webinar'},
+            {type: 'template'},
+            {type: 'tool'},
+          ],
         },
       ],
-      hidden: ({ parent }) => parent?.resourceDisplayTypes !== 'custom',
+      hidden: ({parent}) => parent?.resourceDisplayTypes !== 'custom',
     }),
   ],
   preview: {
     prepare() {
       return {
         title: 'Feature Resources',
-      };
+      }
     },
   },
-});
+})

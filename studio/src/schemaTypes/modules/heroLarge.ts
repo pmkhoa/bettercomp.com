@@ -14,6 +14,11 @@ export const heroLarge = defineType({
       initialValue: true,
     }),
     defineField({
+      name: 'subHeading',
+      title: 'Optional Sub Heading',
+      type: 'string',
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'blockContent',

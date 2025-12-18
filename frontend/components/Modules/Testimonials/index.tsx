@@ -117,10 +117,10 @@ export default function SectionTestimonialsModule({ block }: Props) {
                               className="max-h-[24px] min-w-[140px] w-auto"
                             />
                             {readAllReviews && readAllReviews.link && (
-                              <div className="review-stars mt-0">
+                              <div className="review-stars my-2">
                                 <ResolvedLink
                                   link={readAllReviews.link}
-                                  className={'inline-block my-2 text-orange underline'}
+                                  className={'inline-block text-orange underline'}
                                 >
                                   {readAllReviews.linkLabel}
                                 </ResolvedLink>

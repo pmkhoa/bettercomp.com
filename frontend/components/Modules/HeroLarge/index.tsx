@@ -19,6 +19,7 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
     highlightCustomerPhotos,
     description,
     heroImage,
+    subHeading,
     ctaButton,
   } = block;
 
@@ -61,6 +62,7 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
         <div className="container z-10 relative z-20">
           <div className="grid-container justify-between items-center gap-y-8 md:gap-y-16 gap-0 md:gap-4">
             <div className={cn('col-span-12 md:col-span-5')}>
+              {subHeading && <h6 className="font-serif font-bold text-green mb-2">{subHeading}</h6>}
               <div className={'hero-description'}>
                 <PortableText value={description} />
               </div>

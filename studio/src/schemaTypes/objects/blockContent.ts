@@ -3,6 +3,8 @@ import {
   EllipsisHorizontalIcon,
   DoubleChevronUpIcon,
   HighlightIcon,
+  ColorWheelIcon,
+  TextIcon,
   LinkIcon,
   ImageIcon,
 } from '@sanity/icons';
@@ -60,6 +62,7 @@ export const blockContent = defineType({
               name: 'textColor',
               title: 'Text Color',
               type: 'object',
+              icon: ColorWheelIcon,
               fields: [
                 {
                   name: 'color',
@@ -68,12 +71,33 @@ export const blockContent = defineType({
                   options: {
                     list: [
                       { title: 'Blue', value: '#002952' },
+                      { title: 'Green', value: '#2CB592' },
                       { title: 'Orange', value: '#F24E1A' },
                       { title: 'Gold', value: '#FFA700' },
                       { title: 'White', value: '#ffffff' },
-                      { title: 'Green', value: '#2CB592' },
                     ],
                   },
+                },
+              ],
+            },
+            {
+              name: 'fontFamily',
+              title: 'Font Family',
+              type: 'object',
+              icon: TextIcon,
+              fields: [
+                {
+                  name: 'family',
+                  title: 'Font',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Sans Serif', value: 'sans' },
+                      { title: 'Serif', value: 'serif' },
+                    ],
+                    layout: 'radio',
+                  },
+                  initialValue: 'sans',
                 },
               ],
             },

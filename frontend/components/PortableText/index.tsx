@@ -115,6 +115,14 @@ export default function CustomPortableText({
     },
     marks: {
       semibold: ({ children }) => <span className="font-semibold">{children}</span>,
+
+      fontFamily: ({ value, children }: any) => {
+        if (value?.family === 'serif') {
+          return <span className="font-serif">{children}</span>;
+        }
+
+        return <span className="font-sans">{children}</span>;
+      },
       link: ({ children, value: link }) => {
         return (
           <ResolvedLink
