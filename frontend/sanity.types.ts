@@ -476,11 +476,11 @@ export type BlockContent = Array<
               media?: unknown;
               _type: 'file';
             };
-            article?: {
+            blog?: {
               _ref: string;
               _type: 'reference';
               _weak?: boolean;
-              [internalGroqTypeReferenceTo]?: 'article';
+              [internalGroqTypeReferenceTo]?: 'blog';
             };
             ebook?: {
               _ref: string;
@@ -1010,19 +1010,6 @@ export type Slug = {
   source?: string;
 };
 
-export type Home = {
-  _id: string;
-  _type: 'home';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name: string;
-  slug: Slug;
-  mainNavBackground?: 'blue' | 'white';
-  pageBuilder?: PageBuilder;
-  seo?: Seo;
-};
-
 export type Divider = {
   _type: 'divider';
   backgroundColor?:
@@ -1038,9 +1025,9 @@ export type Divider = {
     | 'sand';
 };
 
-export type Blog = {
+export type Article = {
   _id: string;
-  _type: 'blog';
+  _type: 'article';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -1103,6 +1090,13 @@ export type Settings = {
   };
   googleAnalyticsID?: string;
   googleTagManager?: string;
+  redirects?: Array<{
+    from: string;
+    to: string;
+    permanent?: boolean;
+    enabled?: boolean;
+    _key: string;
+  }>;
   siteBanner?: BlockContent;
   loginLink?: string;
   helpLink?: string;
@@ -1145,6 +1139,19 @@ export type Settings = {
   }>;
 };
 
+export type Home = {
+  _id: string;
+  _type: 'home';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string;
+  slug: Slug;
+  mainNavBackground?: 'blue' | 'white';
+  pageBuilder?: PageBuilder;
+  seo?: Seo;
+};
+
 export type Author = {
   _id: string;
   _type: 'author';
@@ -1174,9 +1181,9 @@ export type Author = {
   pageBuilder?: PageBuilder;
 };
 
-export type Article = {
+export type Blog = {
   _id: string;
-  _type: 'article';
+  _type: 'blog';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -1718,12 +1725,12 @@ export type AllSanitySchemaTypes =
   | Background
   | Tag
   | Slug
-  | Home
   | Divider
-  | Blog
-  | Settings
-  | Author
   | Article
+  | Settings
+  | Home
+  | Author
+  | Blog
   | Ebook
   | Guide
   | Tool
@@ -1776,6 +1783,13 @@ export type SettingsQueryResult = {
   };
   googleAnalyticsID?: string;
   googleTagManager?: string;
+  redirects?: Array<{
+    from: string;
+    to: string;
+    permanent?: boolean;
+    enabled?: boolean;
+    _key: string;
+  }>;
   siteBanner: Array<
     | {
         children?: Array<{
@@ -1816,7 +1830,7 @@ export type SettingsQueryResult = {
                 media?: unknown;
                 _type: 'file';
               };
-              article: string | null;
+              blog: string | null;
               ebook: string | null;
               guide: string | null;
               tool: string | null;
@@ -1826,7 +1840,7 @@ export type SettingsQueryResult = {
               openInNewTab?: boolean;
               _type: 'link';
               _key: string;
-              blog: null;
+              article: null;
               file: null;
             }
           | {
@@ -2948,6 +2962,13 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
+        _key: string;
+      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -3435,6 +3456,13 @@ export type AllResourcesSearchQueryResult = Array<
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
+        _key: string;
+      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -3947,7 +3975,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -3957,7 +3985,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -4075,7 +4103,7 @@ export type AuthorQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -4085,7 +4113,7 @@ export type AuthorQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -4211,7 +4239,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -4221,7 +4249,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -4339,7 +4367,7 @@ export type AuthorQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -4349,7 +4377,7 @@ export type AuthorQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -6045,7 +6073,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -6055,7 +6083,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -6149,7 +6177,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -6159,7 +6187,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -6291,7 +6319,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -6301,7 +6329,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -6439,7 +6467,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -6449,7 +6477,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -6634,7 +6662,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -6644,7 +6672,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -6777,7 +6805,7 @@ export type AuthorQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -6787,7 +6815,7 @@ export type AuthorQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -6984,7 +7012,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -6994,7 +7022,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -7110,7 +7138,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -7120,7 +7148,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -7243,7 +7271,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -7253,7 +7281,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -7384,7 +7412,7 @@ export type AuthorQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -7394,7 +7422,7 @@ export type AuthorQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -7481,7 +7509,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -7491,7 +7519,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -7677,7 +7705,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -7687,7 +7715,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -7818,7 +7846,7 @@ export type AuthorQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -7828,7 +7856,7 @@ export type AuthorQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -7923,7 +7951,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -7933,7 +7961,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -8064,7 +8092,7 @@ export type AuthorQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -8074,7 +8102,7 @@ export type AuthorQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -8199,7 +8227,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -8209,7 +8237,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -8340,7 +8368,7 @@ export type AuthorQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -8350,7 +8378,7 @@ export type AuthorQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -8477,7 +8505,7 @@ export type AuthorQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -8487,7 +8515,7 @@ export type AuthorQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -9003,7 +9031,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -9013,7 +9041,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -9131,7 +9159,7 @@ export type GetHomeQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -9141,7 +9169,7 @@ export type GetHomeQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -9267,7 +9295,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -9277,7 +9305,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -9395,7 +9423,7 @@ export type GetHomeQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -9405,7 +9433,7 @@ export type GetHomeQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -11101,7 +11129,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -11111,7 +11139,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -11205,7 +11233,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -11215,7 +11243,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -11347,7 +11375,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -11357,7 +11385,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -11495,7 +11523,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -11505,7 +11533,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -11690,7 +11718,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -11700,7 +11728,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -11833,7 +11861,7 @@ export type GetHomeQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -11843,7 +11871,7 @@ export type GetHomeQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -12040,7 +12068,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -12050,7 +12078,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -12166,7 +12194,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -12176,7 +12204,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -12299,7 +12327,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -12309,7 +12337,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -12440,7 +12468,7 @@ export type GetHomeQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -12450,7 +12478,7 @@ export type GetHomeQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -12537,7 +12565,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -12547,7 +12575,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -12733,7 +12761,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -12743,7 +12771,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -12874,7 +12902,7 @@ export type GetHomeQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -12884,7 +12912,7 @@ export type GetHomeQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -12979,7 +13007,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -12989,7 +13017,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -13120,7 +13148,7 @@ export type GetHomeQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -13130,7 +13158,7 @@ export type GetHomeQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -13255,7 +13283,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -13265,7 +13293,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -13396,7 +13424,7 @@ export type GetHomeQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -13406,7 +13434,7 @@ export type GetHomeQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -13533,7 +13561,7 @@ export type GetHomeQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -13543,7 +13571,7 @@ export type GetHomeQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -13710,7 +13738,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -13720,7 +13748,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -13838,7 +13866,7 @@ export type GetPageQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -13848,7 +13876,7 @@ export type GetPageQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -13974,7 +14002,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -13984,7 +14012,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -14102,7 +14130,7 @@ export type GetPageQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -14112,7 +14140,7 @@ export type GetPageQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -15808,7 +15836,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -15818,7 +15846,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -15912,7 +15940,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -15922,7 +15950,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -16054,7 +16082,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -16064,7 +16092,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -16202,7 +16230,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -16212,7 +16240,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -16397,7 +16425,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -16407,7 +16435,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -16540,7 +16568,7 @@ export type GetPageQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -16550,7 +16578,7 @@ export type GetPageQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -16747,7 +16775,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -16757,7 +16785,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -16873,7 +16901,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -16883,7 +16911,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -17006,7 +17034,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -17016,7 +17044,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -17147,7 +17175,7 @@ export type GetPageQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -17157,7 +17185,7 @@ export type GetPageQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -17244,7 +17272,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -17254,7 +17282,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -17440,7 +17468,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -17450,7 +17478,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -17581,7 +17609,7 @@ export type GetPageQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -17591,7 +17619,7 @@ export type GetPageQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -17686,7 +17714,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -17696,7 +17724,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -17827,7 +17855,7 @@ export type GetPageQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -17837,7 +17865,7 @@ export type GetPageQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -17962,7 +17990,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -17972,7 +18000,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -18103,7 +18131,7 @@ export type GetPageQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -18113,7 +18141,7 @@ export type GetPageQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -18240,7 +18268,7 @@ export type GetPageQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -18250,7 +18278,7 @@ export type GetPageQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -18471,7 +18499,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -18481,7 +18509,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -18599,7 +18627,7 @@ export type GetArticleQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -18609,7 +18637,7 @@ export type GetArticleQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -18735,7 +18763,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -18745,7 +18773,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -18863,7 +18891,7 @@ export type GetArticleQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -18873,7 +18901,7 @@ export type GetArticleQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -20569,7 +20597,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -20579,7 +20607,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -20673,7 +20701,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -20683,7 +20711,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -20815,7 +20843,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -20825,7 +20853,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -20963,7 +20991,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -20973,7 +21001,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -21158,7 +21186,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -21168,7 +21196,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -21301,7 +21329,7 @@ export type GetArticleQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -21311,7 +21339,7 @@ export type GetArticleQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -21508,7 +21536,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -21518,7 +21546,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -21634,7 +21662,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -21644,7 +21672,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -21767,7 +21795,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -21777,7 +21805,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -21908,7 +21936,7 @@ export type GetArticleQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -21918,7 +21946,7 @@ export type GetArticleQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -22005,7 +22033,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -22015,7 +22043,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -22201,7 +22229,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -22211,7 +22239,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -22342,7 +22370,7 @@ export type GetArticleQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -22352,7 +22380,7 @@ export type GetArticleQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -22447,7 +22475,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -22457,7 +22485,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -22588,7 +22616,7 @@ export type GetArticleQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -22598,7 +22626,7 @@ export type GetArticleQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -22723,7 +22751,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -22733,7 +22761,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -22864,7 +22892,7 @@ export type GetArticleQueryResult = {
                         media?: unknown;
                         _type: 'file';
                       };
-                      article: string | null;
+                      blog: string | null;
                       ebook: string | null;
                       guide: string | null;
                       tool: string | null;
@@ -22874,7 +22902,7 @@ export type GetArticleQueryResult = {
                       openInNewTab?: boolean;
                       _type: 'link';
                       _key: string;
-                      blog: null;
+                      article: null;
                       file: null;
                     }
                   | {
@@ -23001,7 +23029,7 @@ export type GetArticleQueryResult = {
                       media?: unknown;
                       _type: 'file';
                     };
-                    article: string | null;
+                    blog: string | null;
                     ebook: string | null;
                     guide: string | null;
                     tool: string | null;
@@ -23011,7 +23039,7 @@ export type GetArticleQueryResult = {
                     openInNewTab?: boolean;
                     _type: 'link';
                     _key: string;
-                    blog: null;
+                    article: null;
                     file: null;
                   }
                 | {
@@ -23242,7 +23270,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -23252,7 +23280,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -23379,7 +23407,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -23389,7 +23417,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -23524,7 +23552,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -23534,7 +23562,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -23661,7 +23689,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -23671,7 +23699,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -25376,7 +25404,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -25386,7 +25414,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -25489,7 +25517,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -25499,7 +25527,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -25640,7 +25668,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -25650,7 +25678,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -25797,7 +25825,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -25807,7 +25835,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -26001,7 +26029,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -26011,7 +26039,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -26153,7 +26181,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -26163,7 +26191,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -26369,7 +26397,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -26379,7 +26407,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -26504,7 +26532,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -26514,7 +26542,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -26646,7 +26674,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -26656,7 +26684,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -26796,7 +26824,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -26806,7 +26834,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -26902,7 +26930,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -26912,7 +26940,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -27107,7 +27135,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -27117,7 +27145,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -27257,7 +27285,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -27267,7 +27295,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -27371,7 +27399,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -27381,7 +27409,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -27521,7 +27549,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -27531,7 +27559,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -27665,7 +27693,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -27675,7 +27703,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -27815,7 +27843,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -27825,7 +27853,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -27961,7 +27989,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -27971,7 +27999,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -28187,7 +28215,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -28197,7 +28225,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -28324,7 +28352,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -28334,7 +28362,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -28469,7 +28497,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -28479,7 +28507,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -28606,7 +28634,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -28616,7 +28644,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -30321,7 +30349,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -30331,7 +30359,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -30434,7 +30462,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -30444,7 +30472,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -30585,7 +30613,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -30595,7 +30623,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -30742,7 +30770,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -30752,7 +30780,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -30946,7 +30974,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -30956,7 +30984,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -31098,7 +31126,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -31108,7 +31136,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -31314,7 +31342,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -31324,7 +31352,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -31449,7 +31477,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -31459,7 +31487,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -31591,7 +31619,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -31601,7 +31629,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -31741,7 +31769,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -31751,7 +31779,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -31847,7 +31875,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -31857,7 +31885,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -32052,7 +32080,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -32062,7 +32090,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -32202,7 +32230,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -32212,7 +32240,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -32316,7 +32344,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -32326,7 +32354,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -32466,7 +32494,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -32476,7 +32504,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -32610,7 +32638,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -32620,7 +32648,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -32760,7 +32788,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -32770,7 +32798,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -32906,7 +32934,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -32916,7 +32944,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -33140,7 +33168,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -33150,7 +33178,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -33277,7 +33305,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -33287,7 +33315,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -33422,7 +33450,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -33432,7 +33460,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -33559,7 +33587,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -33569,7 +33597,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -35274,7 +35302,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -35284,7 +35312,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -35387,7 +35415,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -35397,7 +35425,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -35538,7 +35566,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -35548,7 +35576,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -35695,7 +35723,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -35705,7 +35733,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -35899,7 +35927,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -35909,7 +35937,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -36051,7 +36079,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -36061,7 +36089,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -36267,7 +36295,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -36277,7 +36305,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -36402,7 +36430,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -36412,7 +36440,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -36544,7 +36572,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -36554,7 +36582,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -36694,7 +36722,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -36704,7 +36732,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -36800,7 +36828,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -36810,7 +36838,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -37005,7 +37033,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -37015,7 +37043,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -37155,7 +37183,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -37165,7 +37193,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -37269,7 +37297,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -37279,7 +37307,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -37419,7 +37447,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -37429,7 +37457,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -37563,7 +37591,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -37573,7 +37601,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -37713,7 +37741,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -37723,7 +37751,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -37859,7 +37887,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -37869,7 +37897,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -38092,7 +38120,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -38102,7 +38130,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -38229,7 +38257,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -38239,7 +38267,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -38374,7 +38402,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -38384,7 +38412,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -38511,7 +38539,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -38521,7 +38549,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -40226,7 +40254,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -40236,7 +40264,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -40339,7 +40367,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -40349,7 +40377,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -40490,7 +40518,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -40500,7 +40528,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -40647,7 +40675,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -40657,7 +40685,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -40851,7 +40879,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -40861,7 +40889,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -41003,7 +41031,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -41013,7 +41041,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -41219,7 +41247,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -41229,7 +41257,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -41354,7 +41382,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -41364,7 +41392,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -41496,7 +41524,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -41506,7 +41534,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -41646,7 +41674,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -41656,7 +41684,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -41752,7 +41780,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -41762,7 +41790,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -41957,7 +41985,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -41967,7 +41995,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -42107,7 +42135,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -42117,7 +42145,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -42221,7 +42249,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -42231,7 +42259,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -42371,7 +42399,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -42381,7 +42409,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -42515,7 +42543,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -42525,7 +42553,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -42665,7 +42693,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -42675,7 +42703,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -42811,7 +42839,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -42821,7 +42849,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -43044,7 +43072,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -43054,7 +43082,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -43181,7 +43209,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -43191,7 +43219,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -43326,7 +43354,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -43336,7 +43364,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -43463,7 +43491,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -43473,7 +43501,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -45178,7 +45206,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -45188,7 +45216,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -45291,7 +45319,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -45301,7 +45329,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -45442,7 +45470,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -45452,7 +45480,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -45599,7 +45627,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -45609,7 +45637,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -45803,7 +45831,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -45813,7 +45841,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -45955,7 +45983,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -45965,7 +45993,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -46171,7 +46199,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -46181,7 +46209,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -46306,7 +46334,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -46316,7 +46344,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -46448,7 +46476,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -46458,7 +46486,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -46598,7 +46626,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -46608,7 +46636,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -46704,7 +46732,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -46714,7 +46742,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -46909,7 +46937,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -46919,7 +46947,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -47059,7 +47087,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -47069,7 +47097,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -47173,7 +47201,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -47183,7 +47211,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -47323,7 +47351,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -47333,7 +47361,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -47467,7 +47495,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -47477,7 +47505,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -47617,7 +47645,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -47627,7 +47655,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -47763,7 +47791,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -47773,7 +47801,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -47947,7 +47975,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -47957,7 +47985,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -48084,7 +48112,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -48094,7 +48122,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -48229,7 +48257,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -48239,7 +48267,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -48366,7 +48394,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -48376,7 +48404,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -50081,7 +50109,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -50091,7 +50119,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -50194,7 +50222,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -50204,7 +50232,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -50345,7 +50373,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -50355,7 +50383,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -50502,7 +50530,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -50512,7 +50540,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -50706,7 +50734,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -50716,7 +50744,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -50858,7 +50886,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -50868,7 +50896,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -51074,7 +51102,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -51084,7 +51112,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -51209,7 +51237,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -51219,7 +51247,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -51351,7 +51379,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -51361,7 +51389,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -51501,7 +51529,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -51511,7 +51539,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -51607,7 +51635,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -51617,7 +51645,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -51812,7 +51840,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -51822,7 +51850,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -51962,7 +51990,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -51972,7 +52000,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -52076,7 +52104,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -52086,7 +52114,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -52226,7 +52254,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -52236,7 +52264,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -52370,7 +52398,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -52380,7 +52408,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -52520,7 +52548,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -52530,7 +52558,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -52666,7 +52694,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -52676,7 +52704,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -52852,7 +52880,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -52862,7 +52890,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -52989,7 +53017,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -52999,7 +53027,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -53134,7 +53162,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -53144,7 +53172,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -53271,7 +53299,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -53281,7 +53309,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -54986,7 +55014,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -54996,7 +55024,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -55099,7 +55127,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -55109,7 +55137,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -55250,7 +55278,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -55260,7 +55288,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -55407,7 +55435,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -55417,7 +55445,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -55611,7 +55639,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -55621,7 +55649,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -55763,7 +55791,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -55773,7 +55801,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -55979,7 +56007,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -55989,7 +56017,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -56114,7 +56142,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -56124,7 +56152,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -56256,7 +56284,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -56266,7 +56294,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -56406,7 +56434,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -56416,7 +56444,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -56512,7 +56540,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -56522,7 +56550,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -56717,7 +56745,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -56727,7 +56755,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -56867,7 +56895,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -56877,7 +56905,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -56981,7 +57009,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -56991,7 +57019,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -57131,7 +57159,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -57141,7 +57169,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -57275,7 +57303,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -57285,7 +57313,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -57425,7 +57453,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -57435,7 +57463,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -57571,7 +57599,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -57581,7 +57609,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -57762,6 +57790,13 @@ export type GetResourceQueryResult =
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
+        _key: string;
+      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -57933,7 +57968,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -57943,7 +57978,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -58070,7 +58105,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -58080,7 +58115,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -58215,7 +58250,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -58225,7 +58260,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -58352,7 +58387,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -58362,7 +58397,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -60067,7 +60102,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -60077,7 +60112,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -60180,7 +60215,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -60190,7 +60225,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -60331,7 +60366,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -60341,7 +60376,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -60488,7 +60523,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -60498,7 +60533,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -60692,7 +60727,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -60702,7 +60737,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -60844,7 +60879,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -60854,7 +60889,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -61060,7 +61095,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -61070,7 +61105,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -61195,7 +61230,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -61205,7 +61240,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -61337,7 +61372,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -61347,7 +61382,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -61487,7 +61522,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -61497,7 +61532,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -61593,7 +61628,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -61603,7 +61638,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -61798,7 +61833,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -61808,7 +61843,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -61948,7 +61983,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -61958,7 +61993,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -62062,7 +62097,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -62072,7 +62107,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -62212,7 +62247,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -62222,7 +62257,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -62356,7 +62391,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -62366,7 +62401,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -62506,7 +62541,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -62516,7 +62551,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -62652,7 +62687,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -62662,7 +62697,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -62885,7 +62920,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -62895,7 +62930,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -63022,7 +63057,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -63032,7 +63067,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -63167,7 +63202,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -63177,7 +63212,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -63304,7 +63339,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -63314,7 +63349,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -65019,7 +65054,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -65029,7 +65064,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -65132,7 +65167,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -65142,7 +65177,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -65283,7 +65318,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -65293,7 +65328,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -65440,7 +65475,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -65450,7 +65485,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -65644,7 +65679,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -65654,7 +65689,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -65796,7 +65831,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -65806,7 +65841,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -66012,7 +66047,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -66022,7 +66057,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -66147,7 +66182,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -66157,7 +66192,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -66289,7 +66324,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -66299,7 +66334,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -66439,7 +66474,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -66449,7 +66484,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -66545,7 +66580,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -66555,7 +66590,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -66750,7 +66785,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -66760,7 +66795,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -66900,7 +66935,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -66910,7 +66945,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -67014,7 +67049,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -67024,7 +67059,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -67164,7 +67199,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -67174,7 +67209,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -67308,7 +67343,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -67318,7 +67353,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -67458,7 +67493,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -67468,7 +67503,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -67604,7 +67639,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -67614,7 +67649,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -67837,7 +67872,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -67847,7 +67882,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -67974,7 +68009,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -67984,7 +68019,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -68119,7 +68154,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -68129,7 +68164,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -68256,7 +68291,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -68266,7 +68301,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -69971,7 +70006,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -69981,7 +70016,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -70084,7 +70119,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -70094,7 +70129,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -70235,7 +70270,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -70245,7 +70280,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -70392,7 +70427,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -70402,7 +70437,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -70596,7 +70631,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -70606,7 +70641,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -70748,7 +70783,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -70758,7 +70793,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -70964,7 +70999,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -70974,7 +71009,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -71099,7 +71134,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -71109,7 +71144,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -71241,7 +71276,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -71251,7 +71286,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -71391,7 +71426,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -71401,7 +71436,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -71497,7 +71532,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -71507,7 +71542,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -71702,7 +71737,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -71712,7 +71747,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -71852,7 +71887,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -71862,7 +71897,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -71966,7 +72001,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -71976,7 +72011,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -72116,7 +72151,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -72126,7 +72161,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -72260,7 +72295,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -72270,7 +72305,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -72410,7 +72445,7 @@ export type GetResourceQueryResult =
                             media?: unknown;
                             _type: 'file';
                           };
-                          article: string | null;
+                          blog: string | null;
                           ebook: string | null;
                           guide: string | null;
                           tool: string | null;
@@ -72420,7 +72455,7 @@ export type GetResourceQueryResult =
                           openInNewTab?: boolean;
                           _type: 'link';
                           _key: string;
-                          blog: null;
+                          article: null;
                           file: null;
                         }
                       | {
@@ -72556,7 +72591,7 @@ export type GetResourceQueryResult =
                           media?: unknown;
                           _type: 'file';
                         };
-                        article: string | null;
+                        blog: string | null;
                         ebook: string | null;
                         guide: string | null;
                         tool: string | null;
@@ -72566,7 +72601,7 @@ export type GetResourceQueryResult =
                         openInNewTab?: boolean;
                         _type: 'link';
                         _key: string;
-                        blog: null;
+                        article: null;
                         file: null;
                       }
                     | {
@@ -73084,6 +73119,13 @@ export type GetResourcesByTypeQueryResult = Array<
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
+        _key: string;
+      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;

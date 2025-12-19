@@ -123,6 +123,17 @@ const postFields = /* groq */ `
   "author": author->{firstName, lastName, picture},
 `;
 
+export const settingsRedirectsQuery = `
+	*[_type == "settings"][0]{
+		redirects[]{
+			from,
+			to,
+			permanent,
+			enabled
+		}
+	}
+`;
+
 const pageBuilderContent = /* groq */ defineQuery(`
 	pageBuilder[] {
 		 ...,

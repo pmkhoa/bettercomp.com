@@ -59,6 +59,7 @@ import {twoColumnsContent} from './modules/twoColumnsContent'
 
 export const schemaTypes = [
   // Singletons
+  home,
   settings,
 
   // Documents
@@ -70,7 +71,6 @@ export const schemaTypes = [
   tool,
   template,
   guide,
-  home,
   page,
   tag,
   webinar,

@@ -20,17 +20,3 @@ export { default as ResourceCardFeature } from './ResourceCardFeature';
 export { default as SanityImage } from './SanityImage';
 export { default as ScriptInjections } from './ScriptInjections';
 export { default as TOC } from './TOC';
-
-/*
-
-
-
-export { default as Logo } from './Logo';
-export { default as RichtextMedia } from './RichtextMedia';
-export { default as Carousel } from './Carousel';
-export { default as NewsCard } from './NewsCard';
-export { default as ContactForm } from './ContactForm';
-export { default as FilterBy } from './FilterBy';
-export { default as ResourcesCarousel } from './ResourcesCarousel';
-
- */

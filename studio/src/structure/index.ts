@@ -19,6 +19,14 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
     .title('Website Content')
     .items([
       // ----------------------------------------
+      // Home Singleton
+      // ----------------------------------------
+      S.listItem()
+        .title('Home')
+        .child(S.document().schemaType('home').documentId('home'))
+        .icon(HomeIcon),
+      // ----------------------------------------
+      
       // Pages
       // ----------------------------------------
       S.documentTypeListItem('page').title('Pages'),
@@ -49,14 +57,6 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
           (listItem: any) => ![...DISABLED_TYPES, 'page', 'author'].includes(listItem.getId()),
         )
         .map((listItem) => listItem.title(pluralize(listItem.getTitle() as string))),
-
-      // ----------------------------------------
-      // Home Singleton
-      // ----------------------------------------
-      S.listItem()
-        .title('Home')
-        .child(S.document().schemaType('home').documentId('home'))
-        .icon(HomeIcon),
 
       // ----------------------------------------
       // Settings Singleton

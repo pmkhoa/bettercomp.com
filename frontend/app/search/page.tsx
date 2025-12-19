@@ -27,6 +27,13 @@ export default async function Page(props: Props) {
   return (
     <div className="page-container">
       <SearchHero searchTerm={s} />
+      {searchResults && searchResults.length === 0 && (
+        <div className="search-results-container my-16 md:my-24">
+          <div className="container text-center">
+            <h4>No results found</h4>
+          </div>
+        </div>
+      )}
       {searchResults && searchResults.length > 0 && (
         <div className="search-results-container my-16 md:my-24">
           <div className="container">

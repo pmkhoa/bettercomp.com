@@ -30,6 +30,14 @@ export const settings = defineType({
         collapsed: false,
       },
     },
+    {
+      name: 'redirects',
+      title: 'Redirects',
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
+    },
   ],
   fields: [
     defineField({
@@ -66,7 +74,6 @@ export const settings = defineType({
       title: 'Google Tag Manager',
       type: 'string',
     }),
-
     defineField({
       name: 'siteBanner',
       description: 'Top Site Banner',
@@ -183,6 +190,62 @@ export const settings = defineType({
             }),
           ],
         },
+      ],
+    }),
+    defineField({
+      name: 'redirects',
+      title: 'URL Redirects',
+      description: 'Manage site-wide redirects (legacy → new URLs)',
+      fieldset: 'redirects',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'from',
+              title: 'From',
+              type: 'string',
+              description: 'Example: /blog/tag/business',
+              validation: (Rule) =>
+                Rule.required().custom((value) =>
+                  value?.startsWith('/') ? true : 'Must start with /'
+                ),
+            }),
+            defineField({
+              name: 'to',
+              title: 'To',
+              type: 'string',
+              description: 'Example: /resources?topic=business',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'permanent',
+              title: 'Permanent (301)',
+              type: 'boolean',
+              initialValue: true,
+            }),
+            defineField({
+              name: 'enabled',
+              title: 'Enabled',
+              type: 'boolean',
+              initialValue: true,
+            }),
+          ],
+          preview: {
+            select: {
+              from: 'from',
+              to: 'to',
+              permanent: 'permanent',
+            },
+            prepare({ from, to, permanent }) {
+              return {
+                title: `${from} → ${to}`,
+                subtitle: permanent ? '301 Permanent' : '302 Temporary',
+              };
+            },
+          },
+        }),
       ],
     }),
   ],
