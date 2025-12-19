@@ -32,7 +32,7 @@ const AccordionTextModule = ({ accordionList = [] }: AccordionProps) => {
 
   return (
     <section className={cn('section-accordion-text')}>
-      <div className="container">
+      <div className="accordion-text-wrapper">
         <div className="accordion-container my-4">
           {accordionList.map((item: any, index: number) => {
             const label = get(item, 'title');
