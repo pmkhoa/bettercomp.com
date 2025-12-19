@@ -151,10 +151,10 @@ export const blockContent = defineType({
                   hidden: ({ parent }) => parent?.linkType !== 'file',
                 }),
                 defineField({
-                  name: 'article',
-                  title: 'Article',
+                  name: 'blog',
+                  title: 'Blog',
                   type: 'reference',
-                  to: [{ type: 'article' }],
+                  to: [{ type: 'blog' }],
                   hidden: ({ parent }) => parent?.linkType !== 'blog',
                 }),
                 defineField({
