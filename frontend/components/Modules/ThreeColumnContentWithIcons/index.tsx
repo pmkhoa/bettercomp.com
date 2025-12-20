@@ -38,13 +38,13 @@ export default function ThreeColumnContentWithIconsModule({
         <div className="absolute w-full h-full inset-0" />
       )}
       <div className="container">
-        <div className="grid-container gap-8 border-b border-green pb-6 mb-6 md:pb-8 md:mb-8">
+        <div className="grid-container gap-4 md:gap-8 border-b border-green pb-8 mb-6 md:pb-8 md:mb-8">
           <div className="description col-span-12 md:col-span-8">
             {heading && <h2 className="text-2xl md:text-3xl font-medium mb-4">{heading}</h2>}
             {description && <PortableText value={description} />}
           </div>
           {ctaButton && ctaButton.linkLabel && (
-            <div className="col-span-12 md:col-span-4 flex justify-end h-auto">
+            <div className="col-span-12 md:col-span-4 flex md:justify-end h-auto">
               <div className="button-wrapper">
                 <ButtonPrimary>
                   <ResolvedLink link={ctaButton.link}>{ctaButton.linkLabel}</ResolvedLink>
