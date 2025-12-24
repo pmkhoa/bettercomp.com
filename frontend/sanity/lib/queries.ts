@@ -350,7 +350,7 @@ export const getResourcesByTypeQuery = defineQuery(`
 `);
 
 export const sitemapData = defineQuery(`
-  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {
+  *[_type == "page" || _type == "blog" || _type == "ebook" || _type == "guide" || _type == "webinar" || _type == "tool" || _type == "template" || _type == "author" && defined(slug.current)] | order(_type asc) {
     "slug": slug.current,
     _type,
     _updatedAt,

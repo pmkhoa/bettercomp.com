@@ -9,6 +9,7 @@ import { sitemapData } from '@/sanity/lib/queries';
  * Be sure to update the `changeFrequency` and `priority` values to match your application's content.
  */
 
+// [page, author, "blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"]
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPostsAndPages = await sanityFetch({
     query: sitemapData,
@@ -24,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
 
   if (allPostsAndPages != null && allPostsAndPages.data.length != 0) {
-    let priority: number;
+    let priority: number = 1;
     let changeFrequency:
       | 'monthly'
       | 'always'
@@ -33,15 +34,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       | 'weekly'
       | 'yearly'
       | 'never'
-      | undefined;
-    let url: string;
+      | undefined = 'monthly';
+    let url: string = domain;
 
     for (const p of allPostsAndPages.data) {
       switch (p._type) {
         case 'page':
-          priority = 0.8;
-          changeFrequency = 'monthly';
+          priority = 0.7;
+          changeFrequency = 'weekly';
           url = `${domain}/${p.slug}`;
+          break;
+        case 'blog':
+        case 'guide':
+        case 'webinar':
+        case 'tool':
+        case 'template':
+        case 'author':
+        case 'ebook':
+          priority = 0.5;
+          changeFrequency = 'never';
+          url = `${domain}/${p._type}/${p.slug}`;
           break;
       }
       sitemap.push({
