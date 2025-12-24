@@ -1090,13 +1090,6 @@ export type Settings = {
   };
   googleAnalyticsID?: string;
   googleTagManager?: string;
-  redirects?: Array<{
-    from: string;
-    to: string;
-    permanent?: boolean;
-    enabled?: boolean;
-    _key: string;
-  }>;
   siteBanner?: BlockContent;
   loginLink?: string;
   helpLink?: string;
@@ -1135,6 +1128,13 @@ export type Settings = {
   privacyLinks?: Array<{
     menuLabel?: string;
     menuLink?: Link;
+    _key: string;
+  }>;
+  redirects?: Array<{
+    from: string;
+    to: string;
+    permanent?: boolean;
+    enabled?: boolean;
     _key: string;
   }>;
 };
@@ -1783,13 +1783,6 @@ export type SettingsQueryResult = {
   };
   googleAnalyticsID?: string;
   googleTagManager?: string;
-  redirects?: Array<{
-    from: string;
-    to: string;
-    permanent?: boolean;
-    enabled?: boolean;
-    _key: string;
-  }>;
   siteBanner: Array<
     | {
         children?: Array<{
@@ -2139,6 +2132,13 @@ export type SettingsQueryResult = {
     } | null;
     _key: string;
   }> | null;
+  redirects?: Array<{
+    from: string;
+    to: string;
+    permanent?: boolean;
+    enabled?: boolean;
+    _key: string;
+  }>;
 } | null;
 // Variable: allResourcesQuery
 // Query: *[_type in   ["blog", "ebook", "caseStude", "guide", "webinar", "tool", "template"] ] | order(date desc)
@@ -2962,13 +2962,6 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
-      redirects?: Array<{
-        from: string;
-        to: string;
-        permanent?: boolean;
-        enabled?: boolean;
-        _key: string;
-      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -3007,6 +3000,13 @@ export type AllResourcesSearchPaginatedQueryResult = Array<
       privacyLinks?: Array<{
         menuLabel?: string;
         menuLink?: Link;
+        _key: string;
+      }>;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
         _key: string;
       }>;
     }
@@ -3456,13 +3456,6 @@ export type AllResourcesSearchQueryResult = Array<
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
-      redirects?: Array<{
-        from: string;
-        to: string;
-        permanent?: boolean;
-        enabled?: boolean;
-        _key: string;
-      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -3501,6 +3494,13 @@ export type AllResourcesSearchQueryResult = Array<
       privacyLinks?: Array<{
         menuLabel?: string;
         menuLink?: Link;
+        _key: string;
+      }>;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
         _key: string;
       }>;
     }
@@ -57790,13 +57790,6 @@ export type GetResourceQueryResult =
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
-      redirects?: Array<{
-        from: string;
-        to: string;
-        permanent?: boolean;
-        enabled?: boolean;
-        _key: string;
-      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -57835,6 +57828,13 @@ export type GetResourceQueryResult =
       privacyLinks?: Array<{
         menuLabel?: string;
         menuLink?: Link;
+        _key: string;
+      }>;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
         _key: string;
       }>;
       author: null;
@@ -73119,13 +73119,6 @@ export type GetResourcesByTypeQueryResult = Array<
       };
       googleAnalyticsID?: string;
       googleTagManager?: string;
-      redirects?: Array<{
-        from: string;
-        to: string;
-        permanent?: boolean;
-        enabled?: boolean;
-        _key: string;
-      }>;
       siteBanner?: BlockContent;
       loginLink?: string;
       helpLink?: string;
@@ -73164,6 +73157,13 @@ export type GetResourcesByTypeQueryResult = Array<
       privacyLinks?: Array<{
         menuLabel?: string;
         menuLink?: Link;
+        _key: string;
+      }>;
+      redirects?: Array<{
+        from: string;
+        to: string;
+        permanent?: boolean;
+        enabled?: boolean;
         _key: string;
       }>;
       tags: null;
