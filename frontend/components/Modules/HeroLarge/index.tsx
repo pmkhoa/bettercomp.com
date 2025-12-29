@@ -23,6 +23,9 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
     ctaButton,
   } = block;
 
+  console.log('----------debugging----------');
+  console.log(highlightCustomerPhotos);
+
   if (!enabled) {
     return null;
   }
@@ -73,7 +76,7 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
                   </ButtonPrimary>
                 )}
               </div>
-              {highlightCustomerPhotos && (
+              {highlightCustomerPhotos && highlightCustomerPhotos.asset && (
                 <div className="highlight-customer-photos flex gap-4 mt-10 mb-8 items-center justify-left">
                   <div className="w-20 h-8">
                     <SanityImage
