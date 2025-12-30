@@ -71,6 +71,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     query: settingsQuery,
   });
 
+  console.log('----------debugging: analytics settings----------');
+  console.log(settings?.googleAnalyticsID);
+  console.log(settings?.googleTagManager);
+
   return (
     <html lang="en" className={`${brockmann.variable} ${zillaSlab.variable} bg-white text-black`}>
       <head>
@@ -78,8 +82,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
         <link rel="dns-prefetch" href="//mkcq8qmf.api.sanity.io" />
-        {settings?.googleAnalyticsID && <GoogleAnalytics gaId={settings.googleAnalyticsID} />}
-        {settings?.googleTagManager && <GoogleTagManager gtmId={settings.googleTagManager} />}
+        {settings?.googleTagManager ? (
+          <GoogleTagManager gtmId={settings.googleTagManager} />
+        ) : (
+          <>
+            {settings?.googleAnalyticsID && <GoogleAnalytics gaId={settings.googleAnalyticsID} />}
+          </>
+        )}
       </head>
       <body>
         <section className="min-h-screen">
