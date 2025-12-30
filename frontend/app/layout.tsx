@@ -73,12 +73,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en" className={`${brockmann.variable} ${zillaSlab.variable} bg-white text-black`}>
-      <link rel="preconnect" href="https://mkcq8qmf.api.sanity.io" crossOrigin="anonymous" />
-      <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-      <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
-      <link rel="dns-prefetch" href="//mkcq8qmf.api.sanity.io" />
-      {settings?.googleAnalyticsID && <GoogleAnalytics gaId={settings.googleAnalyticsID} />}
-      {settings?.googleTagManager && <GoogleTagManager gtmId={settings.googleTagManager} />}
+      <head>
+        <link rel="preconnect" href="https://mkcq8qmf.api.sanity.io" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+        <link rel="dns-prefetch" href="//mkcq8qmf.api.sanity.io" />
+        {settings?.googleAnalyticsID && <GoogleAnalytics gaId={settings.googleAnalyticsID} />}
+        {settings?.googleTagManager && <GoogleTagManager gtmId={settings.googleTagManager} />}
+      </head>
       <body>
         <section className="min-h-screen">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
