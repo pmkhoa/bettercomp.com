@@ -23,9 +23,6 @@ export default function SectionHeroLarge({ block }: { block: HeroLarge }) {
     ctaButton,
   } = block;
 
-  console.log('----------debugging----------');
-  console.log(highlightCustomerPhotos);
-
   if (!enabled) {
     return null;
   }

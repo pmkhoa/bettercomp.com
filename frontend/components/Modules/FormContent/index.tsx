@@ -13,8 +13,6 @@ export default function FormContentSection({ block, pageData }: Props) {
   const { backgroundColor, contentMaxWidth, textAlign, formContentSection, description } = block;
   const { showTOC, useNarrowWidthContent } = pageData;
 
-  console.log(block);
-
   return (
     <section
       className={cn(

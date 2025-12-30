@@ -71,10 +71,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     query: settingsQuery,
   });
 
-  console.log('----------debugging: analytics settings----------');
-  console.log(settings?.googleAnalyticsID);
-  console.log(settings?.googleTagManager);
-
   return (
     <html lang="en" className={`${brockmann.variable} ${zillaSlab.variable} bg-white text-black`}>
       <head>
