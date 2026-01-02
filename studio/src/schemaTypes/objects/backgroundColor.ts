@@ -31,6 +31,7 @@ export const bgColor = defineType({
         layout: 'dropdown',
       },
       initialValue: 'blue', // optional default
+      hidden: ({parent}) => !parent?.enabled,
     }),
     defineField({
       name: 'textColor',
@@ -43,7 +44,7 @@ export const bgColor = defineType({
         ],
         layout: 'dropdown',
       },
-      initialValue: 'white',
+      initialValue: 'blue',
       hidden: ({parent}) => !parent?.enabled,
     }),
   ],
