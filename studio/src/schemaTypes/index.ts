@@ -25,6 +25,7 @@ import {mediaAsset} from './objects/mediaAsset'
 import {menuItem} from './objects/menuItem'
 import {seo} from './objects/seo'
 import {statNumber} from './objects/statNumber'
+import {htmlEmbed} from './objects/htmlEmbed'
 
 // Modules
 import {accordionCenter} from './modules/accordionCenter'
@@ -88,6 +89,7 @@ export const schemaTypes = [
   menuItem,
   seo,
   statNumber,
+  htmlEmbed,
 
   // Modules
   accordionCenter,

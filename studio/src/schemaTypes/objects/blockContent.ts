@@ -225,6 +225,10 @@ export const blockContent = defineType({
       title: 'hr',
     }),
     defineArrayMember({
+      type: 'htmlEmbed',
+      title: 'Embed'
+    }),
+    defineArrayMember({
       type: 'image',
       icon: ImageIcon,
       fields: [

@@ -57,6 +57,15 @@ export default function CustomPortableText({
           </>
         );
       },
+
+      htmlEmbed: ({ value }: any) => {
+        return (
+          <div
+            className="raw-embed my-4 w-full"
+            dangerouslySetInnerHTML={{ __html: value?.html }}
+          />
+        );
+      },
     },
     block: {
       h1: ({ children, value }) => (
