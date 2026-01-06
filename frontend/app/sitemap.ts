@@ -16,7 +16,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
   const headersList = await headers();
   const sitemap: MetadataRoute.Sitemap = [];
-  const domain: string = headersList.get('host') as string;
+  const protocol = headersList.get('x-forwarded-proto') || 'https';
+  const host = headersList.get('x-forwarded-host') || headersList.get('host');
+
+  const domain = `${protocol}://${host}`;
+
   sitemap.push({
     url: domain as string,
     lastModified: new Date(),
