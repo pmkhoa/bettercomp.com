@@ -3181,6 +3181,21 @@
           {
             "type": "object",
             "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "htmlEmbed"
+            }
+          },
+          {
+            "type": "object",
+            "attributes": {
               "asset": {
                 "type": "objectAttribute",
                 "value": {
@@ -4699,6 +4714,29 @@
                 }
               }
             }
+          },
+          "optional": false
+        }
+      }
+    }
+  },
+  {
+    "name": "htmlEmbed",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "htmlEmbed"
+          }
+        },
+        "html": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
           },
           "optional": false
         }

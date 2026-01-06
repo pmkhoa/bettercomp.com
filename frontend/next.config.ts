@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     SC_DISABLE_SPEEDY: 'false',
   },
 
+  /*
   async headers() {
     const headers = [];
     if (
@@ -24,6 +25,7 @@ const nextConfig: NextConfig = {
     }
     return headers;
   },
+  */
   images: {
     remotePatterns: [
       {

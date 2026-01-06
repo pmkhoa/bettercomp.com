@@ -87,8 +87,8 @@ export default async function Page(props: Props) {
           }}
         />
         <div className="container">
-          <div className={cn('grid-container relative px-8 text-white gap-12')}>
-            <div className="content-photo col-start-2 col-end-5">
+          <div className={cn('grid-container relative px-8 text-white md:gap-12')}>
+            <div className="content-photo py-4 col-start-2 col-end-12 md:col-start-2 md:col-end-5">
               <div className="flex justify-center">
                 {picture?.asset?._ref && (
                   <div className="mr-4 overflow-hidden relative min-w-[240px]">
@@ -101,7 +101,7 @@ export default async function Page(props: Props) {
                 )}
               </div>
             </div>
-            <div className="content-bio  col-start-5 col-end-12">
+            <div className="content-bio  col-start-2 col-end-12 md:col-start-5 md:col-end-12">
               <div className="flex flex-col">
                 {firstName && lastName && (
                   <h4 className="font-bold mb-0 font-normal">
